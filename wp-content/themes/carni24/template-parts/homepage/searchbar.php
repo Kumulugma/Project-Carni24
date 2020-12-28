@@ -10,7 +10,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'>123 spisanych gatunków</h4></div>
+                    <div class='col-10'><h4 class='mb-0 mt-2'><?= wp_count_posts('species')->publish ?> spisanych gatunków</h4></div>
                 </div>
             </div>
             <div class="col fadeInLeft animate">
@@ -23,7 +23,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'>55 zdjęć w galerii</h4></div>
+                    <div class='col-10'><h4 class='mb-0 mt-2'><?= gallery_count() ?> zdjęć w galerii</h4></div>
                 </div>
             </div>
             <div class="col fadeInLeft animate">
@@ -37,7 +37,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'>38 wpisów</h4></div>
+                    <div class='col-10'><h4 class='mb-0 mt-2'><?= wp_count_posts()->publish ?> wpisów</h4></div>
                 </div>
             </div>
             <div class="col">

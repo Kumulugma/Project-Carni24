@@ -1,14 +1,18 @@
 <section id="feature" class="py-5 container-fluid">
     <div class="container">
         <div class="row featurette" >
-            <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading"><?= get_field('feature_title', 7) ?></h2>
+                        <p class="lead"><?= get_field('feature_content', 7) ?></p>
+                    </div>
+                    <div class="col-md-5">
+                        <?php $item = get_field('feature_image', 7); ?>
+                        <img src="<?= $item['sizes']['scene'] ?>" class="d-block w-100 featurette-image img-fluid mx-auto" width="500" height="500" alt="<?= get_field('feature_title', 7) ?>">
+                    </div>
+                <?php endwhile; ?>
+            <?php endif; ?>
 
-            </div>
         </div>
     </div>
 </section>

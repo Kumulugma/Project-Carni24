@@ -4,10 +4,15 @@
     </div>
     <div id="hero" class="container-fluid">
         <div class="mt-5 card mx-auto hero-transparent" id="layer-2">
-            <h1 class="fw-light">Carni24</h1>
-            <p>
-                Testowy tekst
-            </p>
+            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+                    <h1 class="fw-light"><?= get_field('scene_headling', 7) ?></h1>
+                    <p>
+                        <?= get_field('scene_content', 7) ?>
+                    </p>
+
+                <?php endwhile; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>

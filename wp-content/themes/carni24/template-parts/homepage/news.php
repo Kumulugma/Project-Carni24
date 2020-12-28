@@ -7,36 +7,56 @@
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
-        <?php for($i = 0; $i < 8; $i ++) { ?>
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="news-img" style="background-image:url('<?php bloginfo('template_url'); ?>/images/carousel/1.JPG');"></div>
+        <?php
+        global $paged;
+        $paged = get_query_var('page') ? get_query_var('page') : 1;
+        ?>
+        <?php
+        $latest_post = new WP_Query(array('posts_per_page' => 8, 'offset' => ((($paged - 1) * 8)), 'orderby' => 'date', 'order' => 'DESC', 'paged' => $paged));
 
-                <div class="post-side">
-                    <div class="post-calendar" data-content="10-26-2020">
-                        <div class="post-calendar-m">
-                            Październik				
+        while ($latest_post->have_posts()) : $latest_post->the_post();
+            ?>
+            <?php $post_thumb = get_the_post_thumbnail_url(get_the_ID(), 'blog_thumb'); ?>
+
+            <div class="col">
+                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                    <div class="card shadow-sm">
+                        <div class="news-img" style="background-image:url('<?=$post_thumb?>"></div>
+
+                        <div class="post-side">
+                            <div class="post-calendar">
+                                <div class="post-calendar-m">
+                                    <?php the_date('F'); ?>				
+                                </div>
+                                <div class="post-calendar-d">
+                                    <?= get_the_date('d'); ?>				
+                                </div>
+                            </div>
                         </div>
-                        <div class="post-calendar-d">
-                            26				
+                        <div class="card-body">
+                            <h5><?php the_title(); ?></h5>
+                            <p class="card-text"><?php the_excerpt(); ?></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Zobacz więcej</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted"><?php the_category(', '); ?></small>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <h5>Tytuł</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Zobacz więcej</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Kategoria</small>
-                </div>
+                </a>
             </div>
-        </div>
-        <?php } ?>
-        
+
+        <?php endwhile; ?>
     </div>
+    <div class="pagination_wrap">
+        <?php wp_pagenavi(array('query' => $latest_post)); ?>
+    </div>
+    <?php
+    wp_reset_postdata();
+    wp_reset_query();
+    ?>
+</div>
 </section>
