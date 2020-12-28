@@ -30,7 +30,7 @@
         </div>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container-fluid logo">
-                <a href="#" class="navbar-brand d-flex align-items-center">
+                <a href="/" class="navbar-brand d-flex align-items-center">
                     <strong>Carni24</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
