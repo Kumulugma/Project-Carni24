@@ -1,0 +1,36 @@
+#scene {
+  height: 30vh;
+}
+#scene #layer-1 {
+  background: url('../images/hero_1.JPG') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 150%;
+  height: 50vh;
+  overflow: hidden;
+  position: relative;
+  left: -120px !important;
+  top: -20px !important;
+}
+#scene .hero-transparent {
+  opacity: 0.75;
+  width: 50%;
+}
+@media only screen and (max-width : 991px) {
+  #scene .hero-transparent {
+    width: 60%;
+  }
+}
+@media only screen and (max-width : 767px) {
+  #scene .hero-transparent {
+    width: 70%;
+  }
+}
+@media only screen and (max-width : 575px) {
+  #scene .hero-transparent {
+    width: 90%;
+  }
+}
+/*# sourceMappingURL=scene.css.map */

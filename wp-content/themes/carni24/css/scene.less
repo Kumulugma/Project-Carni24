@@ -1,0 +1,45 @@
+@import "breakpoints";
+
+#scene{
+    height: 30vh;
+}
+
+#scene {
+    #layer-1
+    {
+        background: url('../images/hero_1.JPG')no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        width: 150%;
+        height: 50vh;
+        overflow: hidden;
+        position: relative;
+        left: -120px !important;
+        top: -20px !important;
+    }
+
+    .hero-transparent{
+        opacity: .75;
+        width: 50%;
+    }
+
+    @media @desktop {
+        .hero-transparent {
+            width: 60%;
+        }
+    }    
+
+    @media @tablets {
+        .hero-transparent {
+            width: 70%;
+        }
+    }
+
+    @media @x-small {
+        .hero-transparent {
+            width: 90%;
+        }
+    }
+}

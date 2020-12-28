@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@700&display=swap');
+@import "breakpoints";
+@import "colors";
+
+::-moz-selection { 
+    color: @text-reverse;
+    background: @secondary-a-pre1; 
+}
+::selection { 
+    color: @text-reverse;
+    background: @secondary-a-pre1; 
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+h1, h2, h3, h4, h5{
+    font-family: 'Nunito', sans-serif;
+}
+
+h5::after {
+    width: 40px;
+    height: 4px;
+    bottom: -4px;
+    content: "";
+    position: relative;
+    display: block;
+    background-color: @primary-main;
+    left: 0;
+    -webkit-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+    -moz-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+    -o-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+    transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+}
+
+h5:hover::after {
+    width: 33%;
+    background-color: @secondary-a-main;
+
+}
+
+header .logo {
+    font-family: 'Jura', sans-serif;
+    a {
+        font-size: 1.5em;
+    }
+}
+
+main {
+    background: radial-gradient(at 40% -20%, #fff, #7d807c) fixed;
+}
+
+footer {
+    .nav {
+        display: block;
+        li{          
+            animation: .5s reverse-nav-item-color;
+            -webkit-animation: .5s reverse-nav-item-color;
+            -webkit-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            -moz-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            -o-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+        }
+        li:hover{
+            animation: .5s nav-item-color;
+            -webkit-animation: .5s nav-item-color;
+            -webkit-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            -moz-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            -o-transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            transition: all .5s cubic-bezier(1,-.46,.47,1.22);
+            background-color: @secondary-a-main; 
+            a{
+                color: white !important;
+            }
+        }
+    }
+    
+    .row{
+        div:hover > h5::after {
+            width: 33%;
+            background-color: @secondary-a-main;
+        }
+    }
+}
+
+.btn-outline-secondary {
+    color: @primary-main;
+    border-color: @primary-main;
+}
+
+.btn-outline-secondary:hover {
+    background-color: @secondary-a-main;
+    border-color: @secondary-a-pre2;
+}
+
+@import "animations";
+@import "navigation";
