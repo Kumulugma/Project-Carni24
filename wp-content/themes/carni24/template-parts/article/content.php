@@ -50,6 +50,11 @@
                     ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('500x500', array('class' => 'img-thumbnail')); ?></a>
 <?php endif; ?>
             </div>
+            <?php if (get_field('gallery')) { ?>
+            <div class="col-12">
+                <?= do_shortcode(get_field('gallery')) ?>
+            </div>
+            <?php } ?>
         </div>
     </div>
 </section>
