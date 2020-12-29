@@ -87,7 +87,7 @@ function c24_species_post_type() {
         'label' => __('Gatunek', 'carni24'),
         'description' => __('Gatunek rośliny wraz z opisem i szczegółami.', 'carni24'),
         'labels' => $labelsList,
-        'supports' => array('title', 'editor'),
+        'supports' => array('title', 'editor', 'thumbnail'),
         'taxonomies' => array('category', 'post_tag'),
         'hierarchical' => false,
         'public' => true,
@@ -156,4 +156,25 @@ if ( $total > 1 )  {
           'mid_size' => 4,
           'type' => 'list'
      ));
+}
+
+//Breadcrumbs
+function get_breadcrumb() {
+    echo '<a href="'.home_url().'" rel="nofollow">Strona główna</a>';
+    if (is_category() || is_single()) {
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
+        the_category(' &bull; ');
+            if (is_single()) {
+                echo " &nbsp;&nbsp;&#187;&nbsp;&nbsp; ";
+                the_title();
+            }
+    } elseif (is_page()) {
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
+        echo the_title();
+    } elseif (is_search()) {
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;Search Results for... ";
+        echo '"<em>';
+        echo the_search_query();
+        echo '</em>"';
+    }
 }

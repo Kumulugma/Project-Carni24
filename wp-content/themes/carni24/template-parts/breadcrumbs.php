@@ -2,7 +2,7 @@
     <div class="nav-scroller py-1">
         <div class="row p-2">
             <div class="col fadeInLeft animate">
-                Breadcrumbs
+                <?=get_breadcrumb()?>
             </div>
         </div>
     </div>
