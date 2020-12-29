@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="col">
-                <form class="d-flex">
-                    <input class="form-control w-75 me-2" type="search" placeholder="Wpisz czego poszukujesz..." aria-label="Szukaj">
+                <form class="d-flex" method="get" action="/">
+                    <input class="form-control w-75 me-2" name="s" type="search" placeholder="Wpisz czego poszukujesz..." aria-label="Szukaj">
                         <button class="btn btn-outline-success" type="submit">Szukaj</button>
                 </form>
             </div>

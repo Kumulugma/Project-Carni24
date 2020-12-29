@@ -5,7 +5,7 @@
                 <h5>Nasze zasoby</h5>
                     <?php wp_nav_menu(
                             array(
-                                    'menu' => 'Stopka - Menu informacji',
+                                    'menu' => 'Stopka - Menu treści',
                                     'container'       => false,
                                     'items_wrap' => '<ul id="%1$s" class="list-unstyled text-small nav">%3$s</ul>'
                             )

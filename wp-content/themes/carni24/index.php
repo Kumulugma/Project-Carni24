@@ -1,4 +1,5 @@
 <?php /* Template Name: Strona domowa */ ?>
+<?php get_template_part( 'assets/homepage' ); ?>
 <?php get_header(); ?>
 <main>
 <?php get_template_part( 'template-parts/main-scene' ); ?>

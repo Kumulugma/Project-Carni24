@@ -18,7 +18,6 @@
         <!-- Custom -->
         <link href="<?php bloginfo('template_url'); ?>/css/style.css" rel="stylesheet">
         <link href="<?php bloginfo('template_url'); ?>/css/scene.css" rel="stylesheet">
-        <link href="<?php bloginfo('template_url'); ?>/css/homepage.css" rel="stylesheet">
 
 
         <!-- Favicons -->

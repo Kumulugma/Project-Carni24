@@ -124,3 +124,36 @@ function gallery_count() {
     $query_img = new WP_Query($query_img_args);
     return $query_img->post_count;
 }
+
+
+//Paginacja
+function get_pagination() {
+ 
+global $wp_query;
+$big = 9999999; // need an unlikely integer
+  echo paginate_links( array(
+   'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+   'format' => '?paged=%#%',
+   'current' => max( 1, get_query_var('paged') ),
+   'total' => $wp_query->max_num_pages) );
+}
+
+// Get total number of pages
+global $wp_query;
+$total = $wp_query->max_num_pages;
+// Only paginate if we have more than one page
+if ( $total > 1 )  {
+     // Get the current page
+     if ( !$current_page = get_query_var('paged') )
+          $current_page = 1;
+     // Structure of “format” depends on whether we’re using pretty permalinks
+     $format = empty( get_option('permalink_structure') ) ? '&page=%#%' : 'page/%#%/';
+     echo paginate_links(array(
+          'base' => get_pagenum_link(1) . '%_%',
+          'format' => $format,
+          'current' => $current_page,
+          'total' => $total,
+          'mid_size' => 4,
+          'type' => 'list'
+     ));
+}

@@ -1,12 +1,10 @@
+<?php /* Template Name: Artykuł */ ?>
+<?php get_template_part( 'assets/article' ); ?>
 <?php get_header(); ?>
-<main id="content">
-<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-<?php get_template_part( 'entry' ); ?>
-<?php if ( comments_open() && ! post_password_required() ) { comments_template( '', true ); } ?>
-<?php endwhile; endif; ?>
-<footer class="footer">
-<?php get_template_part( 'nav', 'below-single' ); ?>
-</footer>
+<main>
+<?php get_template_part( 'template-parts/main-scene' ); ?>
+<?php get_template_part( 'template-parts/main-submenu' ); ?>
+<?php get_template_part( 'template-parts/breadcrumbs' ); ?>
+<?php get_template_part( 'template-parts/article/content' ); ?>    
 </main>
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php get_footer(); 
