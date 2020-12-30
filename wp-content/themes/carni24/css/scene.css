@@ -2,7 +2,7 @@
   height: 30vh;
 }
 #scene #layer-1 {
-  background: url('../images/hero_1.JPG') no-repeat center center fixed;
+  background: url('/wp-content/uploads/images/hero_1.JPG') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

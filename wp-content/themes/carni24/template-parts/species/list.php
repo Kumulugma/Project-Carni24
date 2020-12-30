@@ -41,7 +41,7 @@
                                         'order' => 'ASC'
                                     ));
                                     ?>
-                                    <div class="col-4">
+                                    <div class="col-xs-12 col-md-4">
                                         <div class="list-group" id="list-tab" role="tablist">
                                             <?php $i = 0; ?>
                                             <?php while ($species->have_posts()) : $species->the_post(); ?>
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>                                    
                                     <div class="col-8">
-                                        <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-content p-2" id="nav-tabContent">
                                             <?php $i = 0; ?>
                                             <?php while ($species->have_posts()) : $species->the_post(); ?>
                                                 <div 

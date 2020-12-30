@@ -104,6 +104,30 @@ footer {
             background-color: @secondary-a-main;
         }
     }
+    @media @x-small {
+        .footer-element {
+            justify-content: center !important;
+        }
+        
+        .footer-separator, h5 {
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px solid @primary-main;
+        }
+    }
+
+    @media @tablets {
+        .footer-element {
+            justify-content: center !important;
+        }
+        
+        .footer-separator, h5 {
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px solid @primary-main;
+        }
+    }
+
 }
 
 .btn-outline-secondary {
@@ -130,7 +154,7 @@ footer {
     padding-left: 0;
     border-radius:3px;
 }
- 
+
 .page-numbers {
     border-right: solid 1px rgb(221, 221, 221);
     padding: 10px 20px;
@@ -138,36 +162,36 @@ footer {
     font-weight: normal;
     margin-left:-6px;
 }
- 
+
 .page-numbers.current {
-   padding: 10px 20px;
-   background: @primary-main;
-   color: rgb(255, 255, 255);
-   font-weight: 600;
+    padding: 10px 20px;
+    background: @primary-main;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
 }
- 
+
 .page-navi .prev {
-   float: left;
-   margin-right: 0;
-   margin-top: -10px;
-   border-right: solid 1px #eee;
-   font-family: 'Open Sans', sans-serif !important;
-   font-size: 18px;
-   letter-spacing: 0;
-   font-weight: normal;
+    float: left;
+    margin-right: 0;
+    margin-top: -10px;
+    border-right: solid 1px #eee;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 18px;
+    letter-spacing: 0;
+    font-weight: normal;
 }
- 
+
 .page-navi .next {
-   float: right;
-   margin-top: -10px;
-   border-left: solid 1px #ddd;
-   border-right: none;
-   border-top: none;
-   border-bottom: none;
-   font-family: 'Open Sans', sans-serif !important;
-   font-size: 18px;
-   font-weight: normal;
-   letter-spacing: 0;
+    float: right;
+    margin-top: -10px;
+    border-left: solid 1px #ddd;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 0;
 }
 
 @import "animations";

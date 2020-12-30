@@ -35,7 +35,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class='col-10'><h4 class='mb-0 mt-3'><?= (get_field('annual') == 'nie') ? 'Jednoroczne' :'Wieloletnie' ?></h4></div>
+                                    <div class='col-10'><h4 class='mb-0 mt-3'><?= (get_field('annual') == 'nie') ? 'Jednoroczne' : 'Wieloletnie' ?></h4></div>
                                 </div>
                             </div>
                         </div>
@@ -44,16 +44,13 @@
             <?php } ?>
             <div class="col-md-4">
                 <?php if (has_post_thumbnail()) : ?>
-                    <a href="<?php
-                    $src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full', false);
-                    echo esc_url($src[0]);
-                    ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('500x500', array('class' => 'img-thumbnail')); ?></a>
-<?php endif; ?>
+                    <?php the_post_thumbnail('500x500', array('class' => 'img-thumbnail mb-2')); ?>
+                <?php endif; ?>
             </div>
             <?php if (get_field('gallery')) { ?>
-            <div class="col-12">
-                <?= do_shortcode(get_field('gallery')) ?>
-            </div>
+                <div class="col-12">
+                    <?= do_shortcode(get_field('gallery')) ?>
+                </div>
             <?php } ?>
         </div>
     </div>
