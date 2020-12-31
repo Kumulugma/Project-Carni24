@@ -1,4 +1,5 @@
 <?php
+
 add_action('after_setup_theme', 'theme_setup');
 
 function theme_setup() {
@@ -125,49 +126,61 @@ function gallery_count() {
     return $query_img->post_count;
 }
 
-
 //Paginacja
 function get_pagination() {
- 
-global $wp_query;
-$big = 9999999; // need an unlikely integer
-  echo paginate_links( array(
-   'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-   'format' => '?paged=%#%',
-   'current' => max( 1, get_query_var('paged') ),
-   'total' => $wp_query->max_num_pages) );
+
+    global $wp_query;
+    $big = 9999999; // need an unlikely integer
+    echo paginate_links(array(
+        'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+        'format' => '?paged=%#%',
+        'current' => max(1, get_query_var('paged')),
+        'total' => $wp_query->max_num_pages));
 }
 
 // Get total number of pages
 global $wp_query;
 $total = $wp_query->max_num_pages;
 // Only paginate if we have more than one page
-if ( $total > 1 )  {
-     // Get the current page
-     if ( !$current_page = get_query_var('paged') )
-          $current_page = 1;
-     // Structure of “format” depends on whether we’re using pretty permalinks
-     $format = empty( get_option('permalink_structure') ) ? '&page=%#%' : 'page/%#%/';
-     echo paginate_links(array(
-          'base' => get_pagenum_link(1) . '%_%',
-          'format' => $format,
-          'current' => $current_page,
-          'total' => $total,
-          'mid_size' => 4,
-          'type' => 'list'
-     ));
+if ($total > 1) {
+    // Get the current page
+    if (!$current_page = get_query_var('paged'))
+        $current_page = 1;
+    // Structure of “format” depends on whether we’re using pretty permalinks
+    $format = empty(get_option('permalink_structure')) ? '&page=%#%' : 'page/%#%/';
+    echo paginate_links(array(
+        'base' => get_pagenum_link(1) . '%_%',
+        'format' => $format,
+        'current' => $current_page,
+        'total' => $total,
+        'mid_size' => 4,
+        'type' => 'list'
+    ));
 }
 
 //Breadcrumbs
 function get_breadcrumb() {
-    echo '<a href="'.home_url().'" rel="nofollow">Strona główna</a>';
-    if (is_category() || is_single()) {
+    echo '<a href="' . home_url() . '" rel="nofollow">Strona główna</a>';
+    if ((is_category() || is_single()) && !is_singular('species')) {
         echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
         the_category(' &bull; ');
+        if (is_single()) {
+            echo " &nbsp;&nbsp;&#187;&nbsp;&nbsp; ";
+            the_title();
+        }
+    } elseif ((is_category() || is_single()) && is_singular('species')) {
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
+        
+            global $post;
+            $category = get_the_category($post->ID);
+            $name = reset($category)->name;
+            $slug = reset($category)->slug;
+            echo '<a href="/kategoria-gatunku/?spec='.$slug.'">'.$name;
             if (is_single()) {
                 echo " &nbsp;&nbsp;&#187;&nbsp;&nbsp; ";
                 the_title();
             }
+            echo "</a>";
     } elseif (is_page()) {
         echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
         echo the_title();
@@ -178,3 +191,14 @@ function get_breadcrumb() {
         echo '</em>"';
     }
 }
+
+
+function custom_rewrite_tag() {
+  add_rewrite_tag('%spec%', '([^&]+)');
+}
+add_action('init', 'custom_rewrite_tag', 10, 0);
+
+function custom_rewrite_rule() {
+    add_rewrite_rule('^spec/([^/]*)/?','index.php?page_id=111&spec=$matches[1]','top');
+ }
+add_action('init', 'custom_rewrite_rule', 10, 0);
