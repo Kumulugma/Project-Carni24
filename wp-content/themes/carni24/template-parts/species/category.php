@@ -42,11 +42,6 @@
                             <div class="card-body">
                                 <h5><?php the_title(); ?></h5>
                                 <p class="card-text"><?php the_excerpt(); ?></p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Zobacz więcej</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </a>

@@ -1,5 +1,10 @@
 <?php
 
+function remove_menus() {
+    remove_menu_page( 'edit-comments.php' );          //Comments
+}
+add_action( 'admin_menu', 'remove_menus' );
+        
 add_action('after_setup_theme', 'theme_setup');
 
 function theme_setup() {

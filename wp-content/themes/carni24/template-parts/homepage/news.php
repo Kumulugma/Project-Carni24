@@ -36,11 +36,6 @@
                         <div class="card-body">
                             <h5><?php the_title(); ?></h5>
                             <p class="card-text"><?php the_excerpt(); ?></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Zobacz więcej</button>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted"><?php the_category(', '); ?></small>
@@ -53,8 +48,8 @@
     </div>
     <div class="pagination_wrap d-flex justify-content-center my-2">
         <?php
-            $total_pages = $category_items->max_num_pages;
-
+            $total_pages = $latest_post->max_num_pages;
+           
             if ($total_pages > 1) {
                 
             global $wp_query;
@@ -63,7 +58,7 @@
                 $current_page = max(1, get_query_var('page'));
 
                 echo paginate_links(array(
-                    'base' => @add_query_arg('page','%#%'),
+                    'base' => @add_query_arg('paged','%#%'),
                     'format' => '',
                     'current' => $current_page,
                     'total' => $total_pages,

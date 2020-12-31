@@ -21,7 +21,7 @@
                 $categories = get_categories($args);
 
 
-
+                array_pop($categories);
                 foreach ($categories as $category) {
                     ?>
                     <div class="accordion-item"> 

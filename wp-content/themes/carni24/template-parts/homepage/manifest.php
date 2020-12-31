@@ -28,9 +28,6 @@
                             <h3 class="mb-0 border-bottom"><?php the_title(); ?></h3>
                             <p class="mb-auto"><?php the_excerpt(); ?></p>
                             <strong class="d-inline-block mb-2 text-muted"><?php the_category(', '); ?></strong>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Zobacz więcej</button>
-                            </div>
                         </div>
 
                         <div class="col-auto d-none d-lg-block">

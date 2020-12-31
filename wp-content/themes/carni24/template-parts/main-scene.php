@@ -1,4 +1,7 @@
-<section class="text-center container-fluid overflow-hidden g-3" id="scene">
+<section class="text-center container-fluid overflow-hidden g-3" 
+         id="scene" 
+         style="background-color: black;" 
+         >
     <div data-depth="0.6" class="container-fluid overflow-hidden" id="layer-1">
         <p></p>
     </div>
