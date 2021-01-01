@@ -61,7 +61,7 @@
                                             <?php wp_reset_query(); ?>
                                         </div>
                                     </div>                                    
-                                    <div class="col-8">
+                                    <div class="col-xs-12 col-md-8">
                                         <div class="tab-content p-2" id="nav-tabContent">
                                             <?php $i = 0; ?>
                                             <?php while ($species->have_posts()) : $species->the_post(); ?>
