@@ -29,6 +29,9 @@
   background-color: #B8863D;
   border-color: #C39C64;
 }
+#news .more-link {
+  display: block;
+}
 #news .news-img {
   height: 30vh;
   background-position: center 10%;
@@ -144,7 +147,7 @@
 }
 #manifest .manifest-img {
   width: 200px;
-  height: 250px;
+  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
