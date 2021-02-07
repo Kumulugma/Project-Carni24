@@ -1,0 +1,299 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPDash Notes\n"
+"POT-Creation-Date: 2020-11-20 16:20+0100\n"
+"PO-Revision-Date: 2020-11-20 16:29+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wpdash-notes.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: classes/plugin.php:30 classes/plugin.php:87 classes/plugin.php:100
+msgid "New note"
+msgstr "Nouvelle note"
+
+#: classes/plugin.php:31 classes/plugin.php:105
+msgid "Content of my note to modify"
+msgstr "Contenu de ma note à modifier"
+
+#: classes/plugin.php:45 classes/plugin.php:380 classes/plugin.php:407
+msgid "Notes"
+msgstr ""
+
+#: classes/plugin.php:100 classes/plugin.php:242
+msgid "( Addressed to myself )"
+msgstr "( Adressé à moi même )"
+
+#: classes/plugin.php:112 classes/plugin.php:324
+msgid "Edit"
+msgstr ""
+
+#. translators: Accessibility text.
+#: classes/plugin.php:114 classes/plugin.php:326 classes/plugin.php:338
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: classes/plugin.php:124 classes/plugin.php:348
+msgid "Delete"
+msgstr ""
+
+#: classes/plugin.php:155
+msgid "Add note"
+msgstr "Ajouter une note"
+
+#: classes/plugin.php:205 classes/plugin.php:292
+msgid "Comments :"
+msgstr "Commentaires :"
+
+#: classes/plugin.php:205 classes/plugin.php:292
+msgid "Comment :"
+msgstr "Commentaire :"
+
+#: classes/plugin.php:244
+msgid "( Addressed to all )"
+msgstr "( Adressé à tous )"
+
+#: classes/plugin.php:246
+msgid "Addressed to roles"
+msgstr "Adressé aux roles"
+
+#: classes/plugin.php:259
+msgid "Addressed to users"
+msgstr "Adressé aux utilisateurs"
+
+#: classes/plugin.php:261
+msgid "Addressed to user"
+msgstr "Adressé à l’utilisateur"
+
+#: classes/plugin.php:300
+msgid "Add Comment"
+msgstr ""
+
+#: classes/plugin.php:307
+msgid "Submit"
+msgstr ""
+
+#: classes/plugin.php:310
+msgid "Cancel"
+msgstr ""
+
+#: classes/plugin.php:336
+msgid "Add"
+msgstr ""
+
+#: classes/plugin.php:378
+msgctxt "Post Type General Name"
+msgid "Notes"
+msgstr ""
+
+#: classes/plugin.php:379
+msgctxt "Post Type Singular Name"
+msgid "Note"
+msgstr ""
+
+#: classes/plugin.php:381
+msgid "Note"
+msgstr ""
+
+#: classes/plugin.php:382
+msgid "Note Archives"
+msgstr ""
+
+#: classes/plugin.php:383
+msgid "Note Attributes"
+msgstr ""
+
+#: classes/plugin.php:384
+msgid "Parent Note:"
+msgstr ""
+
+#: classes/plugin.php:385
+msgid "All Notes"
+msgstr "Toutes les notes"
+
+#: classes/plugin.php:386
+msgid "Add New Note"
+msgstr "Ajouter une nouvelle note"
+
+#: classes/plugin.php:387
+msgid "Add New"
+msgstr "Ajouter"
+
+#: classes/plugin.php:388
+msgid "New Note"
+msgstr "Nouvelle note"
+
+#: classes/plugin.php:389
+msgid "Edit Note"
+msgstr "Modifier la note"
+
+#: classes/plugin.php:390
+msgid "Update Note"
+msgstr "Mettre à jour la note"
+
+#: classes/plugin.php:391 classes/plugin.php:392
+msgid "View Note"
+msgstr "Voir la note"
+
+#: classes/plugin.php:393
+msgid "Search Note"
+msgstr ""
+
+#: classes/plugin.php:394
+msgid "Not found"
+msgstr ""
+
+#: classes/plugin.php:395
+msgid "Not found in Trash"
+msgstr ""
+
+#: classes/plugin.php:396
+msgid "Featured Image"
+msgstr ""
+
+#: classes/plugin.php:397
+msgid "Set featured image"
+msgstr ""
+
+#: classes/plugin.php:398
+msgid "Remove featured image"
+msgstr ""
+
+#: classes/plugin.php:399
+msgid "Use as featured image"
+msgstr ""
+
+#: classes/plugin.php:400
+msgid "Insert into Note"
+msgstr ""
+
+#: classes/plugin.php:401
+msgid "Uploaded to this Note"
+msgstr ""
+
+#: classes/plugin.php:402
+msgid "Note list"
+msgstr ""
+
+#: classes/plugin.php:403
+msgid "Note list navigation"
+msgstr ""
+
+#: classes/plugin.php:404
+msgid "Filter Note list"
+msgstr ""
+
+#: classes/plugin.php:408
+msgid "Post Type Description"
+msgstr ""
+
+#: classes/plugin.php:432
+msgid "Note Options"
+msgstr "Options"
+
+#: classes/plugin.php:464
+msgid "Choose a color for your note."
+msgstr "Choisissez une couleur pour votre note."
+
+#: classes/plugin.php:470
+msgid "Choose a color for text your note."
+msgstr "Choisissez une couleur de texte pour votre note."
+
+#: classes/plugin.php:476
+msgid "Show :"
+msgstr "Visibilité :"
+
+#: classes/plugin.php:480
+msgid "For just me"
+msgstr "Pour moi même"
+
+#: classes/plugin.php:485
+msgid "For all users"
+msgstr "Pour tous les utilisateurs"
+
+#: classes/plugin.php:489
+msgid "By role"
+msgstr "Par rôle"
+
+#: classes/plugin.php:508
+msgid "By user"
+msgstr "Par utilisateur"
+
+#: classes/plugin.php:534
+msgid "Send alert by mail"
+msgstr "Envoyer une alerte par email"
+
+#: classes/plugin.php:595 classes/plugin.php:619 classes/plugin.php:649
+msgid "A new note for you"
+msgstr "Une nouvelle note à votre attention"
+
+#: classes/plugin.php:598 classes/plugin.php:622 classes/plugin.php:652
+msgid "A new note which concerns you has been published by"
+msgstr "Une nouvelle note qui vous concerne a été publié par"
+
+#: classes/plugin.php:599 classes/plugin.php:623 classes/plugin.php:653
+msgid "Log in to your WordPress Dashboard to read it."
+msgstr "Connectez vous à votre Dashboard WordPress pour le lire."
+
+#: wpdash-notes.php:37
+msgid ""
+"Do you like plugin WPDash Notes ?<br> Thank you for taking a few seconds to "
+"note us on"
+msgstr ""
+
+#: wpdash-notes.php:59
+msgid "WPFormation"
+msgstr ""
+
+#: wpdash-notes.php:60
+msgid "WPFormation News"
+msgstr ""
+
+#: wpdash-notes.php:61
+msgid "Dismiss all WPFormation news"
+msgstr ""
+
+#: wpdash-notes.php:62
+msgid "Are you sure you want to dismiss all WPFormation news forever?"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WPDash Notes"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WPDash Notes est un plugin qui vous permet de créer des notes sur votre "
+"tableau de bord WordPress et sur ceux des autres utilisateurs."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPFormation, NicolasKulka, WPServeur"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wpformation.com/"
+msgstr ""
+
+#~ msgid " ( Addressed to myself ) "
+#~ msgstr "( Adressé à moi même )"
+
+#~ msgid "Add post-it"
+#~ msgstr "Ajouter une note"
+
+#~ msgid "New Post-it"
+#~ msgstr "Nouveau post-it"

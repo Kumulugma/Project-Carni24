@@ -23,7 +23,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'><?= gallery_count() ?> zdjęć w galerii</h4></div>
+                    <div class='col-10'><h4 class='mb-0 mt-2'><?= gallery_count() ?> zdjęć w galeriach</h4></div>
                 </div>
             </div>
             <div class="col fadeInLeft animate">
