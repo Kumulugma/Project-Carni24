@@ -1,10 +1,11 @@
 <?php
 
 function remove_menus() {
-    remove_menu_page( 'edit-comments.php' );          //Comments
+    remove_menu_page('edit-comments.php');          //Comments
 }
-add_action( 'admin_menu', 'remove_menus' );
-        
+
+add_action('admin_menu', 'remove_menus');
+
 add_action('after_setup_theme', 'theme_setup');
 
 function theme_setup() {
@@ -175,17 +176,17 @@ function get_breadcrumb() {
         }
     } elseif ((is_category() || is_single()) && is_singular('species')) {
         echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
-        
-            global $post;
-            $category = get_the_category($post->ID);
-            $name = reset($category)->name;
-            $slug = reset($category)->slug;
-            echo '<a href="/kategoria-gatunku/?spec='.$slug.'">'.$name;
-            if (is_single()) {
-                echo " &nbsp;&nbsp;&#187;&nbsp;&nbsp; ";
-                the_title();
-            }
-            echo "</a>";
+
+        global $post;
+        $category = get_the_category($post->ID);
+        $name = reset($category)->name;
+        $slug = reset($category)->slug;
+        echo '<a href="/kategoria-gatunku/?spec=' . $slug . '">' . $name;
+        if (is_single()) {
+            echo " &nbsp;&nbsp;&#187;&nbsp;&nbsp; ";
+            the_title();
+        }
+        echo "</a>";
     } elseif (is_page()) {
         echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
         echo the_title();
@@ -197,13 +198,35 @@ function get_breadcrumb() {
     }
 }
 
-
 function custom_rewrite_tag() {
-  add_rewrite_tag('%spec%', '([^&]+)');
+    add_rewrite_tag('%spec%', '([^&]+)');
 }
+
 add_action('init', 'custom_rewrite_tag', 10, 0);
 
 function custom_rewrite_rule() {
-    add_rewrite_rule('^spec/([^/]*)/?','index.php?page_id=111&spec=$matches[1]','top');
- }
+    add_rewrite_rule('^spec/([^/]*)/?', 'index.php?page_id=111&spec=$matches[1]', 'top');
+}
+
 add_action('init', 'custom_rewrite_rule', 10, 0);
+
+
+//
+//wp_register_script('jQuery', 'https://code.jquery.com/jquery-3.5.1.slim.min.js', null, null, true);
+//wp_enqueue_script('jQuery');
+//wp_deregister_script('hoverIntent');
+//wp_register_script('hoverIntent', ( 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.10.1/jquery.hoverIntent.min.js'), array('jquery'), 'r6.1');
+
+
+if (!is_admin()) {
+    wp_register_style('Bootstrap5', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css');
+    wp_enqueue_style('Bootstrap5');
+}
+
+add_action('get_header', function() {
+    if (is_page(242)) {
+        wp_register_script('jQuery', 'https://code.jquery.com/jquery-3.5.1.slim.min.js', null, null, true);
+        wp_enqueue_script('jQuery');
+        wp_enqueue_style('k3e-gallery', get_template_directory_uri() . '/css/gallery.css', false, '1.1', 'all');
+    }
+});
