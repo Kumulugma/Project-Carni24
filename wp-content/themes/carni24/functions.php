@@ -51,7 +51,6 @@ add_image_size('scene', 2000, 300, true);
 //Główne menu
 
 function add_menu_link_class($ulclass) {
-    echo $id;
     return preg_replace('/<a /', '<a class="link-secondary nav-link"', $ulclass, -1);
 }
 
@@ -217,10 +216,12 @@ add_action('init', 'custom_rewrite_rule', 10, 0);
 //wp_deregister_script('hoverIntent');
 //wp_register_script('hoverIntent', ( 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.10.1/jquery.hoverIntent.min.js'), array('jquery'), 'r6.1');
 
+add_action('wp_enqueue_scripts', 'bootstrap5_assets');
 
-if (!is_admin()) {
-    wp_register_style('Bootstrap5', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css');
-    wp_enqueue_style('Bootstrap5');
+function bootstrap5_assets() {
+    if (!is_admin()) {
+        wp_enqueue_style('Bootstrap5', "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css", false, '1.1', 'all');
+    }
 }
 
 add_action('get_header', function() {

@@ -1,4 +1,5 @@
 <?php
+//define( 'WP_DEBUG', true );
 /**
  * The base configuration for WordPress
  *
@@ -78,6 +79,7 @@ $table_prefix = 'c24_';
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
+//define('CONCATENATE_SCRIPTS', false);
 
 /* That's all, stop editing! Happy publishing. */
 
