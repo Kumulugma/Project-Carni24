@@ -18,4 +18,4 @@ wp-content/themes/twenty*/
 *.log
 *.sql
 *.sqlite
-/nbproject/private/
+/nbproject/
