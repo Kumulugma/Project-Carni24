@@ -2,7 +2,7 @@
 /*
 Plugin Name: WPDash Notes
 Description: WPDash Notes est un plugin qui vous permet de créer des notes sur votre tableau de bord WordPress et sur ceux des autres utilisateurs.
-Version: 1.2
+Version: 1.2.1
 Author: WPFormation, NicolasKulka, WPServeur
 Author URI: https://wpformation.com/
 Domain Path: languages
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'WPDASH_NOTES_VERSION', '1.2' );
+define( 'WPDASH_NOTES_VERSION', '1.2.1' );
 define( 'WPDASH_NOTES_FOLDER', 'wpdash-notes' );
 define( 'WPDASH_NOTES_BASENAME', plugin_basename( __FILE__ ) );
 

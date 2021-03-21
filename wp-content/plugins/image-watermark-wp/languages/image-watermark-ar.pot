@@ -1,0 +1,360 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Watermark\n"
+"POT-Creation-Date: 2013-06-11 13:16+0100\n"
+"PO-Revision-Date: 2013-08-13 08:17+0300\n"
+"Last-Translator: Hassan\n"
+"Language-Team: LogicsFort <info@LogicsFort.pl>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;__;_e;esc_attr__;esc_attr_e;"
+"_n:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../image-watermark-wp.php:27
+msgid ""
+"Sorry, Image Watermark WP plugin requires at least PHP 5.0 and WP 3.5 or higher."
+msgstr "عفوا، هذه الإضافة تتطلب على الأقل PHP 5.0 وووردبريس 3.5 أو أعلى."
+
+#: ../image-watermark-wp.php:164
+msgid ""
+"Watermark could not be applied to selected files or no valid images (JPEG, "
+"PNG) were selected."
+msgstr ""
+"تعذر تطبيق العلامة المائية على الملفات المختارة أو لم يتم إختيار ملفات صحيحة "
+"(JPEG, PNG)"
+
+#: ../image-watermark-wp.php:164 ../image-watermark-wp.php:168
+msgid "Skipped files"
+msgstr "الملفات المتخطاة"
+
+#: ../image-watermark-wp.php:168
+#, php-format
+msgid "Watermark was succesfully applied to 1 image."
+msgid_plural "Watermark was succesfully applied to %s images."
+msgstr[0] "تم تطبيق العلامة المائية بنجاح على صورة واحدة."
+msgstr[1] "تم تطبيق العلامة المائية بنجاح على %s صور."
+
+#: ../image-watermark-wp.php:234
+msgid "Support"
+msgstr "دعم"
+
+#: ../image-watermark-wp.php:256
+msgid "Settings"
+msgstr "إعدادات"
+
+#: ../image-watermark-wp.php:287
+msgid "Apply watermark"
+msgstr "تطبيق العلامة المائية"
+
+#: ../image-watermark-wp.php:311
+msgid "Select watermark"
+msgstr "اختر علامة مائية"
+
+#: ../image-watermark-wp.php:312 ../image-watermark-wp.php:707
+msgid "Original size"
+msgstr "الحجم الأصلي"
+
+#: ../image-watermark-wp.php:313 ../image-watermark-wp.php:701
+msgid "Watermak has not been selected yet."
+msgstr "لم يتم اختيار العلامة المائية بعد."
+
+#: ../image-watermark-wp.php:314
+msgid "This image is not supported as watermark. Use JPEG, PNG or GIF."
+msgstr "هذه الصورة غير مدعومة كعلامة مائية. استخدم JPEG, PNG or GIF."
+
+#: ../image-watermark-wp.php:316
+msgid "Add watermark"
+msgstr "أضف علامة مائية"
+
+#: ../image-watermark-wp.php:361
+msgid "Image Watermark WP Options"
+msgstr "خيارات العلامة المائية المصورة"
+
+#: ../image-watermark-wp.php:362
+msgid "Watermark"
+msgstr "العلامة المائية"
+
+#: ../image-watermark-wp.php:388
+msgid "Image Watermark WP will not work properly without GD PHP extension."
+msgstr "الإضافة لن تعمل بصورة صحيحة بدون ملحق GD PHP."
+
+#: ../image-watermark-wp.php:525
+msgid "Settings saved."
+msgstr "تم حفظ الإعدادات."
+
+#: ../image-watermark-wp.php:546
+msgid "Watermark will not be applied when <b>watermark image is not set</b>."
+msgstr ""
+"لن يتم تطبيق العلامة المائية عندما تكون <b>العلامة المائية غير محددة</b>."
+
+#: ../image-watermark-wp.php:551
+msgid "Watermark will not be applied when <b>no image sizes are selected</b>."
+msgstr "لن يتم تطبيق العلامة المائية عندما لا تكون <b>أحجام الصور محددة</b>."
+
+#: ../image-watermark-wp.php:559
+msgid "Image Watermark WP Settings"
+msgstr "إعدادات العلامة المائية المصورة"
+
+#: ../image-watermark-wp.php:563
+msgid "General settings"
+msgstr "إعدادات عامة"
+
+#: ../image-watermark-wp.php:566
+msgid "Automatic watermarking"
+msgstr "تطبيق آلي للعلامة المائية"
+
+#: ../image-watermark-wp.php:570 ../image-watermark-wp.php:586
+msgid "on"
+msgstr "تشغيل"
+
+#: ../image-watermark-wp.php:572 ../image-watermark-wp.php:588
+msgid "off"
+msgstr "إيقاف"
+
+#: ../image-watermark-wp.php:575
+msgid "Enable or disable watermark for uploaded images."
+msgstr "تفعيل أو تعطيل العلامة المائية للصور المرفوعة."
+
+#: ../image-watermark-wp.php:582
+msgid "Manual watermarking"
+msgstr "تطبيق يدوي للعلامة المائية"
+
+#: ../image-watermark-wp.php:591
+msgid "Enable or disable Apply Watermark option for images in Media Library."
+msgstr "تفعيل أو تعطيل خيار تطبيق العلامة المائية للصور في مكتبة الوسائط."
+
+#: ../image-watermark-wp.php:598
+msgid "Enable watermark for"
+msgstr "تفعيل العلامة المائية لـ"
+
+#: ../image-watermark-wp.php:607
+msgid ""
+"Check image sizes on which watermark should appear. <b>Notice:</b> checking "
+"full size is not recommened as it's the original image."
+msgstr ""
+"اختر أحجام الصور التي يجب أن تظهر فيها العلامة المائية. <b>تنبيه:</b> اختيار "
+"الحجم الكامل (full size) غير موصى به لأنها الصورة الأصلية."
+
+#: ../image-watermark-wp.php:613
+msgid "everywhere"
+msgstr "في أي مكان"
+
+#: ../image-watermark-wp.php:614
+msgid "on selected post types only"
+msgstr "في أنواع التدوينات المختارة فقط"
+
+#: ../image-watermark-wp.php:622
+msgid ""
+"Check custom post types on which watermark should be applied to uploaded "
+"images."
+msgstr ""
+"اختر أنواع التدوينات التي يجب أن يتم تطبيق العلامة المائية على الصور "
+"المرفوعة فيها."
+
+#: ../image-watermark-wp.php:628
+msgid "Watermark position"
+msgstr "موضع العلامة المائية"
+
+#: ../image-watermark-wp.php:631
+msgid "Watermark alignment"
+msgstr "محاذاة العلامة المائية"
+
+#: ../image-watermark-wp.php:646
+msgid "Choose the position of watermark image."
+msgstr "اختر موضع العلامة المائية المصورة."
+
+#: ../image-watermark-wp.php:651
+msgid "Watermark offset"
+msgstr "تكفاؤ العلامة المائية"
+
+#: ../image-watermark-wp.php:654 ../image-watermark-wp.php:734
+msgid "x:"
+msgstr "س:"
+
+#: ../image-watermark-wp.php:654 ../image-watermark-wp.php:656
+#: ../image-watermark-wp.php:734 ../image-watermark-wp.php:736
+msgid "px"
+msgstr "بكسل"
+
+#: ../image-watermark-wp.php:656 ../image-watermark-wp.php:736
+msgid "y:"
+msgstr "ص:"
+
+#: ../image-watermark-wp.php:672 ../image-watermark-wp.php:676
+msgid "Watermark image"
+msgstr "صورة العلامة المائية"
+
+#: ../image-watermark-wp.php:673
+msgid ""
+"Configure your watermark image. Allowed file formats are: JPEG, PNG, GIF."
+msgstr ""
+"قم بتعديل صورة العلامة المائية الخاصة بك. أنواع الملفات المسموح بها: JPEG, "
+"PNG, GIF."
+
+#: ../image-watermark-wp.php:679
+msgid "Select image"
+msgstr "اختر صورة"
+
+#: ../image-watermark-wp.php:680
+msgid "Turn off image"
+msgstr "تعطيل الصورة"
+
+#: ../image-watermark-wp.php:681
+msgid "You have to save changes after the selection or removal of the image."
+msgstr "يجب عليك حفظ التغييرات بعد اختيار أو حذف الصور."
+
+#: ../image-watermark-wp.php:685
+msgid "Watermark preview"
+msgstr "معاينة العلامة المائية"
+
+#: ../image-watermark-wp.php:715
+msgid "Watermark size"
+msgstr "حجم العلامة المائية"
+
+#: ../image-watermark-wp.php:719
+msgid "original"
+msgstr "الأصل"
+
+#: ../image-watermark-wp.php:721
+msgid "custom"
+msgstr "مخصوص"
+
+#: ../image-watermark-wp.php:723
+msgid "scaled"
+msgstr "تناسب"
+
+#: ../image-watermark-wp.php:726
+msgid "Select method of aplying watermark size."
+msgstr "اختر طريقة تطبيق حجم العلامة المائية."
+
+#: ../image-watermark-wp.php:731
+msgid "Watermark custom size"
+msgstr "الحجم المخصوص للعلامة المائية"
+
+#: ../image-watermark-wp.php:738
+msgid "Those dimensions will be used if \"custom\" method is selected above."
+msgstr "سيتم استخدام هذه الأبعاد إذا تم اختيار الطريقة \"مخصوص\" أعلاه."
+
+#: ../image-watermark-wp.php:742
+msgid "Scale of watermark in relation to image width"
+msgstr "تناسب العلامة المائية بالنسبة لعرض الصورة"
+
+#: ../image-watermark-wp.php:747
+msgid ""
+"This value will be used if \"scaled\" method if selected above. <br />Enter "
+"a number ranging from 0 to 100. 100 makes width of watermark image equal to "
+"width of the image it is applied to."
+msgstr ""
+"سيتم استخدام هذه القيمة إذا تم اختيار طريقة \"تناسب\" أعلاه. <br />أدخل رقما "
+"بين 0 و 100. 100 تجعل عرض العلامة المائية مساويا لعرض الصورة المطبقة عليها."
+
+#: ../image-watermark-wp.php:751
+msgid "Watermark transparency / opacity"
+msgstr "شفافية / تعتيم العلامة المائية"
+
+#: ../image-watermark-wp.php:756
+msgid ""
+"Enter a number ranging from 0 to 100. 0 makes watermark image completely "
+"transparent, 100 shows it as is."
+msgstr ""
+"أدخل رقما بين 0 و 100. 0 تجعل العلامة المائية شفافة تماما، 100 تعرضها كما هي."
+
+#: ../image-watermark-wp.php:760
+msgid "Image quality"
+msgstr "جودة الصورة"
+
+#: ../image-watermark-wp.php:765
+msgid "Set watermark image quality."
+msgstr "اختر جودة صورة العلامة المائية."
+
+#: ../image-watermark-wp.php:769
+msgid "Image format"
+msgstr "تنسيق الصورة"
+
+#: ../image-watermark-wp.php:773
+msgid "baseline"
+msgstr "خط أساس"
+
+#: ../image-watermark-wp.php:775
+msgid "progressive"
+msgstr "تقدمي"
+
+#: ../image-watermark-wp.php:779
+msgid "Select baseline or progressive image format."
+msgstr "اختر تنسيق صورة بين خط أساس أو تقدمي."
+
+#: ../image-watermark-wp.php:785
+msgid "Image protection"
+msgstr "حماية الصورة"
+
+#: ../image-watermark-wp.php:788
+msgid "Disable right mouse click on images"
+msgstr "تعطيل النقر بزر الفأرة الأيمن على الصور"
+
+#: ../image-watermark-wp.php:792
+msgid "Prevent drag and drop"
+msgstr "منع السحب والإلقاء"
+
+#: ../image-watermark-wp.php:796
+msgid "Enable image protection for logged-in users also"
+msgstr "تفعيل حماية الصور للمستخدمين المسجلي الدخول أيضا"
+
+#: ../image-watermark-wp.php:801
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: ../image-watermark-wp.php:807
+msgid "Image Watermark WP"
+msgstr "العلامة المائية المصورة"
+
+#: ../image-watermark-wp.php:809
+msgid "Need support?"
+msgstr "تحتاج لدعم؟"
+
+#: ../image-watermark-wp.php:810
+msgid ""
+"If you are having problems with this plugin, please talk about them in the"
+msgstr "إذا كانت لديك مشاكل مع هذه الإضافة، الرجاء مناقشتها في"
+
+#: ../image-watermark-wp.php:810
+msgid "Support forum"
+msgstr "منتدى الدعم"
+
+#: ../image-watermark-wp.php:812
+msgid "Do you like this plugin?"
+msgstr "هل أعجبتك هذه الإضافة؟"
+
+#: ../image-watermark-wp.php:813
+msgid "Rate it 5"
+msgstr "اعطها تصنيف 5"
+
+#: ../image-watermark-wp.php:813
+msgid "on WordPress.org"
+msgstr "على WordPress.org"
+
+#: ../image-watermark-wp.php:814
+msgid "Blog about it & link to the"
+msgstr "اكتب تدوينة عنها وأضف رابطا إلى"
+
+#: ../image-watermark-wp.php:814
+msgid "plugin page"
+msgstr "صفحة الإضافة"
+
+#: ../image-watermark-wp.php:815
+msgid "Check out our other"
+msgstr "انظر ما لدينا من"
+
+#: ../image-watermark-wp.php:815
+msgid "WordPress plugins"
+msgstr "إضافات ووردبريس"
+
+#: ../image-watermark-wp.php:819
+msgid "Created by"
+msgstr "صنع بواسطة"

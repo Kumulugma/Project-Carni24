@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'aac6c5b68e6a3907c59c667f2a330f50c7575987',
+    'reference' => '422ababff1f143b1650d1695e48dfa3578a13ecb',
     'name' => 'updraftplus/updraftplus',
   ),
   'versions' => 
@@ -321,7 +321,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'aac6c5b68e6a3907c59c667f2a330f50c7575987',
+      'reference' => '422ababff1f143b1650d1695e48dfa3578a13ecb',
     ),
   ),
 );

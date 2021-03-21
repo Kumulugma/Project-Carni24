@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61c641cd8ad64418e8258c650f3a007a",
+    "content-hash": "bc206e5577c13a92c2c04ea3d9fc04f1",
     "packages": [
         {
-            "name": "NicolasKulka/wp-dismissible-notices-handler",
-            "version": "2.0",
+            "name": "nicolaskulka/wp-dismissible-notices-handler",
+            "version": "2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NicolasKulka/WP-Dismissible-Notices-Handler.git",
-                "reference": "4c3ffe7d98b13379476ebbec7e88650d37ce2dcf"
+                "reference": "7257ae7f245aedbd3cba6e0f5a7d8bdd49210f4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NicolasKulka/WP-Dismissible-Notices-Handler/zipball/4c3ffe7d98b13379476ebbec7e88650d37ce2dcf",
-                "reference": "4c3ffe7d98b13379476ebbec7e88650d37ce2dcf",
+                "url": "https://api.github.com/repos/NicolasKulka/WP-Dismissible-Notices-Handler/zipball/7257ae7f245aedbd3cba6e0f5a7d8bdd49210f4a",
+                "reference": "7257ae7f245aedbd3cba6e0f5a7d8bdd49210f4a",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,8 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "handler.php"
+                    "handler.php",
+                    "includes/helper-functions.php"
                 ]
             },
             "license": [
@@ -34,35 +35,33 @@
             ],
             "authors": [
                 {
-                    "name": "Julien Liabeuf",
-                    "email": "julien@liabeuf.fr",
-                    "homepage": "https://julienliabeuf.com",
+                    "name": "Nicolas KULKA",
                     "role": "Lead Developer"
                 }
             ],
             "description": "A simple library to handle Ajax-dismissible admin notices for WordPress",
-            "homepage": "https://github.com/julien731/WP-Dismissible-Notices-Handler",
+            "homepage": "https://github.com/nicolaskulka/WP-Dismissible-Notices-Handler",
             "support": {
-                "source": "https://github.com/NicolasKulka/WP-Dismissible-Notices-Handler/tree/2.0"
+                "source": "https://github.com/NicolasKulka/WP-Dismissible-Notices-Handler/tree/2.2"
             },
-            "time": "2018-07-17T12:19:22+00:00"
+            "time": "2021-02-15T08:45:53+00:00"
         },
         {
-            "name": "NicolasKulka/wp-review-me",
-            "version": "2.5",
+            "name": "nicolaskulka/wp-review-me",
+            "version": "2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NicolasKulka/WP-Review-Me.git",
-                "reference": "9ad656a84c4878b6dd4d9c2964e262f76b0c3c88"
+                "reference": "a9737a9a4e54c90715c0ca151042e3f4404fafde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NicolasKulka/WP-Review-Me/zipball/9ad656a84c4878b6dd4d9c2964e262f76b0c3c88",
-                "reference": "9ad656a84c4878b6dd4d9c2964e262f76b0c3c88",
+                "url": "https://api.github.com/repos/NicolasKulka/WP-Review-Me/zipball/a9737a9a4e54c90715c0ca151042e3f4404fafde",
+                "reference": "a9737a9a4e54c90715c0ca151042e3f4404fafde",
                 "shasum": ""
             },
             "require": {
-                "nicolaskulka/wp-dismissible-notices-handler": "2.0",
+                "nicolaskulka/wp-dismissible-notices-handler": "2.*",
                 "php": ">=5.5.0"
             },
             "type": "library",
@@ -85,9 +84,9 @@
             "description": "A lightweight library to help you get more reviews for your WordPress theme/plugin",
             "homepage": "https://github.com/julien731/WP-Review-Me",
             "support": {
-                "source": "https://github.com/NicolasKulka/WP-Review-Me/tree/master"
+                "source": "https://github.com/NicolasKulka/WP-Review-Me/tree/2.6"
             },
-            "time": "2018-07-17T12:31:36+00:00"
+            "time": "2021-02-15T11:24:26+00:00"
         }
     ],
     "packages-dev": [],
@@ -100,5 +99,5 @@
         "php": ">=5.6.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

@@ -107,7 +107,7 @@ class Plugin {
 
         <div id="wpf-post-it-<?php echo $post_id; ?>" class="postbox">
             <div class="postbox-header"><<?php echo $title_tag; ?> class="hndle
-                ui-sortable-handle"><?php _e( 'New note', 'wpdash-notes' ); ?> <?php _e( '( Addressed to myself )', 'wpdash-notes' ); ?>
+                ui-sortable-handle"><?php _e( 'New note', 'wpdash-notes' ); ?> <?php _e( '(Addressed to myself)', 'wpdash-notes' ); ?>
             </<?php echo $title_tag; ?>>
         </div>
         <div class="inside">
@@ -249,11 +249,11 @@ class Plugin {
 					$title = $post->post_title;
 					if ( get_current_user_id() == $post->post_author || current_user_can( 'manage_options' ) ) {
 						if ( ! empty( $myuser ) ) {
-							$title .= ' ' . __( '( Addressed to myself )', 'wpdash-notes' );
+							$title .= ' ' . __( '(Addressed to myself)', 'wpdash-notes' );
 						} elseif ( $all_users === 'on' ) {
-							$title .= ' ' . __( '( Addressed to all )', 'wpdash-notes' );
+							$title .= ' ' . __( '(Addressed to all)', 'wpdash-notes' );
 						} elseif ( ! empty( $dsn_target ) && is_array( $dsn_target ) ) {
-							$title .= ' ' . '(' . __( 'Addressed to roles', 'wpdash-notes' ) . ' ' . implode( ', ', $dsn_target ) . ' )';
+							$title .= ' ' . '(' . __( 'Addressed to roles', 'wpdash-notes' ) . ' ' . implode( ', ', $dsn_target ) . ')';
 						} elseif ( ! empty( $dsn_target_user ) && is_array( $dsn_target_user ) ) {
 							$info = array();
 							foreach ( $dsn_target_user as $user ) {
@@ -266,9 +266,9 @@ class Plugin {
 								}
 							}
 							if ( count( $info ) > 1 ) {
-								$title .= ' ( ' . __( 'Addressed to users', 'wpdash-notes' ) . ' ' . implode( ', ', $info ) . ' ) ';
+								$title .= ' (' . __( 'Addressed to users', 'wpdash-notes' ) . ' ' . implode( ', ', $info ) . ')';
 							} else {
-								$title .= ' ( ' . __( 'Addressed to user', 'wpdash-notes' ) . ' ' . implode( ', ', $info ) . ' ) ';
+								$title .= ' (' . __( 'Addressed to user', 'wpdash-notes' ) . ' ' . implode( ', ', $info ) . ')';
 							}
 						}
 					}
