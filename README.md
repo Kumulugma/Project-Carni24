@@ -24,7 +24,7 @@ Korzeń projektu
 
 Funkcje specjalne
 ------------
-      
+Do uzupełnienia.      
 
 Konfiguracja projektu
 -------------
