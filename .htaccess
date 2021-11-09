@@ -4,7 +4,7 @@
 RewriteEngine on
 CacheLookup on
 RewriteRule .* - [E=Cache-Control:no-autoflush]
-RewriteRule \.object-cache\.ini - [F,L]
+RewriteRule \.litespeed_conf\.dat - [F,L]
 
 ### marker CACHE RESOURCE start ###
 RewriteRule wp-content/.*/[^/]*(responsive|css|js|dynamic|loader|fonts)\.php - [E=cache-control:max-age=3600]
@@ -53,7 +53,4 @@ RewriteRule . /index.php [L]
 # END WordPress
 
 
-# DO NOT REMOVE THIS LINE AND THE LINES BELLOW UPGRADE_INSECURE_REQUESTS:carni24.pl
-Header always set Content-Security-Policy: upgrade-insecure-requests
-# DO NOT REMOVE THIS LINE AND THE LINES BELLOW UPGRADE_INSECURE_REQUESTS:carni24.pl
 

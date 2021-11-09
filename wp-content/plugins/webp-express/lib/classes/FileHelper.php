@@ -222,10 +222,19 @@ class FileHelper
         }
 
         $return = false;
-        $handle = @fopen($filename, "r");
+        try {
+            $handle = @fopen($filename, "r");
+        } catch (\ErrorException $exception) {
+            $handle = false;
+            error_log($exception->getMessage());
+        }
         if ($handle !== false) {
             // Return value is either file content or false
-            $return = @fread($handle, filesize($filename));
+            if (filesize($filename) == 0) {
+              $return = '';
+            } else {
+              $return = @fread($handle, filesize($filename));
+            }
             fclose($handle);
         }
 

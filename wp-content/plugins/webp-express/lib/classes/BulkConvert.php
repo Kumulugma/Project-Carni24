@@ -2,22 +2,14 @@
 
 namespace WebPExpress;
 
-use \Onnov\DetectEncoding\EncodingDetector;
+//use \Onnov\DetectEncoding\EncodingDetector;
 
 class BulkConvert
 {
 
-    public static function getList($config)
+    public static function defaultListOptions($config)
     {
-
-        /*
-        isUploadDirMovedOutOfWPContentDir
-        isUploadDirMovedOutOfAbsPath
-        isPluginDirMovedOutOfAbsPath
-        isPluginDirMovedOutOfWpContent
-        isWPContentDirMovedOutOfAbsPath */
-
-        $listOptions = [
+        return [
             //'root' => Paths::getUploadDirAbs(),
             'ext' => $config['destination-extension'],
             'destination-folder' => $config['destination-folder'],  /* hm, "destination-folder" is a bad name... */
@@ -29,8 +21,29 @@ class BulkConvert
                 'only-converted' => false,
                 'only-unconverted' => true,
                 'image-types' => $config['image-types'],
-            ]
+                'max-depth' => 100,
+            ],
+            'flattenList' => true,
         ];
+    }
+
+    /**
+     *  Get grouped list of files. They are grouped by image roots.
+     *
+     */
+    public static function getList($config, $listOptions = null)
+    {
+
+        /*
+        isUploadDirMovedOutOfWPContentDir
+        isUploadDirMovedOutOfAbsPath
+        isPluginDirMovedOutOfAbsPath
+        isPluginDirMovedOutOfWpContent
+        isWPContentDirMovedOutOfAbsPath */
+
+        if (is_null($listOptions)) {
+            $listOptions = self::defaultListOptions($config);
+        }
 
         $rootIds = Paths::filterOutSubRoots($config['scope']);
 
@@ -64,7 +77,7 @@ class BulkConvert
     /**
      * $filter: all | converted | not-converted. "not-converted" for example returns paths to images that has not been converted
      */
-    public static function getListRecursively($relDir, &$listOptions)
+    public static function getListRecursively($relDir, &$listOptions, $depth = 0)
     {
         $dir = $listOptions['root'] . '/' . $relDir;
 
@@ -86,7 +99,26 @@ class BulkConvert
             if (($filename != ".") && ($filename != "..")) {
 
                 if (@is_dir($dir . "/" . $filename)) {
-                    $results = array_merge($results, self::getListRecursively($relDir . "/" . $filename, $listOptions));
+                    if ($listOptions['flattenList']) {
+                        $results = array_merge($results, self::getListRecursively($relDir . "/" . $filename, $listOptions, $depth+1));
+                    } else {
+                        $r = [
+                            'name' => $filename,
+                            'isDir' => true,
+                        ];
+                        if ($depth > $listOptions['max-depth']) {
+                            return $r;  // one item is enough to determine that it is not empty
+                        }
+                        if ($depth < $listOptions['max-depth']) {
+                            $r['children'] = self::getListRecursively($relDir . "/" . $filename, $listOptions, $depth+1);
+                            $r['isEmpty'] = (count($r['children']) == 0);
+                        } else if ($depth == $listOptions['max-depth']) {
+                            $c = self::getListRecursively($relDir . "/" . $filename, $listOptions, $depth+1);
+                            $r['isEmpty'] = (count($c) == 0);
+                            //$r['isEmpty'] = !(new \FilesystemIterator($dir))->valid();
+                        }
+                        $results[] = $r;
+                    }
                 } else {
                     // its a file - check if its a jpeg or png
 
@@ -105,18 +137,19 @@ class BulkConvert
                     if (preg_match($filter['_regexPattern'], $filename)) {
                         $addThis = true;
 
+                        $destination = ConvertHelperIndependent::getDestination(
+                            $dir . "/" . $filename,
+                            $listOptions['destination-folder'],
+                            $listOptions['ext'],
+                            $listOptions['webExpressContentDirAbs'],
+                            $listOptions['uploadDirAbs'],
+                            $listOptions['useDocRootForStructuringCacheDir'],
+                            $listOptions['imageRoots']
+                        );
+                        $webpExists = @file_exists($destination);
+
                         if (($filter['only-converted']) || ($filter['only-unconverted'])) {
                             //$cacheDir = $listOptions['image-root'] . '/' . $relDir;
-                            $destination = ConvertHelperIndependent::getDestination(
-                                $dir . "/" . $filename,
-                                $listOptions['destination-folder'],
-                                $listOptions['ext'],
-                                $listOptions['webExpressContentDirAbs'],
-                                $listOptions['uploadDirAbs'],
-                                $listOptions['useDocRootForStructuringCacheDir'],
-                                $listOptions['imageRoots']
-                            );
-                            $webpExists = @file_exists($destination);
 
                             // Check if corresponding webp exists
                             /*
@@ -151,6 +184,10 @@ class BulkConvert
                                 $encodedToUTF8 = false;
 
                                 // First try library that claims to do better than mb_detect_encoding
+                                /*
+                                DISABLED, because Onnov EncodingDetector requires PHP 7.2
+                                https://wordpress.org/support/topic/get-http-error-500-after-new-update-2/
+
                                 if (!$encodedToUTF8) {
                                     $detector = new EncodingDetector();
 
@@ -166,24 +203,24 @@ class BulkConvert
                                         }
                                     }
 
-                                    /*
+
                                     try {
-                                        // hm, we avoid iconvXtoEncoding, as it has a bug - it is in the issue queue (#5)
-                                        //$path = $detector->iconvXtoEncoding($path);
+                                        // iconvXtoEncoding should work now hm, issue #5 has been fixed
+                                        $path = $detector->iconvXtoEncoding($path);
                                         $encodedToUTF8 = true;
                                     } catch (\Exception $e) {
 
-                                    }*/
-                                }
+                                    }
+                                }*/
 
                                 // Try mb_detect_encoding
                                 if (!$encodedToUTF8) {
                                     if (function_exists('mb_convert_encoding')) {
                                         $encoding = mb_detect_encoding($path, mb_detect_order(), true);
-                                		if ($encoding) {
-                                			$path = mb_convert_encoding($path, 'UTF-8', $encoding);
-                                            $encodedToUTF8 = true;
-                                		}
+                                    		if ($encoding) {
+                                    			$path = mb_convert_encoding($path, 'UTF-8', $encoding);
+                                          $encodedToUTF8 = true;
+                                    		}
                                     }
                                 }
 
@@ -217,7 +254,18 @@ class BulkConvert
                                 }
 
                             }
-                            $results[] = $path;
+                            if ($listOptions['flattenList']) {
+                              $results[] = $path;
+                            } else {
+                              $results[] = [
+                                'name' => basename($path),
+                                'isConverted' => $webpExists
+                              ];
+                              if ($depth > $listOptions['max-depth']) {
+                                  return $results;  // one item is enough to determine that it is not empty
+                              }
+
+                            }
                         }
                     }
                 }

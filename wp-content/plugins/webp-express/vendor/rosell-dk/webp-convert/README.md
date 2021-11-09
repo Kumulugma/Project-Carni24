@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/rosell-dk/webp-convert.svg?style=flat-square)](https://packagist.org/packages/rosell-dk/webp-convert)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net)
 [![Build Status](https://travis-ci.org/rosell-dk/webp-convert.png?branch=master)](https://travis-ci.org/rosell-dk/webp-convert)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/rosell-dk/webp-convert.svg?style=flat-square)](https://scrutinizer-ci.com/g/rosell-dk/webp-convert/code-structure/master)
+[![Coverage Status](https://img.shields.io/github/workflow/status/rosell-dk/webp-convert/PHP?logo=GitHub&style=flat-square)](https://github.com/rosell-dk/webp-convert/actions/workflows/php.yml)
 [![Quality Score](https://img.shields.io/scrutinizer/g/rosell-dk/webp-convert.svg?style=flat-square)](https://scrutinizer-ci.com/g/rosell-dk/webp-convert/)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/rosell-dk/webp-convert/blob/master/LICENSE)
 
@@ -18,7 +18,7 @@ The library can convert using the following methods:
 - *gmagick* (using [Gmagick PHP extension](https://www.php.net/manual/en/book.gmagick.php))
 - *imagemagick* (executing [imagemagick](https://imagemagick.org/index.php) binary using an `exec` call)
 - *graphicsmagick* (executing [graphicsmagick](http://www.graphicsmagick.org/) binary using an `exec` call)
-- **NEW in 2.4.0:** *ffmpeg* (executing [ffmpeg](https://ffmpeg.org/) binary using an `exec` call)
+- *ffmpeg* (executing [ffmpeg](https://ffmpeg.org/) binary using an `exec` call)
 - *wpc* (using [WebPConvert Cloud Service](https://github.com/rosell-dk/webp-convert-cloud-service/) - an open source webp converter for PHP - based on this library)
 - *ewwww* (using the [ewww](https://ewww.io/plans/) cloud converter (1 USD startup and then free webp conversion))
 - *gd* (using the [Gd PHP extension](https://www.php.net/manual/en/book.image.php))
@@ -98,6 +98,7 @@ The library can be used to create a *WebP On Demand* solution, which automatical
 This library is used as the engine to provide webp conversions to a handful of platforms. Hopefully this list will be growing over time. Currently there are plugins / extensions / modules / whatever the term is for the following CMS'es (ordered by [market share](https://w3techs.com/technologies/overview/content_management/all)):
 
 - [Wordpress](https://github.com/rosell-dk/webp-express)
+- [Drupal 7](https://github.com/HDDen/Webp-Drupal-7)
 - [Contao](https://github.com/postyou/contao-webp-bundle)
 - [Kirby](https://github.com/S1SYPHOS/kirby-webp)
 - [October CMS](https://github.com/OFFLINE-GmbH/oc-responsive-images-plugin/)
@@ -116,7 +117,7 @@ Bread on the table don't come for free, even though this library does, and alway
 - [Become a backer or sponsor on Patreon](https://www.patreon.com/rosell).
 - [Buy me a Coffee](https://ko-fi.com/rosell)
 
-## Supporters ==
+## Supporters
 *Persons currently backing the project via patreon - Thanks!*
 
 - Max Kreminsky
@@ -137,3 +138,20 @@ Bread on the table don't come for free, even though this library does, and alway
 - Tammy Lee ($90)
 - Max Kreminsky ($65)
 - Steven Sullivan ($51)
+
+## New in 2.7.0:
+- ImageMagick now supports the "near-lossless" option (provided Imagick >= 7.0.10-54) [#299](https://github.com/rosell-dk/webp-convert/issues/299)
+- Added "try-common-system-paths" option for ImageMagick (default: true). So ImageMagick will now peek for "convert" in common system paths [#293](https://github.com/rosell-dk/webp-convert/issues/293)
+- Fixed memory leak in Gd on very old versions of PHP [#264](https://github.com/rosell-dk/webp-convert/issues/264)
+- And more (view closed issues [here](https://github.com/rosell-dk/webp-convert/milestone/24?closed=1)
+
+## New in 2.6.0:
+- Introduced [auto-limit](https://github.com/rosell-dk/webp-convert/blob/master/docs/v2.0/converting/options.md#auto-limit) option which replaces setting "quality" to "auto" [#281](https://github.com/rosell-dk/webp-convert/issues/281)
+- Added "sharp-yuv" option and made it default on. [Its great](https://www.ctrl.blog/entry/webp-sharp-yuv.html), use it! Works in most converters (works in cwebp, vips, imagemagick, graphicsmagick, imagick and gmagick) [#267](https://github.com/rosell-dk/webp-convert/issues/267), [#280](https://github.com/rosell-dk/webp-convert/issues/280), [#284](https://github.com/rosell-dk/webp-convert/issues/284)
+- Bumped cwebp binaries to 1.2.0 [#273](https://github.com/rosell-dk/webp-convert/issues/273)
+- vips now supports "method" option and "preset" option.
+- graphicsmagick now supports "auto-filter" potion
+- vips, imagick, imagemagick, graphicsmagick and gmagick now supports "preset" option [#275](https://github.com/rosell-dk/webp-convert/issues/275)
+- cwebp now only validates hash of supplied precompiled binaries when necessary. This cuts down conversion time. [#287](https://github.com/rosell-dk/webp-convert/issues/287)
+- Added [new option](https://github.com/rosell-dk/webp-convert/blob/master/docs/v2.0/converting/options.md#cwebp-skip-these-precompiled-binaries) to cwebp for skipping precompiled binaries that are known not to work on current system. This will cut down on conversion time. [#288](https://github.com/rosell-dk/webp-convert/issues/288)
+- And more (view closed issues [here](https://github.com/rosell-dk/webp-convert/milestone/22?closed=1))

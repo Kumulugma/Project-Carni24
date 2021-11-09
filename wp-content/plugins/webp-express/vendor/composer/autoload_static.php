@@ -12,10 +12,6 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
             'WebPConvert\\' => 12,
             'WebPConvertCloudService\\' => 24,
         ),
-        'O' => 
-        array (
-            'Onnov\\DetectEncoding\\' => 21,
-        ),
         'I' => 
         array (
             'ImageMimeTypeGuesser\\' => 21,
@@ -43,10 +39,6 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         array (
             0 => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src',
         ),
-        'Onnov\\DetectEncoding\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/onnov/detect-encoding/src',
-        ),
         'ImageMimeTypeGuesser\\' => 
         array (
             0 => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src',
@@ -66,6 +58,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -118,6 +111,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'Composer\\Installers\\MauticInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MauticInstaller.php',
         'Composer\\Installers\\MayaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MayaInstaller.php',
         'Composer\\Installers\\MediaWikiInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MediaWikiInstaller.php',
+        'Composer\\Installers\\MiaoxingInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MiaoxingInstaller.php',
         'Composer\\Installers\\MicroweberInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MicroweberInstaller.php',
         'Composer\\Installers\\ModxInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ModxInstaller.php',
         'Composer\\Installers\\MoodleInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MoodleInstaller.php',
@@ -126,6 +120,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'Composer\\Installers\\OsclassInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/OsclassInstaller.php',
         'Composer\\Installers\\OxidInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/OxidInstaller.php',
         'Composer\\Installers\\PPIInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PPIInstaller.php',
+        'Composer\\Installers\\PantheonInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PantheonInstaller.php',
         'Composer\\Installers\\PhiftyInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PhiftyInstaller.php',
         'Composer\\Installers\\PhpBBInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PhpBBInstaller.php',
         'Composer\\Installers\\PimcoreInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PimcoreInstaller.php',
@@ -134,6 +129,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'Composer\\Installers\\Plugin' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/Plugin.php',
         'Composer\\Installers\\PortoInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PortoInstaller.php',
         'Composer\\Installers\\PrestashopInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PrestashopInstaller.php',
+        'Composer\\Installers\\ProcessWireInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ProcessWireInstaller.php',
         'Composer\\Installers\\PuppetInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PuppetInstaller.php',
         'Composer\\Installers\\PxcmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PxcmsInstaller.php',
         'Composer\\Installers\\RadPHPInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/RadPHPInstaller.php',
@@ -145,18 +141,21 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'Composer\\Installers\\ShopwareInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ShopwareInstaller.php',
         'Composer\\Installers\\SilverStripeInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SilverStripeInstaller.php',
         'Composer\\Installers\\SiteDirectInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SiteDirectInstaller.php',
+        'Composer\\Installers\\StarbugInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/StarbugInstaller.php',
         'Composer\\Installers\\SyDESInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SyDESInstaller.php',
         'Composer\\Installers\\SyliusInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SyliusInstaller.php',
         'Composer\\Installers\\Symfony1Installer' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/Symfony1Installer.php',
         'Composer\\Installers\\TYPO3CmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TYPO3CmsInstaller.php',
         'Composer\\Installers\\TYPO3FlowInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TYPO3FlowInstaller.php',
         'Composer\\Installers\\TaoInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TaoInstaller.php',
+        'Composer\\Installers\\TastyIgniterInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TastyIgniterInstaller.php',
         'Composer\\Installers\\TheliaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TheliaInstaller.php',
         'Composer\\Installers\\TuskInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TuskInstaller.php',
         'Composer\\Installers\\UserFrostingInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/UserFrostingInstaller.php',
         'Composer\\Installers\\VanillaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/VanillaInstaller.php',
         'Composer\\Installers\\VgmcpInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/VgmcpInstaller.php',
         'Composer\\Installers\\WHMCSInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WHMCSInstaller.php',
+        'Composer\\Installers\\WinterInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WinterInstaller.php',
         'Composer\\Installers\\WolfCMSInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WolfCMSInstaller.php',
         'Composer\\Installers\\WordPressInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WordPressInstaller.php',
         'Composer\\Installers\\YawikInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/YawikInstaller.php',
@@ -197,8 +196,6 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'ImageMimeTypeGuesser\\Detectors\\Stack' => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src/Detectors/Stack.php',
         'ImageMimeTypeGuesser\\GuessFromExtension' => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src/GuessFromExtension.php',
         'ImageMimeTypeGuesser\\ImageMimeTypeGuesser' => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src/ImageMimeTypeGuesser.php',
-        'Onnov\\DetectEncoding\\CodePage' => __DIR__ . '/..' . '/onnov/detect-encoding/src/CodePage.php',
-        'Onnov\\DetectEncoding\\EncodingDetector' => __DIR__ . '/..' . '/onnov/detect-encoding/src/EncodingDetector.php',
         'WebPConvertCloudService\\AccessCheck' => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src/AccessCheck.php',
         'WebPConvertCloudService\\Serve' => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src/Serve.php',
         'WebPConvertCloudService\\WebPConvertCloudService' => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src/WebPConvertCloudService.php',
@@ -263,6 +260,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'WebPConvert\\Options\\IntegerOrNullOption' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/IntegerOrNullOption.php',
         'WebPConvert\\Options\\MetadataOption' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/MetadataOption.php',
         'WebPConvert\\Options\\Option' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/Option.php',
+        'WebPConvert\\Options\\OptionFactory' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/OptionFactory.php',
         'WebPConvert\\Options\\Options' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/Options.php',
         'WebPConvert\\Options\\QualityOption' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/QualityOption.php',
         'WebPConvert\\Options\\SensitiveArrayOption' => __DIR__ . '/..' . '/rosell-dk/webp-convert/src/Options/SensitiveArrayOption.php',

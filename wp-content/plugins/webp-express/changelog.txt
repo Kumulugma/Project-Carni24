@@ -1,3 +1,41 @@
+= 0.21.1 =
+*(released: 27 Oct 2021)*
+* Bugfix: File manager could not handle many images. It now loads tree branches on need basis instead of the complete tree in one go
+* Bugfix: For mulisite, the redirect after settings save was not working (bug introduced in 0.21.0)
+For more info, see the closed issues on the [webp-express 0.21.1 milestone](https://github.com/rosell-dk/webp-express/milestone/42?closed=1)
+
+= 0.21.0 =
+*(released: 25 Oct 2021)*
+* Added image browser (in Media tab)
+* Updated webp convert library to 2.7.0.
+* ImageMagick now supports the "near-lossless" option (provided Imagick >= 7.0.10-54)
+* Added "try-common-system-paths" option for ImageMagick (default: true). Thanks to Henrik Alves for adding this option.
+* Bugfix: Handling Uncaught Fatal Exception during .htaccess read failure. Thanks to Manuel D'Orso from Italy for the fix.
+* Bugfix: File names which were not UTF8 caused trouble in the Bulk Convert. Thank to "mills4078" for the fix
+* Bugfix: Redirection back to settings after saving settings failed on some systems. Thanks to Martin Rehberger (@kingkero) from Germany for the fix.
+* Bugfix: Webp urls did not contain port number (only relevant when the website was not on default port number). Thanks to Nicolas LIENART (@nicolnt) from France for providing the fix.
+
+For more info, see the closed issues on the [webp-express 0.21.0 milestone](https://github.com/rosell-dk/webp-express/milestone/41?closed=1) and the
+[webp-convert 2.7.0 milestone](https://github.com/rosell-dk/webp-convert/milestone/24?closed=1)
+
+= 0.20.1 =
+*(released: 20 Jun 2021)*
+* Bugfix: Removed composer.lock. It was locked on PHP 7.2, which caused server error on some sites (only some sites with old php were affected). Also deleted the library which required PHP 7.2 (onnov/detect-encoding/). The functionality is not really needed.
+
+= 0.20.0 =
+*(released: 17 Jun 2021)*
+* Added WP CLI support. Add "wp webp-express convert" to crontab for nightly conversions of new images! Thanks to Isuru Sampath Ratnayake from Sri Lanka for initializing this.
+* Added "sharp-yuv" (not as option, but as always on). Better YUV->RGB color conversion at almost no price. [Read more here](https://www.ctrl.blog/entry/webp-sharp-yuv.html). Supported by cwebp, vips, gmagick, graphicsmagick, imagick and imagemagick
+* Bumped cwebp binaries to 1.2.0
+* cwebp now only validates hash of supplied precompiled binaries when necessary. This cuts down conversion time.
+* Convert on upload now defaults to false, as it may impact upload experience in themes with many formats.
+* bugfix: Alpha quality was saved incorrectly for PNG. Thanks to Chriss Gibbs from the UK for finding and fixing this.
+* bugfix: wp-debug log could be flooded with "Undefined index: HTTP_ACCEPT". Thanks to @markusreis for finding and fixing this.
+
+= 0.19.1 =
+*(released: 03 May 2021)*
+* Bugfix for PHP 8.0 - fread() does not permit second argument to be 0. Thanks to @trition for reporting and fixing this bug.
+
 = 0.19.0 =
 *(released: 13 Nov 2020)*
 * New convertion method: ffmpeg

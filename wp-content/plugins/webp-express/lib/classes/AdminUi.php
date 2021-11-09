@@ -11,15 +11,6 @@ use \WebPExpress\Multisite;
 class AdminUi
 {
 
-    public static function getSettingsUrl()
-    {
-        if (Multisite::isNetworkActivated()) {
-            return network_admin_url('settings.php?page=webp_express_settings_page');
-        } else {
-            return admin_url('options-general.php?page=webp_express_settings_page');
-        }
-    }
-
     // Add settings link on the plugins page
     // The hook was registred in AdminInit
     public static function pluginActionLinksFilter($links)
@@ -71,6 +62,15 @@ class AdminUi
             'manage_options', //capability
             'webp_express_settings_page', // slug
             array('\WebPExpress\OptionsPage', 'display') //The function to be called to output the content for this page.
+        );
+
+        // Add Media page
+        add_media_page(
+          'WebP Express', //Page Title
+          'WebP Express', //Menu Title
+          'manage_options', //capability
+          'webp_express_conversion_page', // slug
+          array('\WebPExpress\WCFMPage', 'display') //The function to be called to output the content for this page.
         );
 
     }

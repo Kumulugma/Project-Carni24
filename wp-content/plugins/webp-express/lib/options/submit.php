@@ -425,7 +425,7 @@ $sanitized = [
         'lossless',
         'auto'
     ]),
-    'alpha-quality' => webpexpress_getSanitizedQuality('png-quality', 80),
+    'alpha-quality' => webpexpress_getSanitizedQuality('alpha-quality', 80),
     'convert-on-upload' => isset($_POST['convert-on-upload']),
     'converters' => webpexpress_getSanitizedConverters(),
 
@@ -790,6 +790,6 @@ if (!$result['saved-both-config']) {
     }
 }
 
-wp_redirect( $_SERVER['HTTP_REFERER']);
+wp_redirect(Paths::getSettingsUrl());
 
 exit();

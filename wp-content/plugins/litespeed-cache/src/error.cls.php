@@ -48,8 +48,12 @@ class Error {
 					Doc::learn_more( admin_url( 'admin.php?page=litespeed-general' ), __( 'Click here to set.', 'litespeed-cache' ), true, false, true );
 				break;
 
-			case 'lack_of_quota':
-				$msg = __( 'You don\'t have enough quota for current service left this month.', 'litespeed-cache' );
+			case 'out_of_daily_quota':
+				$msg = __( 'You don\'t have enough daily quota left for current service today.', 'litespeed-cache' );
+				break;
+
+			case 'out_of_quota':
+				$msg = __( 'You don\'t have enough quota left for current service this month.', 'litespeed-cache' );
 				break;
 
 			case 'too_many_requested':
@@ -82,6 +86,14 @@ class Error {
 
 			case 'err_key':
 				$msg = __( 'The domain key is not correct. Please try to sync your domain key again.', 'litespeed-cache' );
+				break;
+
+			case 'heavy_load':
+				$msg = __( 'The current server is under heavy load.', 'litespeed-cache' );
+				break;
+
+			case 'redetect_node':
+				$msg = __( 'Online node needs to be redetected.', 'litespeed-cache' );
 				break;
 
 			case 'err_overdraw':

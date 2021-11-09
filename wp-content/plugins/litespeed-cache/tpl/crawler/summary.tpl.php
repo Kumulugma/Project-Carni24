@@ -2,7 +2,7 @@
 namespace LiteSpeed;
 defined( 'WPINC' ) || exit;
 
-$__crawler = Crawler::get_instance();
+$__crawler = Crawler::cls();
 $crawler_list = $__crawler->list_crawlers();
 
 $summary = Crawler::get_summary();
@@ -10,11 +10,11 @@ if ( $summary[ 'curr_crawler' ] >= count( $crawler_list ) ) {
 	$summary[ 'curr_crawler' ] = 0;
 }
 
-$is_running = time() - $summary[ 'is_running' ] <= Conf::val( Base::O_CRAWLER_RUN_DURATION );
+$is_running = time() - $summary[ 'is_running' ] <= $this->conf( Base::O_CRAWLER_RUN_DURATION );
 
 $disabled = Router::can_crawl() ? '' : 'disabled';
 
-$seconds = Conf::val( Base::O_CRAWLER_RUN_INTERVAL );
+$seconds = $this->conf( Base::O_CRAWLER_RUN_INTERVAL );
 if($seconds > 0):
 	$recurrence = '';
 	$hours = (int)floor($seconds / 3600);
@@ -61,7 +61,7 @@ if($seconds > 0):
 		<?php if ( ! $is_running ) : ?>
 	<p>
 		<b><?php echo __( 'The next complete sitemap crawl will start at', 'litespeed-cache' ); ?>:</b>
-		<?php echo date('m/d/Y H:i:s',$summary[ 'this_full_beginning_time' ] + LITESPEED_TIME_OFFSET + $summary[ 'last_full_time_cost' ] + Conf::val( Base::O_CRAWLER_CRAWL_INTERVAL )); ?>
+		<?php echo date('m/d/Y H:i:s',$summary[ 'this_full_beginning_time' ] + LITESPEED_TIME_OFFSET + $summary[ 'last_full_time_cost' ] + $this->conf( Base::O_CRAWLER_CRAWL_INTERVAL )); ?>
 		<?php endif; ?>
 	</p>
 
@@ -122,6 +122,7 @@ if($seconds > 0):
 			<th scope="col"><?php echo __('Cron Name', 'litespeed-cache'); ?></th>
 			<th scope="col"><?php echo __('Run Frequency', 'litespeed-cache'); ?></th>
 			<th scope="col"><?php echo __( 'Status', 'litespeed-cache' ); ?></th>
+			<th scope="col"><?php echo __( 'Activate', 'litespeed-cache' ); ?></th>
 			<th scope="col"><?php echo __( 'Running', 'litespeed-cache' ); ?></th>
 		</tr></thead>
 		<tbody>
@@ -159,6 +160,9 @@ if($seconds > 0):
 					<?php echo '<i class="litespeed-badge litespeed-bg-danger" data-balloon-pos="up" aria-label="' . __( 'Blacklisted', 'litespeed-cache' ) . '">' . ( $blacklisted ?: '-' ) . '</i> '; ?>
 				</td>
 				<td>
+					<?php $this->build_toggle( 'litespeed-crawler-'.$i ,  $__crawler->is_active( $i ) ); ?>
+				</td>
+				<td>
 				<?php
 					if ( $i == $summary[ 'curr_crawler' ] ) {
 						echo "Position: " . ( $summary[ 'last_pos' ] + 1 );
@@ -175,8 +179,8 @@ if($seconds > 0):
 
 	<p>
 		<i class="litespeed-badge litespeed-bg-default"></i> = <?php echo __( 'Waiting to be Crawled', 'litespeed-cache' ); ?><br>
-		<i class="litespeed-badge litespeed-bg-success"></i> = <?php echo __( 'Cache Hit', 'litespeed-cache' ); ?><br>
-		<i class="litespeed-badge litespeed-bg-primary"></i> = <?php echo __( 'Cache Miss', 'litespeed-cache' ); ?><br>
+		<i class="litespeed-badge litespeed-bg-success"></i> = <?php echo __( 'Already Cached', 'litespeed-cache' ); ?><br>
+		<i class="litespeed-badge litespeed-bg-primary"></i> = <?php echo __( 'Successfully Crawled', 'litespeed-cache' ); ?><br>
 		<i class="litespeed-badge litespeed-bg-danger"></i> = <?php echo __( 'Blacklisted', 'litespeed-cache' ); ?><br>
 	</p>
 

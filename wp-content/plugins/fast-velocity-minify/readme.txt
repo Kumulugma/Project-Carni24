@@ -1,28 +1,29 @@
 === Fast Velocity Minify ===
 Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, Merging, Minification, Optimization, Speed, Performance, FVM
-Requires at least: 4.7
+Requires at least: 4.9
 Requires PHP: 5.6
-Stable tag: 3.1.4
-Tested up to: 5.6
+Stable tag: 3.2.2
+Tested up to: 5.7.1
 Text Domain: fast-velocity-minify
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript, compressing HTML and a few more speed optimization options. 
+Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by adjusting your CSS and JS files (defer, async, minify, combine, etc), compressing HTML, simplifying fonts and a few more speed optimization options. 
  
 
 == Description ==
-Speed optimization plugin for developers and advanced users. This plugin reduces HTTP requests by merging CSS & JavaScript files. It minifies CSS and JS files with PHP Minify, the same library used on most cache plugins.
+HTML, CSS & JS optimization plugin for developers and advanced users. Note you need to look into the HELP tab after installing the plugin and manually configure it for your site. Each site is different, so the default recommendations may or may not work for you and you will need to test and find out how to adjust your settings.
 
-Minification is done on the frontend during the first uncached request. Once the first request is processed, any other pages that require the same set of CSS and JavaScript files, will reuse the same generated file.
+Minification is done on the frontend during the first uncached request. Once the first request is processed, any other pages that require the same set of CSS and JS files will be able to reuse the same generated static CSS or JS file.
 
-The plugin includes options for developers and advanced users, however the default settings should work just fine for most sites.
+If your cache is growing significantly, this could mean one of your CSS or JS files is dynamic and changes on every pageview. In that case, you would need to add the file to the ignore list, else the cache would grow indefinitely (because obviously the original files themselves are dynamic and when you minify, the plugin sees a different file). 
+
 Kindly read the HELP section after installing the plugin, about possible issues and how to solve them.
 
-= Aditional Optimization =
+= Additional Optimization =
 
-I can offer you aditional `custom made` optimization on top of this plugin. If you would like to hire me, please visit my profile links for further information.
+I can offer you additional `custom made` optimization on top of this plugin. If you would like to hire me, please visit my profile links for further information.
 
 
 = WP-CLI Commands =
@@ -30,8 +31,8 @@ I can offer you aditional `custom made` optimization on top of this plugin. If y
 *	Purge all caches on a network site: `wp --url=blog.example.com fvm purge`
 *	Purge all caches on the entire network (linux): `wp site list --field=url | xargs -n1 -I % wp --url=% fvm purge`
 
-= How to add your own critical path ? =
-You can create a style tag, with an ID equal to "critical-path" ex: `<style id="critical-path"> your code </style>` anywhere on the header and FVM will move it to before the CSS merged files.
+= How to customize the cache path ? =
+You need a public directory to store and serve minified cache files. If you need to customize the path and url, you need to edit your `wp-config.php` and add both `define('FVM_DIR', '/path/to/example.com/your/public/directory');` and `define('FVM_URL', 'https://example.com/your/public/directory');` .
 
 
 == Installation ==
@@ -46,14 +47,44 @@ You can create a style tag, with an ID equal to "critical-path" ex: `<style id="
 1. The Settings page.
 
 
-== Upgrade Notice ==
-
-= 3.0.0 =
-Please backup your site before updating. 
-Version 3.0 is a major code rewrite to improve JS and CSS merging, but it requires JS settings to be readjusted after the update. 
-
-
 == Changelog ==
+
+= 3.2.2 [2021.05.09] =
+* added auto varnish cache purge for Cloudways
+* fixed some JS files not being minified
+
+= 3.2.1 [2021.05.07] =
+* added support for custom cache location via wp-config.php constants
+* changed the default cache directory to wp-content/cache
+
+= 3.2.0 [2021.05.06] =
+* fixed an issue where some files were not being minified
+* better sourceMappingURL removal during minification
+
+= 3.1.9 [2021.05.05] =
+* fixed an issue with some base64 encoded fonts and icons becoming invalid
+* changed @import CSS rules order according to specification (@import rules need to get processed first when minifying)
+
+= 3.1.8 [2021.04.30] =
+* fixed missing dynamic css/js urls
+* fixed some relative static assets paths 
+* added auto disabling of FVM on Web Stories (AMP)
+
+= 3.1.7 [2021.04.26] =
+* more php notices fixes
+
+= 3.1.6 [2021.04.25] =
+* php notices fixes
+* better http2 support
+
+= 3.1.5 [2021.04.24] =
+* added support for WP Cloudflare Super Page Cache plugin
+* fixed support for LiteSpeed Cache purging
+* changed the cache directory to the uploads directory (WP_Filesystem_Direct)
+* deprecated CSS and JS merging as this is no longer recommended for HTTP/2 servers
+* stop removing RSS feeds references on the header cleanup option
+* changed some descriptions and updated the HELP section
+* other bug fixes
 
 = 3.1.4 [2021.01.11] =
 * disable FVM update routines when a user runs wp-cli commands outside of the root directory

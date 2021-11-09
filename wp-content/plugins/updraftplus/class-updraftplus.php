@@ -393,6 +393,7 @@ class UpdraftPlus {
 			}
 		}
 		$ret = pclose($handle);
+		// The manual page for pclose() claims that only -1 indicates an error, but this is untrue
 		if (false === $found || 0 != $ret) return false;
 
 		if ((int) $matches[2]<100 || ($matches[1] + $matches[3] != $matches[2])) return false;
@@ -939,8 +940,10 @@ class UpdraftPlus {
 		// Attempt to raise limit to avoid false positives
 		if (function_exists('set_time_limit')) @set_time_limit(UPDRAFTPLUS_SET_TIME_LIMIT);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		$max_execution_time = (int) @ini_get("max_execution_time");// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		
+		$mp = (int) $wpdb->get_var("SELECT @@session.max_allowed_packet");
 
-		$logline = "UpdraftPlus WordPress backup plugin (https://updraftplus.com): ".$this->version." WP: ".$wp_version." PHP: ".phpversion()." (".PHP_SAPI.", ".(function_exists('php_uname') ? @php_uname() : PHP_OS).") MySQL: $mysql_version WPLANG: ".get_locale()." Server: ".$_SERVER["SERVER_SOFTWARE"]." safe_mode: $safe_mode max_execution_time: $max_execution_time memory_limit: $memory_limit (used: ${memory_usage}M | ${memory_usage2}M) multisite: ".(is_multisite() ? (is_subdomain_install() ? 'Y (sub-domain)' : 'Y (sub-folder)') : 'N')." openssl: ".(defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'N')." mcrypt: ".(function_exists('mcrypt_encrypt') ? 'Y' : 'N')." LANG: ".getenv('LANG')." ZipArchive::addFile: ";// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$logline = "UpdraftPlus WordPress backup plugin (https://updraftplus.com): ".$this->version." WP: ".$wp_version." PHP: ".phpversion()." (".PHP_SAPI.", ".(function_exists('php_uname') ? @php_uname() : PHP_OS).") MySQL: $mysql_version (max packet size=$mp) WPLANG: ".get_locale()." Server: ".$_SERVER["SERVER_SOFTWARE"]." safe_mode: $safe_mode max_execution_time: $max_execution_time memory_limit: $memory_limit (used: ${memory_usage}M | ${memory_usage2}M) multisite: ".(is_multisite() ? (is_subdomain_install() ? 'Y (sub-domain)' : 'Y (sub-folder)') : 'N')." openssl: ".(defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'N')." mcrypt: ".(function_exists('mcrypt_encrypt') ? 'Y' : 'N')." LANG: ".getenv('LANG')." ZipArchive::addFile: ";// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 
 		// method_exists causes some faulty PHP installations to segfault, leading to support requests
 		if (version_compare(phpversion(), '5.2.0', '>=') && extension_loaded('zip')) {
@@ -1127,6 +1130,20 @@ class UpdraftPlus {
 			$this->jobdata_set('warnings', $warnings);
 		}
 		unset($this->errors[$uniq_id]);
+	}
+	
+	/**
+	 * Indicate whether or not a warning is logged with a specific identifier
+	 *
+	 * @see self::log()
+	 *
+	 * @param String $uniq_id - the identifier, previously passed to self::log()
+	 *
+	 * @return Boolean
+	 */
+	public function warning_exists($uniq_id) {
+		$warnings = $this->jobdata_get('warnings');
+		return !empty($warnings[$uniq_id]);
 	}
 
 	/**
@@ -1599,7 +1616,6 @@ class UpdraftPlus {
 		$updraft_dir = $this->backups_dir_location();
 		global $wpdb;
 		$table_name = $wpdb->get_blog_prefix().'options';
-		$tmp_file = md5(time().rand()).".sqltest.tmp";
 		$pfile = md5(time().rand()).'.tmp';
 		file_put_contents($updraft_dir.'/'.$pfile, "[mysqldump]\npassword=\"".addslashes(DB_PASSWORD)."\"\n");
 
@@ -1623,27 +1639,49 @@ class UpdraftPlus {
 			// Allow --max_allowed_packet to be configured via constant. Experience has shown some customers with complex CMS or pagebuilder setups can have extrememly large postmeta entries.
 			$msqld_max_allowed_packet = (defined('UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET') && (is_int(UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET) || is_string(UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET))) ? UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET : '1M';
 				
-			$exec .= "$potsql --defaults-file=$pfile --max_allowed_packet=$msqld_max_allowed_packet --quote-names --add-drop-table --skip-comments --skip-set-charset --allow-keywords --dump-date --extended-insert --where=option_name=$siteurl --user=".escapeshellarg(DB_USER)." --host=".escapeshellarg(DB_HOST)." ".DB_NAME." ".escapeshellarg($table_name)."";
+			$exec .= "$potsql --defaults-file=$pfile --max_allowed_packet=$msqld_max_allowed_packet --quote-names --add-drop-table";
+			
+			static $mysql_version = null;
+			if (null === $mysql_version) {
+				$mysql_version = $wpdb->get_var('SELECT VERSION()');
+				if ('' == $mysql_version) $mysql_version = $wpdb->db_version();
+			}
+			if ($mysql_version && version_compare($mysql_version, '5.1', '>=')) {
+				$exec .= " --no-tablespaces";
+			}
+			
+			$exec .= " --skip-comments --skip-set-charset --allow-keywords --dump-date --extended-insert --where=option_name=$siteurl --user=".escapeshellarg(DB_USER)." ";
+			
+			if (preg_match('#^(.*):(\d+)$#', DB_HOST, $matches)) {
+				// The escapeshellarg() on $matches[2] is only to avoid tripping static analysis tools
+				$exec .= "--host=".escapeshellarg($matches[1])." --port=".escapeshellarg($matches[2])." ";
+			} elseif (preg_match('#^(.*):(.*)$#', DB_HOST, $matches) && file_exists($matches[2])) {
+				$exec .= "--host=".escapeshellarg($matches[1])." --socket=".escapeshellarg($matches[2])." ";
+			} else {
+				$exec .= "--host=".escapeshellarg(DB_HOST)." ";
+			}
+			
+			$exec .= DB_NAME." ".escapeshellarg($table_name);
 			
 			$handle = function_exists('popen') ? popen($exec, "r") : false;
 			if ($handle) {
-				if (!feof($handle)) {
-					$output = fread($handle, 8192);
-					if ($output && $log_it) {
-						$log_output = (strlen($output) > 512) ? substr($output, 0, 512).' (truncated - '.strlen($output).' bytes total)' : $output;
-						$this->log("Output: ".str_replace("\n", '\\n', trim($log_output)));
-					}
-				} else {
-					$output = '';
+				$output = '';
+				// We expect the INSERT statement in the first 100KB
+				while (!feof($handle) && strlen($output) < 102400) {
+					$output .= fgets($handle, 102400);
+				}
+				if ($output && $log_it) {
+					$log_output = (strlen($output) > 512) ? substr($output, 0, 512).' (truncated - '.strlen($output).' bytes total)' : $output;
+					$this->log("Output: ".str_replace("\n", '\\n', trim($log_output)));
 				}
 				$ret = pclose($handle);
+				// The manual page for pclose() claims that only -1 indicates an error, but this is untrue
 				if (0 != $ret) {
 					if ($log_it) {
 						$this->log("Binary mysqldump: error (code: $ret)");
 					}
 				} else {
-// $dumped = file_get_contents($updraft_dir.'/'.$tmp_file, false, null, 0, 4096);
-					if (stripos($output, 'insert into') !== false) {
+					if (false !== stripos($output, 'insert into')) {
 						if ($log_it) $this->log("Working binary mysqldump found: $potsql");
 						$result = $potsql;
 						break;
@@ -1654,8 +1692,7 @@ class UpdraftPlus {
 			}
 		}
 
-		@unlink($updraft_dir.'/'.$pfile);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-		@unlink($updraft_dir.'/'.$tmp_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (file_exists($updraft_dir.'/'.$pfile)) unlink($updraft_dir.'/'.$pfile);
 
 		if ($cacheit) $this->jobdata_set('binsqldump', $result);
 
@@ -1712,7 +1749,9 @@ class UpdraftPlus {
 			if (!file_exists($updraft_dir.'/binziptest/subdir1/subdir2')) return false;
 			
 			file_put_contents($updraft_dir.'/binziptest/subdir1/subdir2/test.html', '<html><body><a href="https://updraftplus.com">UpdraftPlus is a great backup and restoration plugin for WordPress.</a></body></html>');
-			@unlink($updraft_dir.'/binziptest/test.zip');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			
+			if (file_exists($updraft_dir.'/binziptest/test.zip')) unlink($updraft_dir.'/binziptest/test.zip');
+			
 			if (is_file($updraft_dir.'/binziptest/subdir1/subdir2/test.html')) {
 
 				$exec = "cd ".escapeshellarg($updraft_dir)."; $potzip";
@@ -1727,6 +1766,7 @@ class UpdraftPlus {
 						if ($w && $log_it) $this->log("Output: ".trim($w));
 					}
 					$ret = pclose($handle);
+					// The manual page for pclose() claims that only -1 indicates an error, but this is untrue
 					if (0 != $ret) {
 						if ($log_it) $this->log("Binary zip: error (code: $ret)");
 						$all_ok = false;
@@ -2061,6 +2101,8 @@ class UpdraftPlus {
 			$e_type = "E_UNKNOWN ($errno)";
 				break;
 		}
+		
+		if (false !== stripos($errstr, 'table which is not valid in this version of Gravity Forms')) return false;
 
 		if (!is_string($errstr)) $errstr = serialize($errstr);
 
@@ -2229,7 +2271,7 @@ class UpdraftPlus {
 		if ($resumption_no > 0 && isset($runs_started[$prev_resumption])) {
 			$our_expected_start = $runs_started[$prev_resumption] + $resume_interval;
 			// If the previous run increased the resumption time, then it is timed from the end of the previous run, not the start
-			if (isset($time_passed[$prev_resumption]) && $time_passed[$prev_resumption]>0) $our_expected_start += $time_passed[$prev_resumption];
+			if (isset($time_passed[$prev_resumption]) && $time_passed[$prev_resumption] > 0) $our_expected_start += $time_passed[$prev_resumption];
 			$our_expected_start = apply_filters('updraftplus_expected_start', $our_expected_start, $job_type);
 			// More than 12 minutes late?
 			if ($time_now > $our_expected_start + 720) {
@@ -2242,27 +2284,52 @@ class UpdraftPlus {
 
 		$first_run = apply_filters('updraftplus_filerun_firstrun', 0);
 
-		// We just do this once, as we don't want to be in permanent conflict with the overlap detector
+		// We don't want to be in permanent conflict with the overlap detector
 		if ($resumption_no >= $first_run + 8 && $resumption_no < $first_run + 15 && $resume_interval >= 300) {
 
 			// $time_passed is set earlier
 			list($max_time, $timings_string, $run_times_known) = UpdraftPlus_Manipulation_Functions::max_time_passed($time_passed, $resumption_no - 1, $first_run);
 
-			// Do this on resumption 8, or the first time that we have 6 data points
+			// Do this on resumption 8, or the first time that we have 6 data points. This is only done once to prevent any potential for back-and-forth.
 			if (($first_run + 8 == $resumption_no && $run_times_known >= 6) || (6 == $run_times_known && !empty($time_passed[$prev_resumption]))) {
 				$this->log("Time passed on previous resumptions: $timings_string (known: $run_times_known, max: $max_time)");
 				// Remember that 30 seconds is used as the 'perhaps something is still running' detection threshold, and that 45 seconds is used as the 'the next resumption is approaching - reschedule!' interval
-				if ($max_time + 52 < $resume_interval) {
+				if ($resume_interval > $max_time + 52) {
 					$resume_interval = round($max_time + 52);
 					$this->log("Based on the available data, we are bringing the resumption interval down to: $resume_interval seconds");
 					$this->jobdata_set('resume_interval', $resume_interval);
 				}
-				// This next condition was added in response to HS#9174, a case where on one resumption, PHP was allowed to run for >3000 seconds - but other than that, up to 500 seconds. As a result, the resumption interval got stuck at a large value, whilst resumptions were only allowed to run for a much smaller amount.
+				
+			} elseif (isset($time_passed[$prev_resumption]) && $time_passed[$prev_resumption] > 50 && $resume_interval > 300 && $time_passed[$prev_resumption] < $resume_interval/2) {
+				// This next condition was added in response to HS#9174, a case where on one resumption, PHP was allowed to run for >3000 seconds - but other than that, up to 500 seconds. As a result, the resumption interval got stuck at a large value, whilst resumptions were only being allowed to run for a much smaller amount.
 				// This detects whether our last run was less than half the resume interval,  but was non-trivial (at least 50 seconds - so, indicating it didn't just error out straight away), but with a resume interval of over 300 seconds. In this case, it is reduced.
-			} elseif (isset($time_passed[$prev_resumption]) && $time_passed[$prev_resumption] > 50 && $resume_interval > 300 && $time_passed[$prev_resumption] < $resume_interval/2 && 'clouduploading' == $this->jobdata_get('jobstatus')) {
-				$resume_interval = round($time_passed[$prev_resumption] + 52);
-				$this->log("Time passed on previous resumptions: $timings_string (known: $run_times_known, max: $max_time). Based on the available data, we are bringing the resumption interval down to: $resume_interval seconds");
-				$this->jobdata_set('resume_interval', $resume_interval);
+				if ('clouduploading' == $this->jobdata_get('jobstatus')) {
+					$resume_interval = round($time_passed[$prev_resumption] + 52);
+					$this->log("Time passed on previous resumptions: $timings_string (known: $run_times_known, max: $max_time). Based on the available data, we are bringing the resumption interval down to: $resume_interval seconds");
+					$this->jobdata_set('resume_interval', $resume_interval);
+				} elseif ($run_times_known > 4) {
+					// Added in response to the similar HS#66907 - in that case, resumption 0 ran for over an hour; nothing subsequently for more than ~3 minutes; and it didn't reach the uploading stage until resumption 19, so the previous fragment was not helping. The cause was that the backup initially started under WP-CLI, but then resumed through the web - different conditions led to different permitted run-times. (The user could also mitigate this by running WP-Cron in a CLI environment).
+					$examined_values = 0;
+					$matching_values = 0;
+					$looking_at_resumption = $prev_resumption - 1;
+					$largest_recent = false;
+					while ($looking_at_resumption > 0 && $examined_values < 3) {
+						if (isset($time_passed[$looking_at_resumption])) {
+							$examined_values++;
+							if ($time_passed[$looking_at_resumption] > 50 && $time_passed[$looking_at_resumption] < $resume_interval/2) {
+								$matching_values++;
+								$largest_recent = max($largest_recent, $time_passed[$looking_at_resumption]);
+							}
+						}
+						$looking_at_resumption--;
+					}
+					// If the previous three found values were all less than half the resumption interval....
+					if (3 == $examined_values && 3 == $matching_values) {
+						$resume_interval = round($largest_recent + 52);
+						$this->log("Time passed on previous resumptions: $timings_string (known: $run_times_known, max: $max_time). Based on the available data (most recent 3 resumptions compared to longest), we are bringing the resumption interval down to: $resume_interval seconds");
+						$this->jobdata_set('resume_interval', $resume_interval);
+					}
+				}
 			}
 
 		}
@@ -2363,7 +2430,7 @@ class UpdraftPlus {
 				$log_message = 'Exception ('.get_class($e).') occurred during files backup: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				error_log($log_message);
 				// @codingStandardsIgnoreLine
-				if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
+				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$this->log($log_message);
 				$this->log(sprintf(__('A PHP exception (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
@@ -2372,7 +2439,7 @@ class UpdraftPlus {
 				$log_message = 'PHP Fatal error ('.get_class($e).') has occurred. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				error_log($log_message);
 				// @codingStandardsIgnoreLine
-				if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
+				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$this->log($log_message);
 				$this->log(sprintf(__('A PHP fatal error (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
@@ -3683,11 +3750,19 @@ class UpdraftPlus {
 			if (false === apply_filters('updraft_report_sendto', true, $mailto, $error_count, count($warnings), $ind)) continue;
 
 			foreach (explode(',', $mailto) as $sendmail_addr) {
-				$this->log("Sending email ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
-				try {
-					wp_mail(trim($sendmail_addr), $subject, $body, array("X-UpdraftPlus-Backup-ID: ".$this->nonce));
-				} catch (Exception $e) {
-					$this->log("Exception occurred when sending mail (".get_class($e)."): ".$e->getMessage());
+				// if the address is a URL then instead of emailing it, POST it to slack
+				if (preg_match('/^https?:\/\//i', $sendmail_addr)) {
+					$this->log("Sending to (URL) ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
+					$this->post_results_slack($subject, $body, trim($sendmail_addr), $this->file_nonce);
+				} else {
+					$this->log("Sending email ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
+					try {
+						add_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
+						wp_mail(trim($sendmail_addr), $subject, $body, array("X-UpdraftPlus-Backup-ID: ".$this->nonce));
+						remove_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
+					} catch (Exception $e) {
+						$this->log("Exception occurred when sending mail (".get_class($e)."): ".$e->getMessage());
+					}
 				}
 			}
 		}
@@ -3698,6 +3773,15 @@ class UpdraftPlus {
 		remove_action('phpmailer_init', array($this, 'set_sender_email_address'), 9);
 		if (count($this->attachments) > 0) remove_action('phpmailer_init', array($this, 'phpmailer_init'));
 
+	}
+
+	/**
+	 * Log the email delivery failure to the log file when a PHPMailer exception is caught
+	 *
+	 * @param WP_Error $error A WP_Error object with the PHPMailer\PHPMailer\Exception message, and an array containing the mail recipient, subject, message, headers, and attachments.
+	 */
+	public function log_email_delivery_failure($error) {
+		$this->log("An error occurred when sending a backup report email and/or backup file(s) via email (".$error->get_error_code()."): ".$error->get_error_message());
 	}
 
 	/**
@@ -3729,6 +3813,71 @@ class UpdraftPlus {
 		if (trim(strtolower($sitename)) === trim(strtolower($admin_email_domain))) {
 			// assuming (non validating) that the email account of the admin email does exist, and the admin email is under the same domain as with the web domain and the domain exists and live as well
 			$phpmailer->setFrom(get_bloginfo('admin_email'), sprintf(__('UpdraftPlus on %s', 'updraftplus'), $sitename), false);
+		}
+	}
+	
+	/**
+	 * Post backup report to slack instead of emailing if the address is a URL
+	 *
+	 * @param  string $header      report title
+	 * @param  string $report_body report content
+	 * @param  string $webhook_url url to post report
+	 * @param  string $nval        backup log file nonce
+	 * @return Void
+	 */
+	public function post_results_slack($header, $report_body, $webhook_url, $nval) {
+		$findcontent = __('The log file has been attached to this email.', 'updraftplus');
+		
+		$report_body = str_replace($findcontent, '', $report_body);
+		$url = admin_url(UpdraftPlus_Options::admin_page()."?page=updraftplus&action=downloadlog&updraftplus_backup_nonce=$nval");
+		$response = wp_remote_post($webhook_url, array(
+			'method' => 'POST',
+			'headers' => array(),
+			'body' => json_encode(array(
+				'blocks' => array(
+					array(
+						'type' => 'header',
+						'text' => array(
+							'type' => 'plain_text',
+							'text' => $header,
+							'emoji' => true
+						),
+					),
+					array(
+						'type' => 'section',
+						'text' => array(
+							'type' => 'mrkdwn',
+							'text' => $report_body
+						),
+					),
+					array(
+						'type' => 'section',
+						'text' => array(
+							'type' => 'mrkdwn',
+							'text' => __('You can view the log by pressing the \'View log\' button.', 'updraftplus')
+						),
+						'accessory' => array(
+							'type' => 'button',
+							'text' => array(
+								'type' => 'plain_text',
+								'text' => __('View log', 'updraftplus'),
+								'emoji' => true
+							),
+							'value' => 'view_log_123',
+							'url' => $url,
+							'action_id' => 'button-action'
+						)
+					),
+				)
+			))
+		));
+		if (!is_wp_error($response)) {
+			$response_code = wp_remote_retrieve_response_code($response);
+			if ($response_code < 200 || $response_code >= 300) {
+				$this->log('HTTP POST error : '.$response_code.' - '.wp_remote_retrieve_response_message($response));
+			}
+		} else {
+			$this->log('HTTP POST error : '.$response->get_error_code().' - '.$response->get_error_message());
 		}
 	}
 
@@ -4044,6 +4193,10 @@ class UpdraftPlus {
 			if (realpath($fullpath)) {
 				$deleted = unlink($fullpath);
 				$this->log($log.(($deleted) ? 'OK' : 'failed'));
+				if (file_exists($fullpath.'.list.tmp')) {
+					$this->log("Deleting zip manifest ({$file}.list.tmp)");
+					unlink($fullpath.'.list.tmp');
+				}
 				return $deleted;
 			}
 		} else {
@@ -4748,6 +4901,12 @@ class UpdraftPlus {
 			return array($mess, $warn, $err, $info);
 		}
 
+		// If the backup is not from UpdraftPlus and it's not a simple SQL file then we don't want to scan
+		if (!empty($backup['meta_foreign']) && 'genericsql' != $backup['meta_foreign']) {
+			$info['skipped_db_scan'] = 1;
+			return array($mess, $warn, $err, $info);
+		}
+
 		$is_plain = ('.gz' == substr($db_file, -3, 3)) ? false : true;
 
 		$dbhandle = $is_plain ? fopen($db_file, 'r') : UpdraftPlus_Filesystem_Functions::gzopen_for_read($db_file, $warn, $err);
@@ -4939,6 +5098,9 @@ class UpdraftPlus {
 					if (in_array($table, $wanted_tables)) {
 						$wanted_tables = array_diff($wanted_tables, array($table));
 					}
+				}
+				if (empty($old_siteurl) && !empty($backup['meta_foreign'])) {
+					$info['migration'] = true;
 				}
 				if (';' != substr($buffer, -1, 1)) {
 					$processing_create = true;
@@ -5160,7 +5322,12 @@ class UpdraftPlus {
 			$php_max_input_vars_exceeded = true;
 		} elseif (count($tables_found) >= 0.90 * $php_max_input_vars) {
 			$php_max_input_vars_exceeded = true;
+			// If the amount of tables exceed 90% of the php max input vars then truncate the list to 50% of the php max input vars value
+			$tables_found = array_splice($tables_found, 0, $php_max_input_vars / 2);
 		}
+
+		$php_max_input_vars_value = false == $php_max_input_vars ? 0 : $php_max_input_vars;
+		$info['php_max_input_vars'] = $php_max_input_vars_value;
 		
 		// On UD 1.16.30 - 1.16.34 there was a serious bug that did not backup all content in composite key tables, if this is not a migration and the backup was created on one of these versions do not restore this table.
 		$skip_composite_tables = (!empty($info['created_by_version']) && version_compare("1" . substr($info['created_by_version'], 1), '1.16.30', '>=') && version_compare("1" . substr($info['created_by_version'], 1), '1.16.34', '<=')) ? true : false;
@@ -5175,7 +5342,7 @@ class UpdraftPlus {
 		}
 
 		$select_restore_tables = '<div class="notice below-h2 updraft-restore-option">';
-		$select_restore_tables .= '<p>'.__('If you do not want to restore all your tables, then choose some to exclude here.', 'updraftplus').'(<a href="#" id="updraftplus_restore_tables_showmoreoptions">...</a>)</p>';
+		$select_restore_tables .= '<p>'.__('If you do not want to restore all your database tables, then choose some to exclude here.', 'updraftplus').'(<a href="#" id="updraftplus_restore_tables_showmoreoptions">...</a>)</p>';
 
 		$select_restore_tables .= '<div class="updraftplus_restore_tables_options_container" style="display:none;">';
 
@@ -5550,6 +5717,9 @@ class UpdraftPlus {
 			case 'anon_backups':
 				return apply_filters('updraftplus_com_anon_backups', 'https://updraftplus.com/upcoming-updraftplus-feature-clone-data-anonymisation/');
 				break;
+			case 'clone_packages':
+				return apply_filters('updraftplus_com_clone_packages', 'https://updraftplus.com/faqs/what-is-the-largest-site-that-i-can-clone-with-updraftclone/');
+				break;
 			default:
 				return 'URL not found ('.$which_page.')';
 		}
@@ -5833,8 +6003,8 @@ class UpdraftPlus {
 	public function list_days_of_the_week($respect_start_of_week = true) {
 		global $wp_locale;
 		$days_of_the_week = array();
-		$i = $j = $respect_start_of_week ? get_option('start_of_week', 1) : 1;
-		while ($i < $j+7) { // 7 days
+		$i = $j = $respect_start_of_week ? (int) get_option('start_of_week', 1) : 1;
+		while ($i < $j + 7) { // 7 days
 			$days_of_the_week[] = array(
 				'index' => $i % 7,
 				'value' => $wp_locale->get_weekday($i % 7),

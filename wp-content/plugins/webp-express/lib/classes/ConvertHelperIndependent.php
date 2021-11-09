@@ -1,7 +1,7 @@
 <?php
 
 /*
-This class is made to be dependent only on a few WebPExpress classes, and must be kept like that.
+This class is made to not be dependent on Wordpress functions and must be kept like that.
 It is used by webp-on-demand.php, which does not register an auto loader. It is also used for bulk conversion.
 */
 namespace WebPExpress;
@@ -571,7 +571,7 @@ APACHE
         $text = preg_replace('#' . preg_quote($_SERVER["DOCUMENT_ROOT"]) . '#', '[doc-root]', $text);
 
         // TODO: Put version number somewhere else. Ie \WebPExpress\VersionNumber::version
-        $text = 'WebP Express 0.19.0. ' . $msgTop . ', ' . date("Y-m-d H:i:s") . "\n\r\n\r" . $text;
+        $text = 'WebP Express 0.21.1. ' . $msgTop . ', ' . date("Y-m-d H:i:s") . "\n\r\n\r" . $text;
 
         $logFile = self::getLogFilename($source, $logDir);
 
