@@ -19,6 +19,11 @@
   -moz-transition: all 0.5s cubic-bezier(1, -0.46, 0.47, 1.22);
   -o-transition: all 0.5s cubic-bezier(1, -0.46, 0.47, 1.22);
   transition: all 0.5s cubic-bezier(1, -0.46, 0.47, 1.22);
+  filter: grayscale(0%) blur(0px);
+  -webkit-filter: grayscale(0%) blur(0px);
+  -moz-filter: grayscale(0%);
+  -o-filter: grayscale(0%);
+  -ms-filter: grayscale(0%);
 }
 #news .card:hover h5::after {
   width: 33%;
@@ -41,6 +46,11 @@
   -moz-transition: all 0.5s cubic-bezier(1, -0.46, 0.47, 1.22);
   -o-transition: all 0.5s cubic-bezier(1, -0.46, 0.47, 1.22);
   transition: all 0.5s cubic-bezier(1, -0.46, 0.47, 1.22);
+  filter: grayscale(70%) blur(2px);
+  -webkit-filter: grayscale(70%) blur(2px);
+  -moz-filter: grayscale(70%);
+  -o-filter: grayscale(70%);
+  -ms-filter: grayscale(70%);
 }
 @media only screen and (max-width : 575px) {
   #news .news-img {
@@ -90,6 +100,12 @@
   font-weight: bold;
   line-height: 36px;
 }
+#news .post-side .post-calendar .post-calendar-y {
+  background: #f5f5f5;
+  font-size: 11px;
+  border-top: 1px solid #e1e1e1;
+  line-height: 20px;
+}
 #carousel .carousel-inner {
   height: 30vh;
 }
@@ -138,6 +154,12 @@
   font-size: 20px;
   font-weight: bold;
   line-height: 36px;
+}
+#manifest .post-side .post-calendar .post-calendar-y {
+  background: #f5f5f5;
+  font-size: 11px;
+  border-top: 1px solid #e1e1e1;
+  line-height: 20px;
 }
 #manifest .position-static h3 {
   margin-bottom: 24px !important;

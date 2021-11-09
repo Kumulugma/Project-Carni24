@@ -2,7 +2,7 @@ window.addEventListener("scroll", () => {
 
 //    setOpacity("news", checkpointStartNews, checkpointEndNews);
     setOpacity("carousel");
-    setOpacity("feature");
+//    setOpacity("feature");
     setOpacity("manifest");
     setOpacity("footer");
 });

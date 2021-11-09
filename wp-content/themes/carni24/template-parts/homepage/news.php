@@ -31,6 +31,9 @@
                                 <div class="post-calendar-d">
                                     <?= get_the_date('d'); ?>				
                                 </div>
+                                <div class="post-calendar-y">
+                                    <?= get_the_date('Y'); ?>				
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">

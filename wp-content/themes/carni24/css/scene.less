@@ -2,45 +2,13 @@
 
 #scene{
     height: 30vh;
-}
+    -webkit-box-shadow: inset 2px 25px 69px 55px rgba(33, 37, 41, 1);
+    -moz-box-shadow: inset 2px 25px 69px 55px rgba(33, 37, 41, 1);
+    box-shadow: inset 2px 25px 69px 55px rgba(33, 37, 41, 1);
+    background: url('/wp-content/uploads/images/hero_1.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
-#scene {
-    background-color: black;
-    #layer-1
-    {
-        background: url('/wp-content/uploads/images/hero_1.jpg') no-repeat center center fixed; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        height: 50vh;
-        overflow: hidden;
-        position: relative;
-        top: -20px !important;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .hero-transparent{
-        opacity: .75;
-        width: 50%;
-    }
-
-    @media @desktop {
-        .hero-transparent {
-            width: 60%;
-        }
-    }    
-
-    @media @tablets {
-        .hero-transparent {
-            width: 70%;
-        }
-    }
-
-    @media @x-small {
-        .hero-transparent {
-            width: 90%;
-        }
-    }
 }
