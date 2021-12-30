@@ -27,12 +27,15 @@
                             <div class="news-img" style="background-image:url('<?= $post_thumb ?>');"></div>
 
                             <div class="post-side">
-                                <div class="post-calendar" data-content="10-26-2020">
+                                <div class="post-calendar" data-content="<?=get_the_date()?>">
                                     <div class="post-calendar-m">
                                         <?php the_date('F'); ?>				
                                     </div>
                                     <div class="post-calendar-d">
                                         <?= get_the_date('d'); ?>				
+                                    </div>
+                                    <div class="post-calendar-y">
+                                        <?= get_the_date('Y'); ?>				
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +71,11 @@
             }
             ?>
         </div>
-
+        <?php if($category_items->post_count == 0) { ?>
+            <div class="col-md-12">
+                <h2 class="article-heading border-bottom"><?= __("Niestety jeszcze nic tu nie ma...") ?></h2>
+            </div>
+        <?php } ?>
     </div>
 </div>
 </section>

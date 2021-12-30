@@ -184,13 +184,13 @@ function get_breadcrumb() {
         if (is_single()) {
             echo " &nbsp;&nbsp;&#187;&nbsp;&nbsp; ";
             the_title();
-        }
+        } 
         echo "</a>";
     } elseif (is_page()) {
         echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;";
         echo the_title();
     } elseif (is_search()) {
-        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;Search Results for... ";
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;Wynik wyszukiwania dla... ";
         echo '"<em>';
         echo the_search_query();
         echo '</em>"';
