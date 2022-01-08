@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/rosell
 Tags: webp, images, performance
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 0.21.1
+Stable tag: 0.25.1
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -34,7 +34,8 @@ The plugin implements the "WebP On Demand" solution described [here](https://git
 - [DOM Util for WebP](https://github.com/rosell-dk/dom-util-for-webp): For the Alter HTML functionality
 - [Image MimeType Guesser](https://github.com/rosell-dk/image-mime-type-guesser): For detecting mime types of images.
 - [HTAccess Capability Tester](https://github.com/rosell-dk/htaccess-capability-tester): For testing .htaccess capabilities in a given directory, using live tests
-- [WebP Convert File Manager](https://github.com/rosell-dk/webp-convert-filemanager): For browsing conversions (planned feature: triggering conversions).
+- [WebP Convert File Manager](https://github.com/rosell-dk/webp-convert-filemanager): For browsing conversions and triggering conversions.
+- [Exec With Fallback](https://github.com/rosell-dk/exec-with-fallback): For emulating exec() on systems where it is disabled (using proc_open(), passthru() or similar alternatives).
 
 ### Benefits
 - Much faster load time for images in browsers that supports webp. The converted images are typically *less than half the size* (for jpeg), while maintaining the same quality. Bear in mind that for most web sites, images are responsible for the largest part of the waiting time.
@@ -135,24 +136,26 @@ There are several ways:
 
 ### WP CLI command
 WebP Express currently supports commands for converting and flushing webp images throug the CLI. You can use the --help option to learn about the options:
-`wp webp-express --help`. Displays the available commands
-`wp webp-express convert --help`. Displays the available options for the "convert" command.
+*wp webp-express --help*. Displays the available commands
+*wp webp-express convert --help*. Displays the available options for the "convert" command.
 
 A few examples:
-`wp webp-express convert`: Creates webp images for all unconverted images
-`wp webp-express convert --reconvert`: Also convert images that are already converted
-`wp webp-express convert themes`: Only images in the themes folder
-`wp webp-express convert uploads/2021`: Only images in the "2021" folder inside the uploads folder
-`wp webp-express convert --only-png`: Only the PNG images
-`wp webp-express convert --quality=50`: Use quality 50 (instead of what was entered in settings screen)
-`wp webp-express convert --converter=cwebp`: Specifically use cwebp converter.
+*wp webp-express convert*: Creates webp images for all unconverted images
+*wp webp-express convert --reconvert*: Also convert images that are already converted
+*wp webp-express convert themes*: Only images in the themes folder
+*wp webp-express convert uploads/2021*: Only images in the "2021" folder inside the uploads folder
+*wp webp-express convert --only-png*: Only the PNG images
+*wp webp-express convert --quality=50*: Use quality 50 (instead of what was entered in settings screen)
+*wp webp-express convert --converter=cwebp*: Specifically use cwebp converter.
 
-`wp webp-express flushwebp`: Remove all webp images
-`wp webp-express flushwebp --only-png`: Remove all webp images that are conversions of PNG images
+*wp webp-express flushwebp*: Remove all webp images
+*wp webp-express flushwebp --only-png*: Remove all webp images that are conversions of PNG images
 
 Synopsises:
-`wp webp-express convert [<location>] [--reconvert] [--only-png] [--only-jpeg] [--quality=<number>] [--near-lossless=<number>] [--alpha-quality=<number>] [--encoding=<auto|lossy|lossless>] [--converter=<converter>]`
-`wp webp-express flushwebp [--only-png]`
+`
+wp webp-express convert [<location>] [--reconvert] [--only-png] [--only-jpeg] [--quality=<number>] [--near-lossless=<number>] [--alpha-quality=<number>] [--encoding=<auto|lossy|lossless>] [--converter=<converter>]
+wp webp-express flushwebp [--only-png]
+`
 
 I'm considering adding commands for viewing status, viewing conversion stats, generating the .htaccess files and modifying the settings. Please let me know if you need any of these or perhaps something else.
 
@@ -175,10 +178,11 @@ Bread on the table don't come for free, even though this plugin does, and always
 * Ruben Solvang
 
 **Persons who recently contributed with [ko-fi](https://ko-fi.com/rosell) - Thanks!**
-* 29 Aug: Pawa Tecnologia
-* 29 Jul: Brian Laursen
-* 24 Jul: Hans Konings
-* 8 Jul: Raj
+* 3 Dec: Dallas
+* 29 Nov: tadesco.org
+* 20 Nov: Ben J
+* 13 Nov: @sween
+* 9 Nov: @utrenkner
 
 **Persons who contributed with extra generously amounts of coffee / lifetime backing (>30$) - thanks!:**
 
@@ -248,6 +252,35 @@ I shall write more on this FAQ item... Stay tuned.
 Easy enough. Browsers looks at the *content type* header rather than the URL to determine what it is that it gets. So, although it can be confusing that the resource at *example.com/image.jpg* is a webp image, rest assured that the browsers are not confused. To determine if the plugin is working, you must therefore examine the *content type* response header rather than the URL. See the "How do I verify that the plugin is working?" Faq item.
 
 I am btw considering making an option to have the plugin redirect to the webp instead of serving immediately. That would remove the apparent mismatch between file extension and content type header. However, the cost of doing that will be an extra request for each image, which means extra time and worse performance. I believe you'd be ill advised to use that option, so I guess I will not implement it. But perhaps you have good reasons to use it? If you do, please let me know!
+
+= You mention that I can bulk convert through WP CLI, but how do I use it? =
+Well, first, if you don't know WP CLI, here is a [quick start](https://make.wordpress.org/cli/handbook/guides/quick-start/)
+
+WebP Express currently supports commands for converting and flushing webp images throug the CLI. You can use the --help option to learn about the options:
+*wp webp-express --help*. Displays the available commands
+*wp webp-express convert --help*. Displays the available options for the "convert" command.
+
+A few examples:
+*wp webp-express convert*: Creates webp images for all unconverted images
+*wp webp-express convert --reconvert*: Also convert images that are already converted
+*wp webp-express convert themes*: Only images in the themes folder
+*wp webp-express convert uploads/2021*: Only images in the "2021" folder inside the uploads folder
+*wp webp-express convert --only-png*: Only the PNG images
+*wp webp-express convert --quality=50*: Use quality 50 (instead of what was entered in settings screen)
+*wp webp-express convert --quality=50 --near-lossless=50 --alpha-quality=50 --encoding=lossy*: More conversion options. encoding can be "lossy", "lossless" or "auto"
+*wp webp-express convert --converter=cwebp*: Specifically use cwebp converter. Other options: "vips", "imagemagick", "ffmpeg". PS: For "ewww" and "wpc" (remote webp express) does not work here.
+
+*wp webp-express flushwebp*: Remove all webp images
+*wp webp-express flushwebp --only-png*: Remove all webp images that are conversions of PNG images
+
+Synopsises:
+`
+wp webp-express convert [<location>] [--reconvert] [--only-png] [--only-jpeg] [--quality=<number>] [--near-lossless=<number>] [--alpha-quality=<number>] [--encoding=<auto|lossy|lossless>] [--converter=<converter>]
+wp webp-express flushwebp [--only-png]
+`
+
+I'm considering adding commands for viewing status, viewing conversion stats, generating the .htaccess files and modifying the settings. Please let me know if you need any of these or perhaps something else.
+
 
 = Blank images in Safari? =
 WebP Express has three ways of distributing webp to webp-enabled browsers while still sending the originals to webp-disabled browsers. While method 1 can be combined with any of the other methods, you would usually just pick method 1 or one of the others if method 1 cannot be used for you.
@@ -719,28 +752,23 @@ The following lazy load plugins/frameworks has been tested and works with *WebP 
 I have only tested the above in *Varied image responses* mode, but it should also work in *CDN friendly* mode. Both *Alter HTML* options have been designed to work with standard lazy load attributes.
 
 = Can I make an exceptions for some images? =
-There can be instances where you actually need to serve a jpeg or png. For example if you are demonstrating how a jpeg looks using some compression settings. It is possible to bypass both the redirection and the HTML altering for certain images. Here is how:
+There can be instances where you actually need to serve a jpeg or png. For example if you are demonstrating how a jpeg looks using some compression settings.
 
-*Alter HTML*
-Alter HTML is programmed not to substitute image URLs with query strings (better safe than sorry). You can exploit that and simply add ie ?original to the image URLs in question.
+If you want an image to be served in the original format (jpeg og png), do one of the following things:
+- Add "?dontreplace" to the image url.
+- Place an empty file in the same folder as the jpeg/png. The file name must be the same as the jpeg/png with ".dontreplace" appended
 
-*Redirection*
-To bypass the *redirection*, you can add the following in the `.htaccess` where *WebP Express* has placed its rules (this is usually in the `wp-content` folder). The rules needs to be added *above* the rules inserted by *WebP Express*.
+Doing this will bypass redirection to webp and also prevent Alter HTML to use the webp instead of the original.
 
+NOTE: You may have to regenerate .htaccess rules (by clicking the button) in order for this to work. The feature was added in 0.23.0 and if you started using WebP Express before that, the necessary rules will not be there, unless you regenerate, that is.
+
+*Bypassing for an entire folder*
+To bypass redirection for an entire folder, you can put something like this into your root .htaccess:
 `
-RewriteCond %{QUERY_STRING} original
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule . - [L]
+RewriteRule ^uploads/2021/06/ - [L]
 `
-With those rules in place, you can add "?original" to the URLs of those images that you want to keep serving as jpg / png.
+PS: If *WebP Express* has placed rules in that .htaccess, you need to place the rule *above* the rules inserted by *WebP Express*
 
-Alternatively, you can specify the filenames individually in the `.htaccess`:
-
-`
-RewriteRule ^uploads/2019/02/example-of-jpg-compressed-to-80\.jpg - [L]
-RewriteRule ^uploads/2019/02/image2\.jpg - [L]
-RewriteRule . - [L]
-`
 If you got any further questions, look at, or comment on [this topic](https://wordpress.org/support/topic/can-i-make-an-exception-for-specific-post-image/)
 
 = Update failed and cannot reinstall =
@@ -762,7 +790,7 @@ No schedule. I move forward as time allows. I currently spend a lot of time answ
 Right now I am focusing on the File Manager. I would like to add possibility for converting, bulk converting, viewing conversion logs, viewing stats, etc.
 
 Here are other things in pipeline:
-- Excluding certain files and folders. 
+- Excluding certain files and folders.
 - Supporting Save-Data header in Varied Image Responses mode (send extra compressed images to clients who wants to use as little bandwidth as possible).
 - Displaying rules for NGINX.
 - Allow webp for all browsers using [this javascript library](http://libwebpjs.hohenlimburg.org/v0.6.0/). Unfortunately, the javascript library does not (currently) support srcset attributes, which is why I moved this item down the priority list. We need srcset to be supported for the feature to be useful.
@@ -770,6 +798,9 @@ Here are other things in pipeline:
 The current milestones, their subtasks and their progress can be viewed here: https://github.com/rosell-dk/webp-express/milestones
 
 If you wish to affect priorities, it is certainly possible. You can try to argue your case in the forum or you can simply let the money do the talking. By donating as little as a cup of coffee on [ko-fi.com/rosell](https://ko-fi.com/rosell), you can leave a wish. I shall take these wishes into account when prioritizing between new features.
+
+= Beta testing =
+I generally create a pre-release before publishing. If you [follow me on ko-fi](https://ko-fi.com/rosell), you will get notified when a pre-release is available. I generally create a pre-release on fridays and mark it as stable on mondays. In order to download a pre-release, go to [the advanced page](https://wordpress.org/plugins/webp-express/advanced/) and scroll down to "Please select a specific version to download". I don't name the pre-releases different. You will just see the next version here before it is available the usual way.
 
 = Can I buy you a cup of coffee? =
 You sure can! To do so, [go here!](https://ko-fi.com/rosell). If payment doesn't work for your country, [try here instead](https://buymeacoff.ee/rosell).
@@ -782,6 +813,64 @@ If you want to make sure that my coffee supplies don't run dry, you can even buy
 1. WebP Express settings
 
 == Changelog ==
+
+= 0.25.1 =
+(released 7 dec 2021)
+* An innocent text file triggered Windows Defender. It has been removed. Thanks to Javad Naroogheh from Iran for notifying
+
+= 0.25.0 =
+(released 7 dec 2021, on my daughters 10 year birthday!)
+* No exec()? - We don't give up easily, but now emulates it if possible, using proc_open(), passthru() or other alternatives. The result is that the cwebp converter now is available on more systems. Quality detection of jpegs also works on more systems now. The fallback feature with the emulations is btw implemented in a new library, [exec-with-fallback](https://github.com/rosell-dk/exec-with-fallback)
+* Bugfix: Our WP CLI command "webp-express" has a quality option, but it was not working
+
+= 0.24.2 =
+*(released: 25 Nov 2021)*
+* Bugfix: In FileManager, the original image wasn't showing on all systems
+
+= 0.24.1 =
+*(released: 24 Nov 2021)*
+* Bugfix: On some systems, the converter test run that is done when showing the settings page could result in an uncatched error.
+
+= 0.24.0 =
+*(pre-released: 20 Nov 2021, not "released", in the sense that stable tag never pointed to this release)*
+* Improved file manager: You can now tweak conversion settings, delete conversion and see mime type of images.
+* Conversion logs are made more readable
+* Bumped webp-convert to 0.24.0
+
+For more info, see the closed issues on the [webp-express 0.24.0 milestone](https://github.com/rosell-dk/webp-express/milestone/45?closed=1)
+
+= 0.23.0 =
+*(pre-released: 15 Nov 2021)*
+* Changed names for preventing replacing image with webp. Use "?dontreplace" / ".dontreplace" instead of "?original" and ".do-not-convert". The old ones are deprecated, but will still work (for a while)
+* You can now convert images in the file manager and view conversion log
+* The new file manager UI is now available in multisite too
+* Changed names for the escape hatches that was introduced in 0.22. Use "?dontreplace" and ".dontreplace" rather than "?original" and ".do-not-convert". The old names still works
+* Added message to users that have the Elementor plugin installed on how to configure Elementor to inline CSS in order for Alter HTML to be able to replace image URLs (only displayed when relevant)
+* Added UI for "skip-these-precompiled-binaries" cwebp option. Thanks to @madmax4ever for posting code for this.
+* Bumped dom-util-for-webp library to 0.5
+* Bugfix: In multisite, Alter HTML produced wrong webp urls when destination structure was set to "image roots". Thanks to John A. Huebner II (@hube2) who lives on a big hill in central NY, USA for reporting the issue.
+* Bugfix: One of the newly introduced escape hatches didn't work in Alter HTML.
+
+For more info, see the closed issues on the [webp-express 0.23 milestone](https://github.com/rosell-dk/webp-express/milestone/43?closed=1)
+
+= 0.22.1 =
+*(released: 09 Nov 2021)*
+* Bugfix: Old unupdated rewrite rules for redirecting to converter caused error (bug was introduced in 0.22.0). Thanks, @utrenkner for reacting quickly!
+* Bugfix: Backslashes in file paths in .htaccess on Windows caused redirecting not to work. Thanks to Herb Miller (@bobbingwide) from UK for discovering and debugging this.
+
+= 0.22.0 =
+*(released: 09 Nov 2021)*
+* Added option to disable creating log files and button to do delete them. Thanks to Amit Sonkhiya and many others for suggesting this.
+* WebP Express now prevents serving webps when they are bigger than the source. Added option for it (default is to prevent)
+* You can now prevent that a certain image is redirected to webp by appending "?original" to the URL. Also works for Alter HTML.
+* You can now prevent that a certain image is redirected to webp by placing a dummy ".do-not-convert" file next to the original.
+* The conversion manager now uses the new "?original" escape hatch to avoid that the original image is being redirected. Beware that if you are on Nginx and have created rewrite rules, you will need to implement the same escape hatch to avoid the "Original" image to be redirected to webp. However, in a future update, I will probably implement a PHP script for serving the original so you can also just wait.
+* Bugfix: Alter HTML could in some [rare cases](https://github.com/rosell-dk/webp-express/issues/528) produce invalid HTML.
+For more info, see the closed issues on the [webp-express 0.22 milestone](https://github.com/rosell-dk/webp-express/milestone/13?closed=1)
+* Bugfix: The "Enable redirection to converter" functionality was too greedy. It did not only redirect jpegs and pngs, but any file request. The bug occurred when Destination folder was set to "Image roots". The fix updates the .htaccess files if neccessary.
+* Minor bugfix: Symlinking the webp-express plugin folder would break "Redirection to converter" functionality
+
+For more info, see the closed issues on the [webp-express 0.22 milestone](https://github.com/rosell-dk/webp-express/milestone/13?closed=1)
 
 = 0.21.1 =
 *(released: 27 Oct 2021)*
@@ -821,6 +910,27 @@ For more info, see the closed issues on the [0.20.0 milestone on the github repo
 For older releases, check out changelog.txt
 
 == Upgrade Notice ==
+
+= 0.25.1 =
+* An innocent text file was triggering Windows Defender.
+
+= 0.25.0 =
+*  No exec()? - We don't give up so easily anymore.
+
+= 0.24.2 =
+* Minor bugfix
+
+= 0.24.1 =
+* Improved file manager and fixed rare PHP error displayed on settings page
+
+= 0.23.0 =
+* Various improvements and bug fixes
+
+= 0.22.1 =
+* Two bug fixes related to .htaccess files and redirecting to converter
+
+= 0.22.0 =
+* Various improvements and bug fixes
 
 = 0.21.1 =
 * Two bug fixes

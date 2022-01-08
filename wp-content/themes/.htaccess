@@ -33,6 +33,32 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Escape hatch #1: Adding ?dontreplace to an url can be used to bypass redirection
+  RewriteCond %{QUERY_STRING} dontreplace$
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule . - [L]
+
+  # Escape hatch #2: Placing an empty file in the same folder as the jpeg/png which has same file name, but ".dontreplace" appended will bypass redirection
+  RewriteCond %{REQUEST_FILENAME} (?i)(.*)(\.jpe?g|\.png)$
+  RewriteCond %1%2\.dontreplace -f
+  RewriteRule . - [L]
+
+  # Deprecated escape hatch: Adding ?original to an url can be used to bypass redirection
+  RewriteCond %{QUERY_STRING} original$
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule . - [L]
+
+  # Deprecated escape hatch: Placing an empty file in the same folder as the jpeg/png which has same file name, but ".do-not-convert" appended will bypass redirection
+  RewriteCond %{REQUEST_FILENAME} (?i)(.*)(\.jpe?g|\.png)$
+  RewriteCond %1%2\.do-not-convert -f
+  RewriteRule . - [L]
+
+  # Avoid redirecting to webp files that are bigger than the original
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond %{REQUEST_FILENAME} (?i)(/home/u521951204/domains/carni24.pl/public_html/wp-content/themes/)(.*)(\.jpe?g|\.png)$
+  RewriteCond /home/u521951204/domains/carni24.pl/public_html/wp-content/webp-express/webp-images-bigger-than-source/themes/%2%3.webp -f
+  RewriteRule . - [L]
+
   # Redirect to existing converted image in cache-dir (if browser supports webp)
   RewriteCond %{HTTP_ACCEPT} image/webp
   RewriteCond %{REQUEST_FILENAME} -f
@@ -43,7 +69,8 @@
   # Redirect images to webp-on-demand.php (if browser supports webp)
   RewriteCond %{HTTP_ACCEPT} image/webp
   RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule (?i).*(\.jpe?g|\.png)$ /wp-content/plugins/webp-express/wod/webp-on-demand.php?xwp-content-rel-to-plugin-dir=x../&xsource-rel-htaccess=x$0&htaccess-id=themes [E=WE_WP_CONTENT_REL_TO_PLUGIN_DIR:../,E=WE_SOURCE_REL_HTACCESS:$0,E=WE_HTACCESS_ID:themes,NC,L]
+  RewriteCond %{REQUEST_FILENAME} (?i)(.*)(\.jpe?g|\.png)$
+  RewriteRule (?i).*$ /wp-content/plugins/webp-express/wod/webp-on-demand.php [E=WE_WP_CONTENT_REL_TO_WE_PLUGIN_DIR:../../,E=WE_SOURCE_REL_HTACCESS:$0,E=WE_HTACCESS_ID:themes,NC,L]
 
   # Make sure that browsers which does not support webp also gets the Vary:Accept header
   # when requesting images that would be redirected to webp on browsers that does.

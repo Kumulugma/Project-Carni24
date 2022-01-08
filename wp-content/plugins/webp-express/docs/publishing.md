@@ -44,7 +44,7 @@ before rsync, do this:
   1. the *webp-express.php* file
   2. in `lib/options/enqueue_scripts.php`
   3. in `lib/classes/ConverterHelperIndependent.php`
-  4. in `README.txt` (Stable tag)
+  4. in `README.txt` (Stable tag) - UNLESS IT IS A PRE-RELEASE :)
 - Perhaps make some final improvements of the readme.
     Inspiration: https://www.smashingmagazine.com/2011/11/improve-wordpress-plugins-readme-txt/
 https://pippinsplugins.com/how-to-properly-format-and-enhance-your-plugins-readme-txt-file-for-the-wordpress-org-repository/
@@ -79,7 +79,7 @@ rsync -avh --dry-run --exclude '.git' --exclude '.github' --exclude='composer.lo
 
 ```
 cd /var/www/we/svn
-rsync -avh --exclude '.git' --exclude '.github' --exclude='composer.lock' --exclude='scripts' --exclude='vendor/rosell-dk/webp-convert/.git' --exclude='.gitignore' ~/github/webp-express/ /var/www/we/svn/trunk/  --delete
+rsync -avh --exclude '.git' --exclude '.github'            --exclude='composer.lock' --exclude='scripts' --exclude='vendor/rosell-dk/webp-convert/.git' --exclude='.gitignore' ~/github/webp-express/ /var/www/we/svn/trunk/  --delete
 ```
 
 **It should NOT contain a long list of files! (unless you have run phpreplace)**
@@ -114,12 +114,12 @@ svn status | grep '^!' | awk '{print $2}' | xargs svn delete --force          (t
 Then add a new tag
 ```
 cd svn
-svn cp trunk tags/0.21.0       (this will copy trunk into a new tag)
+svn cp trunk tags/0.25.0       (this will copy trunk into a new tag)
 ```
 
 And commit!
 ```
-svn ci -m '0.21.0'
+svn ci -m '0.25.0'
 ```
 
 

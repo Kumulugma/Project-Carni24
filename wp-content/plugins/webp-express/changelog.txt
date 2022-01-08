@@ -1,3 +1,61 @@
+= 0.25.1 =
+(released 7 dec 2021)
+* An innocent text file triggered Windows Defender. It has been removed. Thanks to Javad Naroogheh from Iran for notifying
+
+= 0.25.0 =
+(released 7 dec 2021, on my daughters 10 year birthday!)
+* No exec()? - We don't give up easily, but now emulates it if possible, using proc_open(), passthru() or other alternatives. The result is that the cwebp converter now is available on more systems. Quality detection of jpegs also works on more systems now. The fallback feature with the emulations is btw implemented in a new library, [exec-with-fallback](https://github.com/rosell-dk/exec-with-fallback)
+* Bugfix: Our WP CLI command "webp-express" has a quality option, but it was not working
+
+= 0.24.2 =
+*(released: 25 Nov 2021)*
+* Bugfix: In FileManager, the original image wasn't showing on all systems
+
+= 0.24.1 =
+*(released: 24 Nov 2021)*
+* Bugfix: On some systems, the converter test run that is done when showing the settings page could result in an uncatched error.
+
+= 0.24.0 =
+*(pre-released: 20 Nov 2021, not "released", in the sense that stable tag never pointed to this release)*
+* Improved file manager: You can now tweak conversion settings, delete conversion and see mime type of images.
+* Conversions logs are made more readable
+* Bumped webp-convert to 0.24.0
+
+For more info, see the closed issues on the [webp-express 0.24.0 milestone](https://github.com/rosell-dk/webp-express/milestone/45?closed=1)
+
+= 0.23.0 =
+*(pre-released: 15 Nov 2021, scheduled for release 16 Nov 2021)*
+* Changed names for preventing replacing image with webp. Use "?dontreplace" / ".dontreplace" instead of "?original" and ".do-not-convert". The old ones are deprecated, but will still work (for a while)
+* You can now convert images in the file manager and view conversion log
+* The new file manager UI is now available in multisite too
+* Changed names for the escape hatches that was introduced in 0.22. Use "?dontreplace" and ".dontreplace" rather than "?original" and ".do-not-convert". The old names still works
+* Added message to users that have the Elementor plugin installed on how to configure Elementor to inline CSS in order for Alter HTML to be able to replace image URLs (only displayed when relevant)
+* Added UI for "skip-these-precompiled-binaries" cwebp option. Thanks to @madmax4ever for posting code for this.
+* Bumped dom-util-for-webp library to 0.5
+* Bugfix: In multisite, Alter HTML produced wrong webp urls when destination structure was set to "image roots". Thanks to John A. Huebner II (@hube2) who lives on a big hill in central NY, USA for reporting the issue.
+* Bugfix: One of the newly introduced escape hatches didn't work in Alter HTML.
+
+For more info, see the closed issues on the [webp-express 0.23 milestone](https://github.com/rosell-dk/webp-express/milestone/43?closed=1)
+
+= 0.22.1 =
+*(released: 09 Nov 2021)*
+* Bugfix: Old unupdated rewrite rules for redirecting to converter caused error (bug was introduced in 0.22.0). Thanks, @utrenkner for reacting quickly!
+* Bugfix: Backslashes in file paths in .htaccess on Windows caused redirecting not to work. Thanks to Herb Miller (@bobbingwide) from UK for discovering and debugging this.
+
+= 0.22.0 =
+*(released: 09 Nov 2021)*
+* Added option to disable creating log files and button to do delete them. Thanks to Amit Sonkhiya and many others for suggesting this.
+* WebP Express now prevents serving webps when they are bigger than the source. Added option for it (default is to prevent)
+* You can now prevent that a certain image is redirected to webp by appending "?original" to the URL. Also works for Alter HTML.
+* You can now prevent that a certain image is redirected to webp by placing a dummy ".do-not-convert" file next to the original.
+* The conversion manager now uses the new "?original" escape hatch to avoid that the original image is being redirected. Beware that if you are on Nginx and have created rewrite rules, you will need to implement the same escape hatch to avoid the "Original" image to be redirected to webp. However, in a future update, I will probably implement a PHP script for serving the original so you can also just wait.
+* Bugfix: Alter HTML could in some [rare cases](https://github.com/rosell-dk/webp-express/issues/528) produce invalid HTML.
+For more info, see the closed issues on the [webp-express 0.22 milestone](https://github.com/rosell-dk/webp-express/milestone/13?closed=1)
+* Bugfix: The "Enable redirection to converter" functionality was too greedy. It did not only redirect jpegs and pngs, but any file request. The bug occurred when Destination folder was set to "Image roots". The fix updates the .htaccess files if neccessary.
+* Minor bugfix: Symlinking the webp-express plugin folder would break "Redirection to converter" functionality
+
+For more info, see the closed issues on the [webp-express 0.22 milestone](https://github.com/rosell-dk/webp-express/milestone/13?closed=1)
+
 = 0.21.1 =
 *(released: 27 Oct 2021)*
 * Bugfix: File manager could not handle many images. It now loads tree branches on need basis instead of the complete tree in one go

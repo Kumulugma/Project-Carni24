@@ -163,6 +163,12 @@ class Paths
         return ['uploads', 'themes', 'plugins', 'wp-content', 'index'];
     }
 
+    /**
+     * Find which rootId a path belongs to.
+     *
+     * Note: If the root ids passed are ordered the way getImageRootIds() returns them, the root id
+     * returned will be the "deepest"
+     */
     public static function findImageRootOfPath($path, $rootIdsToSearch) {
         foreach ($rootIdsToSearch as $rootId) {
             if (PathHelper::isPathWithinExistingDirPath($path, self::getAbsDirById($rootId))) {
@@ -339,6 +345,10 @@ class Paths
     {
         return PathHelper::getRelDir(self::getPluginDirAbs(), self::getContentDirAbs());
     }
+    public static function getContentDirRelToWebPExpressPluginDir()
+    {
+        return PathHelper::getRelDir(self::getWebPExpressPluginDirAbs(), self::getContentDirAbs());
+    }
 
 
     public static function isWPContentDirMoved()
@@ -493,6 +503,13 @@ APACHE
         return self::getWebPExpressContentDirAbs() . '/log';
     }
 
+    // ------------ Bigger-than-source  dir -------------
+
+    public static function getBiggerThanSourceDirAbs()
+    {
+        return self::getWebPExpressContentDirAbs() . '/webp-images-bigger-than-source';
+    }
+
     // ------------ Plugin Dir (all plugins) -------------
 
     public static function getPluginDirAbs()
@@ -569,43 +586,11 @@ APACHE
      * (but not quite, as the logic is also in ConverterHelperIndependent::getDestination).
      *
      * @param  string  $rootId
-     * @param  string  $destinationFolder  ("mingled" or "separate")
-     * @param  string  $destinationStructure  ("doc-root" or "image-roots")
+     * @param  DestinationOptions  $destinationOptions
      *
      * @return array   url and abs-path of destination root
      */
-    public static function destinationRoot($rootId, $destinationFolder, $destinationStructure)
-    {
-        if (($destinationFolder == 'mingled') && ($rootId == 'uploads')) {
-            return [
-                'url' => self::getUrlById('uploads'),
-                'abs-path' => self::getUploadDirAbs()
-            ];
-        } else {
-
-            // Its within these bases:
-            $destUrl = self::getUrlById('wp-content') . '/webp-express/webp-images';
-            $destPath = self::getAbsDirById('wp-content') . '/webp-express/webp-images';
-
-            if (($destinationStructure == 'doc-root') && self::canUseDocRootForStructuringCacheDir()) {
-                $relPathFromDocRootToSourceImageRoot = PathHelper::getRelPathFromDocRootToDirNoDirectoryTraversalAllowed(
-                    self::getAbsDirById($rootId)
-                );
-                return [
-                    'url' => $destUrl . '/doc-root/' . $relPathFromDocRootToSourceImageRoot,
-                    'abs-path' => $destPath  . '/doc-root/' . $relPathFromDocRootToSourceImageRoot
-                ];
-            } else {
-                return [
-                    'url' => $destUrl . '/' . $rootId,
-                    'abs-path' => $destPath  . '/' . $rootId
-                ];
-            }
-        }
-    }
-
-    // this shall replace destinationRoot
-    public static function destinationRoot2($rootId, $destinationOptions)
+    public static function destinationRoot($rootId, $destinationOptions)
     {
         if (($destinationOptions->mingled) && ($rootId == 'uploads')) {
             return [
@@ -627,9 +612,13 @@ APACHE
                     'abs-path' => $destPath  . '/doc-root/' . $relPathFromDocRootToSourceImageRoot
                 ];
             } else {
+                $extraPath = '';
+                if (is_multisite() && (get_current_blog_id() != 1)) {
+                    $extraPath = '/sites/' . get_current_blog_id();   // #510
+                }
                 return [
-                    'url' => $destUrl . '/' . $rootId,
-                    'abs-path' => $destPath  . '/' . $rootId
+                    'url' => $destUrl . '/' . $rootId . $extraPath,
+                    'abs-path' => $destPath  . '/' . $rootId . $extraPath
                 ];
             }
         }

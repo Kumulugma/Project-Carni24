@@ -32,6 +32,24 @@ class Convert
         );
     }
 
+    public static function updateBiggerThanOriginalMark($source, $destination = null, &$config = null)
+    {
+        if (is_null($config)) {
+            $config = Config::loadConfigAndFix();
+        }
+        if (is_null($destination)) {
+            $destination = self::getDestination($config);
+        }
+        BiggerThanSourceDummyFiles::updateStatus(
+            $source,
+            $destination,
+            Paths::getWebPExpressContentDirAbs(),
+            new ImageRoots(Paths::getImageRootsDef()),
+            $config['destination-folder'],
+            $config['destination-extension']
+        );
+    }
+
     public static function convertFile($source, $config = null, $convertOptions = null, $converter = null)
     {
         try {
@@ -84,7 +102,11 @@ class Convert
             // Check log dir
             // -------------------------------
             $checking = 'conversion log dir';
-            $logDir = SanityCheck::absPath(Paths::getWebPExpressContentDirAbs() . '/log');
+            if (isset($config['enable-logging']) && $config['enable-logging']) {
+                $logDir = SanityCheck::absPath(Paths::getWebPExpressContentDirAbs() . '/log');
+            } else {
+                $logDir = null;
+            }
 
 
         } catch (\Exception $e) {
@@ -113,13 +135,16 @@ class Convert
             }
         //}
 
+        self::updateBiggerThanOriginalMark($source, $destination, $config);
 
         if ($result['success'] === true) {
             $result['filesize-original'] = @filesize($source);
             $result['filesize-webp'] = @filesize($destination);
             $result['destination-path'] = $destination;
 
-            $rootOfDestination = Paths::destinationRoot($rootId, $config['destination-folder'], $config['destination-structure']);
+            $destinationOptions = DestinationOptions::createFromConfig($config);
+
+            $rootOfDestination = Paths::destinationRoot($rootId, $destinationOptions);
 
             $relPathFromImageRootToSource = PathHelper::getRelDir(
                 realpath(Paths::getAbsDirById($rootId)),

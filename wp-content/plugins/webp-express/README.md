@@ -664,28 +664,21 @@ The following lazy load plugins/frameworks has been tested and works with *WebP 
 I have only tested the above in *Varied image responses* mode, but it should also work in *CDN friendly* mode. Both *Alter HTML* options have been designed to work with standard lazy load attributes.
 
 ### Can I make an exceptions for some images?
-There can be instances where you actually need to serve a jpeg or png. For example if you are demonstrating how a jpeg looks using some compression settings. It is possible to bypass both the redirection and the HTML altering for certain images. Here is how:
+There can be instances where you actually need to serve a jpeg or png. For example if you are demonstrating how a jpeg looks using some compression settings.
 
-*Alter HTML*
-Alter HTML is programmed not to substitute image URLs with query strings (better safe than sorry). You can exploit that and simply add ie ?original to the image URLs in question.
+If you want an image to be served in the original format (jpeg og png), do one of the following things:
+- Add "?original" to the image url.
+- Place an empty file in the same folder as the jpeg/png. The file name must be the same as the jpeg/png with ".do-not-convert" appended
 
-*Redirection*
-To bypass the *redirection*, you can add the following in the `.htaccess` where *WebP Express* has placed its rules (this is usually in the `wp-content` folder). The rules needs to be added *above* the rules inserted by *WebP Express*.
+Doing this will bypass redirection to webp and also prevent Alter HTML to use the webp instead of the original.
 
+*Bypassing for an entire folder*
+To bypass redirection for an entire folder, you can put something like this into your index `.htaccess`:
 ```
-RewriteCond %{QUERY_STRING} original
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule . - [L]
+RewriteRule ^wp-content/uploads/2021/06/ - [L]
 ```
-With those rules in place, you can add "?original" to the URLs of those images that you want to keep serving as jpg / png.
+PS: If *WebP Express* has placed rules in that .htaccess, you need to place the rule *above* the rules inserted by *WebP Express*
 
-Alternatively, you can specify the filenames individually in the `.htaccess`:
-
-```
-RewriteRule ^uploads/2019/02/example-of-jpg-compressed-to-80\.jpg - [L]
-RewriteRule ^uploads/2019/02/image2\.jpg - [L]
-RewriteRule . - [L]
-```
 If you got any further questions, look at, or comment on [this topic](https://wordpress.org/support/topic/can-i-make-an-exception-for-specific-post-image/)
 
 ### Alter HTML only replaces some of the images
@@ -716,6 +709,8 @@ The current milestones, their subtasks and their progress can be viewed here: ht
 
 If you wish to affect priorities, it is certainly possible. You can try to argue your case in the forum or you can simply let the money do the talking. By donating as little as a cup of coffee on [ko-fi.com/rosell](https://ko-fi.com/rosell), you can leave a wish. I shall take these wishes into account when prioritizing between new features.
 
+### Beta testing
+I generally create a pre-release before publishing. If you [follow me on ko-fi](https://ko-fi.com/rosell), you will get notified when a pre-release is available. I generally create a pre-release on fridays and mark it as stable on mondays. In order to download a pre-release, go to [the advanced page](https://wordpress.org/plugins/webp-express/advanced/) and scroll down to "Please select a specific version to download". I don't name the pre-releases different. You will just see the next version here before it is available the usual way.
 
 ## Changes in 0.21.1
 *(released: 27 Oct 2021)*

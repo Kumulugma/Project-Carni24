@@ -12,11 +12,6 @@
         
             <?php wp_head(); ?>
         
-        <!-- Custom -->
-        <link href="<?php bloginfo('template_url'); ?>/css/style.css" rel="stylesheet">
-        <link href="<?php bloginfo('template_url'); ?>/css/scene.css" rel="stylesheet">
-
-
         <!-- Favicons -->
         <meta name="theme-color" content="#7952b3">
     </head>

@@ -2,8 +2,8 @@
 Contributors: LiteSpeedTech
 Tags: caching, optimize, performance, pagespeed, core web vitals, seo, speed, image optimize, compress, object cache, redis, memcached, database cleaner
 Requires at least: 4.0
-Tested up to: 5.8.1
-Stable tag: 4.4.3
+Tested up to: 5.8.2
+Stable tag: 4.4.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -248,6 +248,34 @@ For more detailed information about crawler setup, please see [the Crawler docum
 The vast majority of plugins and themes are compatible with LiteSpeed Cache. The most up-to-date compatibility information can be found [in our documentation](https://docs.litespeedtech.com/lscache/lscwp/thirdparty/)
 
 == Changelog ==
+
+= 4.4.6 - Dec 27 2022 =
+* **Guest** Restored `document.referrer` for organic traffic purpose when enabled Guest Mode. (michelefns)
+* **Image Optimize** Fixed a potential PHP notice when uploading images in WP w/ PHP7.4+. (titsmaker)
+* **ESI** Fixed the Customize-page-widget-esi-settings-can-not-update bug (#422 Abe)
+* **3rd** Reverted ESI adminbar change of Elementor front pages for backward compatibility (#423 Abe)
+* **3rd** Fixed potential PHP warning on ESI disabling when using `Perfmatters`. (Jeffrey Zhang)
+* **Misc** Check if HTTP_REFERER is set or not before using it in Router class. (#425 Abe)
+
+= 4.4.5 - Dec 1 2021 =
+* **Data** Fixed potential PHP notice when generating CSS/JS optimized files w/ PHP v7.4+. (Sarah Richardson/silencedgd/slr1979)
+* **API** Added `LITESPEED_ESI_OFF` constant to disable ESI, when defined before the WP `init` hook.
+* **API** Added `LSCWP_DEBUG_PATH` constant to specify debug log path. (khanh-nt)
+* 🐞**GUI** Fixed an issue where admin messages were not displayed. (Daniel McD)
+* **CDN** Used WP remote function to communicate w/ Cloudflare per WP guidance.
+* **3rd** Added compatibility for Perfmatters plugin's script manager (#417 Abe)
+* **3rd** Added compatibility for Elementor's Editor button when ESI is on (#418 Abe)
+
+= 4.4.4 - Nov 23 2021 =
+* **Page Optimize** Delay deletion of outdated CSS/JS files for a default of 20 days to avoid 404 errors with cached search engine copies.
+* **Cache** When caching, no longer send a purge request for CSS/JS removal to avoid cache engine conflicts.
+* 🐞**Core** Optimized SQL queries while autoloading if expected options are missing; reduced by 7 and 3 queries on backend and frontend respectively. (#396425 Jackson)
+* **Page Optm** Fixed a 404 issue that occured when upgrading the plugin manually, with a package upload or through the plugin manager. (Tobolo/Małgorzata/Abe)
+* **API** Added `litespeed_ccss_url` and `litespeed_ucss_url` API to manipulate the request URL for CCSS and UCSS.
+* **REST** Fixed a potential warning when detecting cacheable status on REST call. (rafaucau)
+* **OLS** Fixed an issue where the `COOKIEHASH` constant was undefined when used with OpenLiteSpeed as an MU plugin or with network activation.
+* **3rd** Sanitized POST data for nextgengallery.
+* **Cloud** Sanitized GET data when linking to QUIC.cloud. (#591762 WPScan)
 
 = 4.4.3 - Oct 13 2021 =
 * 🐞**Media** Fixed an issue where WebP is served erroneously under Guest Mode on older versions of Safari. (hash73)

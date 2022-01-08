@@ -1,5 +1,4 @@
 <?php /* Template Name: Tag */ ?>
-<?php get_template_part( 'assets/tag' ); ?>
 <?php get_header(); ?>
 <main>
 <?php get_template_part( 'template-parts/main-scene' ); ?>

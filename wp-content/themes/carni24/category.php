@@ -1,5 +1,4 @@
 <?php /* Template Name: Kategoria */ ?>
-<?php get_template_part( 'assets/category' ); ?>
 <?php get_header(); ?>
 <main>
 <?php get_template_part( 'template-parts/main-scene' ); ?>

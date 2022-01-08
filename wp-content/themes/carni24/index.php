@@ -2,7 +2,6 @@
 <?php get_template_part( 'assets/homepage' ); ?>
 <?php get_header(); ?>
 <main>
-<?php get_template_part( 'template-parts/main-scene' ); ?>
 <?php get_template_part( 'template-parts/main-submenu' ); ?>
 <?php get_template_part( 'template-parts/homepage/searchbar' ); ?>
 <?php get_template_part( 'template-parts/homepage/news' ); ?>

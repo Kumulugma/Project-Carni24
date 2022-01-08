@@ -20,6 +20,10 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         array (
             'HtaccessCapabilityTester\\' => 25,
         ),
+        'E' => 
+        array (
+            'ExecWithFallback\\' => 17,
+        ),
         'D' => 
         array (
             'DOMUtilForWebP\\' => 15,
@@ -47,6 +51,10 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         array (
             0 => __DIR__ . '/..' . '/rosell-dk/htaccess-capability-tester/src',
         ),
+        'ExecWithFallback\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src',
+        ),
         'DOMUtilForWebP\\' => 
         array (
             0 => __DIR__ . '/..' . '/rosell-dk/dom-util-for-webp/src',
@@ -54,6 +62,16 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'K' => 
+        array (
+            'KubAT\\PhpSimple\\HtmlDomParser' => 
+            array (
+                0 => __DIR__ . '/..' . '/kub-at/php-simple-html-dom-parser/src',
+            ),
         ),
     );
 
@@ -163,6 +181,12 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'Composer\\Installers\\ZikulaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ZikulaInstaller.php',
         'DOMUtilForWebP\\ImageUrlReplacer' => __DIR__ . '/..' . '/rosell-dk/dom-util-for-webp/src/ImageUrlReplacer.php',
         'DOMUtilForWebP\\PictureTags' => __DIR__ . '/..' . '/rosell-dk/dom-util-for-webp/src/PictureTags.php',
+        'ExecWithFallback\\Availability' => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src/Availability.php',
+        'ExecWithFallback\\ExecWithFallback' => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src/ExecWithFallback.php',
+        'ExecWithFallback\\POpen' => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src/POpen.php',
+        'ExecWithFallback\\Passthru' => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src/Passthru.php',
+        'ExecWithFallback\\ProcOpen' => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src/ProcOpen.php',
+        'ExecWithFallback\\ShellExec' => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src/ShellExec.php',
         'HtaccessCapabilityTester\\HtaccessCapabilityTester' => __DIR__ . '/..' . '/rosell-dk/htaccess-capability-tester/src/HtaccessCapabilityTester.php',
         'HtaccessCapabilityTester\\HttpRequesterInterface' => __DIR__ . '/..' . '/rosell-dk/htaccess-capability-tester/src/HttpRequesterInterface.php',
         'HtaccessCapabilityTester\\HttpResponse' => __DIR__ . '/..' . '/rosell-dk/htaccess-capability-tester/src/HttpResponse.php',
@@ -196,6 +220,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         'ImageMimeTypeGuesser\\Detectors\\Stack' => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src/Detectors/Stack.php',
         'ImageMimeTypeGuesser\\GuessFromExtension' => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src/GuessFromExtension.php',
         'ImageMimeTypeGuesser\\ImageMimeTypeGuesser' => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src/ImageMimeTypeGuesser.php',
+        'KubAT\\PhpSimple\\HtmlDomParser' => __DIR__ . '/..' . '/kub-at/php-simple-html-dom-parser/src/KubAT/PhpSimple/HtmlDomParser.php',
         'WebPConvertCloudService\\AccessCheck' => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src/AccessCheck.php',
         'WebPConvertCloudService\\Serve' => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src/Serve.php',
         'WebPConvertCloudService\\WebPConvertCloudService' => __DIR__ . '/..' . '/rosell-dk/webp-convert-cloud-service/src/WebPConvertCloudService.php',
@@ -280,6 +305,7 @@ class ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit16597e36dd1bfcd787ed5a8e6d908243::$classMap;
 
         }, null, ClassLoader::class);

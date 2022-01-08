@@ -40,7 +40,7 @@
             <div class="col-xs-12 col-sm-6 col-lg-2 small d-flex align-items-end justify-content-end footer-element footer-separator">
                 <div class="row row-col-12">
                     <div class="mb-1 d-flex justify-content-end footer-element">Copyright © <?php echo esc_html(date_i18n(__('Y', 'carni24'))); ?> <?php echo esc_html(get_bloginfo('name')); ?></div>
-                    <div class="mb-1 d-flex justify-content-end footer-element">Realizacja: <a href="#" class="nav-link ms-2 p-0">K3e.pl</a></div>
+                    <div class="mb-1 d-flex justify-content-end footer-element">Realizacja: <a href="https://k3e.pl" class="nav-link ms-2 p-0">K3e.pl</a></div>
                 </div>
             </div>
 

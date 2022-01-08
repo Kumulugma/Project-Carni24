@@ -1,5 +1,4 @@
 <?php /* Template Name: Artykuł */ ?>
-<?php get_template_part( 'assets/article' ); ?>
 <?php get_header(); ?>
 <main>
 <?php get_template_part( 'template-parts/main-scene' ); ?>

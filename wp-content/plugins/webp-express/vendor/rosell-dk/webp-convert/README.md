@@ -2,8 +2,8 @@
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/rosell-dk/webp-convert.svg?style=flat-square)](https://packagist.org/packages/rosell-dk/webp-convert)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net)
-[![Build Status](https://travis-ci.org/rosell-dk/webp-convert.png?branch=master)](https://travis-ci.org/rosell-dk/webp-convert)
-[![Coverage Status](https://img.shields.io/github/workflow/status/rosell-dk/webp-convert/PHP?logo=GitHub&style=flat-square)](https://github.com/rosell-dk/webp-convert/actions/workflows/php.yml)
+[![Build Status](https://img.shields.io/github/workflow/status/rosell-dk/webp-convert/PHP?logo=GitHub&style=flat-square)](https://github.com/rosell-dk/webp-convert/actions/workflows/php.yml)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/rosell-dk/webp-convert.svg?style=flat-square)](https://scrutinizer-ci.com/g/rosell-dk/webp-convert/code-structure/master)
 [![Quality Score](https://img.shields.io/scrutinizer/g/rosell-dk/webp-convert.svg?style=flat-square)](https://scrutinizer-ci.com/g/rosell-dk/webp-convert/)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/rosell-dk/webp-convert/blob/master/LICENSE)
 
@@ -125,11 +125,12 @@ Bread on the table don't come for free, even though this library does, and alway
 - [Mathieu Gollain-Dupont](https://www.linkedin.com/in/mathieu-gollain-dupont-9938a4a/)
 - Ruben Solvang
 
-*Persons who contributed with coffee within the last 30 days:*
-
-- Anon
-- Eder Ribeiro
-- Christian
+*Persons who recently contributed with [ko-fi](https://ko-fi.com/rosell) - Thanks!*
+* 20 Nov: Ben J
+* 13 Nov: @sween
+* 9 Nov: @utrenkner
+* 26 Oct: Anonymous
+* 29 Aug: Pawa Tecnologia
 
 *Persons who contributed with extra generously amounts of coffee / lifetime backing (>50$) - thanks!:*
 
@@ -138,6 +139,18 @@ Bread on the table don't come for free, even though this library does, and alway
 - Tammy Lee ($90)
 - Max Kreminsky ($65)
 - Steven Sullivan ($51)
+
+## New in 2.9.0 (released 7 dec 2021, on my daughters 10 years birthday!)
+- When exec() is unavailable, alternatives are now tried (emulations with proc_open(), passthru() etc). Using [this library](https://github.com/rosell-dk/exec-with-fallback) to do it.
+- Gd is now marked as not operational when the needed functions for converting palette images to RGB is missing. Rationale: A half-working converter causes more trouble than one that is marked as not operational
+- Improved CI tests. It is now tested on Windows, Mac and with deactivated functions (such as when exec() is disabled)
+- And more (view closed issues [here](https://github.com/rosell-dk/webp-convert/milestone/25?closed=1)
+
+## New in 2.8.0:
+- Converter option definitions are now accessible along with suggested UI and helptexts. This allows one to auto-generate a frontend based on conversion options. The feature is already in use in the [webp-convert file manager](https://github.com/rosell-dk/webp-convert-filemanager), which is used in WebP Express. New method: `WebPConvert::getConverterOptionDefinitions()`
+- The part of the log that displays the options are made more readable. It also now warns about deprecated options.
+- Bumped image-mime-type guesser library to 0.4. This version is able to dectect more mime types by sniffing the first couple of bytes.
+- And more (view closed issues [here](https://github.com/rosell-dk/webp-convert/milestone/23?closed=1)
 
 ## New in 2.7.0:
 - ImageMagick now supports the "near-lossless" option (provided Imagick >= 7.0.10-54) [#299](https://github.com/rosell-dk/webp-convert/issues/299)

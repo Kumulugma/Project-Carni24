@@ -242,12 +242,24 @@ class WebPOnDemand extends WodConfigLoader
             }
         }
 
+        $loggingEnabled = (isset($wodOptions['enable-logging']) ? $wodOptions['enable-logging'] : true);
+        $logDir = ($loggingEnabled ? self::$webExpressContentDirAbs . '/log' : null);
+
         ConvertHelperIndependent::serveConverted(
             $source,
             $destination,
             $serveOptions,
-            self::$webExpressContentDirAbs . '/log',
+            $logDir,
             'Conversion triggered with the conversion script (wod/webp-on-demand.php)'
+        );
+
+        BiggerThanSourceDummyFiles::updateStatus(
+            $source,
+            $destination,
+            self::$webExpressContentDirAbs,
+            self::getImageRootsDef(),
+            $wodOptions['destination-folder'],
+            $wodOptions['destination-extension']
         );
 
         self::fixConfigIfEwwwDiscoveredNonFunctionalApiKeys();
