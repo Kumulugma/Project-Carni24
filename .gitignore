@@ -19,5 +19,3 @@ wp-content/themes/twenty*/
 *.sql
 *.sqlite
 /nbproject/
-
-error_log

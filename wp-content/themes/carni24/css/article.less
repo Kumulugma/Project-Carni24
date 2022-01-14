@@ -1,0 +1,51 @@
+@import "breakpoints";
+@import "colors";
+
+#sub-menu{
+    position: relative;
+    top: -1px;
+}
+
+#article
+{
+    .article-box:hover > div > .droplet {
+        transform: rotate(1080deg);
+        background: @secondary-a-main;
+        color: black;
+    }
+
+    .article-box{
+            div { 
+                margin-bottom: 5px;
+                h4 {
+                    font-size: .85em;
+                    margin-left: 15px;
+                }
+            }
+        }
+
+    .droplet {
+        background: @primary-main;
+        border-radius: 2% 50%;
+        height: 40px;
+        transition: all 3s;
+        transition-timing: ease-in-out;
+        width: 40px;
+        color: white;
+    }
+
+    .animate {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+
+    .fadeInLeft {
+        -webkit-animation-name: fadeInLeft;
+        animation-name: fadeInLeft;
+    }
+    
+}
+
+@import "animations";

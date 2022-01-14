@@ -1,0 +1,12 @@
+#scene {
+  height: 30vh;
+  -webkit-box-shadow: inset 2px 25px 69px 55px #212529;
+  -moz-box-shadow: inset 2px 25px 69px 55px #212529;
+  box-shadow: inset 2px 25px 69px 55px #212529;
+  background: url('/wp-content/uploads/images/hero_1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/*# sourceMappingURL=scene.css.map */
