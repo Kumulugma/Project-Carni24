@@ -33,6 +33,13 @@
   -webkit-animation-name: fadeInLeft;
   animation-name: fadeInLeft;
 }
+#article .article-footer {
+  font-size: 10em;
+  opacity: 0.5;
+}
+#article .article-footer:hover {
+  opacity: 0.9;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0;

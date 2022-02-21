@@ -1,4 +1,4 @@
-<section id="sub-menu" class="bg-dark px-5">
+<section id="sub-menu" class="bg-dark px-5 d-none d-lg-block">
     <div class="nav-scroller">
         <?php wp_nav_menu(
                 array(

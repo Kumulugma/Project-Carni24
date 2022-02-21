@@ -33,6 +33,18 @@
   -webkit-animation-name: fadeInLeft;
   animation-name: fadeInLeft;
 }
+#article .article-footer {
+  font-size: 0.8em;
+  opacity: 0.5;
+  transition: all 3s;
+  transition-timing: ease-in-out;
+}
+#article .article-footer img {
+  width: 50px;
+}
+#article .article-footer:hover {
+  opacity: 0.9;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0;

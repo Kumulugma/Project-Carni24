@@ -15,14 +15,14 @@
     }
 
     .article-box{
-            div { 
-                margin-bottom: 5px;
-                h4 {
-                    font-size: .85em;
-                    margin-left: 15px;
-                }
+        div {
+            margin-bottom: 5px;
+            h4 {
+                font-size: .85em;
+                margin-left: 15px;
             }
         }
+    }
 
     .droplet {
         background: @primary-main;
@@ -45,7 +45,19 @@
         -webkit-animation-name: fadeInLeft;
         animation-name: fadeInLeft;
     }
-    
+    .article-footer {
+        font-size: .8em;
+        opacity: .5;
+        transition: all 3s;
+        transition-timing: ease-in-out;
+
+        img {
+            width: 50px;
+        }
+    }
+    .article-footer:hover {
+        opacity: .9;
+    }
 }
 
 @import "animations";

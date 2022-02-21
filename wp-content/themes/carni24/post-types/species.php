@@ -36,7 +36,7 @@ function c24_species_post_type() {
         'label' => __('Gatunek', 'carni24'),
         'description' => __('Gatunek rośliny wraz z opisem i szczegółami.', 'carni24'),
         'labels' => $labelsList,
-        'supports' => array('title', 'editor', 'thumbnail'),
+        'supports' => array('title', 'editor', 'thumbnail', 'editor'),
         'taxonomies' => array('category', 'post_tag'),
         'hierarchical' => false,
         'public' => true,
