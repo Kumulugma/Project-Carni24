@@ -1,6 +1,7 @@
 <?php
 define( 'WP_CACHE', true );
 
+
 //define( 'WP_DEBUG', true );
 /**
  * The base configuration for WordPress

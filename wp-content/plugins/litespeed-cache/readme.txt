@@ -2,8 +2,8 @@
 Contributors: LiteSpeedTech
 Tags: caching, optimize, performance, pagespeed, core web vitals, seo, speed, image optimize, compress, object cache, redis, memcached, database cleaner
 Requires at least: 4.0
-Tested up to: 5.8.3
-Stable tag: 4.4.7
+Tested up to: 5.9.1
+Stable tag: 4.5.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -244,10 +244,34 @@ For more detailed information about crawler setup, please see [the Crawler docum
 * WP-Stateless
 * Elementor
 * WS Form
+* WP Statistics
 
 The vast majority of plugins and themes are compatible with LiteSpeed Cache. The most up-to-date compatibility information can be found [in our documentation](https://docs.litespeedtech.com/lscache/lscwp/thirdparty/)
 
 == Changelog ==
+
+= 4.5.0.1 - Feb 24 2022 =
+* 🔥🐞**Media** Fixed an issue where lazy-loaded images would disappear when using custom CSS image loading effects.
+
+= 4.5 - Feb 23 2022 =
+* 🌱**Page Optimize** Localization is back.
+* **Guest** Fixed organic traffic issue as different browsers may fail to set `document.referrer`.
+* **Image Optimize** Improved wp_postmeta table compatibility when gathering images. (Thanks to Thomas Stroemme)
+* 🐞**Page Optimize** Fixed a potential CSS/JS 404 issue for existing records that have been marked as expired.
+* **ESI** `LITESPEED_ESI_OFF` now affects `litespeed_esi_url` API filter too.
+* **Guest** Added a check to determine if Guest Mode is blocked by a third-party, and display warning if it is (Ruikai)
+* **Guest** To support WP sites with multiple domains, Guest Mode detection URL no longer uses domain.
+* **Report** Network now shows Toolbox page when having a large number of subsites.
+* **DB Optimize** Reduced default subsites count from 10 to 3 under Network Admin -> DB Optimize page to avoid timeout.
+* **Cloud** Fixed potential `lack_of_token` error when requesting domain key for cases where local summary value was not historically included in the array.
+* **Cloud** Fixed a PHP fatal error that occurred when encountering a frequency issue under CLI. (Dean Taylor #Issue410)
+* **Avatar** Force gravatar cache refresh in browsers and on CDN (rafaucau #PR430)
+* **API** New filter `litespeed_purge_ucss` to purge a single page UCSS. (#376681)
+* **API** New filter `litespeed_ucss_per_pagetype` for UCSS per page type generation. (Ankit)
+* **GUI** Replaced some GUI text and settings with more inclusive language  (kebbet #PR437 #PR435)
+* **3rd** Excluded `WP Statistics` from inline JS optimize. (Ryan D)
+* **3rd** Added API filter `litespeed_3rd_aelia_cookies` for Aelia CurrencySwitcher.
+* **Media** Updated image lazyload library to 17.5.0.
 
 = 4.4.7 - Jan 11 2022 =
 * **Page Optimize** Dropped `Inline Lazy Load Images Library` option. Now will always inline lazyload library. (Ankit)
@@ -277,7 +301,7 @@ The vast majority of plugins and themes are compatible with LiteSpeed Cache. The
 * **Page Optimize** Delay deletion of outdated CSS/JS files for a default of 20 days to avoid 404 errors with cached search engine copies.
 * **Cache** When caching, no longer send a purge request for CSS/JS removal to avoid cache engine conflicts.
 * 🐞**Core** Optimized SQL queries while autoloading if expected options are missing; reduced by 7 and 3 queries on backend and frontend respectively. (#396425 Jackson)
-* **Page Optm** Fixed a 404 issue that occured when upgrading the plugin manually, with a package upload or through the plugin manager. (Tobolo/Małgorzata/Abe)
+* **Page Optimize** Fixed a 404 issue that occured when upgrading the plugin manually, with a package upload or through the plugin manager. (Tobolo/Małgorzata/Abe)
 * **API** Added `litespeed_ccss_url` and `litespeed_ucss_url` API to manipulate the request URL for CCSS and UCSS.
 * **REST** Fixed a potential warning when detecting cacheable status on REST call. (rafaucau)
 * **OLS** Fixed an issue where the `COOKIEHASH` constant was undefined when used with OpenLiteSpeed as an MU plugin or with network activation.
@@ -379,7 +403,7 @@ The vast majority of plugins and themes are compatible with LiteSpeed Cache. The
 * **GUI** Showed the default recommended values for Guest Mode UA/IPs.
 * **3rd** Fixed AMP plugin compatibility. (⭐ Contributed by Alice Tang #PR368)
 * **3rd** Bypassed all page optimization including CDN/WebP for AMP pages.
-* **3rd** Improved compatibility with All in One SEO plugin sitemap. (arnaudbroes/flschaves Issue#372)
+* **3rd** Improved compatibility with All in One SEO plugin sitemap. (arnaudbroes/flschaves #Issue372)
 * **3rd** Added wsform nonce. (#365 cstrouse)
 * **3rd** Added Easy Digital Download (EDD) & WP Menu Cart nonce. (#PR366 AkramiPro)
 * **3rd** Improved compatibility w/ Restrict Content Pro. (Abe #PR370)
