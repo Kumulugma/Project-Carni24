@@ -1,88 +1,21 @@
-# OS generated files
-.DS_Store
-ehthumbs.db
-Thumbs.db
-.Trashes
+# ignore everything in the root except the "wp-content" directory.
+!wp-content/
 
-# Compiled files
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
+# ignore everything in the "wp-content" directory, except:
+# "mu-plugins", "plugins", "themes" directory
+wp-content/*
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
 
-# Packaged files
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
+# ignore these plugins
+wp-content/plugins/hello.php
 
-# Editor files
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
-.idea/
-nbproject/
+# ignore specific themes
+wp-content/themes/twenty*/
 
-# Environment files
-.env
-web.config
-
-# Log files
+# ignore log files and databases
 *.log
-wp-content/wflogs/
-
-# Dump database files
 *.sql
 *.sqlite
-
-# SEO
-/readme*html
-/robots.txt
-/google*.html
-/sitemap.xml
-
-# Img
-wp-content/webp-express/
-
-# WordPress
-wp-config.php
-wp-content/upgrade/
-wp-content/uploads/
-wp-content/webp-express/
-
-# Dependency files (node/bower/sass etc.)
-.sass-cache/
-node_modules/
-bower_components/
-
-# Backup files
-*.bak
-wp-content/updraft/
-wp-content/backup-db/
-wp-content/backups/
-wp-content/aiowps_backups/
-wp-content/envato-backups/
-wp-content/ai1wm-backups/
-
-# Cache files
-wp-content/cache/
-wp-content/wp-rocket-config/
-wp-content/plugins/bwp-minify/cache/
-wp-content/wp-cache-config.php
-wp-content/advanced-cache.php
-wp-content/object-cache.php
-
-# WPML files
-wp-content/languages/wpml/
-
-# Custom files
-/vendor
-
-# Antivirus
-wp-includes/js/wp-emoji-release.min.js
+/nbproject/

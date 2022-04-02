@@ -53,6 +53,10 @@ class Media extends Root {
 			}
 		}
 
+		if ( $this->conf( Base::O_MEDIA_LAZY ) ) {
+			add_filter( 'wp_lazy_loading_enabled', '__return_false' );
+		}
+
 		/**
 		 * Replace gravatar
 		 * @since  3.0
@@ -649,6 +653,9 @@ class Media extends Root {
 	private function _detect_dimensions( $src ) {
 		if ( $pathinfo = Utility::is_internal_file( $src ) ) {
 			$src = $pathinfo[ 0 ];
+		}
+		elseif ( apply_filters( 'litespeed_media_ignore_remote_missing_sizes', false ) ) {
+			return false;
 		}
 
 		$sizes = getimagesize( $src );

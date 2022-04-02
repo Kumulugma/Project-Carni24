@@ -2,8 +2,8 @@
 Contributors: LiteSpeedTech
 Tags: caching, optimize, performance, pagespeed, core web vitals, seo, speed, image optimize, compress, object cache, redis, memcached, database cleaner
 Requires at least: 4.0
-Tested up to: 5.9.1
-Stable tag: 4.5.0.1
+Tested up to: 5.9.2
+Stable tag: 4.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -249,6 +249,19 @@ For more detailed information about crawler setup, please see [the Crawler docum
 The vast majority of plugins and themes are compatible with LiteSpeed Cache. The most up-to-date compatibility information can be found [in our documentation](https://docs.litespeedtech.com/lscache/lscwp/thirdparty/)
 
 == Changelog ==
+
+= 4.6 - Mar 29 2022 =
+* **Page Optimize** Improved compatibility for JS Delay.
+* 🐞**Page Optimize** Fixed an issue for network subsites that occurred when only CSS/JS Minify are enabled.
+* **Localization** Added query string compatibility for Resource URLs.
+* **Vary** Fixed a potential PHP warning when server variable `REQUEST_METHOD` is not detected.
+* **Cache** Guest Mode now respects Cache Excludes settings.
+* **GUI** Added warning notice when enabling `Localize Resources` feature; each localized JS resource requires thorough testing!
+* **GUI** Fixed a PHP Deprecated warning that occurred with the Mobile Cache User Agent setting on PHP v8.1+. (jrmora)
+* **Conf** Removed Google related scripts from default `Localization Files` value.
+* **Media** WordPress core Lazy Load feature is now automatically disabled when LiteSpeed Lazy Load Images option is enabled. (VR51 #Issue440)
+* 🐞**API** Filter `litespeed_ucss_per_pagetype` for UCSS now also applies to CSS Combine to avoid UCSS failure. (Ankit)
+* **API** Added a filter `litespeed_media_ignore_remote_missing_sizes` to disable auto detection for remote images that are missing dimensions. (Lucas)
 
 = 4.5.0.1 - Feb 24 2022 =
 * 🔥🐞**Media** Fixed an issue where lazy-loaded images would disappear when using custom CSS image loading effects.
