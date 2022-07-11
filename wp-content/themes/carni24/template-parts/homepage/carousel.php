@@ -4,30 +4,30 @@
 
                 <?php $item = get_field('carousel_image_1', 7); ?>
                 <div class="carousel-item active" data-bs-interval="<?= get_field('carousel_interval_1', 7) ?>">
-                    <img src="<?= $item['sizes']['scene'] ?>" class="d-block w-100" alt="<?= get_field('carousel_title_1', 7) ?>">
+                    <img class="d-block w-100 lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?= $item['sizes']['scene'] ?>" alt="<?= get_field('carousel_title_1', 7) ?>">
                 </div>
                 <?php $item = get_field('carousel_image_2', 7); ?>
                 <?php if (isset($item['sizes'])) { ?>
                     <div class="carousel-item active" data-bs-interval="<?= get_field('carousel_interval_2', 7) ?>">
-                        <img src="<?= $item['sizes']['scene'] ?>" class="d-block w-100" alt="<?= get_field('carousel_title_2', 7) ?>">
+                        <img class="d-block w-100 lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?= $item['sizes']['scene'] ?>" alt="<?= get_field('carousel_title_2', 7) ?>">
                     </div> 
                 <?php } ?>
                 <?php $item = get_field('carousel_image_3', 7); ?>
                 <?php if (isset($item['sizes'])) { ?>
                     <div class="carousel-item active" data-bs-interval="<?= get_field('carousel_interval_3', 7) ?>">
-                        <img src="<?= $item['sizes']['scene'] ?>" class="d-block w-100" alt="<?= get_field('carousel_title_3', 7) ?>">
+                        <img class="d-block w-100 lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?= $item['sizes']['scene'] ?>" alt="<?= get_field('carousel_title_3', 7) ?>">
                     </div> 
                 <?php } ?>    
                 <?php $item = get_field('carousel_image_4', 7); ?>
                 <?php if (isset($item['sizes'])) { ?>
                     <div class="carousel-item active" data-bs-interval="<?= get_field('carousel_interval_4', 7) ?>">
-                        <img src="<?= $item['sizes']['scene'] ?>" class="d-block w-100" alt="<?= get_field('carousel_title_4', 7) ?>">
+                        <img class="d-block w-100 lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?= $item['sizes']['scene'] ?>" alt="<?= get_field('carousel_title_4', 7) ?>">
                     </div> 
                 <?php } ?>
                 <?php $item = get_field('carousel_image_5', 7); ?>
                 <?php if (isset($item['sizes'])) { ?>
                     <div class="carousel-item active" data-bs-interval="<?= get_field('carousel_interval_5', 7) ?>">
-                        <img src="<?= $item['sizes']['scene'] ?>" class="d-block w-100" alt="<?= get_field('carousel_title_5', 7) ?>">
+                        <img class="d-block w-100 lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?= $item['sizes']['scene'] ?>" alt="<?= get_field('carousel_title_5', 7) ?>">
                     </div> 
                 <?php } ?>
 
