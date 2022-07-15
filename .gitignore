@@ -19,3 +19,9 @@ wp-content/themes/twenty*/
 *.sql
 *.sqlite
 /nbproject/
+
+# SEO
+/readme*html
+/robots.txt
+/google*.html
+/sitemap.xml
