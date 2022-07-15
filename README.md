@@ -8,5 +8,8 @@
 
 Wersje
 -------------------
+0.0.2a
+- Synchronizacja projektu.
+
 0.0.1a
 - Stan początkowy.
