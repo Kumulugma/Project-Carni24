@@ -11,6 +11,7 @@ Wersje
 0.2.16a
 - Poprawka dla placeholdera.
 
+
 0.2.15d
 - Drobne modyfikacje w stylach.
 
