@@ -81,8 +81,10 @@ $table_prefix = 'c24_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
-//define('CONCATENATE_SCRIPTS', false);
+define('WP_DEBUG', false);
+define('WP_AUTO_UPDATE_CORE', true);
+define('DISABLE_WP_CRON', true);
+define('CONCATENATE_SCRIPTS', true);
 
 /* That's all, stop editing! Happy publishing. */
 
