@@ -1,0 +1,35 @@
+
+#cookie-consent{
+    position: fixed;
+    bottom: 8px;
+    left: 20px;
+    width: 500px;
+    padding-top: 7px;
+    color: #fff;
+
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 11px;
+    background: #292929;
+    z-index: 2120;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.allow-button{
+    height: 20px;
+    width: 104px;
+    color: #000;
+    font-size: 12px;
+    line-height: 10px;
+    border-radius: 3px;
+    border: 1px solid #E6B517;
+    background-color: #E6B517;
+}
+
+@media only screen and (max-width : 575px) {
+    #cookie-consent{
+        width: 260px;
+    }
+}
