@@ -8,6 +8,9 @@
 
 Wersje
 -------------------
+0.0.3a
+- Synchronizacja projektu.
+
 0.0.2a
 - Synchronizacja projektu.
 
