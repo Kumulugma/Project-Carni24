@@ -1,21 +1,13 @@
 <p align="center">
     <a href="https://k3e.pl" target="_blank">
-        <img src="http://k3e.pl/images/icons/k3e/100x100.png" height="100px">
+        <img src="https://k3e.pl/wp-content/uploads/2022/07/logo-pasek.png" height="80px">
     </a>
-    <h1 align="center">Projekt Carni24</h1>
-    <br>
 </p>
 
-Wersje
--------------------
-0.0.4a
-- Porządki w repozytorium.
+# K3e - Projekt Carni24.pl
 
-0.0.3a
-- Synchronizacja projektu.
+------------------
+...
+------------------
+[Wersje](https://k3e.pl/projects/carni24-pl/)
 
-0.0.2a
-- Synchronizacja projektu.
-
-0.0.1a
-- Stan początkowy.
