@@ -69,6 +69,7 @@ function fbap_install_free()
 	add_option('xyz_fbap_post_logs', '');
 	add_option('xyz_fbap_premium_version_ads', '1');
 	add_option('xyz_fbap_default_selection_edit', '0');
+	add_option('xyz_fbap_default_selection_create', '1');
 // 	add_option('xyz_fbap_utf_decode_enable', '0');
 	add_option('xyz_fbap_app_sel_mode','1');
 	add_option('xyz_fbap_dnt_shw_notice','0');

@@ -10,16 +10,16 @@ if( !defined('ABSPATH') ){ exit();}
 			
 
 
-<div style="text-align: left;padding-left: 7px;"><h3>Auto Publish Logs</h3></div>
-		<span>Last ten logs</span>
+<div style="text-align: left;padding-left: 7px;"><h3> <?php _e('Auto Publish Logs','facebook-auto-publish'); ?> </h3></div>
+		<span> <?php _e('Last ten logs','facebook-auto-publish'); ?> </span>
 		   <table class="widefat" style="width: 99%; margin: 0 auto; border-bottom:none;">
 				<thead>
 					<tr class="xyz_fbap_log_tr">
 						<th scope="col" width="1%">&nbsp;</th>
-						<th scope="col" width="12%">Post Id</th>
-						<th scope="col" width="12%">Post Title</th>
-						<th scope="col" width="18%">Published On</th>
-						<th scope="col" width="15%">Status</th>
+						<th scope="col" width="12%"> <?php _e('Post Id','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="12%"> <?php _e('Post Title','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="18%"> <?php _e('Published On','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="15%"> <?php _e('Status','facebook-auto-publish'); ?> </th>
 					</tr>
 					</thead>
 					<?php 
@@ -39,7 +39,7 @@ if( !defined('ABSPATH') ){ exit();}
 					if($post_fb_logsmain=='')
 					{
 						?>
-						<tr><td colspan="4" style="padding: 5px;">No logs Found</td></tr>
+						<tr><td colspan="4" style="padding: 5px;"> <?php _e('No logs Found','facebook-auto-publish'); ?> </td></tr>
 						<?php 
 					}
 									
@@ -100,7 +100,6 @@ if( !defined('ABSPATH') ){ exit();}
 		</fieldset>
 
 	</form>
-<div style="padding: 5px;color: #e67939;font-size: 14px;">For publishing a simple text message, it will take 1 API call,
-	 Upload image option will take 2-3 API calls and attach link option take 1 API call(2 api calls, if enabled option for clearing cache).</div>
+<div style="padding: 5px;color: #e67939;font-size: 14px;"> <?php _e('For publishing a simple text message, it will take 1 API call, Upload image option will take 2-3 API calls and attach link option take 1 API call(2 api calls, if enabled option for clearing cache).','facebook-auto-publish'); ?></div>
 </div>
 				

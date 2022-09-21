@@ -49,6 +49,7 @@ function fbap_free_destroy()
 	delete_option('xyz_fbap_post_logs');
 	delete_option('xyz_twap_premium_version_ads');
 	delete_option('xyz_fbap_default_selection_edit');
+	delete_option('xyz_fbap_default_selection_create');
 // 	delete_option('xyz_fbap_utf_decode_enable');
 	delete_option('xyz_fbap_fb_numericid');
 	delete_option('fbap_installed_date');

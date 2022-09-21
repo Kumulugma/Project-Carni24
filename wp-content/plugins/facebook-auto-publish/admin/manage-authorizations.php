@@ -3,7 +3,11 @@ global $wpdb;
 if(isset($_GET['msg']) && $_GET['msg']=='smap_pack_updated'){
 	?>
 <div class="system_notice_area_style1" id="system_notice_area">
-SMAP Package updated successfully.&nbsp;&nbsp;&nbsp;<span id="system_notice_area_dismiss">Dismiss</span>
+<?php $fbap_word_smap="SMAP";
+$fbap_smap_update_msg=sprintf(__('%s Package updated successfully.','facebook-auto-publish'),$fbap_word_smap); 
+echo $fbap_smap_update_msg; ?>
+&nbsp;&nbsp;&nbsp;<span id="system_notice_area_dismiss"><?php _e('Dismiss','facebook-auto-publish'); ?>
+</span>
 </div>
 <?php
 }
@@ -13,9 +17,11 @@ $xyzscripts_hash_val=trim(get_option('xyz_fbap_xyzscripts_hash_val'));
 $xyzscripts_user_id=trim(get_option('xyz_fbap_xyzscripts_user_id'));
 $xyz_smap_licence_key='';
 if ($xyzscripts_user_id=='')
-{
-	echo '<b>Please  authorize smapsolutions app under Facebook settings to access this page.</b>';
-	return;
+{ ?>
+	<b> <?php $fbap_word_smapsolution="smapsolutions";
+		$fbap_smap_auth_msg=sprintf(__('Please authorize %s app under Facebook settings to access this page.','facebook-auto-publish'),$fbap_word_smapsolution); 
+		echo $fbap_smap_auth_msg; ?> </b>
+	<?php return;
 }
 ?>
 <style type="text/css">
@@ -113,7 +119,7 @@ jQuery(document).ready(function() {
 		jQuery.post(ajaxurl, dataString ,function(data) {
 			jQuery("#ajax-save_"+auth_id).hide();
 			 if(data==1)
-			       	alert("You do not have sufficient permissions");
+			       alert(xyz_script_fbap_var.alert3);
 			else{
 			
 				var data=jQuery.parseJSON(data);
@@ -122,7 +128,8 @@ jQuery(document).ready(function() {
 
  					if(jQuery('#system_notice_area').length==0)
  			  			jQuery('body').append('<div class="system_notice_area_style1" id="system_notice_area"></div>');
- 			  			jQuery("#system_notice_area").html('Account details successfully deleted from SMAPSolutions&nbsp;&nbsp;&nbsp; <span id="system_notice_area_dismiss">Dismiss</span>');
+						jQuery("#system_notice_area").html(xyz_script_fbap_var.html1); 
+ 			  			jQuery("#system_notice_area").append('<span id="system_notice_area_dismiss"><?php _e('Dismiss','facebook-auto-publish');?></span>');
  			  			jQuery("#system_notice_area").show();
  			  			jQuery('#system_notice_area_dismiss').click(function() {
  			  				jQuery('#system_notice_area').animate({
@@ -174,14 +181,15 @@ jQuery(document).ready(function() {
 	    jQuery.post(ajaxurl, dataString ,function(data) {
 	    	jQuery("#ajax-save-inactive-fb_"+tr_iterationid).hide();
 	    	 if(data==1)
-			       	alert("You do not have sufficient permissions");
+			       	alert(xyz_script_fbap_var.alert3);
 			else{
 	    	var data=jQuery.parseJSON(data);
 	    	if(data.status==1){
 	    		jQuery(".tr_inactive"+tr_iterationid).remove();
 	    		if(jQuery('#system_notice_area').length==0)
 	    			jQuery('body').append('<div class="system_notice_area_style1" id="system_notice_area"></div>');
-	    			jQuery("#system_notice_area").html('In-active Facebook account successfully deleted from SMAPSolutions&nbsp;&nbsp;&nbsp; <span id="system_notice_area_dismiss">Dismiss</span>');
+				jQuery("#system_notice_area").html(xyz_script_fbap_var.html2);
+	    			jQuery("#system_notice_area").append('<span id="system_notice_area_dismiss"><?php _e('Dismiss','facebook-auto-publish'); ?></span>');
 	    			jQuery("#system_notice_area").show();
 	    			jQuery('#system_notice_area_dismiss').click(function() {
 	    				jQuery('#system_notice_area').animate({
@@ -226,7 +234,7 @@ function fbap_popup_purchase_plan(auth_secret_key,request_hash)
 	return false;
 }
 </script>
-<h3>Manage Authorizations</h3>
+<h3> <?php _e('Manage Authorizations','facebook-auto-publish'); ?> </h3>
 <div>
 <?php
 $manage_auth_parameters=array(
@@ -250,12 +258,12 @@ if(!empty($result) && isset($result['status']))
 		<div id="auth_entries_div" style="margin-bottom: 5px;">
 		<?php if(!empty($result) && isset($result['package_details']))
 					{
-					?><div class="xyz_fbap_plan_label">Current Plan:</div><?php 
+					?><div class="xyz_fbap_plan_label"> <?php _e('Current Plan:','facebook-auto-publish'); ?> </div><?php 
 						$package_details=$result['package_details'];	?>
-						<div class="xyz_fbap_plan_div">Allowed Facebook users: <?php echo $package_details['allowed_fb_user_accounts'];?> &nbsp;</div>
-					<div  class="xyz_fbap_plan_div"> API limit per account: <?php echo $package_details['allowed_api_calls'];?> per hour &nbsp;</div>
-					<div  class="xyz_fbap_plan_div">Package Expiry :  <?php echo date('d/m/Y g:i a', $package_details['expiry_time']);?>  &nbsp;</div>
-						<div  class="xyz_fbap_plan_div">Package Status :  <?php echo $package_details['package_status'];?> &nbsp;</div>
+						<div class="xyz_fbap_plan_div"> <?php _e('Allowed Facebook users:','facebook-auto-publish'); ?> <?php echo $package_details['allowed_fb_user_accounts'];?> &nbsp;</div>
+					<div  class="xyz_fbap_plan_div"> <?php _e('API limit per account :','facebook-auto-publish'); ?> <?php echo $package_details['allowed_api_calls'];?> <?php _e('per hour','facebook-auto-publish'); ?> &nbsp;</div>
+					<div  class="xyz_fbap_plan_div"> <?php _e('Package Expiry :','facebook-auto-publish'); ?> <?php echo date('d/m/Y g:i a', $package_details['expiry_time']);?>  &nbsp;</div>
+						<div  class="xyz_fbap_plan_div"> <?php _e('Package Status :','facebook-auto-publish'); ?> <?php echo $package_details['package_status'];?> &nbsp;</div>
 						<?php 
 					
 						$xyz_smap_plug_accountId=$xyz_fbap_pre_smapsoln_userid=0;$xyz_smap_plug_licence_key='';
@@ -264,28 +272,33 @@ if(!empty($result) && isset($result['status']))
 						?>
 					<div  class="xyz_fbap_plan_div">
 					<a href="javascript:fbap_popup_purchase_plan('<?php echo $auth_secret_key;?>','<?php echo $request_hash;?>');void(0);">
-					<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Upgrade/Renew
+					<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<?php _e('Upgrade/Renew','facebook-auto-publish'); ?>
 					</a> 
 					</div>
 					<?php 
 				}
 					if (is_array($auth_entries) && !empty($auth_entries)){?>
 						<span class="select_box" style="float: left;margin-top: 16px;">
-						<input type="radio" name="domain_selection" value="0" id="show_all">Show all entries
-						<input type="radio" name="domain_selection" value="1" id="show_same_domain">Show entries from current wp installation 
-						<input type="radio" name="domain_selection" value="2" id="show_diff_domain">Show entries from other wp installations
+						<input type="radio" name="domain_selection" value="0" id="show_all"> <?php _e('Show all entries','facebook-auto-publish'); ?>
+						<input type="radio" name="domain_selection" value="1" id="show_same_domain"> <?php _e('Show entries from current wp installation','facebook-auto-publish'); ?>
+						<input type="radio" name="domain_selection" value="2" id="show_diff_domain"> <?php _e('Show entries from other wp installations','facebook-auto-publish'); ?>
 						</span>
 						<table cellpadding="0" cellspacing="0" class="widefat" style="width: 99%; margin: 0 auto; border-bottom:none;" id="fbap_manage_auth_table">
 						<thead>
 						<tr class="xyz_fbap_manage_auth_th">
 						
-						<th scope="col" width="8%">Facebook username</th>
-						<th scope="col" width="10%">Selected pages</th>
-						<th scope="col" width="10%">Selected groups</th>
-						<th scope="col" width="10%">WP url</th>
-						<th scope="col" width="10%">Plugin</th>
-						<th scope="col" width="5%">Account ID (SMAP PREMIUM)</th>
-						<th scope="col" width="5%">Action</th>
+						<th scope="col" width="8%"> <?php _e('Facebook username','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="10%"> <?php _e('Selected pages','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="10%"> <?php _e('Selected groups','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="10%"> <?php $fbap_wp="WP";
+						                          $fbap_wp_url=sprintf(__('%s url','facebook-auto-publish'),$fbap_wp); 
+						                          echo $fbap_wp_url; ?> </th> 
+						
+						<th scope="col" width="10%"> <?php _e('Plugin','facebook-auto-publish'); ?> </th>
+						<th scope="col" width="5%"> <?php $fbap_smap_premium_var="(SMAP PREMIUM)"; 
+									          $fbap_smap_premium_title= sprintf(__('Account ID %s','facebook-auto-publish'),$fbap_smap_premium_var); 
+						                                  echo $fbap_smap_premium_title; ?> </th>
+						<th scope="col" width="5%"> <?php _e('Action','facebook-auto-publish'); ?> </th>
 						</tr>
 						</thead> <?php
 						$i=0;
@@ -320,14 +333,14 @@ if(!empty($result) && isset($result['status']))
 							 		else echo 'XYZ-SMAP';
 							 		?></td>
 							 		<td> <?php if($auth_entries_val['smap_pre_account_id']!=0)echo $auth_entries_val['smap_pre_account_id'];
-							 		else echo 'Not Applicable';?> </td>
+							 		else _e('Not Applicable','facebook-auto-publish');?> </td>
 							 		<td>
 							 		<?php if ($domain_name==$auth_entries_val['domain_name'] && $free_plugin_source==$auth_entries_val['free_plugin_source'] ) {
 // 							 		$md5_encrypt=md5('smapsolutions'.$xyzscripts_user_id.$xyzscripts_hash_val.$auth_entries_val['auth_id']);
 							 		?>
 							 		<span id='ajax-save_<?php echo $auth_entries_val['auth_id'];?>' style="display:none;"><img	title="Deleting entry"	src="<?php echo plugins_url("images/ajax-loader.gif",XYZ_FBAP_PLUGIN_FILE);?>" style="width:20px;height:20px; "></span>
 							 		<span id='show-del-icon_<?php echo $auth_entries_val['auth_id'];?>'>
-							 		<input type="button" class="delete_auth_entry" data-id=<?php echo $auth_entries_val['auth_id'];?> data-xyzscriptsid="<?php echo $xyzscripts_user_id;?>" data-xyzscripts_hash="<?php echo $xyzscripts_hash_val;?>" name='del_entry' value="Delete" >
+							 		<input type="button" class="delete_auth_entry" data-id=<?php echo $auth_entries_val['auth_id'];?> data-xyzscriptsid="<?php echo $xyzscripts_user_id;?>" data-xyzscripts_hash="<?php echo $xyzscripts_hash_val;?>" name='del_entry' value="<?php _e('Delete','facebook-auto-publish');?>" >
 							 		</span>
 							 		<span id='show_err_<?php echo $auth_entries_val['auth_id'];?>' style="color:red;" ></span>
 							 		<?php //data-encrypt="<?php echo $md5_encrypt;
@@ -340,7 +353,7 @@ if(!empty($result) && isset($result['status']))
 						 		{
 							 	?>
 								 <tr class="tr_inactive<?php echo $i;?>">
-								 <td><?php  echo $auth_entries_val['inactive_fb_username'];?><br/>(Inactive)
+								 <td><?php  echo $auth_entries_val['inactive_fb_username'];?><br/> <?php _e('(Inactive)','facebook-auto-publish'); ?> 
 								 </td>
 								 <td>-</td>
 								 <td>-</td>
@@ -350,7 +363,7 @@ if(!empty($result) && isset($result['status']))
 								 <td>
 								 <span id='ajax-save-inactive-fb_<?php echo $i;?>' style="display:none;"><img	title="Deleting entry"	src="<?php echo plugins_url("images/ajax-loader.gif",XYZ_FBAP_PLUGIN_FILE);?>" style="width:20px;height:20px; "></span>
 								 <span id='show-del-icon-inactive-fb_<?php echo $i;?>'>
-								 <input type="button" class="delete_inactive_fb_entry" data-iterationid=<?php echo $i;?> data-fbid=<?php echo $auth_entries_val['inactive_fb_userid'];?> data-xyzscriptsid="<?php echo $xyzscripts_user_id;?>" data-xyzscripts_hash="<?php echo $xyzscripts_hash_val;?>" name='del_entry' value="Delete" >
+								 <input type="button" class="delete_inactive_fb_entry" data-iterationid=<?php echo $i;?> data-fbid=<?php echo $auth_entries_val['inactive_fb_userid'];?> data-xyzscriptsid="<?php echo $xyzscripts_user_id;?>" data-xyzscripts_hash="<?php echo $xyzscripts_hash_val;?>" name='del_entry' value="<?php _e('Delete','facebook-auto-publish');?>" >
 								 </span>
 								 <span id='show_err_inactive_fb_<?php echo $i;?>' style="color:red;" ></span>
 								 </td>
@@ -360,12 +373,12 @@ if(!empty($result) && isset($result['status']))
 								}
 						}///////////////foreach
 					?>
-					<tr id="xyz_fbap_no_auth_entries" style="display: none;"><td>No Authorizations</td></tr>
+					<tr id="xyz_fbap_no_auth_entries" style="display: none;"><td> <?php _e('No Authorizations','facebook-auto-publish'); ?> </td></tr>
 					</table><?php } ?></div><?php 
 					
 }
 }
-else { 
-	echo "<div>Unable to connect. Please check your curl and firewall settings</div>";
-}
-?></div>
+else { ?>
+	<div> <?php _e('Unable to connect. Please check your curl and firewall settings','facebook-auto-publish'); ?> </div>
+<?php }?>
+</div>

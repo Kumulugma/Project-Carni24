@@ -241,7 +241,7 @@ function xyz_fbap_link_publish($post_ID) {
 		$description_org=$description;
 		
 		$attachmenturl=xyz_fbap_getimage($post_ID, $postpp->post_content);
-		if($attachmenturl!="")
+		if(!empty($attachmenturl))
 			$image_found=1;
 		else
 			$image_found=0;
@@ -342,7 +342,7 @@ function xyz_fbap_link_publish($post_ID) {
 				}
 				else if($posting_method==4 || $posting_method==5) //text message with image 4 - app album, 5-timeline
 				{
-					if($attachmenturl!="")
+				    if(!empty($attachmenturl))
 					{
 						if($xyz_fbap_app_sel_mode==0)
 						{
@@ -363,7 +363,7 @@ function xyz_fbap_link_publish($post_ID) {
 							if(isset($arrayResults))
 							{
 								foreach ($arrayResults as $album) {
-									if (isset($album["name"]) && $album["name"] == "Timeline Photos") {
+									if (isset($album["name"]) && $album["name"] == "Timeline photos") {
 										$album_fount=1;$timeline_album = $album; break;
 									}
 								}

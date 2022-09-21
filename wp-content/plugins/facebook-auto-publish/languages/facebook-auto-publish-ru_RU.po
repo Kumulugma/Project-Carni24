@@ -1,0 +1,1187 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: multilang\n"
+"POT-Creation-Date: 2022-07-08 11:49+0530\n"
+"PO-Revision-Date: 2022-07-08 11:49+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: admin/settings.php\n"
+"X-Poedit-SearchPath-1: admin/publish.php\n"
+"X-Poedit-SearchPath-2: admin/metabox.php\n"
+"X-Poedit-SearchPath-3: admin/menu.php\n"
+"X-Poedit-SearchPath-4: admin/manage-authorizations.php\n"
+"X-Poedit-SearchPath-5: admin/logs.php\n"
+"X-Poedit-SearchPath-6: admin/install.php\n"
+"X-Poedit-SearchPath-7: admin/header.php\n"
+"X-Poedit-SearchPath-8: admin/footer.php\n"
+"X-Poedit-SearchPath-9: admin/fbap-suggest-feature.php\n"
+"X-Poedit-SearchPath-10: admin/destruction.php\n"
+"X-Poedit-SearchPath-11: admin/authorization.php\n"
+"X-Poedit-SearchPath-12: admin/ajax-backlink.php\n"
+"X-Poedit-SearchPath-13: admin/admin-notices.php\n"
+"X-Poedit-SearchPath-14: admin/about.php\n"
+"X-Poedit-SearchPath-15: facebook-auto-publish.php\n"
+
+#: admin/about.php:9
+#, php-format
+msgid ""
+"%s automatically publishes posts from your blog to your Facebook pages. It "
+"allows you to filter posts based on post-types and categories. %s is "
+"developed and maintained by"
+msgstr ""
+"%s автоматически публикует сообщения из вашего блога на ваших страницах в "
+"Facebook. Он позволяет фильтровать сообщения по типам и категориям. %s "
+"разработан и поддерживается"
+
+#: admin/about.php:17
+#, php-format
+msgid ""
+"If you would like to have more features , please try <a href=\"%s\" target="
+"\"_blank\">%s</a> which is a premium version of this plugin. We have "
+"included a quick comparison of the free and premium plugins for your "
+"reference."
+msgstr ""
+"Если вы хотите иметь больше возможностей, попробуйте <a href=\"%s\" target="
+"\"_blank\">%s</a> — премиум-версию этого подключаемого модуля. Для справки "
+"мы включили быстрое сравнение бесплатных и премиальных плагинов."
+
+#: admin/about.php:23
+msgid "Feature group"
+msgstr "Группа функций"
+
+#: admin/about.php:24
+msgid "Feature"
+msgstr "Особенность"
+
+#: admin/about.php:25
+msgid "Free"
+msgstr "Бесплатно"
+
+#: admin/about.php:27
+msgid "Premium"
+msgstr "Премиум"
+
+#: admin/about.php:29
+#, php-format
+msgid "%s Premium"
+msgstr "%s Премиум"
+
+#: admin/about.php:34
+msgid "Supported Media"
+msgstr "Поддерживаемые носители"
+
+#: admin/about.php:35 admin/admin-notices.php:56 admin/metabox.php:236
+msgid "Facebook"
+msgstr "Фейсбук"
+
+#: admin/about.php:45 admin/admin-notices.php:57
+msgid "Twitter"
+msgstr "Твиттер"
+
+#: admin/about.php:54 admin/admin-notices.php:58
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: admin/about.php:63
+msgid "Instagram"
+msgstr "Инстаграм"
+
+#: admin/about.php:72
+msgid "Tumblr"
+msgstr "Тамблер"
+
+#: admin/about.php:81
+msgid "Pinterest"
+msgstr "Пинтерест"
+
+#: admin/about.php:92
+msgid "Posting Options"
+msgstr "Варианты публикации"
+
+#: admin/about.php:93
+msgid "Publish to facebook pages"
+msgstr "Публикация на страницах фейсбука"
+
+#: admin/about.php:102
+msgid "Publish to facebook groups"
+msgstr "Публиковать в группах фейсбук"
+
+#: admin/about.php:111
+msgid "Publish to twitter profile"
+msgstr "Опубликовать в твиттер-профиле"
+
+#: admin/about.php:121
+msgid "Publish to linkedin profile/company pages"
+msgstr "Публикация на страницах профиля/компании linkedin"
+
+#: admin/about.php:130
+msgid "Publish to instagram Business accounts"
+msgstr "Публикация в бизнес-аккаунте Instagram"
+
+#: admin/about.php:139
+msgid "Publish to tumblr profile"
+msgstr "Опубликовать в профиле Тамблер"
+
+#: admin/about.php:149
+msgid "Publish to pinterest boards"
+msgstr "Публикация на досках пинтерест"
+
+#: admin/about.php:158
+msgid "Option to add twitter image description for visually impaired people"
+msgstr "Возможность добавить описание изображения в твиттере для слабовидящих"
+
+#: admin/about.php:167
+msgid "Option to republish existing posts"
+msgstr "Возможность повторной публикации существующих сообщений"
+
+#: admin/about.php:177
+msgid "Publish to multiple social media accounts"
+msgstr "Публикация в нескольких учетных записях в социальных сетях"
+
+#: admin/about.php:187
+msgid ""
+"Seperate message formats for publishing to multiple social media accounts"
+msgstr ""
+"Отдельные форматы сообщений для публикации в нескольких учетных записях "
+"социальных сетей"
+
+#: admin/about.php:197
+msgid "Save auto publish settings of individual posts"
+msgstr "Сохранить настройки автоматической публикации отдельных сообщений"
+
+#: admin/about.php:207
+msgid ""
+"Hash Tags support for Facebook, Twitter, Linkedin, Instagram, Tumblr and "
+"Pinterest"
+msgstr ""
+"Поддержка хеш-тегов для фейсбук, твиттер, Linkedin, Инстаграм,  пинтерест и "
+"Тамблер"
+
+#: admin/about.php:216
+msgid "Option to use post tags as hash tags"
+msgstr "Возможность использовать почтовые теги в качестве хэш-тегов"
+
+#: admin/about.php:225
+msgid "Enable/Disable SSL peer verification"
+msgstr "Включить/отключить одноранговую проверку SSL"
+
+#: admin/about.php:238
+msgid "Image Options"
+msgstr "Параметры изображения"
+
+#: admin/about.php:239
+msgid "Publish images along with post content"
+msgstr "Публикуйте изображения вместе с пост-контентом"
+
+#: admin/about.php:250
+msgid ""
+"Separate default image url for publishing to multiple social media accounts"
+msgstr ""
+"Отдельный URL-адрес изображения по умолчанию для публикации в нескольких "
+"учетных записях социальных сетей"
+
+#: admin/about.php:260
+msgid ""
+"Option to specify preference from featured image, post content, post meta "
+"and open graph tags"
+msgstr ""
+"Возможность указать предпочтения из избранного изображения, контента "
+"публикации, мета-тегов публикации и тегов открытого графика"
+
+#: admin/about.php:269
+msgid ""
+"Publish multiple images to facebook, tumblr, linkedin and twitter along with "
+"post content"
+msgstr ""
+"Публикуйте несколько изображений в фейсбук, tамблер, linkedin и твиттер "
+"вместе с публикацией контента"
+
+#: admin/about.php:278
+msgid "Option to specify multiphoto preference from post content and post meta"
+msgstr ""
+"Возможность указать предпочтение мультифото из содержимого публикации и "
+"метаданных публикации"
+
+#: admin/about.php:289
+msgid "Video/Audio Options"
+msgstr "Параметры видео/аудио"
+
+#: admin/about.php:290
+msgid ""
+"Publish video to facebook, tumblr, Linkedin, Instagram and twitter along "
+"with post content"
+msgstr ""
+"Публикуйте видео в Фейсбук, Тамблер, Linkedin, Инстаграм и Твиттер вместе с "
+"публикацией контента"
+
+#: admin/about.php:300
+msgid ""
+"Option to specify preference from post content, post meta and open graph tags"
+msgstr ""
+"Возможность указать предпочтения из содержимого поста, метатегов поста и "
+"тегов открытого графика"
+
+#: admin/about.php:309
+msgid "Publish audio to tumblr along with post content"
+msgstr "Публикуйте аудио в tамблер вместе с публикацией контента"
+
+#: admin/about.php:318
+msgid ""
+"Option to specify audio preference from  post content, post meta and open "
+"graph tags"
+msgstr ""
+"Возможность указать предпочтения звука из содержимого поста, метатегов поста "
+"и тегов открытого графика"
+
+#: admin/about.php:329
+msgid "Filter Options"
+msgstr "Параметры фильтра"
+
+#: admin/about.php:330
+msgid "Filter posts to publish based on categories"
+msgstr "Фильтрация сообщений для публикации по категориям"
+
+#: admin/about.php:340
+msgid "Filter posts to publish based on custom post types"
+msgstr ""
+"Фильтрация сообщений для публикации на основе настраиваемых типов сообщений"
+
+#: admin/about.php:349
+msgid "Filter posts to publish based on sticky posts"
+msgstr "Фильтрация сообщений для публикации на основе прикрепленных сообщений"
+
+#: admin/about.php:359
+msgid "Configuration to enable/disable page publishing"
+msgstr "Конфигурация для включения/отключения публикации страницы"
+
+#: admin/about.php:369
+msgid "Category filter for individual accounts"
+msgstr "Фильтр категорий для отдельных аккаунтов"
+
+#: admin/about.php:379
+msgid "Custom post type filter for individual accounts"
+msgstr "Пользовательский фильтр типа сообщения для отдельных учетных записей"
+
+#: admin/about.php:389
+msgid "Enable/Disable page publishing for individual accounts"
+msgstr "Включить/отключить публикацию страниц для отдельных аккаунтов"
+
+#: admin/about.php:398
+msgid "Override auto publish scheduling for individual accounts"
+msgstr ""
+"Переопределить расписание автоматической публикации для отдельных учетных "
+"записей"
+
+#: admin/about.php:407
+msgid "Override auto publish based on sticky posts for individual accounts"
+msgstr ""
+"Переопределить автоматическую публикацию на основе прикрепленных сообщений "
+"для отдельных учетных записей"
+
+#: admin/about.php:418
+msgid "Scheduling"
+msgstr "Планирование"
+
+#: admin/about.php:419
+msgid "Instantaneous post publishing"
+msgstr "Мгновенная публикация поста"
+
+#: admin/about.php:429
+msgid "Scheduled post publishing using cron"
+msgstr "Запланированная публикация поста с помощью cron"
+
+#: admin/about.php:439
+msgid "Status summary of auto publish tasks by mail"
+msgstr "Сводка состояния задач автоматической публикации по почте"
+
+#: admin/about.php:449
+msgid "Configurable auto publishing time interval"
+msgstr "Настраиваемый временной интервал автоматической публикации"
+
+#: admin/about.php:463
+msgid "Publishing History"
+msgstr "История публикации"
+
+#: admin/about.php:464
+msgid "View auto publish history"
+msgstr "Посмотреть историю автоматической публикации"
+
+#: admin/about.php:473
+msgid "View auto publish error logs"
+msgstr "Просмотр журналов ошибок автоматической публикации"
+
+#: admin/about.php:483
+msgid "Option to republish post"
+msgstr "Возможность переопубликовать пост"
+
+#: admin/about.php:493
+msgid "Option to reschedule publishing"
+msgstr "Возможность перенести публикацию"
+
+#: admin/about.php:503
+msgid "Installation and Support"
+msgstr "Установка и поддержка"
+
+#: admin/about.php:504
+msgid "Free Installation"
+msgstr "Бесплатная установка"
+
+#: admin/about.php:513
+msgid "Privilege customer support"
+msgstr "Привилегированная поддержка клиентов"
+
+#: admin/about.php:523
+msgid "Addon Features"
+msgstr "Особенности аддона"
+
+#: admin/about.php:524
+msgid "Advanced Autopublish Scheduler"
+msgstr "Расширенный планировщик автопубликации"
+
+#: admin/about.php:533
+msgid "URL-Shortener"
+msgstr "URL-сокращатель"
+
+#: admin/about.php:542
+msgid "Privilege Management"
+msgstr "Управление привилегиями"
+
+#: admin/about.php:551
+msgid "Other"
+msgstr "Другой"
+
+#: admin/about.php:553
+#, php-format
+msgid ""
+"%s API package for 1 year, worth 10 USD(1 fb account ,10 api calls per hour)"
+msgstr ""
+"Пакет API %s на 1 год стоимостью 10 долларов США (1 учетная запись fb, 10 "
+"вызовов API в час)"
+
+#: admin/about.php:555
+msgid "1 month free subscription"
+msgstr "1 месяц бесплатной подписки"
+
+#: admin/about.php:557
+msgid "1 year free subscription"
+msgstr "1 год бесплатной подписки"
+
+#: admin/about.php:563
+msgid "Price"
+msgstr "Цена"
+
+#: admin/about.php:564
+msgid "FREE"
+msgstr "БЕСПЛАТНО"
+
+#: admin/about.php:565
+msgid "Starts from 39 USD"
+msgstr "От 39 долларов США"
+
+#: admin/about.php:566
+msgid "Starts from 69 USD"
+msgstr "От 69 долларов США"
+
+#: admin/about.php:569
+msgid "Purchase"
+msgstr "Покупка"
+
+#: admin/about.php:571
+msgid "Buy Now"
+msgstr "Купи сейчас"
+
+#: admin/about.php:578
+msgid "Pinterest is added on experimental basis."
+msgstr "Пинтерест добавлен на экспериментальной основе."
+
+#: admin/admin-notices.php:41
+#, php-format
+msgid ""
+"Thank you for using <a href=\"%s\" target=\"_blank\"> %s </a> plugin from <a "
+"href=\"%s\" target=\"_blank\"> %s </a>. Would you consider supporting us "
+"with the continued development of the plugin using any of the below methods?"
+msgstr ""
+"Благодарим вас за использование подключаемого модуля <a href=\"%s\" target="
+"\"_blank\"> %s </a> от <a href=\"%s\" target=\"_blank\"> %s </a>. Не могли "
+"бы вы поддержать нас в дальнейшей разработке плагина, используя любой из "
+"следующих методов?"
+
+#: admin/admin-notices.php:45
+msgid "Rate it 5★'s on wordpress"
+msgstr "Оцените это 5★ на wordpress"
+
+#: admin/admin-notices.php:47
+msgid "Enable Backlink"
+msgstr "Включить обратную ссылку"
+
+#: admin/admin-notices.php:49
+msgid "Share on"
+msgstr "Поделись"
+
+#: admin/admin-notices.php:50 admin/footer.php:38 admin/header.php:101
+msgid "Donate"
+msgstr "Пожертвовать"
+
+#: admin/admin-notices.php:52
+msgid "Don't Show This Again"
+msgstr "Не показывать это снова"
+
+#: admin/fbap-suggest-feature.php:10
+msgid "Thank you for the suggestion."
+msgstr "Спасибо за предложение."
+
+#: admin/fbap-suggest-feature.php:11 admin/fbap-suggest-feature.php:19
+#: admin/fbap-suggest-feature.php:27 admin/header.php:19 admin/header.php:33
+#: admin/header.php:49 admin/manage-authorizations.php:9
+#: admin/manage-authorizations.php:132 admin/manage-authorizations.php:192
+#: admin/settings.php:32 admin/settings.php:130 admin/settings.php:138
+#: admin/settings.php:147 admin/settings.php:158 admin/settings.php:167
+#: admin/settings.php:182 admin/settings.php:1025 admin/settings.php:1060
+msgid "Dismiss"
+msgstr "Увольнять"
+
+#: admin/fbap-suggest-feature.php:18
+#, php-format
+msgid "%s not able to process the request."
+msgstr "%s не может обработать запрос."
+
+#: admin/fbap-suggest-feature.php:26
+msgid "Please suggest a feature."
+msgstr "Пожалуйста, предложите функцию."
+
+#: admin/fbap-suggest-feature.php:60
+msgid "Contribute And Get Rewarded"
+msgstr "Внесите свой вклад и получите вознаграждение"
+
+#: admin/fbap-suggest-feature.php:61
+msgid ""
+"Suggest a feature for this plugin and stand a chance to get a free copy of "
+"premium version of this plugin."
+msgstr ""
+"Предложите функцию для этого плагина и получите шанс получить бесплатную "
+"копию премиум-версии этого плагина."
+
+#: admin/fbap-suggest-feature.php:67
+msgid "Send Mail To Us"
+msgstr "Отправить письмо нам"
+
+#: admin/footer.php:10
+#, php-format
+msgid "Fully Featured %s Plugin"
+msgstr "Полнофункциональный плагин %s"
+
+#: admin/footer.php:11
+msgid "Just 39 USD"
+msgstr "Всего 39 долларов США"
+
+#: admin/footer.php:21
+msgid "Compare Features"
+msgstr "Сравните функции"
+
+#: admin/footer.php:30
+msgid "Follow Us"
+msgstr "Подписывайтесь на нас"
+
+#: admin/footer.php:37
+msgid "Support"
+msgstr "Поддержки"
+
+#: admin/footer.php:39
+msgid "Contact Us"
+msgstr "Связаться с нами"
+
+#: admin/footer.php:40
+msgid "Please Rate Us"
+msgstr "Пожалуйста, оцените нас"
+
+#: admin/footer.php:44
+msgid "Create a ticket at Wordpress forum"
+msgstr "Создать тикет на форуме Wordpress"
+
+#: admin/footer.php:47
+msgid "Stay tuned for our updates"
+msgstr "Следите за нашими обновлениями"
+
+#: admin/footer.php:112
+msgid "Name"
+msgstr "Имя"
+
+#: admin/footer.php:127
+msgid "Email"
+msgstr "Эл. адрес"
+
+#: admin/footer.php:129
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: admin/footer.php:144
+msgid "Our Plugins"
+msgstr "Наши плагины"
+
+#: admin/footer.php:165
+msgid "Powered by"
+msgstr "Питаться от"
+
+#: admin/header.php:19 admin/settings.php:129
+msgid "Settings updated successfully."
+msgstr "Настройки успешно обновлены."
+
+#: admin/header.php:32
+msgid "Thank you for enabling backlink."
+msgstr "Спасибо за активацию обратной ссылки."
+
+#: admin/header.php:48
+msgid "Please do a favour by enabling backlink to our site."
+msgstr "Пожалуйста, сделайте одолжение, включив обратную ссылку на наш сайт."
+
+#: admin/header.php:48
+msgid "Okay, Enable"
+msgstr "Хорошо, включить"
+
+#: admin/header.php:104
+msgid "FAQ"
+msgstr "Вопросы-Ответы"
+
+#: admin/header.php:107
+msgid "Readme"
+msgstr "Прочти меня"
+
+#: admin/header.php:110 admin/menu.php:40
+msgid "About"
+msgstr "О"
+
+#: admin/logs.php:13
+msgid "Auto Publish Logs"
+msgstr "Журналы автоматической публикации"
+
+#: admin/logs.php:14
+msgid "Last ten logs"
+msgstr "Последние десять журналов"
+
+#: admin/logs.php:19
+msgid "Post Id"
+msgstr "Идентификатор сообщения"
+
+#: admin/logs.php:20
+msgid "Post Title"
+msgstr "Заголовок поста"
+
+#: admin/logs.php:21
+msgid "Published On"
+msgstr "Опубликован в"
+
+#: admin/logs.php:22
+msgid "Status"
+msgstr "Статус"
+
+#: admin/logs.php:42
+msgid "No logs Found"
+msgstr "Журналы не найдены"
+
+#: admin/logs.php:103
+msgid ""
+"For publishing a simple text message, it will take 1 API call, Upload image "
+"option will take 2-3 API calls and attach link option take 1 API call(2 api "
+"calls, if enabled option for clearing cache)."
+msgstr ""
+"Для публикации простого текстового сообщения потребуется 1 вызов API, для "
+"параметра «Загрузить изображение» потребуется 2-3 вызова API, а для "
+"параметра «Прикрепить ссылку» потребуется 1 вызов API (2 вызова API, если "
+"включена опция очистки кеша)."
+
+#: admin/manage-authorizations.php:7
+#, php-format
+msgid "%s Package updated successfully."
+msgstr "Пакет %s успешно обновлен."
+
+#: admin/manage-authorizations.php:22
+#, php-format
+msgid "Please authorize %s app under Facebook settings to access this page."
+msgstr ""
+"Пожалуйста, авторизуйте приложение %s в настройках Facebook для доступа к "
+"этой странице."
+
+#: admin/manage-authorizations.php:237 admin/menu.php:38
+msgid "Manage Authorizations"
+msgstr "Управление авторизациями"
+
+#: admin/manage-authorizations.php:261
+msgid "Current Plan:"
+msgstr "Текущий план:"
+
+#: admin/manage-authorizations.php:263
+msgid "Allowed Facebook users:"
+msgstr "Разрешенные пользователи Facebook:"
+
+#: admin/manage-authorizations.php:264
+msgid "API limit per account :"
+msgstr "Ограничение API на аккаунт:"
+
+#: admin/manage-authorizations.php:264
+msgid "per hour"
+msgstr "в час"
+
+#: admin/manage-authorizations.php:265
+msgid "Package Expiry :"
+msgstr "Срок действия пакета:"
+
+#: admin/manage-authorizations.php:266
+msgid "Package Status :"
+msgstr "Статус пакета:"
+
+#: admin/manage-authorizations.php:275
+msgid "Upgrade/Renew"
+msgstr "Обновить/обновить"
+
+#: admin/manage-authorizations.php:282
+msgid "Show all entries"
+msgstr "Показать все записи"
+
+#: admin/manage-authorizations.php:283
+msgid "Show entries from current wp installation"
+msgstr "Показать записи из текущей установки wp"
+
+#: admin/manage-authorizations.php:284
+msgid "Show entries from other wp installations"
+msgstr "Показать записи из других установок wp"
+
+#: admin/manage-authorizations.php:290
+msgid "Facebook username"
+msgstr "Имя пользователя Facebook"
+
+#: admin/manage-authorizations.php:291
+msgid "Selected pages"
+msgstr "Выбранные страницы"
+
+#: admin/manage-authorizations.php:292
+msgid "Selected groups"
+msgstr "Выбранные группы"
+
+#: admin/manage-authorizations.php:294
+#, php-format
+msgid "%s url"
+msgstr "URL-адрес %s"
+
+#: admin/manage-authorizations.php:297
+msgid "Plugin"
+msgstr "Плагин"
+
+#: admin/manage-authorizations.php:299
+#, php-format
+msgid "Account ID %s"
+msgstr "Идентификатор учетной записи %s"
+
+#: admin/manage-authorizations.php:301
+msgid "Action"
+msgstr "Действие"
+
+#: admin/manage-authorizations.php:336
+msgid "Not Applicable"
+msgstr "Непригодный"
+
+#: admin/manage-authorizations.php:343 admin/manage-authorizations.php:366
+msgid "Delete"
+msgstr "Удалить"
+
+#: admin/manage-authorizations.php:356
+msgid "(Inactive)"
+msgstr "(Неактивный)"
+
+#: admin/manage-authorizations.php:376
+msgid "No Authorizations"
+msgstr "Нет авторизации"
+
+#: admin/manage-authorizations.php:382
+msgid "Unable to connect. Please check your curl and firewall settings"
+msgstr ""
+"Невозможно подключиться. Пожалуйста, проверьте настройки curl и брандмауэра"
+
+#: admin/menu.php:15
+msgid "Please check whether the email is correct."
+msgstr "Пожалуйста, проверьте правильность адреса электронной почты."
+
+#: admin/menu.php:16
+msgid "Select atleast one list."
+msgstr "Выберите хотя бы один список."
+
+#: admin/menu.php:17
+msgid "You do not have sufficient permissions"
+msgstr "У вас недостаточно прав"
+
+#: admin/menu.php:18
+#, php-format
+msgid "Account details successfully deleted from %s"
+msgstr "Данные учетной записи успешно удалены из %s"
+
+#: admin/menu.php:19
+msgid "Thank you for enabling backlink !"
+msgstr "Спасибо за активацию обратной ссылки!"
+
+#: admin/menu.php:20
+#, php-format
+msgid "Please connect your %s member account"
+msgstr "Пожалуйста, подключите свою учетную запись участника %s"
+
+#: admin/menu.php:36
+msgid "Settings"
+msgstr "Hастроек"
+
+#: admin/menu.php:39
+msgid "Logs"
+msgstr "Рекорды"
+
+#: admin/menu.php:41
+msgid "Suggest a Feature"
+msgstr "Предложить функцию"
+
+#: admin/metabox.php:244 admin/settings.php:303
+msgid "Enable auto publish post to my facebook account"
+msgstr ""
+"Включить автоматическую публикацию сообщений в моей учетной записи facebook"
+
+#: admin/metabox.php:247 admin/settings.php:306 admin/settings.php:412
+#: admin/settings.php:420 admin/settings.php:654 admin/settings.php:663
+#: admin/settings.php:770 admin/settings.php:819 admin/settings.php:828
+msgid "Yes"
+msgstr "Да"
+
+#: admin/metabox.php:248 admin/settings.php:307 admin/settings.php:413
+#: admin/settings.php:421 admin/settings.php:655 admin/settings.php:664
+#: admin/settings.php:771 admin/settings.php:820 admin/settings.php:829
+msgid "No"
+msgstr "Hет"
+
+#: admin/metabox.php:253 admin/settings.php:380
+msgid "Posting method"
+msgstr "Способ публикации"
+
+#: admin/metabox.php:257 admin/settings.php:386
+msgid "Simple text message"
+msgstr "Простое текстовое сообщение"
+
+#: admin/metabox.php:261 admin/settings.php:390
+msgid "Upload image to app album"
+msgstr "Загрузить изображение в альбом приложения"
+
+#: admin/metabox.php:263 admin/settings.php:392
+msgid "Upload image to timeline album"
+msgstr "Загрузить изображение в альбом временной шкалы"
+
+#: admin/metabox.php:268 admin/settings.php:397
+msgid "Attach your blog post"
+msgstr "Прикрепите запись в блоге"
+
+#: admin/metabox.php:271 admin/settings.php:400
+msgid "Share a link to your blog post"
+msgstr "Поделитесь ссылкой на запись в блоге"
+
+#: admin/metabox.php:277 admin/settings.php:425
+msgid "Message format for posting"
+msgstr "Формат сообщения для публикации"
+
+#: admin/metabox.php:280 admin/settings.php:428
+msgid "Insert the title of your post."
+msgstr "Вставьте заголовок вашего поста."
+
+#: admin/metabox.php:281 admin/settings.php:429
+msgid "Insert the URL where your post is displayed."
+msgstr "Вставьте URL-адрес, где отображается ваше сообщение."
+
+#: admin/metabox.php:282 admin/settings.php:430
+msgid "Insert the excerpt of your post."
+msgstr "Вставьте отрывок из вашего поста."
+
+#: admin/metabox.php:283 admin/settings.php:431
+msgid "Insert the description of your post."
+msgstr "Вставьте описание вашего поста."
+
+#: admin/metabox.php:284 admin/settings.php:432
+msgid "Insert the name of your blog."
+msgstr "Введите название вашего блога."
+
+#: admin/metabox.php:285 admin/settings.php:433
+msgid "Insert the nicename of the author."
+msgstr "Вставьте хорошее имя автора."
+
+#: admin/metabox.php:286 admin/settings.php:434
+msgid "Insert the ID of your post."
+msgstr "Вставьте идентификатор вашего поста."
+
+#: admin/metabox.php:287 admin/settings.php:435
+msgid "Insert the publish date of your post."
+msgstr "Вставьте дату публикации вашего поста."
+
+#: admin/metabox.php:288 admin/settings.php:436
+msgid "Insert the display name of the author."
+msgstr "Вставьте отображаемое имя автора."
+
+#: admin/metabox.php:293 admin/settings.php:440
+msgid "Select"
+msgstr "Выбирать"
+
+#: admin/settings.php:30
+msgid ""
+"Thanks again for using the plugin. We will never show the message again."
+msgstr ""
+"Еще раз спасибо за использование плагина. Мы больше никогда не будем "
+"показывать это сообщение."
+
+#: admin/settings.php:84
+msgid "Please fill facebook application name."
+msgstr "Пожалуйста, заполните имя приложения facebook."
+
+#: admin/settings.php:89
+msgid "Please fill facebook application id."
+msgstr "Пожалуйста, заполните идентификатор приложения facebook."
+
+#: admin/settings.php:94
+msgid "Please fill facebook application secret."
+msgstr "Пожалуйста, заполните секрет приложения facebook."
+
+#: admin/settings.php:137
+msgid "The state does not match. You may be a victim of CSRF."
+msgstr "Состояние не соответствует. Вы можете стать жертвой CSRF."
+
+#: admin/settings.php:146
+msgid ""
+"Unable to authorize the facebook application. Please check your curl/fopen "
+"and firewall settings."
+msgstr ""
+"Не удалось авторизовать приложение facebook. Пожалуйста, проверьте настройки "
+"curl/fopen и брандмауэра."
+
+#: admin/settings.php:156
+#, php-format
+msgid "Successfully connected to %s member area"
+msgstr "Успешное подключение к членской зоне %s"
+
+#: admin/settings.php:166
+msgid "Selected pages saved successfully."
+msgstr "Выбранные страницы успешно сохранены."
+
+#: admin/settings.php:198
+msgid "Facebook Settings"
+msgstr "Настройки Facebook"
+
+#: admin/settings.php:199
+msgid "General Settings"
+msgstr "Oбщие настройки"
+
+#: admin/settings.php:215 admin/settings.php:248
+msgid "Application needs authorisation"
+msgstr "Приложение требует авторизации"
+
+#: admin/settings.php:219 admin/settings.php:253
+msgid "Authorize"
+msgstr "Разрешить"
+
+#: admin/settings.php:229 admin/settings.php:264
+msgid "Reauthorize"
+msgstr "Повторно авторизовать"
+
+#: admin/settings.php:271
+msgid "Application is authorized, go posting."
+msgstr "Приложение авторизовано, приступайте к публикации."
+
+#: admin/settings.php:282
+msgid "Note:"
+msgstr "Примечание:"
+
+#: admin/settings.php:282
+msgid ""
+"You have to create a Facebook application before filling the following "
+"details."
+msgstr ""
+"Вы должны создать приложение Facebook, прежде чем заполнять следующие данные."
+
+#: admin/settings.php:283
+msgid "Click here </a></b> to create new Facebook application."
+msgstr "Нажмите здесь </a></b>, чтобы создать новое приложение Facebook."
+
+#: admin/settings.php:284
+#, php-format
+msgid "In the application page in facebook, navigate to <b> %s </b>."
+msgstr "На странице приложения в facebook перейдите к <b> %s </b>."
+
+#: admin/settings.php:284
+msgid "Set the site url as:"
+msgstr "Установите URL-адрес сайта как:"
+
+#: admin/settings.php:286
+#, php-format
+msgid "And then navigate to <b> %s </b>."
+msgstr "Затем перейдите к <b> %s </b>."
+
+#: admin/settings.php:286
+msgid "Set the Valid OAuth redirect URIs as:"
+msgstr "Установите допустимые URI перенаправления OAuth следующим образом:"
+
+#: admin/settings.php:288
+#, php-format
+msgid ""
+"For detailed step by step instructions <b><a href=\"%s\" target=\"_blank\"> "
+"Click here."
+msgstr ""
+"Для получения подробных пошаговых инструкций <b><a href=\"%s\" target="
+"\"_blank\"> нажмите здесь."
+
+#: admin/settings.php:300
+msgid "All fields given below are mandatory"
+msgstr "Все поля, указанные ниже, обязательны для заполнения"
+
+#: admin/settings.php:312
+msgid "Application name"
+msgstr "Имя приложения"
+
+#: admin/settings.php:313
+msgid "This is for tracking purpose"
+msgstr "Это для отслеживания"
+
+#: admin/settings.php:321
+msgid "Application Selection"
+msgstr "Выбор приложения"
+
+#: admin/settings.php:325
+msgid "Own App"
+msgstr "Собственное приложение"
+
+#: admin/settings.php:325
+msgid "requires app submission and Facebook review"
+msgstr "требуется отправка приложения и проверка Facebook"
+
+#: admin/settings.php:325
+msgid "Help"
+msgstr "Помогите"
+
+#: admin/settings.php:327
+msgid "App approval service available for 50 USD"
+msgstr "Услуга утверждения приложений доступна за 50 долларов США"
+
+#: admin/settings.php:330
+msgid "Expected time frame"
+msgstr "Ожидаемые сроки"
+
+#: admin/settings.php:330
+msgid "30 days"
+msgstr "30 дней"
+
+#: admin/settings.php:331
+msgid "Required details"
+msgstr "Необходимые данные"
+
+#: admin/settings.php:331
+msgid "1. WordPress login"
+msgstr "1. Вход в WordPress"
+
+#: admin/settings.php:332
+msgid ""
+"2. Admin access to Facebook developer app for review submission (temporary)."
+msgstr ""
+"2. Административный доступ к приложению разработчика Facebook для отправки "
+"отзывов (временно)."
+
+#: admin/settings.php:333
+#, php-format
+msgid ""
+"For more details contact <a href=\"%s\" target=\"_blank\" > Support Desk"
+msgstr ""
+"Для получения более подробной информации обратитесь в <a href=\"%s\" target="
+"\"_blank\" > службу поддержки"
+
+#: admin/settings.php:337
+#, php-format
+msgid "%s App ( ready to publish )"
+msgstr "Приложение %s (готово к публикации)"
+
+#: admin/settings.php:338
+msgid "Starts from 10 USD per year"
+msgstr "От 10 долларов США в год"
+
+#: admin/settings.php:341
+msgid "30 DAYS FREE TRIAL AVAILABLE"
+msgstr "ДОСТУПНА 30-ДНЕВНАЯ БЕСПЛАТНАЯ ПРОБНАЯ ВЕРСИЯ"
+
+#: admin/settings.php:344
+#, php-format
+msgid "How to use %s application?"
+msgstr "Как использовать приложение %s?"
+
+#: admin/settings.php:355
+#, php-format
+msgid "Connect your %s account"
+msgstr "Подключите свою учетную запись %s"
+
+#: admin/settings.php:361
+msgid "Application id"
+msgstr "Идентификатор приложения"
+
+#: admin/settings.php:370
+msgid "Application secret"
+msgstr "Секрет приложения"
+
+#: admin/settings.php:381
+msgid ""
+"Create app album (with <b> Application name </b>) in the Facebook pages, <br/"
+"> if you are using the posting method <b> Upload image to app album"
+msgstr ""
+"Создайте альбом приложения (с <b> названием приложения </b>) на страницах "
+"Facebook, <br/> если вы используете метод публикации, <b> загрузите "
+"изображение в альбом приложения"
+
+#: admin/settings.php:388
+msgid "Text message with image"
+msgstr "Текстовое сообщение с изображением"
+
+#: admin/settings.php:395
+msgid "Text message with attached link"
+msgstr "Текстовое сообщение с прикрепленной ссылкой"
+
+#: admin/settings.php:406
+msgid "Enforce og tags for Facebook"
+msgstr "Использовать теги og для Facebook"
+
+#: admin/settings.php:408
+msgid ""
+"If you enable, Open Graph tags will be generated while posting to Facebook, "
+"when using the posting method <b> Share a link to your blog post </b> or <b> "
+"Attach your blog post."
+msgstr ""
+"Если вы включите этот параметр, теги Open Graph будут генерироваться при "
+"публикации на Facebook при использовании метода публикации <b> Поделиться "
+"ссылкой на запись в блоге </b> или <b> Прикрепить запись в блоге."
+
+#: admin/settings.php:418
+msgid "Clear facebook cache before publishing to facebook"
+msgstr "Очистите кеш facebook перед публикацией в facebook"
+
+#: admin/settings.php:437
+msgid ""
+"Optional in the case of <b>Text message with attached link </b><br/>or<b> "
+"Text message with image </b>posting methods"
+msgstr ""
+"Необязательно в случае <b>текстового сообщения с прикрепленной ссылкой </"
+"b><br/>или<b> текстового сообщения с изображением </b>методов публикации"
+
+#: admin/settings.php:500
+msgid "Select facebook pages for auto publish"
+msgstr "Выберите страницы facebook для автоматической публикации"
+
+#: admin/settings.php:505
+msgid "Select All"
+msgstr "Выбрать все"
+
+#: admin/settings.php:525
+msgid "Selected facebook pages for auto publish"
+msgstr "Выбранные страницы facebook для автоматической публикации"
+
+#: admin/settings.php:549
+msgid "Save"
+msgstr "Сохранять"
+
+#: admin/settings.php:553
+msgid "Free trial is available only for first time users"
+msgstr "Бесплатная пробная версия доступна только для новых пользователей"
+
+#: admin/settings.php:556
+msgid "Use reauthorize button to change selected values"
+msgstr ""
+"Используйте кнопку повторной авторизации, чтобы изменить выбранные значения"
+
+#: admin/settings.php:649
+msgid "Basic Settings"
+msgstr "Основные настройки"
+
+#: admin/settings.php:651
+msgid "Publish wordpress `posts` to facebook"
+msgstr "Публиковать посты wordpress в фейсбук"
+
+#: admin/settings.php:660
+msgid "Publish wordpress `pages` to facebook"
+msgstr "Публикация `страниц` wordpress в facebook"
+
+#: admin/settings.php:685
+msgid "Select wordpress custom post types for auto publish"
+msgstr ""
+"Выберите пользовательские типы сообщений WordPress для автоматической "
+"публикации"
+
+#: admin/settings.php:701
+msgid "Advanced Settings"
+msgstr "Расширенные настройки"
+
+#: admin/settings.php:703
+msgid "Select post categories for auto publish"
+msgstr "Выберите категории сообщений для автоматической публикации"
+
+#: admin/settings.php:708
+msgid "All"
+msgstr "Все"
+
+#: admin/settings.php:710
+msgid "Specific"
+msgstr "Конкретный"
+
+#: admin/settings.php:745
+msgid "NIL"
+msgstr "Ничто"
+
+#: admin/settings.php:750
+msgid "Auto publish on editing posts/pages/custom post types"
+msgstr ""
+"Автоматическая публикация при редактировании сообщений/страниц/"
+"пользовательских типов сообщений"
+
+#: admin/settings.php:753 admin/settings.php:762
+msgid "Enabled"
+msgstr "Включена"
+
+#: admin/settings.php:754 admin/settings.php:763
+msgid "Disabled"
+msgstr "Hетрудоспособный"
+
+#: admin/settings.php:755
+msgid "Use settings from post creation or post updation"
+msgstr "Использовать настройки из создания или обновления публикации"
+
+#: admin/settings.php:759
+msgid "Auto publish on creating posts/pages/custom post types"
+msgstr ""
+"Автоматическая публикация при создании сообщений/страниц/пользовательских "
+"типов сообщений"
+
+#: admin/settings.php:768
+msgid "Enable SSL peer verification in remote requests"
+msgstr "Включить одноранговую проверку SSL в удаленных запросах"
+
+#: admin/settings.php:776
+msgid "Apply filters during publishing"
+msgstr "Применение фильтров во время публикации"
+
+#: admin/settings.php:813
+msgid "Other Settings"
+msgstr "Другие настройки"
+
+#: admin/settings.php:816
+msgid "Enable credit link to author"
+msgstr "Включить кредитную ссылку на автора"
+
+#: admin/settings.php:825
+msgid "Enable premium version ads"
+msgstr "Включить рекламу премиум-версии"
+
+#: admin/settings.php:839
+msgid "Update Settings"
+msgstr "Обновить настройки"
+
+#: facebook-auto-publish.php:31
+msgid "Hi there!  Im just a plugin, not much I can do when called directly."
+msgstr "Всем привет! Я просто плагин, мало что могу сделать при прямом вызове."

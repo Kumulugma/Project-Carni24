@@ -1,0 +1,1152 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: multilang\n"
+"POT-Creation-Date: 2022-07-07 12:47+0530\n"
+"PO-Revision-Date: 2022-07-07 17:08+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: admin/settings.php\n"
+"X-Poedit-SearchPath-1: admin/publish.php\n"
+"X-Poedit-SearchPath-2: admin/metabox.php\n"
+"X-Poedit-SearchPath-3: admin/menu.php\n"
+"X-Poedit-SearchPath-4: admin/manage-authorizations.php\n"
+"X-Poedit-SearchPath-5: admin/logs.php\n"
+"X-Poedit-SearchPath-6: admin/install.php\n"
+"X-Poedit-SearchPath-7: admin/header.php\n"
+"X-Poedit-SearchPath-8: admin/footer.php\n"
+"X-Poedit-SearchPath-9: admin/fbap-suggest-feature.php\n"
+"X-Poedit-SearchPath-10: admin/destruction.php\n"
+"X-Poedit-SearchPath-11: admin/authorization.php\n"
+"X-Poedit-SearchPath-12: admin/ajax-backlink.php\n"
+"X-Poedit-SearchPath-13: admin/admin-notices.php\n"
+"X-Poedit-SearchPath-14: admin/about.php\n"
+"X-Poedit-SearchPath-15: facebook-auto-publish.php\n"
+
+#: admin/about.php:9
+#, php-format
+msgid ""
+"%s automatically publishes posts from your blog to your Facebook pages. It "
+"allows you to filter posts based on post-types and categories. %s is "
+"developed and maintained by"
+msgstr ""
+"ينشر%s تلقائيًا منشورات من مدونتك على صفحاتك على Facebook. يسمح لك بتصفية "
+"المنشورات بناءً على أنواع المنشورات والفئات. تم تطوير%s وصيانته بواسطة"
+
+#: admin/about.php:17
+#, php-format
+msgid ""
+"If you would like to have more features , please try <a href=\"%s\" target="
+"\"_blank\">%s</a> which is a premium version of this plugin. We have "
+"included a quick comparison of the free and premium plugins for your "
+"reference."
+msgstr ""
+"إذا كنت ترغب في الحصول على المزيد من الميزات ، فيرجى تجربة <a href=\"%s\" "
+"target=\"_blank\">%s </a> وهو إصدار متميز من هذا المكون الإضافي. لقد قمنا "
+"بتضمين مقارنة سريعة للمكونات الإضافية المجانية والمتميزة للرجوع إليها."
+
+#: admin/about.php:23
+msgid "Feature group"
+msgstr "مجموعة الميزات"
+
+#: admin/about.php:24
+msgid "Feature"
+msgstr "ميزة"
+
+#: admin/about.php:25
+msgid "Free"
+msgstr "مجانيا"
+
+#: admin/about.php:27
+msgid "Premium"
+msgstr "الممتازة"
+
+#: admin/about.php:29
+#, php-format
+msgid "%s Premium"
+msgstr "%s قسط"
+
+#: admin/about.php:34
+msgid "Supported Media"
+msgstr "الوسائط المدعومة"
+
+#: admin/about.php:35 admin/admin-notices.php:56 admin/metabox.php:236
+msgid "Facebook"
+msgstr "فيسبوك"
+
+#: admin/about.php:45 admin/admin-notices.php:57
+msgid "Twitter"
+msgstr "تويتر"
+
+#: admin/about.php:54 admin/admin-notices.php:58
+msgid "LinkedIn"
+msgstr "ينكدين"
+
+#: admin/about.php:63
+msgid "Instagram"
+msgstr "انستغرام"
+
+#: admin/about.php:72
+msgid "Tumblr"
+msgstr "نعرفكم"
+
+#: admin/about.php:81
+msgid "Pinterest"
+msgstr "بينتيريست"
+
+#: admin/about.php:92
+msgid "Posting Options"
+msgstr "خيارات الإرسال"
+
+#: admin/about.php:93
+msgid "Publish to facebook pages"
+msgstr "انشر على صفحات الفيسبوك"
+
+#: admin/about.php:102
+msgid "Publish to facebook groups"
+msgstr "انشر في مجموعات الفيسبوك"
+
+#: admin/about.php:111
+msgid "Publish to twitter profile"
+msgstr "انشر على تويتر الشخصي"
+
+#: admin/about.php:121
+msgid "Publish to linkedin profile/company pages"
+msgstr "انشر على صفحات الملف الشخصي / الشركة المرتبطة"
+
+#: admin/about.php:130
+msgid "Publish to instagram Business accounts"
+msgstr "انشر على حسابات الأعمال في instagram"
+
+#: admin/about.php:139
+msgid "Publish to tumblr profile"
+msgstr "انشر في ملف تعريف نعرفكم"
+
+#: admin/about.php:149
+msgid "Publish to pinterest boards"
+msgstr "انشر على بينتيريست المجالس"
+
+#: admin/about.php:158
+msgid "Option to add twitter image description for visually impaired people"
+msgstr "خيار إضافة وصف صورة Twitter للأشخاص ضعاف البصر"
+
+#: admin/about.php:167
+msgid "Option to republish existing posts"
+msgstr "خيار لإعادة نشر الوظائف الحالية"
+
+#: admin/about.php:177
+msgid "Publish to multiple social media accounts"
+msgstr "انشر على حسابات وسائط اجتماعية متعددة"
+
+#: admin/about.php:187
+msgid ""
+"Seperate message formats for publishing to multiple social media accounts"
+msgstr "تنسيق رسالة منفصل للنشر على حسابات وسائط اجتماعية متعددة"
+
+#: admin/about.php:197
+msgid "Save auto publish settings of individual posts"
+msgstr "حفظ إعدادات النشر التلقائي للمشاركات الفردية"
+
+#: admin/about.php:207
+msgid ""
+"Hash Tags support for Facebook, Twitter, Linkedin, Instagram, Tumblr and "
+"Pinterest"
+msgstr ""
+"دعم علامات التجزئة لـ فيسبوك و تويتر و ينكدين والانستغرام و بينتيريست و تمبلر"
+
+#: admin/about.php:216
+msgid "Option to use post tags as hash tags"
+msgstr "خيار لاستخدام علامة المنشور كعلامات تصنيف"
+
+#: admin/about.php:225
+msgid "Enable/Disable SSL peer verification"
+msgstr "تمكين / تعطيل التحقق من الأقران SSL"
+
+#: admin/about.php:238
+msgid "Image Options"
+msgstr "خيارات الصورة"
+
+#: admin/about.php:239
+msgid "Publish images along with post content"
+msgstr "نشر الصور مع محتوى آخر"
+
+#: admin/about.php:250
+msgid ""
+"Separate default image url for publishing to multiple social media accounts"
+msgstr "عنوان url افتراضي منفصل للصورة للنشر على حسابات وسائط اجتماعية متعددة"
+
+#: admin/about.php:260
+msgid ""
+"Option to specify preference from featured image, post content, post meta "
+"and open graph tags"
+msgstr ""
+"خيار لتحديد التفضيل من الصورة المميزة ومحتوى المنشور ونشر التعريف وفتح "
+"علامات الرسم البياني"
+
+#: admin/about.php:269
+msgid ""
+"Publish multiple images to facebook, tumblr, linkedin and twitter along with "
+"post content"
+msgstr "انشر صورًا متعددة على فيسبوك و تمبلر و ينكدين و تويتر مع محتوى المنشور"
+
+#: admin/about.php:278
+msgid "Option to specify multiphoto preference from post content and post meta"
+msgstr "خيار لتحديد تفضيل متعدد الصور من محتوى المنشور ونشر التعريف"
+
+#: admin/about.php:289
+msgid "Video/Audio Options"
+msgstr "خيارات الفيديو / الصوت"
+
+#: admin/about.php:290
+msgid ""
+"Publish video to facebook, tumblr, Linkedin, Instagram and twitter along "
+"with post content"
+msgstr "انشر الفيديو على فيسبوك و نعرفكم و ينكدين و تويتر مع محتوى النشر"
+
+#: admin/about.php:300
+msgid ""
+"Option to specify preference from post content, post meta and open graph tags"
+msgstr ""
+"خيار لتحديد التفضيل من محتوى المنشور ونشر التعريف وفتح علامات الرسم البياني"
+
+#: admin/about.php:309
+msgid "Publish audio to tumblr along with post content"
+msgstr "انشر الصوت إلى نعرفكم جنبًا إلى جنب مع محتوى النشر"
+
+#: admin/about.php:318
+msgid ""
+"Option to specify audio preference from  post content, post meta and open "
+"graph tags"
+msgstr ""
+"خيار لتحديد تفضيلات الصوت من محتوى المنشور ونشر التعريف وفتح علامات الرسم "
+"البياني"
+
+#: admin/about.php:329
+msgid "Filter Options"
+msgstr "خيارات التصفية"
+
+#: admin/about.php:330
+msgid "Filter posts to publish based on categories"
+msgstr "تصفية المشاركات للنشر على أساس الفئات"
+
+#: admin/about.php:340
+msgid "Filter posts to publish based on custom post types"
+msgstr "تصفية المشاركات للنشر على أساس أنواع المنشورات المخصصة"
+
+#: admin/about.php:349
+msgid "Filter posts to publish based on sticky posts"
+msgstr "تصفية المشاركات للنشر على أساس المنشورات اللاصقة"
+
+#: admin/about.php:359
+msgid "Configuration to enable/disable page publishing"
+msgstr "التكوين لتمكين / تعطيل نشر الصفحة"
+
+#: admin/about.php:369
+msgid "Category filter for individual accounts"
+msgstr "مرشح الفئات للحسابات الفردية"
+
+#: admin/about.php:379
+msgid "Custom post type filter for individual accounts"
+msgstr "عامل تصفية نوع المنشور المخصص للحسابات الفردية"
+
+#: admin/about.php:389
+msgid "Enable/Disable page publishing for individual accounts"
+msgstr "تمكين / تعطيل نشر الصفحة للحسابات الفردية"
+
+#: admin/about.php:398
+msgid "Override auto publish scheduling for individual accounts"
+msgstr "تجاوز جدولة النشر التلقائي للحسابات الفردية"
+
+#: admin/about.php:407
+msgid "Override auto publish based on sticky posts for individual accounts"
+msgstr "تجاوز النشر التلقائي بناءً على المنشورات الثابتة للحسابات الفردية"
+
+#: admin/about.php:418
+msgid "Scheduling"
+msgstr "الجدولة"
+
+#: admin/about.php:419
+msgid "Instantaneous post publishing"
+msgstr "النشر الفوري"
+
+#: admin/about.php:429
+msgid "Scheduled post publishing using cron"
+msgstr "نشر المنشور المجدول باستخدام cron"
+
+#: admin/about.php:439
+msgid "Status summary of auto publish tasks by mail"
+msgstr "ملخص حالة مهام النشر التلقائي عن طريق البريد"
+
+#: admin/about.php:449
+msgid "Configurable auto publishing time interval"
+msgstr "الفاصل الزمني للنشر التلقائي القابل للتكوين"
+
+#: admin/about.php:463
+msgid "Publishing History"
+msgstr "تاريخ النشر"
+
+#: admin/about.php:464
+msgid "View auto publish history"
+msgstr "عرض محفوظات النشر التلقائي"
+
+#: admin/about.php:473
+msgid "View auto publish error logs"
+msgstr "عرض سجلات خطأ النشر التلقائي"
+
+#: admin/about.php:483
+msgid "Option to republish post"
+msgstr "خيار إعادة نشر آخر"
+
+#: admin/about.php:493
+msgid "Option to reschedule publishing"
+msgstr "خيار إعادة جدولة النشر"
+
+#: admin/about.php:503
+msgid "Installation and Support"
+msgstr "التثبيت والدعم"
+
+#: admin/about.php:504
+msgid "Free Installation"
+msgstr "تركيب مجاني"
+
+#: admin/about.php:513
+msgid "Privilege customer support"
+msgstr "امتياز دعم العملاء"
+
+#: admin/about.php:523
+msgid "Addon Features"
+msgstr "ميزات الملحق"
+
+#: admin/about.php:524
+msgid "Advanced Autopublish Scheduler"
+msgstr "جدولة النشر التلقائي المتقدمة"
+
+#: admin/about.php:533
+msgid "URL-Shortener"
+msgstr "URL- shortener"
+
+#: admin/about.php:542
+msgid "Privilege Management"
+msgstr "إدارة الامتياز"
+
+#: admin/about.php:551
+msgid "Other"
+msgstr "آخر"
+
+#: admin/about.php:553
+#, php-format
+msgid ""
+"%s API package for 1 year, worth 10 USD(1 fb account ,10 api calls per hour)"
+msgstr ""
+"حزمة% s API لمدة عام واحد ، بقيمة 10 دولارات أمريكية (حساب 1 fb ، 10 مكالمات "
+"api في الساعة)"
+
+#: admin/about.php:555
+msgid "1 month free subscription"
+msgstr "اشتراك مجاني لمدة شهر"
+
+#: admin/about.php:557
+msgid "1 year free subscription"
+msgstr "اشتراك مجاني لمدة عام"
+
+#: admin/about.php:563
+msgid "Price"
+msgstr "سعر"
+
+#: admin/about.php:564
+msgid "FREE"
+msgstr "مجانيا"
+
+#: admin/about.php:565
+msgid "Starts from 39 USD"
+msgstr "يبدأ من 39 دولارًا أمريكيًا"
+
+#: admin/about.php:566
+msgid "Starts from 69 USD"
+msgstr "يبدأ من 69 دولارًا أمريكيًا"
+
+#: admin/about.php:569
+msgid "Purchase"
+msgstr "شراء"
+
+#: admin/about.php:571
+msgid "Buy Now"
+msgstr "اشتري الآن"
+
+#: admin/about.php:578
+msgid "Pinterest is added on experimental basis."
+msgstr "تمت إضافة بينتيريست على أساس تجريبي."
+
+#: admin/admin-notices.php:41
+#, php-format
+msgid ""
+"Thank you for using <a href=\"%s\" target=\"_blank\"> %s </a> plugin from <a "
+"href=\"%s\" target=\"_blank\"> %s </a>. Would you consider supporting us "
+"with the continued development of the plugin using any of the below methods?"
+msgstr ""
+"شكرًا لك على استخدام المكون الإضافي <a href=\"قم بتوصيل حساب % s الخاص بكs\" "
+"target=\"_blank\">%s </a> من <a href=\"%s\" target=\"_blank\">%s </a>. هل "
+"تفكر في دعمنا بالتطوير المستمر للمكوِّن الإضافي باستخدام أي من الطرق التالية؟"
+
+#: admin/admin-notices.php:45
+msgid "Rate it 5★'s on wordpress"
+msgstr "قيمه 5 ★ على وورد"
+
+#: admin/admin-notices.php:47
+msgid "Enable Backlink"
+msgstr "تمكين Backlink"
+
+#: admin/admin-notices.php:49
+msgid "Share on"
+msgstr "مشاركه فى"
+
+#: admin/admin-notices.php:50 admin/footer.php:38 admin/header.php:101
+msgid "Donate"
+msgstr "يتبرع"
+
+#: admin/admin-notices.php:52
+msgid "Don't Show This Again"
+msgstr "لا تظهر هذا مرة أخرى"
+
+#: admin/fbap-suggest-feature.php:10
+msgid "Thank you for the suggestion."
+msgstr "شكرا لك على الاقتراح."
+
+#: admin/fbap-suggest-feature.php:11 admin/fbap-suggest-feature.php:19
+#: admin/fbap-suggest-feature.php:27 admin/header.php:19 admin/header.php:33
+#: admin/header.php:49 admin/manage-authorizations.php:9
+#: admin/manage-authorizations.php:132 admin/manage-authorizations.php:192
+#: admin/settings.php:32 admin/settings.php:130 admin/settings.php:138
+#: admin/settings.php:147 admin/settings.php:158 admin/settings.php:167
+#: admin/settings.php:182 admin/settings.php:1025 admin/settings.php:1060
+msgid "Dismiss"
+msgstr "رفض"
+
+#: admin/fbap-suggest-feature.php:18
+#, php-format
+msgid "%s not able to process the request."
+msgstr "%s غير قادر على معالجة الطلب."
+
+#: admin/fbap-suggest-feature.php:26
+msgid "Please suggest a feature."
+msgstr "الرجاء اقتراح ميزة."
+
+#: admin/fbap-suggest-feature.php:60
+msgid "Contribute And Get Rewarded"
+msgstr "ساهم واحصل على مكافأة"
+
+#: admin/fbap-suggest-feature.php:61
+msgid ""
+"Suggest a feature for this plugin and stand a chance to get a free copy of "
+"premium version of this plugin."
+msgstr ""
+"اقترح ميزة لهذا المكون الإضافي واحصل على فرصة للحصول على نسخة مجانية من "
+"الإصدار المتميز من هذا المكون الإضافي."
+
+#: admin/fbap-suggest-feature.php:67
+msgid "Send Mail To Us"
+msgstr "إرسال بريد إلينا"
+
+#: admin/footer.php:10
+#, php-format
+msgid "Fully Featured %s Plugin"
+msgstr "البرنامج المساعد %s المميز بالكامل"
+
+#: admin/footer.php:11
+msgid "Just 39 USD"
+msgstr "فقط 39 دولارًا أمريكيًا"
+
+#: admin/footer.php:21
+msgid "Compare Features"
+msgstr "قارن الميزات"
+
+#: admin/footer.php:30
+msgid "Follow Us"
+msgstr "تابعنا"
+
+#: admin/footer.php:37
+msgid "Support"
+msgstr "دعم"
+
+#: admin/footer.php:39
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+#: admin/footer.php:40
+msgid "Please Rate Us"
+msgstr "ارجوك قم بتقييمنا"
+
+#: admin/footer.php:44
+msgid "Create a ticket at Wordpress forum"
+msgstr "إنشاء تذكرة في منتدى وورد"
+
+#: admin/footer.php:47
+msgid "Stay tuned for our updates"
+msgstr "ترقبوا تحديثاتنا"
+
+#: admin/footer.php:112
+msgid "Name"
+msgstr "اسم"
+
+#: admin/footer.php:127
+msgid "Email"
+msgstr "بريد الالكتروني"
+
+#: admin/footer.php:129
+msgid "Subscribe"
+msgstr "وقع بإمضائة"
+
+#: admin/footer.php:144
+msgid "Our Plugins"
+msgstr "ملحقاتنا"
+
+#: admin/footer.php:165
+msgid "Powered by"
+msgstr "مشغل بواسطة"
+
+#: admin/header.php:19 admin/settings.php:129
+msgid "Settings updated successfully."
+msgstr "تم تحديث الإعدادات بنجاح."
+
+#: admin/header.php:32
+msgid "Thank you for enabling backlink."
+msgstr "شكرا لتمكين باك لينك."
+
+#: admin/header.php:48
+msgid "Please do a favour by enabling backlink to our site."
+msgstr "يرجى تقديم خدمة عن طريق تمكين ارتباط خلفي لموقعنا."
+
+#: admin/header.php:48
+msgid "Okay, Enable"
+msgstr "حسنًا ، تمكين"
+
+#: admin/header.php:104
+msgid "FAQ"
+msgstr "أسئلة مكررة"
+
+#: admin/header.php:107
+msgid "Readme"
+msgstr "التمهيدي"
+
+#: admin/header.php:110 admin/menu.php:40
+msgid "About"
+msgstr "بشأن"
+
+#: admin/logs.php:13
+msgid "Auto Publish Logs"
+msgstr "سجلات النشر التلقائي"
+
+#: admin/logs.php:14
+msgid "Last ten logs"
+msgstr "آخر عشرة سجلات"
+
+#: admin/logs.php:19
+msgid "Post Id"
+msgstr "بعد معرف"
+
+#: admin/logs.php:20
+msgid "Post Title"
+msgstr "عنوان الوظيفة"
+
+#: admin/logs.php:21
+msgid "Published On"
+msgstr "تم النشر في"
+
+#: admin/logs.php:22
+msgid "Status"
+msgstr "حالة"
+
+#: admin/logs.php:42
+msgid "No logs Found"
+msgstr "لم يتم العثور على سجلات"
+
+#: admin/logs.php:103
+msgid ""
+"For publishing a simple text message, it will take 1 API call, Upload image "
+"option will take 2-3 API calls and attach link option take 1 API call(2 api "
+"calls, if enabled option for clearing cache)."
+msgstr ""
+"لنشر رسالة نصية بسيطة ، سيستغرق الأمر مكالمة واحدة لواجهة برمجة التطبيقات ، "
+"وسيستغرق خيار تحميل الصورة 2-3 استدعاءات لواجهة برمجة التطبيقات وخيار إرفاق "
+"رابط يأخذ مكالمة واحدة لواجهة برمجة التطبيقات (استدعائان لواجهة برمجة "
+"التطبيقات ، إذا تم تمكين الخيار لمسح ذاكرة التخزين المؤقت)."
+
+#: admin/manage-authorizations.php:7
+#, php-format
+msgid "%s Package updated successfully."
+msgstr "تم تحديث حزمةالبرنامج المساعد %s المميز بالكامل s بنجاح."
+
+#: admin/manage-authorizations.php:22
+#, php-format
+msgid "Please authorize %s app under Facebook settings to access this page."
+msgstr ""
+"الرجاء تخويل تطبيقالبرنامج المساعد %s المميز بالكامل s ضمن إعدادات Facebook "
+"للوصول إلى هذه الصفحة."
+
+#: admin/manage-authorizations.php:237 admin/menu.php:38
+msgid "Manage Authorizations"
+msgstr "إدارة التراخيص"
+
+#: admin/manage-authorizations.php:261
+msgid "Current Plan:"
+msgstr "الخطة الحالية:"
+
+#: admin/manage-authorizations.php:263
+msgid "Allowed Facebook users:"
+msgstr "مستخدمو Facebook المسموح لهم:"
+
+#: admin/manage-authorizations.php:264
+msgid "API limit per account :"
+msgstr "حد API لكل حساب:"
+
+#: admin/manage-authorizations.php:264
+msgid "per hour"
+msgstr "في الساعة"
+
+#: admin/manage-authorizations.php:265
+msgid "Package Expiry :"
+msgstr "انتهاء صلاحية الحزمة:"
+
+#: admin/manage-authorizations.php:266
+msgid "Package Status :"
+msgstr "وضع رزمة :"
+
+#: admin/manage-authorizations.php:275
+msgid "Upgrade/Renew"
+msgstr "الترقية / التجديد"
+
+#: admin/manage-authorizations.php:282
+msgid "Show all entries"
+msgstr "إظهار كافة الإدخالات"
+
+#: admin/manage-authorizations.php:283
+msgid "Show entries from current wp installation"
+msgstr "إظهار الإدخالات من تثبيت wp الحالي"
+
+#: admin/manage-authorizations.php:284
+msgid "Show entries from other wp installations"
+msgstr "إظهار الإدخالات من عمليات تثبيت wp الأخرى"
+
+#: admin/manage-authorizations.php:290
+msgid "Facebook username"
+msgstr "اسم مستخدم Facebook"
+
+#: admin/manage-authorizations.php:291
+msgid "Selected pages"
+msgstr "صفحات مختارة"
+
+#: admin/manage-authorizations.php:292
+msgid "Selected groups"
+msgstr "مجموعات مختارة"
+
+#: admin/manage-authorizations.php:294
+#, php-format
+msgid "%s url"
+msgstr "%s url"
+
+#: admin/manage-authorizations.php:297
+msgid "Plugin"
+msgstr "البرنامج المساعد"
+
+#: admin/manage-authorizations.php:299
+#, php-format
+msgid "Account ID %s"
+msgstr "معرف الحساب% s"
+
+#: admin/manage-authorizations.php:301
+msgid "Action"
+msgstr "عمل"
+
+#: admin/manage-authorizations.php:336
+msgid "Not Applicable"
+msgstr "لايمكن تطبيقه"
+
+#: admin/manage-authorizations.php:343 admin/manage-authorizations.php:366
+msgid "Delete"
+msgstr "حذف"
+
+#: admin/manage-authorizations.php:356
+msgid "(Inactive)"
+msgstr "(غير نشط)"
+
+#: admin/manage-authorizations.php:376
+msgid "No Authorizations"
+msgstr "لا تراخيص"
+
+#: admin/manage-authorizations.php:382
+msgid "Unable to connect. Please check your curl and firewall settings"
+msgstr "غير قادر على الاتصال. يرجى التحقق من إعدادات الضفيرة وجدار الحماية"
+
+#: admin/menu.php:15
+msgid "Please check whether the email is correct."
+msgstr "يرجى التحقق من صحة البريد الإلكتروني."
+
+#: admin/menu.php:16
+msgid "Select atleast one list."
+msgstr "حدد قائمة واحدة على الأقل."
+
+#: admin/menu.php:17
+msgid "You do not have sufficient permissions"
+msgstr "ليس لديك أذونات كافية"
+
+#: admin/menu.php:18
+#, php-format
+msgid "Account details successfully deleted from %s"
+msgstr "تم حذف تفاصيل الحساب بنجاح من% s"
+
+#: admin/menu.php:19
+msgid "Thank you for enabling backlink !"
+msgstr "شكرا لك لتمكين باك لينك!"
+
+#: admin/menu.php:20
+#, php-format
+msgid "Please connect your %s member account"
+msgstr "الرجاء الاتصال بحساب عضو% s الخاص بك"
+
+#: admin/menu.php:36
+msgid "Settings"
+msgstr "إعدادات"
+
+#: admin/menu.php:39
+msgid "Logs"
+msgstr "سجل"
+
+#: admin/menu.php:41
+msgid "Suggest a Feature"
+msgstr "اقترح ميزة"
+
+#: admin/metabox.php:244 admin/settings.php:303
+msgid "Enable auto publish post to my facebook account"
+msgstr "تفعيل النشر التلقائي على حسابي في الفيسبوك"
+
+#: admin/metabox.php:247 admin/settings.php:306 admin/settings.php:412
+#: admin/settings.php:420 admin/settings.php:654 admin/settings.php:663
+#: admin/settings.php:770 admin/settings.php:819 admin/settings.php:828
+msgid "Yes"
+msgstr "نعم"
+
+#: admin/metabox.php:248 admin/settings.php:307 admin/settings.php:413
+#: admin/settings.php:421 admin/settings.php:655 admin/settings.php:664
+#: admin/settings.php:771 admin/settings.php:820 admin/settings.php:829
+msgid "No"
+msgstr "لا"
+
+#: admin/metabox.php:253 admin/settings.php:380
+msgid "Posting method"
+msgstr "طريقة الإرسال"
+
+#: admin/metabox.php:257 admin/settings.php:386
+msgid "Simple text message"
+msgstr "رسالة نصية بسيطة"
+
+#: admin/metabox.php:261 admin/settings.php:390
+msgid "Upload image to app album"
+msgstr "تحميل الصورة إلى ألبوم التطبيق"
+
+#: admin/metabox.php:263 admin/settings.php:392
+msgid "Upload image to timeline album"
+msgstr "تحميل الصورة إلى ألبوم المخطط الزمني"
+
+#: admin/metabox.php:268 admin/settings.php:397
+msgid "Attach your blog post"
+msgstr "إرفاق وظيفة بلوق الخاص بك"
+
+#: admin/metabox.php:271 admin/settings.php:400
+msgid "Share a link to your blog post"
+msgstr "مشاركة ارتباط إلى وظيفة بلوق الخاص بك"
+
+#: admin/metabox.php:277 admin/settings.php:425
+msgid "Message format for posting"
+msgstr "تنسيق الرسالة للنشر"
+
+#: admin/metabox.php:280 admin/settings.php:428
+msgid "Insert the title of your post."
+msgstr "أدخل عنوان المنشور الخاص بك."
+
+#: admin/metabox.php:281 admin/settings.php:429
+msgid "Insert the URL where your post is displayed."
+msgstr "أدخل عنوان URL حيث يتم عرض منشورك."
+
+#: admin/metabox.php:282 admin/settings.php:430
+msgid "Insert the excerpt of your post."
+msgstr "أدخل مقتطف من رسالتك."
+
+#: admin/metabox.php:283 admin/settings.php:431
+msgid "Insert the description of your post."
+msgstr "أدخل وصف منشورك."
+
+#: admin/metabox.php:284 admin/settings.php:432
+msgid "Insert the name of your blog."
+msgstr "أدخل اسم مدونتك."
+
+#: admin/metabox.php:285 admin/settings.php:433
+msgid "Insert the nicename of the author."
+msgstr "أدخل اسم المؤلف."
+
+#: admin/metabox.php:286 admin/settings.php:434
+msgid "Insert the ID of your post."
+msgstr "أدخل معرف منشورك."
+
+#: admin/metabox.php:287 admin/settings.php:435
+msgid "Insert the publish date of your post."
+msgstr "أدخل تاريخ نشر رسالتك."
+
+#: admin/metabox.php:288 admin/settings.php:436
+msgid "Insert the display name of the author."
+msgstr "أدخل اسم عرض المؤلف."
+
+#: admin/metabox.php:293 admin/settings.php:440
+msgid "Select"
+msgstr "اختار"
+
+#: admin/settings.php:30
+msgid ""
+"Thanks again for using the plugin. We will never show the message again."
+msgstr "شكرا مرة أخرى لاستخدام البرنامج المساعد. لن نظهر الرسالة مرة أخرى."
+
+#: admin/settings.php:84
+msgid "Please fill facebook application name."
+msgstr "يرجى ملء اسم التطبيق الفيسبوك."
+
+#: admin/settings.php:89
+msgid "Please fill facebook application id."
+msgstr "يرجى ملء معرف تطبيق الفيسبوك."
+
+#: admin/settings.php:94
+msgid "Please fill facebook application secret."
+msgstr "يرجى ملء سرية تطبيق الفيسبوك."
+
+#: admin/settings.php:137
+msgid "The state does not match. You may be a victim of CSRF."
+msgstr "الدولة لا تتطابق. قد تكون ضحية CSRF."
+
+#: admin/settings.php:146
+msgid ""
+"Unable to authorize the facebook application. Please check your curl/fopen "
+"and firewall settings."
+msgstr ""
+"غير قادر على تخويل تطبيق facebook. يرجى التحقق من إعدادات curl / fopen وجدار "
+"الحماية."
+
+#: admin/settings.php:156
+#, php-format
+msgid "Successfully connected to %s member area"
+msgstr "نجح الاتصال بمنطقة عضو %s"
+
+#: admin/settings.php:166
+msgid "Selected pages saved successfully."
+msgstr "تم حفظ الصفحات المختارة بنجاح."
+
+#: admin/settings.php:198
+msgid "Facebook Settings"
+msgstr "إعدادات Facebook"
+
+#: admin/settings.php:199
+msgid "General Settings"
+msgstr "الاعدادات العامة"
+
+#: admin/settings.php:215 admin/settings.php:248
+msgid "Application needs authorisation"
+msgstr "التطبيق يحتاج إلى إذن"
+
+#: admin/settings.php:219 admin/settings.php:253
+msgid "Authorize"
+msgstr "يأذن"
+
+#: admin/settings.php:229 admin/settings.php:264
+msgid "Reauthorize"
+msgstr "تفويض"
+
+#: admin/settings.php:271
+msgid "Application is authorized, go posting."
+msgstr "التطبيق مصرح به ، اذهب للنشر."
+
+#: admin/settings.php:282
+msgid "Note:"
+msgstr "ملحوظة:"
+
+#: admin/settings.php:282
+msgid ""
+"You have to create a Facebook application before filling the following "
+"details."
+msgstr "يجب عليك إنشاء تطبيق Facebook قبل ملء التفاصيل التالية."
+
+#: admin/settings.php:283
+msgid "Click here </a></b> to create new Facebook application."
+msgstr "انقر هنا </a> </b> لإنشاء تطبيق Facebook جديد."
+
+#: admin/settings.php:284
+#, php-format
+msgid "In the application page in facebook, navigate to <b> %s </b>."
+msgstr "في صفحة التطبيق في facebook ، انتقل إلى <b>%s </b>."
+
+#: admin/settings.php:284
+msgid "Set the site url as:"
+msgstr "قم بتعيين عنوان url الخاص بالموقع على النحو التالي:"
+
+#: admin/settings.php:286
+#, php-format
+msgid "And then navigate to <b> %s </b>."
+msgstr "ثم انتقل إلى <b> %s </b>."
+
+#: admin/settings.php:286
+msgid "Set the Valid OAuth redirect URIs as:"
+msgstr "قم بتعيين عناوين URL الصالحة لإعادة توجيه OAuth على النحو التالي:"
+
+#: admin/settings.php:288
+#, php-format
+msgid ""
+"For detailed step by step instructions <b><a href=\"%s\" target=\"_blank\"> "
+"Click here."
+msgstr ""
+"للحصول على إرشادات مفصلة خطوة بخطوة ، <b> <a href=\" %s\" target=\"_blank\"> "
+"انقر هنا."
+
+#: admin/settings.php:300
+msgid "All fields given below are mandatory"
+msgstr "جميع الحقول الواردة أدناه إلزامية"
+
+#: admin/settings.php:312
+msgid "Application name"
+msgstr "اسم التطبيق"
+
+#: admin/settings.php:313
+msgid "This is for tracking purpose"
+msgstr "هذا لغرض التتبع"
+
+#: admin/settings.php:321
+msgid "Application Selection"
+msgstr "اختيار التطبيق"
+
+#: admin/settings.php:325
+msgid "Own App"
+msgstr "التطبيق الخاص"
+
+#: admin/settings.php:325
+msgid "requires app submission and Facebook review"
+msgstr "يتطلب إرسال التطبيق ومراجعة Facebook"
+
+#: admin/settings.php:325
+msgid "Help"
+msgstr "مساعدة"
+
+#: admin/settings.php:327
+msgid "App approval service available for 50 USD"
+msgstr "خدمة الموافقة على التطبيق متاحة مقابل 50 دولارًا أمريكيًا"
+
+#: admin/settings.php:330
+msgid "Expected time frame"
+msgstr "الإطار الزمني المتوقع"
+
+#: admin/settings.php:330
+msgid "30 days"
+msgstr "30 يوما"
+
+#: admin/settings.php:331
+msgid "Required details"
+msgstr "التفاصيل المطلوبة"
+
+#: admin/settings.php:331
+msgid "1. WordPress login"
+msgstr "1. تسجيل الدخول إلى ووردبريس"
+
+#: admin/settings.php:332
+msgid ""
+"2. Admin access to Facebook developer app for review submission (temporary)."
+msgstr "2. وصول المسؤول إلى تطبيق Facebook developer لتقديم المراجعة (مؤقت)."
+
+#: admin/settings.php:333
+#, php-format
+msgid ""
+"For more details contact <a href=\"%s\" target=\"_blank\" > Support Desk"
+msgstr ""
+"لمزيد من التفاصيل ، اتصل بـ <a href=\" %s\" target=\"_blank\"> Support Desk"
+
+#: admin/settings.php:337
+#, php-format
+msgid "%s App ( ready to publish )"
+msgstr "تطبيق % s (جاهز للنشر)"
+
+#: admin/settings.php:338
+msgid "Starts from 10 USD per year"
+msgstr "يبدأ من 10 دولارات أمريكية سنويًا"
+
+#: admin/settings.php:341
+msgid "30 DAYS FREE TRIAL AVAILABLE"
+msgstr "تتوفر نسخة تجريبية مجانية لمدة 30 يومًا"
+
+#: admin/settings.php:344
+#, php-format
+msgid "How to use %s application?"
+msgstr "كيف يتم استخدام تطبيق % s؟"
+
+#: admin/settings.php:355
+#, php-format
+msgid "Connect your %s account"
+msgstr "قم بتوصيل حساب % s الخاص بك"
+
+#: admin/settings.php:361
+msgid "Application id"
+msgstr "رقم الاستمارة"
+
+#: admin/settings.php:370
+msgid "Application secret"
+msgstr "سر التطبيق"
+
+#: admin/settings.php:381
+msgid ""
+"Create app album (with <b> Application name </b>) in the Facebook pages, <br/"
+"> if you are using the posting method <b> Upload image to app album"
+msgstr ""
+"أنشئ ألبوم تطبيق (مع <b> اسم التطبيق </ b>) في صفحات Facebook ، <br/> إذا "
+"كنت تستخدم طريقة النشر <b> قم بتحميل الصورة إلى ألبوم التطبيق"
+
+#: admin/settings.php:388
+msgid "Text message with image"
+msgstr "رسالة نصية مع صورة"
+
+#: admin/settings.php:395
+msgid "Text message with attached link"
+msgstr "رسالة نصية مع الارتباط المرفق"
+
+#: admin/settings.php:406
+msgid "Enforce og tags for Facebook"
+msgstr "فرض علامات og على Facebook"
+
+#: admin/settings.php:408
+msgid ""
+"If you enable, Open Graph tags will be generated while posting to Facebook, "
+"when using the posting method <b> Share a link to your blog post </b> or <b> "
+"Attach your blog post."
+msgstr ""
+"في حالة التمكين ، سيتم إنشاء علامات Open Graph أثناء النشر على Facebook ، "
+"عند استخدام طريقة النشر <b> مشاركة رابط إلى منشور المدونة </ b> أو <b> إرفاق "
+"منشور المدونة الخاص بك."
+
+#: admin/settings.php:418
+msgid "Clear facebook cache before publishing to facebook"
+msgstr "امسح ذاكرة التخزين المؤقت لـ facebook قبل النشر على facebook"
+
+#: admin/settings.php:437
+msgid ""
+"Optional in the case of <b>Text message with attached link </b><br/>or<b> "
+"Text message with image </b>posting methods"
+msgstr ""
+"اختياري في حالة أساليب النشر <b> رسالة نصية مع ارتباط مرفق </ b> <br/> أو "
+"<b> رسالة نصية مع صورة </ b>"
+
+#: admin/settings.php:500
+msgid "Select facebook pages for auto publish"
+msgstr "حدد صفحات الفيسبوك للنشر التلقائي"
+
+#: admin/settings.php:505
+msgid "Select All"
+msgstr "اختر الكل"
+
+#: admin/settings.php:525
+msgid "Selected facebook pages for auto publish"
+msgstr "صفحات الفيسبوك المختارة للنشر التلقائي"
+
+#: admin/settings.php:549
+msgid "Save"
+msgstr "حفظ"
+
+#: admin/settings.php:553
+msgid "Free trial is available only for first time users"
+msgstr "الإصدار التجريبي المجاني متاح فقط للمستخدمين لأول مرة"
+
+#: admin/settings.php:556
+msgid "Use reauthorize button to change selected values"
+msgstr "استخدم زر إعادة التفويض لتغيير القيم المحددة"
+
+#: admin/settings.php:649
+msgid "Basic Settings"
+msgstr "الإعدادات الأساسية"
+
+#: admin/settings.php:651
+msgid "Publish wordpress `posts` to facebook"
+msgstr "نشر \"المشاركات\" وورد على الفيسبوك"
+
+#: admin/settings.php:660
+msgid "Publish wordpress `pages` to facebook"
+msgstr "انشر ووردبرس \"صفحات\" على الفيس بوك"
+
+#: admin/settings.php:685
+msgid "Select wordpress custom post types for auto publish"
+msgstr "حدد أنواع منشورات ووردبريس المخصصة للنشر التلقائي"
+
+#: admin/settings.php:701
+msgid "Advanced Settings"
+msgstr "إعدادات متقدمة"
+
+#: admin/settings.php:703
+msgid "Select post categories for auto publish"
+msgstr "حدد فئات النشر للنشر التلقائي"
+
+#: admin/settings.php:708
+msgid "All"
+msgstr "الجميع"
+
+#: admin/settings.php:710
+msgid "Specific"
+msgstr "محددة"
+
+#: admin/settings.php:745
+msgid "NIL"
+msgstr "لا شيء"
+
+#: admin/settings.php:750
+msgid "Auto publish on editing posts/pages/custom post types"
+msgstr "النشر التلقائي عند تحرير المنشورات / الصفحات / أنواع المنشورات المخصصة"
+
+#: admin/settings.php:753 admin/settings.php:762
+msgid "Enabled"
+msgstr "ممكن"
+
+#: admin/settings.php:754 admin/settings.php:763
+msgid "Disabled"
+msgstr "تعطيل"
+
+#: admin/settings.php:755
+msgid "Use settings from post creation or post updation"
+msgstr "استخدم الإعدادات من إنشاء المنشور أو ما بعد التحديث"
+
+#: admin/settings.php:759
+msgid "Auto publish on creating posts/pages/custom post types"
+msgstr "النشر التلقائي عند إنشاء منشورات / صفحات / أنواع منشورات مخصصة"
+
+#: admin/settings.php:768
+msgid "Enable SSL peer verification in remote requests"
+msgstr "تمكين التحقق من الأقران SSL في الطلبات البعيدة"
+
+#: admin/settings.php:776
+msgid "Apply filters during publishing"
+msgstr "تطبيق المرشحات أثناء النشر"
+
+#: admin/settings.php:813
+msgid "Other Settings"
+msgstr "اعدادات اخرى"
+
+#: admin/settings.php:816
+msgid "Enable credit link to author"
+msgstr "تمكين ارتباط الائتمان للمؤلف"
+
+#: admin/settings.php:825
+msgid "Enable premium version ads"
+msgstr "تمكين الإصدار المتميز للإعلانات"
+
+#: admin/settings.php:839
+msgid "Update Settings"
+msgstr "تحديث الاعدادات"
+
+#: facebook-auto-publish.php:31
+msgid "Hi there!  Im just a plugin, not much I can do when called directly."
+msgstr "أهلا! أنا مجرد مكون إضافي ، لا يمكنني فعل الكثير عندما اتصل مباشرة."

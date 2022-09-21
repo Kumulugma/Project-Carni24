@@ -7,24 +7,24 @@ if(isset($_GET['msg']))
 if($xyz_fbap_message == 1){
 	?>
 	<div class="system_notice_area_style1" id="system_notice_area">
-	Thank you for the suggestion.&nbsp;&nbsp;&nbsp;<span
-	id="system_notice_area_dismiss">Dismiss</span>
+	<?php _e('Thank you for the suggestion.','facebook-auto-publish'); ?> &nbsp;&nbsp;&nbsp;<span
+	id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish'); ?> </span>
 	</div>
 	<?php
 	}
 else if($xyz_fbap_message == 2){
 		?>
 		<div class="system_notice_area_style0" id="system_notice_area">
-		wp_mail not able to process the request.&nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+		<?php $fbap_wp_mail="wp_mail"; $fbap_wp_mail_msg=sprintf(__('%s not able to process the request.','facebook-auto-publish'),$fbap_wp_mail); echo $fbap_wp_mail_msg; ?> &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish'); ?> </span>
 		</div>
 		<?php
 	}
 else if($xyz_fbap_message == 3){
 	?>
 	<div class="system_notice_area_style0" id="system_notice_area">
-	Please suggest a feature.&nbsp;&nbsp;&nbsp;<span
-	id="system_notice_area_dismiss">Dismiss</span>
+	<?php _e('Please suggest a feature.','facebook-auto-publish'); ?> &nbsp;&nbsp;&nbsp;<span
+	id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish'); ?> </span>
 	</div>
 	<?php
 }
@@ -57,14 +57,14 @@ if (isset($_POST) && isset($_POST['xyz_send_mail']))
 }?>
 <form method="post" >
 <?php wp_nonce_field( 'xyz_fbap_suggest_feature_form_nonce' );?>
-<h3>Contribute And Get Rewarded</h3>
-<span style="color: #1A87B9;font-size:13px;padding-left: 10px;" >* Suggest a feature for this plugin and stand a chance to get a free copy of premium version of this plugin.</span>
+<h3> <?php _e('Contribute And Get Rewarded','facebook-auto-publish') ?> </h3>
+<span style="color: #1A87B9;font-size:13px;padding-left: 10px;" >* <?php _e('Suggest a feature for this plugin and stand a chance to get a free copy of premium version of this plugin.','facebook-auto-publish'); ?> </span>
 <table  class="widefat xyz_fbap_widefat_table" style="width:98%;padding-top: 10px;">
 <tr><td>
 <textarea name="xyz_fbap_suggested_feature" id="xyz_fbap_suggested_feature" style="width:620px;height:250px !important;"></textarea>
 </td></tr>
 <tr>
-<td><input name="xyz_send_mail" class="submit_fbap_new" style="color:#FFFFFF;border-radius:4px;border:1px solid #1A87B9; margin-bottom:10px;" type="submit" value="Send Mail To Us">
+<td><input name="xyz_send_mail" class="submit_fbap_new" style="color:#FFFFFF;border-radius:4px;border:1px solid #1A87B9; margin-bottom:10px;" type="submit" value="<?php _e('Send Mail To Us','facebook-auto-publish'); ?>">
 </td></tr>
 </table>
 </form>

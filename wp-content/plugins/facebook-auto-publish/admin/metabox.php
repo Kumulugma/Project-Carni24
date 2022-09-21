@@ -233,7 +233,7 @@ function inArray(needle, haystack) {
 
 
 <tr>
-		<td colspan="2" class="xyz_fbap_pleft15 xyz_fbap_meta_acclist_table_td"><strong>Facebook</strong>
+		<td colspan="2" class="xyz_fbap_pleft15 xyz_fbap_meta_acclist_table_td"><strong> <?php _e('Facebook','facebook-auto-publish'); ?> </strong>
 		</td>
 </tr>
 
@@ -241,56 +241,56 @@ function inArray(needle, haystack) {
 	
 	
 	<tr valign="top">
-		<td class="xyz_fbap_pleft15" width="60%">Enable auto publish post to my facebook account
+		<td class="xyz_fbap_pleft15" width="60%"> <?php _e('Enable auto publish post to my facebook account','facebook-auto-publish'); ?>
 		</td>
 		<td  class="switch-field">
-		<label id="xyz_fbap_post_permission_yes"><input type="radio" name="xyz_fbap_post_permission" id="xyz_fbap_post_permission_1" value="1" <?php if($post_permission==1) echo 'checked';?>/>Yes</label>
-		<label id="xyz_fbap_post_permission_no"><input type="radio" name="xyz_fbap_post_permission" id="xyz_fbap_post_permission_0" value="0" <?php if($post_permission==0) echo 'checked';?> />No</label>
+		<label id="xyz_fbap_post_permission_yes"><input type="radio" name="xyz_fbap_post_permission" id="xyz_fbap_post_permission_1" value="1" <?php if($post_permission==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+		<label id="xyz_fbap_post_permission_no"><input type="radio" name="xyz_fbap_post_permission" id="xyz_fbap_post_permission_0" value="0" <?php if($post_permission==0) echo 'checked';?> /> <?php _e('No','facebook-auto-publish'); ?> </label>
 
 		</td>
 	</tr>
 	<tr valign="top" id="fpabpmd">
-		<td class="xyz_fbap_pleft15">Posting method
+		<td class="xyz_fbap_pleft15"> <?php _e('Posting method','facebook-auto-publish'); ?>
 		</td>
 		<td><select id="xyz_fbap_po_method" name="xyz_fbap_po_method">
 				<option value="3"
-				<?php  if($xyz_fbap_po_method==3) echo 'selected';?>>Simple text message</option>
+				<?php  if($xyz_fbap_po_method==3) echo 'selected';?>> <?php _e('Simple text message','facebook-auto-publish'); ?> </option>
 				
 				<optgroup label="Text message with image">
 					<option value="4"
-					<?php  if($xyz_fbap_po_method==4) echo 'selected';?>>Upload image to app album</option>
+					<?php  if($xyz_fbap_po_method==4) echo 'selected';?>> <?php _e('Upload image to app album','facebook-auto-publish'); ?> </option>
 					<option value="5"
-					<?php  if($xyz_fbap_po_method==5) echo 'selected';?>>Upload image to timeline album</option>
+					<?php  if($xyz_fbap_po_method==5) echo 'selected';?>> <?php _e('Upload image to timeline album','facebook-auto-publish'); ?> </option>
 				</optgroup>
 				
 				<optgroup label="Text message with attached link">
 					<option value="1"
-					<?php  if($xyz_fbap_po_method==1) echo 'selected';?>>Attach
-						your blog post</option>
+					<?php  if($xyz_fbap_po_method==1) echo 'selected';?>> <?php _e('Attach your blog post','facebook-auto-publish'); ?> </option>
 					<option value="2"
 					<?php  if($xyz_fbap_po_method==2) echo 'selected';?>>
-						Share a link to your blog post</option>
+						  <?php _e('Share a link to your blog post','facebook-auto-publish'); ?> </option>
 					</optgroup>
 		</select>
 		</td>
 	</tr>
 	<tr valign="top" id="fpabpmf">
-		<td class="xyz_fbap_pleft15">Message format for posting <img src="<?php echo $heimg?>"
+		<td class="xyz_fbap_pleft15"> <?php _e('Message format for posting','facebook-auto-publish'); ?> <img src="<?php echo $heimg?>"
 						onmouseover="detdisplay_fbap('xyz_fbap_informationdiv')" onmouseout="dethide_fbap('xyz_fbap_informationdiv')" style="width:13px;height:auto;">
 						<div id="xyz_fbap_informationdiv" class="fbap_informationdiv" style="display: none;">
-							{POST_TITLE} - Insert the title of your post.<br />{PERMALINK} -
-							Insert the URL where your post is displayed.<br />{POST_EXCERPT}
-							- Insert the excerpt of your post.<br />{POST_CONTENT} - Insert
-							the description of your post.<br />{BLOG_TITLE} - Insert the name
-							of your blog.<br />{USER_NICENAME} - Insert the nicename
-							of the author.<br />{POST_ID} - Insert the ID of your post.
-							<br />{POST_PUBLISH_DATE} - Insert the publish date of your post.
-							<br />{USER_DISPLAY_NAME} - Insert the display name of the author.
+							{POST_TITLE} - <?php _e('Insert the title of your post.','facebook-auto-publish'); ?><br/>
+							{PERMALINK} - <?php _e('Insert the URL where your post is displayed.','facebook-auto-publish'); ?><br/>
+							{POST_EXCERPT} - <?php _e('Insert the excerpt of your post.','facebook-auto-publish'); ?><br/>
+							{POST_CONTENT} - <?php _e('Insert the description of your post.','facebook-auto-publish'); ?><br/>
+							{BLOG_TITLE} - <?php _e('Insert the name of your blog.','facebook-auto-publish'); ?><br/>
+							{USER_NICENAME} - <?php _e('Insert the nicename of the author.','facebook-auto-publish'); ?><br/>
+							{POST_ID} - <?php _e('Insert the ID of your post.','facebook-auto-publish'); ?><br/>
+							{POST_PUBLISH_DATE} - <?php _e('Insert the publish date of your post.','facebook-auto-publish'); ?><br/>
+							{USER_DISPLAY_NAME} - <?php _e('Insert the display name of the author.','facebook-auto-publish'); ?>
 						</div>
 		</td>
 	<td>
 	<select name="xyz_fbap_info" id="xyz_fbap_info" onchange="xyz_fbap_info_insert(this)">
-		<option value ="0" selected="selected">--Select--</option>
+		<option value ="0" selected="selected"> --<?php _e('Select','facebook-auto-publish'); ?>-- </option>
 		<option value ="1">{POST_TITLE}  </option>
 		<option value ="2">{PERMALINK} </option>
 		<option value ="3">{POST_EXCERPT}  </option>
@@ -318,7 +318,8 @@ function inArray(needle, haystack) {
 	var edit_flag="<?php echo $GLOBALS['edit_flag'];?>";
 	if(edit_flag==1)
 		load_edit_action();
-	
+	if(edit_flag!=1)
+		load_create_action();
 	function load_edit_action()
 	{
 		document.getElementById("xyz_fbap_post").value=1;
@@ -326,6 +327,17 @@ function inArray(needle, haystack) {
 		if(xyz_fbap_default_selection_edit=="")
 			xyz_fbap_default_selection_edit=0;
 		if(xyz_fbap_default_selection_edit==1 || xyz_fbap_default_selection_edit==2)
+			return;
+		jQuery('#xyz_fbap_post_permission_0').attr('checked',true);
+		displaycheck_fbap();
+	}
+	function load_create_action()
+	{
+		document.getElementById("xyz_fbap_post").value=1;
+		var xyz_fbap_default_selection_create="<?php echo esc_html(get_option('xyz_fbap_default_selection_create'));?>";
+		if(xyz_fbap_default_selection_create=="")
+			xyz_fbap_default_selection_create=0;
+		if(xyz_fbap_default_selection_create==1)
 			return;
 		jQuery('#xyz_fbap_post_permission_0').attr('checked',true);
 		displaycheck_fbap();

@@ -93,26 +93,43 @@ function xyz_fbap_getimage($post_ID,$description_org)
 {
 	$attachmenturl="";
 	$post_thumbnail_id = get_post_thumbnail_id( $post_ID );
-	if($post_thumbnail_id!="")
-	{
+	if(!empty($post_thumbnail_id))
 		$attachmenturl=wp_get_attachment_url($post_thumbnail_id);
-		//$attachmentimage=wp_get_attachment_image_src( $post_thumbnail_id, full );
 
-	}
-	else {
-		preg_match_all( '/< *img[^>]*src *= *["\']?([^"\']*)/is', $description_org, $matches );
+	else 
+	{
+	    $matches=array();
+	    $img_content = apply_filters('the_content', $description_org);
+	    preg_match_all( '/< *img[^>]*src *= *["\']?([^"\']*)/is', $img_content, $matches );
 		if(isset($matches[1][0]))
 			$attachmenturl = $matches[1][0];
-		else {
-			$description_org=apply_filters('the_content', $description_org);
-			preg_match_all( '/< *img[^>]*src *= *["\']?([^"\']*)/is', $description_org, $matches );
-			if(isset($matches[1][0]))
-				$attachmenturl = $matches[1][0];
-		}
-
+        else
+            $attachmenturl=xyz_fbap_get_post_gallery_images_with_info($description_org,1);
 
 	}
 	return $attachmenturl;
+		}
+
+}
+
+if(!function_exists('xyz_fbap_get_post_gallery_images_with_info'))
+{
+    function xyz_fbap_get_post_gallery_images_with_info($post_content,$single=1) 
+    {
+        $ids=$images_id=array();
+        preg_match('/\[gallery.*ids=.(.*).\]/', $post_content, $ids);
+        if (isset($ids[1]))
+            $images_id = explode(",", $ids[1]);
+            $image_gallery_with_info = array();
+            foreach ($images_id as $image_id) {
+                $attachment = get_post($image_id);
+                $img_src=$attachment->guid;
+                if($single==1)
+                    return $img_src;
+                    else
+                        $image_gallery_with_info[]=$img_src;
+	}
+            return $image_gallery_with_info;
 }
 
 }

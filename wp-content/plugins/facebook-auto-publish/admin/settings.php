@@ -21,15 +21,15 @@ if(!$_POST && isset($_GET['fbap_notice'])&& $_GET['fbap_notice'] == 'hide')
 	update_option('xyz_fbap_dnt_shw_notice', "hide");
 	?>
 <style type='text/css'>
-#fb_notice_td
+#fbap_notice_td
 {
 display:none !important;
 }
 </style>
 <div class="system_notice_area_style1" id="system_notice_area">
-Thanks again for using the plugin. We will never show the message again.
+<?php _e('Thanks again for using the plugin. We will never show the message again.','facebook-auto-publish');?>
  &nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+		id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish');?> </span>
 </div>
 <?php
 }
@@ -81,17 +81,17 @@ if(isset($_POST['fb']))
 	$messagetopost=$_POST['xyz_fbap_message'];
 	if($app_name=="" && $posting_permission==1)
 	{
-		$ms0="Please fill facebook application name.";
+		$ms0= __('Please fill facebook application name.','facebook-auto-publish');
 		$erf=1;
 	}
 	else if($appid=="" && $posting_permission==1 && $xyz_fbap_app_sel_mode==0)
 	{
-		$ms1="Please fill facebook application id.";
+		$ms1= __('Please fill facebook application id.','facebook-auto-publish');
 		$erf=1;
 	}
 	elseif($appsecret=="" && $posting_permission==1 && $xyz_fbap_app_sel_mode==0)
 	{
-		$ms2="Please fill facebook application secret.";
+		$ms2= __('Please fill facebook application secret.','facebook-auto-publish');
 		$erf=1;
 	}
 	else
@@ -126,16 +126,16 @@ if(isset($_POST['fb']) && $erf==0)
 {
 	?>
 <div class="system_notice_area_style1" id="system_notice_area">
-	Settings updated successfully. &nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+	<?php _e('Settings updated successfully.','facebook-auto-publish');?> &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish');?> </span>
 </div>
 <?php }
 if(isset($_GET['msg']) && $_GET['msg']==2)
 {
 ?>
 <div class="system_notice_area_style0" id="system_notice_area">
-	The state does not match. You may be a victim of CSRF. &nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+	<?php _e('The state does not match. You may be a victim of CSRF.','facebook-auto-publish');?> &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish');?> </span>
 </div>
 	<?php 
 }
@@ -143,8 +143,8 @@ if(isset($_GET['msg']) && $_GET['msg']==3)
 {
 	?>
 <div class="system_notice_area_style0" id="system_notice_area">
-Unable to authorize the facebook application. Please check your curl/fopen and firewall settings. &nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+	<?php _e('Unable to authorize the facebook application. Please check your curl/fopen and firewall settings.','facebook-auto-publish');?> &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish');?> </span>
 </div>	
 <?php 
 }
@@ -152,8 +152,10 @@ if(isset($_GET['msg']) && $_GET['msg']==4)
 {
 	?>
 <div class="system_notice_area_style1" id="system_notice_area">
-Successfully connected to xyzscripts member area. &nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+	<?php $fbap_xyzscripts_name="xyzscripts";
+	$fbap_xyz_success_msg=sprintf(__('Successfully connected to %s member area','facebook-auto-publish'),$fbap_xyzscripts_name);
+	echo $fbap_xyz_success_msg; ?>. &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss"><?php _e('Dismiss','facebook-auto-publish');?></span>
 </div>	
 <?php 
 }
@@ -161,8 +163,8 @@ if(isset($_GET['msg']) && $_GET['msg']==5)
 {
 	?>
 <div class="system_notice_area_style1" id="system_notice_area">
-Selected pages saved successfully. &nbsp;&nbsp;&nbsp;<span
-		id="system_notice_area_dismiss">Dismiss</span>
+<?php _e('Selected pages saved successfully.','facebook-auto-publish');?> &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish');?> </span>
 </div>	
 <?php 
 }
@@ -177,7 +179,7 @@ if(isset($_POST['fb']) && $erf==1)
 		echo esc_html($ms0);echo esc_html($ms1);echo esc_html($ms2);echo esc_html($ms3);
 	}
 	?>
-	&nbsp;&nbsp;&nbsp;<span id="system_notice_area_dismiss">Dismiss</span>
+	&nbsp;&nbsp;&nbsp;<span id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish');?> </span>
 </div>
 <?php } ?>
 <script type="text/javascript">
@@ -193,8 +195,8 @@ function dethide_fbap(id)
 
 <div style="width: 100%">
 <div class="xyz_fbap_tab">
-  <button class="xyz_fbap_tablinks" onclick="xyz_fbap_open_tab(event, 'xyz_fbap_facebook_settings')" id="xyz_fbap_default_tab_settings">Facebook Settings</button>
-   <button class="xyz_fbap_tablinks" onclick="xyz_fbap_open_tab(event, 'xyz_fbap_basic_settings')" id="xyz_fbap_basic_tab_settings">General Settings</button>
+  <button class="xyz_fbap_tablinks" onclick="xyz_fbap_open_tab(event, 'xyz_fbap_facebook_settings')" id="xyz_fbap_default_tab_settings"> <?php _e('Facebook Settings','facebook-auto-publish');?> </button>
+   <button class="xyz_fbap_tablinks" onclick="xyz_fbap_open_tab(event, 'xyz_fbap_basic_settings')" id="xyz_fbap_basic_tab_settings"> <?php _e('General Settings','facebook-auto-publish');?> </button>
 </div>
 <div id="xyz_fbap_facebook_settings" class="xyz_fbap_tabcontent">
 
@@ -210,11 +212,11 @@ function dethide_fbap(id)
 	if($af==1 && $appid!="" && $appsecret!="")
 	{
 		?>
-		<span style="color: red;" id="auth_message" >Application needs authorisation</span> <br>
+		<span style="color: red;" id="auth_message" > <?php _e('Application needs authorisation','facebook-auto-publish');?> </span> <br>
 	<form method="post">
      <?php wp_nonce_field( 'xyz_fbap_fb_auth_nonce' );?>
 		<input type="submit" class="submit_fbap_new" name="fb_auth"
-			value="Authorize" /><br><br>
+			value="<?php _e('Authorize','facebook-auto-publish');?>" /><br><br>
 
 	</form>
 	<?php }
@@ -224,7 +226,7 @@ function dethide_fbap(id)
 	<form method="post">
 	<?php wp_nonce_field( 'xyz_fbap_fb_auth_nonce' );?>
 	<input type="submit" class="submit_fbap_new" name="fb_auth"
-	value="Reauthorize" title="Reauthorize the account" /><br><br>
+	value="<?php _e('Reauthorize','facebook-auto-publish');?>" title="Reauthorize the account" /><br><br>
 	
 	</form>
 	<?php }
@@ -243,12 +245,12 @@ function dethide_fbap(id)
  			?>
  			<span id='ajax-save' style="display:none;"><img	class="img"  title="Saving details"	src="<?php echo plugins_url('../images/ajax-loader.gif',__FILE__);?>" style="width:65px;height:70px; "></span>
  			<span id="auth_message">
- 				<span style="color: red;" >Application needs authorisation</span> <br>
+ 				<span style="color: red;" > <?php _e('Application needs authorisation','facebook-auto-publish');?> </span> <br>
  				<form method="post">
  			     <?php wp_nonce_field( 'xyz_fbap_fb_auth_nonce' );?>
  			     <input type="hidden" value="<?php echo  (is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST']; ?>" id="parent_domain">
  					<input type="submit" class="submit_fbap_new" name="fb_auth"
- 						value="Authorize" onclick="javascript:return fbap_popup_fb_auth('<?php echo urlencode($domain_name);?>','<?php echo $xyz_fbap_smapsoln_userid;?>','<?php echo $xyzscripts_user_id;?>','<?php echo $xyzscripts_hash_val;?>','<?php echo $auth_secret_key;?>','<?php echo $request_hash;?>');void(0);"/><br><br>
+ 						value="<?php _e('Authorize','facebook-auto-publish');?>" onclick="javascript:return fbap_popup_fb_auth('<?php echo urlencode($domain_name);?>','<?php echo $xyz_fbap_smapsoln_userid;?>','<?php echo $xyzscripts_user_id;?>','<?php echo $xyzscripts_hash_val;?>','<?php echo $auth_secret_key;?>','<?php echo $request_hash;?>');void(0);"/><br><br>
  				</form></span>
  				<?php }
  				else if($af==0 )
@@ -259,14 +261,14 @@ function dethide_fbap(id)
  				<?php wp_nonce_field( 'xyz_fbap_fb_auth_nonce' );?>
  				<input type="hidden" value="<?php echo  (is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST']; ?>" id="parent_domain">
  				<input type="submit" class="submit_fbap_new" name="fb_auth"
- 				value="Reauthorize" title="Reauthorize the account" onclick="javascript:return fbap_popup_fb_auth('<?php echo urlencode($domain_name);?>','<?php echo $xyz_fbap_smapsoln_userid;?>','<?php echo $xyzscripts_user_id;?>','<?php echo $xyzscripts_hash_val;?>','<?php echo $auth_secret_key;?>','<?php echo $request_hash;?>');void(0);"/><br><br>
+ 				value="<?php _e('Reauthorize','facebook-auto-publish');?>" title="Reauthorize the account" onclick="javascript:return fbap_popup_fb_auth('<?php echo urlencode($domain_name);?>','<?php echo $xyz_fbap_smapsoln_userid;?>','<?php echo $xyzscripts_user_id;?>','<?php echo $xyzscripts_hash_val;?>','<?php echo $auth_secret_key;?>','<?php echo $request_hash;?>');void(0);"/><br><br>
  				</form>
  				<?php }
  	}
 	if(isset($_GET['auth']) && $_GET['auth']==1 && get_option("xyz_fbap_fb_token")!="")
 	{
 		?>
-	<span style="color: green;">Application is authorized, go posting.
+	<span style="color: green;"> <?php _e('Application is authorized, go posting.','facebook-auto-publish');?> 
 	</span><br>
 
 	<?php 	
@@ -277,13 +279,13 @@ function dethide_fbap(id)
 	<td id="bottomBorderNone" style="border: 1px solid #FCC328;">
 	
 	<div>
-		<b>Note :</b> You have to create a Facebook application before filling the following details.
-		<b><a href="https://developers.facebook.com/apps" target="_blank">Click here</a></b> to create new Facebook application. 
-		<br>In the application page in facebook, navigate to <b>Apps >Add Product > Facebook Login >Quickstart >Web > Site URL</b>. Set the site url as : 
+		<b> <?php _e('Note:','facebook-auto-publish'); ?></b> <?php _e('You have to create a Facebook application before filling the following details.','facebook-auto-publish'); ?>
+		<b><a href="https://developers.facebook.com/apps" target="_blank"> <?php _e('Click here </a></b> to create new Facebook application.','facebook-auto-publish'); ?>
+		<br> <?php $fbap_path1="Apps >Add Product > Facebook Login >Quickstart >Web > Site URL"; $fbap_navigate1=sprintf(__('In the application page in facebook, navigate to <b> %s </b>.','facebook-auto-publish'),$fbap_path1);echo $fbap_navigate1; _e('Set the site url as:','facebook-auto-publish'); ?>
 		<span style="color: red;"><?php echo  (is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST']; ?></span>
-		<br>And then navigate to <b>Apps > Facebook Login > Settings</b>. Set the Valid OAuth redirect URIs as :<br>
+		<br> <?php $fbap_path2="Apps > Facebook Login > Settings"; $fbap_navigate2=sprintf(__('And then navigate to <b> %s </b>.','facebook-auto-publish'),$fbap_path2); echo $fbap_navigate2; _e('Set the Valid OAuth redirect URIs as:','facebook-auto-publish'); ?><br>
 		<span style="color: red;"><?php echo $redirecturl; ?></span>
-		<br>For detailed step by step instructions <b><a href="http://help.xyzscripts.com/docs/social-media-auto-publish/faq/how-can-i-create-facebook-application/" target="_blank">Click here</a></b>.
+		<br> <?php $fbap_create_fbapp="http://help.xyzscripts.com/docs/social-media-auto-publish/faq/how-can-i-create-facebook-application/"; $fbap_inst_link=sprintf(__('For detailed step by step instructions <b><a href="%s" target="_blank"> Click here.','facebook-auto-publish'),$fbap_create_fbapp); echo $fbap_inst_link; ?> </a></b>
 	</div>
 
 	</td>
@@ -295,20 +297,20 @@ function dethide_fbap(id)
 	
 		<input type="hidden" value="config">
 
-			<div style="font-weight: bold;padding: 3px;">All fields given below are mandatory</div> 
+			<div style="font-weight: bold;padding: 3px;"> <?php _e('All fields given below are mandatory','facebook-auto-publish'); ?> </div> 
 			<table class="widefat xyz_fbap_widefat_table" style="width: 99%">
 			<tr valign="top">
-				<td>Enable auto publish post to my facebook account
+				<td> <?php _e('Enable auto publish post to my facebook account','facebook-auto-publish'); ?>
 				</td>
 				<td  class="switch-field">
-					<label id="xyz_fbap_post_permission_yes"><input type="radio" name="xyz_fbap_post_permission" value="1" <?php  if(get_option('xyz_fbap_post_permission')==1) echo 'checked';?>/>Yes</label>
-					<label id="xyz_fbap_post_permission_no"><input type="radio" name="xyz_fbap_post_permission" value="0" <?php  if(get_option('xyz_fbap_post_permission')==0) echo 'checked';?>/>No</label>
+					<label id="xyz_fbap_post_permission_yes"><input type="radio" name="xyz_fbap_post_permission" value="1" <?php  if(get_option('xyz_fbap_post_permission')==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+					<label id="xyz_fbap_post_permission_no"><input type="radio" name="xyz_fbap_post_permission" value="0" <?php  if(get_option('xyz_fbap_post_permission')==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 				</td>
 			</tr>
 			
 			<tr valign="top">
-					<td width="50%">Application name
-					<br/><span style="color: #0073aa;">[This is for tracking purpose]</span>
+					<td width="50%"> <?php _e('Application name','facebook-auto-publish'); ?>
+					<br/><span style="color: #0073aa;">[<?php _e('This is for tracking purpose','facebook-auto-publish'); ?>]</span>
 					</td>
 					<td><input id="xyz_fbap_application_name"
 						name="xyz_fbap_application_name" type="text"
@@ -316,29 +318,30 @@ function dethide_fbap(id)
 					</td>
 				</tr>
 				<tr valign="top">
-			<td width="50%">Application Selection
+			<td width="50%"> <?php _e('Application Selection','facebook-auto-publish'); ?>
 			</td>
 				<td>
 				<input type="radio" name="xyz_fbap_app_sel_mode" id="xyz_fbap_app_sel_mode_reviewd" value="0" <?php if(get_option('xyz_fbap_app_sel_mode')==0) echo 'checked';?>>
-				<span style="color: #a7a7a7;font-weight: bold;">Own App ( requires app submission and Facebook review -<a href="http://help.xyzscripts.com/docs/social-media-auto-publish/faq/how-can-i-create-facebook-application/" style="color: #a7a7a7;text-decoration: underline; " target="_blank" >Help</a>)</span>
+				<span style="color: #a7a7a7;font-weight: bold;"> <?php _e('Own App','facebook-auto-publish'); ?>(<?php _e('requires app submission and Facebook review','facebook-auto-publish'); ?>)-<a href="http://help.xyzscripts.com/docs/social-media-auto-publish/faq/how-can-i-create-facebook-application/" style="color: #a7a7a7;text-decoration: underline; " target="_blank" > <?php _e('Help','facebook-auto-publish'); ?> </a>)</span>
 				<br/>
-				<div class="xyz_fbap_facebook_settings" style="display: none;" onmouseover="detdisplay_fbap('xyz_fbap_app_review')" onmouseout="dethide_fbap('xyz_fbap_app_review')"><span style="padding-left: 25px;color: #0073aa;">App approval service available for 50 USD
+				<div class="xyz_fbap_facebook_settings" style="display: none;" onmouseover="detdisplay_fbap('xyz_fbap_app_review')" onmouseout="dethide_fbap('xyz_fbap_app_review')"><span style="padding-left: 25px;color: #0073aa;"> <?php _e('App approval service available for 50 USD','facebook-auto-publish'); ?>
 				</span><br/>
 				<div id="xyz_fbap_app_review" class="fbap_informationdiv" style="display: none;width: 400px;">
-				<b>Expected time frame:</b><br/>30 days<br/>
-				<b>Required details:</b><br/>1. WordPress login<br/>
-				2. Admin access to Facebook developer app for review submission (temporary).<br/>
-				For more details contact <a href="https://xyzscripts.com/support/" target="_blank" >Support Desk</a> .
+				<b> <?php _e('Expected time frame','facebook-auto-publish'); ?>:</b><br/> <?php _e('30 days','facebook-auto-publish'); ?> <br/>
+				<b> <?php _e('Required details','facebook-auto-publish'); ?>:</b><br/> <?php _e('1. WordPress login','facebook-auto-publish'); ?> <br/>
+				<?php _e('2. Admin access to Facebook developer app for review submission (temporary).','facebook-auto-publish'); ?><br/>
+				<?php $fbap_details_link="https://xyzscripts.com/support/"; $fbap_details_contact=sprintf(__('For more details contact <a href="%s" target="_blank" > Support Desk','facebook-auto-publish'),$fbap_details_link); echo $fbap_details_contact; ?></a>.
 				</div>
 				</div><br/>
 				<input type="radio" name="xyz_fbap_app_sel_mode" id="xyz_fbap_app_sel_mode_xyzapp" value="1" <?php if(get_option('xyz_fbap_app_sel_mode')==1) echo 'checked';?>>
-				<span style="color: #000000;font-size: 13px;background-color: #f7a676;font-weight: 500;padding: 3px 5px;"><i class="fa fa-star-o" aria-hidden="true" style="margin-right:5px;"></i>SMAPsolution.com's App ( ready to publish )<i class="fa fa-star-o" aria-hidden="true" style="margin-right:5px;"></i></span><br> <span style="padding-left: 25px;">Starts from 10 USD per year</span><br>
+				<span style="color: #000000;font-size: 13px;background-color: #f7a676;font-weight: 500;padding: 3px 5px;"><i class="fa fa-star-o" aria-hidden="true" style="margin-right:5px;"></i>  <?php $fbap_smap_site="SMAPsolution.com's"; $fbap_ready_pub=sprintf(__('%s App ( ready to publish )','facebook-auto-publish'),$fbap_smap_site); echo $fbap_ready_pub; ?> <i class="fa fa-star-o" aria-hidden="true" style="margin-right:5px;"></i></span><br> <span style="padding-left: 25px;">
+				<?php _e('Starts from 10 USD per year','facebook-auto-publish'); ?> </span><br>
 				<?php if(get_option('xyz_fbap_smapsoln_userid')==0)
 				{?>
-				<span style="color: #ff5e00;padding-left: 27px;font-size: small;"><b>30 DAYS FREE TRIAL AVAILABLE *</b></span>
+				<span style="color: #ff5e00;padding-left: 27px;font-size: small;"><b> <?php _e('30 DAYS FREE TRIAL AVAILABLE','facebook-auto-publish'); ?>*</b></span>
 				<br/>
 				<?php }?>
-				<a target="_blank" href="https://help.xyzscripts.com/docs/social-media-auto-publish/faq/how-can-i-use-the-alternate-solution-for-publishing-posts-to-facebook/" style="padding-left: 30px;">How to use smapsolution.com's application?</a>
+				<a target="_blank" href="https://help.xyzscripts.com/docs/social-media-auto-publish/faq/how-can-i-use-the-alternate-solution-for-publishing-posts-to-facebook/" style="padding-left: 30px;"> <?php $fbap_how_smap=sprintf(__('How to use %s application?','facebook-auto-publish'),$fbap_smap_site); echo $fbap_how_smap; ?></a>
 				</td>
 			</tr>
 			<?php 
@@ -349,13 +352,13 @@ function dethide_fbap(id)
 			<td width="50%">
 			<span id='ajax-save-xyzscript_acc' style="display:none;"><img	class="img"  title="Saving details"	src="<?php echo plugins_url('../images/ajax-loader.gif',__FILE__);?>" style="width:65px;height:70px; "></span>
 			<span id="connect_to_xyzscripts"style="background-color: #1A87B9;color: white; padding: 4px 5px;text-align: center; text-decoration: none;   display: inline-block;border-radius: 4px;">
-			<a href="javascript:fbap_popup_connect_to_xyzscripts();void(0);" style="color:white !important;">Connect your xyzscripts account</a>
+			<a href="javascript:fbap_popup_connect_to_xyzscripts();void(0);" style="color:white !important;"> <?php $fbap_var_xyz="xyzscripts"; $fbap_connect_xyz=sprintf(__('Connect your %s account','facebook-auto-publish'),$fbap_var_xyz); echo $fbap_connect_xyz; ?> </a>
 			</span>
 			</td>
 			</tr>
 			<?php }?>
 				<tr valign="top" class="xyz_fbap_facebook_settings">
-					<td width="50%">Application id
+					<td width="50%"> <?php _e('Application id','facebook-auto-publish'); ?>
 					</td>
 					<td><input id="xyz_fbap_application_id"
 						name="xyz_fbap_application_id" type="text"
@@ -364,7 +367,7 @@ function dethide_fbap(id)
 				</tr>
 
 				<tr valign="top" class="xyz_fbap_facebook_settings">
-					<td>Application secret<?php   $apsecret=esc_html(get_option('xyz_fbap_application_secret'));?>
+					<td> <?php _e('Application secret','facebook-auto-publish'); ?> <?php   $apsecret=esc_html(get_option('xyz_fbap_application_secret'));?>
 						
 					</td>
 					<td><input id="xyz_fbap_application_secret"
@@ -374,67 +377,67 @@ function dethide_fbap(id)
 				</tr>
 				
 				<tr valign="top">
-					<td>Posting method
-					<br/><span style="color: #0073aa;">[Create app album(with <b>Application name</b>) in the Facebook pages,<br/>if you are using the posting method <b>Upload image to app album</b>]</span>
+					<td> <?php _e('Posting method','facebook-auto-publish'); ?>
+					<br/><span style="color: #0073aa;">[ <?php _e('Create app album (with <b> Application name </b>) in the Facebook pages, <br/> if you are using the posting method <b> Upload image to app album','facebook-auto-publish'); ?> </b>]</span>
 					</td>
 					<td>
 					<select id="xyz_fbap_po_method" name="xyz_fbap_po_method">
 							<option value="3"
-				<?php  if(get_option('xyz_fbap_po_method')==3) echo 'selected';?>>Simple text message</option>
+				<?php  if(get_option('xyz_fbap_po_method')==3) echo 'selected';?>> <?php _e('Simple text message','facebook-auto-publish'); ?> </option>
 				
-				<optgroup label="Text message with image">
+				<optgroup label="<?php _e('Text message with image','facebook-auto-publish');?>">
 					<option value="4"
-					<?php  if(get_option('xyz_fbap_po_method')==4) echo 'selected';?>>Upload image to app album</option>
+					<?php  if(get_option('xyz_fbap_po_method')==4) echo 'selected';?>> <?php _e('Upload image to app album','facebook-auto-publish'); ?> </option>
 					<option value="5"
-					<?php  if(get_option('xyz_fbap_po_method')==5) echo 'selected';?>>Upload image to timeline album</option>
+					<?php  if(get_option('xyz_fbap_po_method')==5) echo 'selected';?>> <?php _e('Upload image to timeline album','facebook-auto-publish'); ?> </option>
 				</optgroup>
 				
-				<optgroup label="Text message with attached link">
+				<optgroup label="<?php _e('Text message with attached link','facebook-auto-publish');?>">
 					<option value="1"
-					<?php  if(get_option('xyz_fbap_po_method')==1) echo 'selected';?>>Attach
-						your blog post</option>
+					<?php  if(get_option('xyz_fbap_po_method')==1) echo 'selected';?>> <?php _e('Attach your blog post','facebook-auto-publish'); ?> </option>
 					<option value="2"
 					<?php  if(get_option('xyz_fbap_po_method')==2) echo 'selected';?>>
-						Share a link to your blog post</option>
+						 <?php _e('Share a link to your blog post','facebook-auto-publish'); ?> </option>
 					</optgroup>
 					</select>
 					</td>
 				</tr>
 				<tr valign="top">
-					<td>Enforce og tags for Facebook<img src="<?php echo $heimg?>" onmouseover="detdisplay_fbap('xyz_fbap_enforce_og')" onmouseout="dethide_fbap('xyz_fbap_enforce_og')" style="width:13px;height:auto;">
+					<td> <?php _e('Enforce og tags for Facebook','facebook-auto-publish');?> <img src="<?php echo $heimg?>" onmouseover="detdisplay_fbap('xyz_fbap_enforce_og')" onmouseout="dethide_fbap('xyz_fbap_enforce_og')" style="width:13px;height:auto;">
 					<div id="xyz_fbap_enforce_og" class="fbap_informationdiv" style="display: none;width: 400px;">
-					If you enable, Open Graph tags will be generated while posting to Facebook, when using the posting method <b>Share a link to your blog post</b> or <b>Attach your blog post</b> .
+					<?php _e('If you enable, Open Graph tags will be generated while posting to Facebook, when using the posting method <b> Share a link to your blog post </b> or <b> Attach your blog post.','facebook-auto-publish'); ?> </b>
 					</div>
 					</td>
 					<td  class="switch-field">
-						<label id="xyz_fbap_enforce_og_tags_yes" class="xyz_fbap_toggle_off"><input type="radio" name="xyz_fbap_enforce_og_tags" value="1" <?php  if(get_option('xyz_fbap_enforce_og_tags')==1) echo 'checked';?>/>Yes</label>
-						<label id="xyz_fbap_enforce_og_tags_no" class="xyz_fbap_toggle_on"><input type="radio" name="xyz_fbap_enforce_og_tags" value="0" <?php  if(get_option('xyz_fbap_enforce_og_tags')==0) echo 'checked';?>/>No</label>
+						<label id="xyz_fbap_enforce_og_tags_yes" class="xyz_fbap_toggle_off"><input type="radio" name="xyz_fbap_enforce_og_tags" value="1" <?php  if(get_option('xyz_fbap_enforce_og_tags')==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+						<label id="xyz_fbap_enforce_og_tags_no" class="xyz_fbap_toggle_on"><input type="radio" name="xyz_fbap_enforce_og_tags" value="0" <?php  if(get_option('xyz_fbap_enforce_og_tags')==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<td>Clear facebook cache before publishing to facebook</td>
+					<td> <?php _e('Clear facebook cache before publishing to facebook','facebook-auto-publish'); ?> </td>
 					<td  class="switch-field">
-						<label id="xyz_fbap_clear_fb_cache_yes" class="xyz_fbap_toggle_off"><input type="radio" name="xyz_fbap_clear_fb_cache" value="1" <?php  if(get_option('xyz_fbap_clear_fb_cache')==1) echo 'checked';?>/>Yes</label>
-						<label id="xyz_fbap_clear_fb_cache_no" class="xyz_fbap_toggle_on"><input type="radio" name="xyz_fbap_clear_fb_cache" value="0" <?php  if(get_option('xyz_fbap_clear_fb_cache')==0) echo 'checked';?>/>No</label>
+						<label id="xyz_fbap_clear_fb_cache_yes" class="xyz_fbap_toggle_off"><input type="radio" name="xyz_fbap_clear_fb_cache" value="1" <?php  if(get_option('xyz_fbap_clear_fb_cache')==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+						<label id="xyz_fbap_clear_fb_cache_no" class="xyz_fbap_toggle_on"><input type="radio" name="xyz_fbap_clear_fb_cache" value="0" <?php  if(get_option('xyz_fbap_clear_fb_cache')==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 					</td>
 				</tr>
 				<tr valign="top">
-					<td>Message format for posting <img src="<?php echo $heimg?>"
+					<td> <?php _e('Message format for posting','facebook-auto-publish'); ?> <img src="<?php echo $heimg?>"
 						onmouseover="detdisplay_fbap('xyz_fb')" onmouseout="dethide_fbap('xyz_fb')" style="width:13px;height:auto;">
 						<div id="xyz_fb" class="fbap_informationdiv" style="display: none;">
-							{POST_TITLE} - Insert the title of your post.<br />{PERMALINK} -
-							Insert the URL where your post is displayed.<br />{POST_EXCERPT}
-							- Insert the excerpt of your post.<br />{POST_CONTENT} - Insert
-							the description of your post.<br />{BLOG_TITLE} - Insert the name
-							of your blog.<br />{USER_NICENAME} - Insert the nicename
-							of the author.<br />{POST_ID} - Insert the ID of your post.
-							<br />{POST_PUBLISH_DATE} - Insert the publish date of your post.
-							<br />{USER_DISPLAY_NAME} - Insert the display name of the author.
-						</div><br/><span style="color: #0073aa;">[Optional in the case of <b>Text message with attached link</b><br/> or <b>Text message with image</b> posting methods]</span></td>
+							{POST_TITLE} - <?php _e('Insert the title of your post.','facebook-auto-publish'); ?><br/>
+							{PERMALINK} - <?php _e('Insert the URL where your post is displayed.','facebook-auto-publish'); ?><br/>
+							{POST_EXCERPT} - <?php _e('Insert the excerpt of your post.','facebook-auto-publish'); ?><br/>
+							{POST_CONTENT} - <?php _e('Insert the description of your post.','facebook-auto-publish'); ?><br/>
+							{BLOG_TITLE} - <?php _e('Insert the name of your blog.','facebook-auto-publish'); ?><br/>
+							{USER_NICENAME} - <?php _e('Insert the nicename of the author.','facebook-auto-publish'); ?><br/>
+							{POST_ID} - <?php _e('Insert the ID of your post.','facebook-auto-publish'); ?><br/>
+							{POST_PUBLISH_DATE} - <?php _e('Insert the publish date of your post.','facebook-auto-publish'); ?><br/>
+							{USER_DISPLAY_NAME} - <?php _e('Insert the display name of the author.','facebook-auto-publish'); ?>
+						</div><br/><span style="color: #0073aa;">[ <?php _e('Optional in the case of <b>Text message with attached link </b><br/>or<b> Text message with image </b>posting methods','facebook-auto-publish'); ?> ]</span></td>
 					<td>
 					<select name="xyz_fbap_info" id="xyz_fbap_info" onchange="xyz_fbap_info_insert(this)">
-						<option value ="0" selected="selected">--Select--</option>
+						<option value ="0" selected="selected"> --<?php _e('Select','facebook-auto-publish'); ?>-- </option>
 						<option value ="1">{POST_TITLE}  </option>
 						<option value ="2">{PERMALINK} </option>
 						<option value ="3">{POST_EXCERPT}  </option>
@@ -494,12 +497,12 @@ function dethide_fbap(id)
 						?>
 
 <tr valign="top"><td>
-		Select facebook pages for auto publish 
+	 <?php _e('Select facebook pages for auto publish','facebook-auto-publish'); ?> 
 	</td>
 	<td>
 	
 	<div class="scroll_checkbox">
-	<input type="checkbox" id="select_all_pages" >Select All
+	<input type="checkbox" id="select_all_pages" > <?php _e('Select All','facebook-auto-publish'); ?> 
 
 	<?php 
 	for($i=0;$i<$count;$i++)
@@ -519,7 +522,7 @@ function dethide_fbap(id)
 				    $xyz_fbap_secret_key=get_option('xyz_fbap_secret_key');
 				    ?>
 				<tr id="xyz_fbap_selected_pages_tr" style="<?php if($xyz_fbap_page_names=='')echo "display:none;";?>">
-				<td>Selected facebook pages for auto publish</td>
+				<td> <?php _e('Selected facebook pages for auto publish','facebook-auto-publish'); ?> </td>
 				<td><div>
 				<div class="scroll_checkbox" id="xyz_fbap_selected_pages" style="float: left;">
 				<?php
@@ -543,14 +546,14 @@ function dethide_fbap(id)
 					<td  id="bottomBorderNone"><div style="height: 50px;">
 							<input type="submit" class="submit_fbap_new"
 								style=" margin-top: 10px; "
-								name="fb" value="Save" /></div>
+								name="fb" value="<?php _e('Save','facebook-auto-publish'); ?>" /></div>
 					</td>
 				</tr>
 				<?php if(get_option('xyz_fbap_smapsoln_userid')==0){?>
-				<tr><td style='color: #ce5c19;padding-left:0px;'>*Free trial is available only for first time users</td></tr>
+				<tr><td style='color: #ce5c19;padding-left:0px;'>*<?php _e('Free trial is available only for first time users','facebook-auto-publish'); ?> </td></tr>
 				<?php }
 				else{?>
-				<tr><td style='color: #ce5c19;padding-left:0px;'>*Use reauthorize button to change selected values</td></tr>
+				<tr><td style='color: #ce5c19;padding-left:0px;'>*<?php _e('Use reauthorize button to change selected values','facebook-auto-publish'); ?> </td></tr>
 				<?php }?>
 			</table>
 	</form>
@@ -568,10 +571,10 @@ function dethide_fbap(id)
 				}
 		$xyz_fbap_include_pages=intval($_POST['xyz_fbap_include_pages']);
 		$xyz_fbap_include_posts=intval($_POST['xyz_fbap_include_posts']);
-		
+		$fbap_category_ids='';
 		if($_POST['xyz_fbap_cat_all']=="All")
 			$fbap_category_ids=$_POST['xyz_fbap_cat_all'];//radio btn name
-		else if (isset($_POST['xyz_fbap_catlist']))
+		else if (isset($_POST['xyz_fbap_catlist']) && !empty($_POST['xyz_fbap_catlist']))
 		{
 			$fbap_category_ids=$_POST['xyz_fbap_catlist'];//dropdown
 			$fbap_category_ids=implode(',', $fbap_category_ids);
@@ -584,6 +587,7 @@ function dethide_fbap(id)
         $xyz_fbap_peer_verification=intval($_POST['xyz_fbap_peer_verification']);
         $xyz_fbap_premium_version_ads=intval($_POST['xyz_fbap_premium_version_ads']);
         $xyz_fbap_default_selection_edit=intval($_POST['xyz_fbap_default_selection_edit']);
+        $xyz_fbap_default_selection_create=intval($_POST['xyz_fbap_default_selection_create']);
 // 	    $xyz_fbap_utf_decode_enable=intval($_POST['xyz_fbap_utf_decode_enable']);
 		$fbap_customtype_ids="";
 		$xyz_fbap_applyfilters="";
@@ -621,41 +625,43 @@ function dethide_fbap(id)
 		update_option('xyz_fbap_peer_verification',$xyz_fbap_peer_verification);
 		update_option('xyz_fbap_premium_version_ads',$xyz_fbap_premium_version_ads);
 		update_option('xyz_fbap_default_selection_edit',$xyz_fbap_default_selection_edit);
+		update_option('xyz_fbap_default_selection_create',$xyz_fbap_default_selection_create);
 // 		update_option('xyz_fbap_utf_decode_enable',$xyz_fbap_utf_decode_enable);
 	}
 	$xyz_credit_link=get_option('xyz_credit_link');
 	$xyz_fbap_include_pages=get_option('xyz_fbap_include_pages');
 	$xyz_fbap_include_posts=get_option('xyz_fbap_include_posts');
 	$xyz_fbap_include_categories=get_option('xyz_fbap_include_categories');
-	if ($xyz_fbap_include_categories!='All')
-	$xyz_fbap_include_categories=explode(',', $xyz_fbap_include_categories);
+	/*if ($xyz_fbap_include_categories!='All')
+	$xyz_fbap_include_categories=explode(',', $xyz_fbap_include_categories);*/
 	$xyz_fbap_include_customposttypes=get_option('xyz_fbap_include_customposttypes');
 	$xyz_fbap_apply_filters=get_option('xyz_fbap_apply_filters');
 	$xyz_fbap_peer_verification=get_option('xyz_fbap_peer_verification');
 	$xyz_fbap_premium_version_ads=get_option('xyz_fbap_premium_version_ads');
 	$xyz_fbap_default_selection_edit=get_option('xyz_fbap_default_selection_edit');
+	$xyz_fbap_default_selection_create=get_option('xyz_fbap_default_selection_create');
 // 	$xyz_fbap_utf_decode_enable=get_option('xyz_fbap_utf_decode_enable');
 	?>
 <div id="xyz_fbap_basic_settings" class="xyz_fbap_tabcontent">
 		<form method="post">
 <?php wp_nonce_field( 'xyz_fbap_basic_settings_form_nonce' );?>
 			<table class="widefat xyz_fbap_widefat_table" style="width: 99%">
-<tr><td><h2>Basic Settings</h2></td></tr>
+<tr><td><h2> <?php _e('Basic Settings','facebook-auto-publish'); ?> </h2></td></tr>
 				<tr valign="top">
-					<td  colspan="1">Publish wordpress `posts` to facebook
+					<td  colspan="1"> <?php _e('Publish wordpress `posts` to facebook','facebook-auto-publish'); ?>
 					</td>
 					<td  class="switch-field">
-					<label id="xyz_fbap_include_posts_yes"><input type="radio" name="xyz_fbap_include_posts" value="1" <?php  if($xyz_fbap_include_posts==1) echo 'checked';?>/>Yes</label>
-					<label id="xyz_fbap_include_posts_no"><input type="radio" name="xyz_fbap_include_posts" value="0" <?php  if($xyz_fbap_include_posts==0) echo 'checked';?>/>No</label>
+					<label id="xyz_fbap_include_posts_yes"><input type="radio" name="xyz_fbap_include_posts" value="1" <?php  if($xyz_fbap_include_posts==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+					<label id="xyz_fbap_include_posts_no"><input type="radio" name="xyz_fbap_include_posts" value="0" <?php  if($xyz_fbap_include_posts==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 					</td>				
 				</tr>
 				
 				<tr valign="top">
-					<td  colspan="1" width="50%">Publish wordpress `pages` to facebook
+					<td  colspan="1" width="50%"> <?php _e('Publish wordpress `pages` to facebook','facebook-auto-publish'); ?>
 					</td>
 					<td  class="switch-field">
-						<label id="xyz_fbap_include_pages_yes"><input type="radio" name="xyz_fbap_include_pages" value="1" <?php  if($xyz_fbap_include_pages==1) echo 'checked';?>/>Yes</label>
-						<label id="xyz_fbap_include_pages_no"><input type="radio" name="xyz_fbap_include_pages" value="0" <?php  if($xyz_fbap_include_pages==0) echo 'checked';?>/>No</label>
+						<label id="xyz_fbap_include_pages_yes"><input type="radio" name="xyz_fbap_include_pages" value="1" <?php  if($xyz_fbap_include_pages==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+						<label id="xyz_fbap_include_pages_no"><input type="radio" name="xyz_fbap_include_pages" value="0" <?php  if($xyz_fbap_include_pages==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 					</td>
 				</tr>
 				
@@ -676,7 +682,7 @@ function dethide_fbap(id)
 					}
 					?>
 					<tr valign="top" <?php echo $xyz_fbap_hide_custompost_settings;?>>
-					<td  colspan="1">Select wordpress custom post types for auto publish</td>
+					<td  colspan="1"> <?php _e('Select wordpress custom post types for auto publish','facebook-auto-publish'); ?> </td>
 					<td>	<?php 	foreach ($post_types  as $post_type ) {
 
 						echo '<input type="checkbox" name="post_types[]" value="'.$post_type.'" ';
@@ -692,16 +698,16 @@ function dethide_fbap(id)
 					}?>
 					</td>
 				</tr>
-				<tr><td><h2>Advanced Settings</h2>	</td></tr>
+				<tr><td><h2> <?php _e('Advanced Settings','facebook-auto-publish'); ?> </h2>	</td></tr>
 				<tr valign="top" id="selPostCat">
-					<td  colspan="1">Select post categories for auto publish
+					<td  colspan="1"> <?php _e('Select post categories for auto publish','facebook-auto-publish'); ?>
 					</td>
 					<td class="switch-field">
 	                <input type="hidden" value="<?php echo esc_html($xyz_fbap_include_categories);?>" name="xyz_fbap_sel_cat" id="xyz_fbap_sel_cat"> 
 					<label id="xyz_fbap_include_categories_no">
-					<input type="radio"	name="xyz_fbap_cat_all" id="xyz_fbap_cat_all" value="All" onchange="rd_cat_chn(1,-1)" <?php if($xyz_fbap_include_categories=="All") echo "checked"?>>All<font style="padding-left: 10px;"></font></label>
+					<input type="radio"	name="xyz_fbap_cat_all" id="xyz_fbap_cat_all" value="All" onchange="rd_cat_chn(1,-1)" <?php if($xyz_fbap_include_categories=="All") echo "checked"?>> <?php _e('All','facebook-auto-publish'); ?> <font style="padding-left: 10px;"></font></label>
 					<label id="xyz_fbap_include_categories_yes">
-					<input type="radio"	name="xyz_fbap_cat_all" id="xyz_fbap_cat_all" value=""	onchange="rd_cat_chn(1,1)" <?php if($xyz_fbap_include_categories!="All") echo "checked"?>>Specific</label>
+					<input type="radio"	name="xyz_fbap_cat_all" id="xyz_fbap_cat_all" value=""	onchange="rd_cat_chn(1,1)" <?php if($xyz_fbap_include_categories!="All") echo "checked"?>> <?php _e('Specific','facebook-auto-publish'); ?> </label>
 					<br /> <br /> <div class="scroll_checkbox"  id="cat_dropdown_span">
 					<?php 
 					$args = array(
@@ -725,6 +731,7 @@ function dethide_fbap(id)
 
 					if(count(get_categories($args))>0)
 					{
+					    $xyz_fbap_include_categories=explode(',', $xyz_fbap_include_categories);
 						$fbap_categories=get_categories($args);
 						foreach ($fbap_categories as $fbap_cat)
 						{
@@ -735,30 +742,38 @@ function dethide_fbap(id)
 							<br/><?php }
 					}
 					else
-						echo "NIL";
+					    _e('NIL','facebook-auto-publish'); 
 					?><br /> <br /> </div>
 				</td>
 				</tr>
 				<tr valign="top">
-					<td scope="row" colspan="1" width="50%">Auto publish on editing posts/pages/custom post types
+					<td scope="row" colspan="1" width="50%"> <?php _e('Auto publish on editing posts/pages/custom post types','facebook-auto-publish'); ?>
 					</td>
 					<td >
-						<input type="radio" name="xyz_fbap_default_selection_edit" value="1" <?php  if($xyz_fbap_default_selection_edit==1) echo 'checked';?>/>Enabled<br/>
-						<input type="radio" name="xyz_fbap_default_selection_edit" value="0" <?php  if($xyz_fbap_default_selection_edit==0) echo 'checked';?>/>Disabled<br/>
-						<input type="radio" name="xyz_fbap_default_selection_edit" value="2" <?php  if($xyz_fbap_default_selection_edit==2) echo 'checked';?>/>Use settings from post creation or post updation
+						<input type="radio" name="xyz_fbap_default_selection_edit" value="1" <?php  if($xyz_fbap_default_selection_edit==1) echo 'checked';?>/> <?php _e('Enabled','facebook-auto-publish'); ?> <br/>
+						<input type="radio" name="xyz_fbap_default_selection_edit" value="0" <?php  if($xyz_fbap_default_selection_edit==0) echo 'checked';?>/> <?php _e('Disabled','facebook-auto-publish'); ?> <br/>
+						<input type="radio" name="xyz_fbap_default_selection_edit" value="2" <?php  if($xyz_fbap_default_selection_edit==2) echo 'checked';?>/> <?php _e('Use settings from post creation or post updation','facebook-auto-publish'); ?>
+					</td>
+				</tr>
+				<tr valign="top">
+					<td scope="row" colspan="1" width="50%"> <?php _e('Auto publish on creating posts/pages/custom post types','facebook-auto-publish'); ?>
+					</td>
+					<td >
+						<input type="radio" name="xyz_fbap_default_selection_create" value="1" <?php  if($xyz_fbap_default_selection_create==1) echo 'checked';?>/> <?php _e('Enabled','facebook-auto-publish'); ?> <br/>
+						<input type="radio" name="xyz_fbap_default_selection_create" value="0" <?php  if($xyz_fbap_default_selection_create==0) echo 'checked';?>/> <?php _e('Disabled','facebook-auto-publish'); ?> <br/>
 					</td>
 				</tr>
 					
 				<tr valign="top">
-				<td scope="row" colspan="1" width="50%">Enable SSL peer verification in remote requests</td>
+				<td scope="row" colspan="1" width="50%"> <?php _e('Enable SSL peer verification in remote requests','facebook-auto-publish'); ?> </td>
 				<td  class="switch-field">
-					<label id="xyz_fbap_peer_verification_yes"><input type="radio" name="xyz_fbap_peer_verification" value="1" <?php  if($xyz_fbap_peer_verification==1) echo 'checked';?>/>Yes</label>
-					<label id="xyz_fbap_peer_verification_no"><input type="radio" name="xyz_fbap_peer_verification" value="0" <?php  if($xyz_fbap_peer_verification==0) echo 'checked';?>/>No</label>
+					<label id="xyz_fbap_peer_verification_yes"><input type="radio" name="xyz_fbap_peer_verification" value="1" <?php  if($xyz_fbap_peer_verification==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+					<label id="xyz_fbap_peer_verification_no"><input type="radio" name="xyz_fbap_peer_verification" value="0" <?php  if($xyz_fbap_peer_verification==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 				</td>
 				</tr>
 					
 				<tr valign="top">
-					<td scope="row" colspan="1">Apply filters during publishing	</td>
+					<td scope="row" colspan="1"> <?php _e('Apply filters during publishing','facebook-auto-publish'); ?> </td>
 					<td>
 					<?php 
 					$ar2=explode(",",$xyz_fbap_apply_filters);
@@ -795,23 +810,23 @@ function dethide_fbap(id)
 					<label id="xyz_fbap_utf_decode_enable_no"><input type="radio" name="xyz_fbap_utf_decode_enable" value="0" <?php  //if($xyz_fbap_utf_decode_enable==0) echo 'checked';?>/>No</label>
 					</td>
 				</tr>	-->
-				<tr><td><h2>Other Settings</h2>	</td></tr>
+				<tr><td><h2> <?php _e('Other Settings','facebook-auto-publish'); ?> </h2>	</td></tr>
 				<tr valign="top">
 
-					<td  colspan="1">Enable credit link to author
+					<td  colspan="1"> <?php _e('Enable credit link to author','facebook-auto-publish'); ?>
 					</td>
 					<td  class="switch-field">
-					<label id="xyz_credit_link_yes"><input type="radio" name="xyz_credit_link" value="fbap" <?php  if($xyz_credit_link=='fbap') echo 'checked';?>/>Yes</label>
-					<label id="xyz_credit_link_no"><input type="radio" name="xyz_credit_link" value="<?php echo $xyz_credit_link!='fbap'?$xyz_credit_link:0;?>" <?php  if($xyz_credit_link!='fbap') echo 'checked';?>/>No</label>
+					<label id="xyz_credit_link_yes"><input type="radio" name="xyz_credit_link" value="fbap" <?php  if($xyz_credit_link=='fbap') echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+					<label id="xyz_credit_link_no"><input type="radio" name="xyz_credit_link" value="<?php echo $xyz_credit_link!='fbap'?$xyz_credit_link:0;?>" <?php  if($xyz_credit_link!='fbap') echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<td  colspan="1">Enable premium version ads
+					<td  colspan="1"> <?php _e('Enable premium version ads','facebook-auto-publish'); ?>
 					</td>
 					<td  class="switch-field">
-					<label id="xyz_fbap_premium_version_ads_yes"><input type="radio" name="xyz_fbap_premium_version_ads" value="1" <?php  if($xyz_fbap_premium_version_ads==1) echo 'checked';?>/>Yes</label>
-					<label id="xyz_fbap_premium_version_ads_no"><input type="radio" name="xyz_fbap_premium_version_ads" value="0" <?php  if($xyz_fbap_premium_version_ads==0) echo 'checked';?>/>No</label>
+					<label id="xyz_fbap_premium_version_ads_yes"><input type="radio" name="xyz_fbap_premium_version_ads" value="1" <?php  if($xyz_fbap_premium_version_ads==1) echo 'checked';?>/> <?php _e('Yes','facebook-auto-publish'); ?> </label>
+					<label id="xyz_fbap_premium_version_ads_no"><input type="radio" name="xyz_fbap_premium_version_ads" value="0" <?php  if($xyz_fbap_premium_version_ads==0) echo 'checked';?>/> <?php _e('No','facebook-auto-publish'); ?> </label>
 			
 					</td>
 				</tr>
@@ -821,7 +836,7 @@ function dethide_fbap(id)
 
 					
 <td id="bottomBorderNone"><div style="height: 50px;">
-<input type="submit" class="submit_fbap_new" style="margin-top: 10px;" value=" Update Settings" name="bsettngs" /></div></td>
+<input type="submit" class="submit_fbap_new" style="margin-top: 10px;" value="<?php _e('Update Settings','facebook-auto-publish'); ?>" name="bsettngs" /></div></td>
 				</tr>
 				
 			</table>
@@ -1006,7 +1021,8 @@ function fbap_popup_fb_auth(domain_name,xyz_fbap_smapsoln_userid,xyzscripts_user
 	if(xyzscripts_user_id==''|| xyzscripts_hash_val==''){
 		if(jQuery('#system_notice_area').length==0)
 			jQuery('body').append('<div class="system_notice_area_style0" id="system_notice_area"></div>');
-			jQuery("#system_notice_area").html('Please connect your xyzscripts member account  <span id="system_notice_area_dismiss">Dismiss</span>');
+			jQuery("#system_notice_area").html(xyz_script_fbap_var.html3); 
+	    		jQuery("#system_notice_area").append('<span id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish'); ?> </span>');
 			jQuery("#system_notice_area").show();
 			jQuery('#system_notice_area_dismiss').click(function() {
 				jQuery('#system_notice_area').animate({
@@ -1041,7 +1057,7 @@ function xyz_fbap_ProcessChildMessage_2(message) {
 		message=message.substring(6);
 		if(jQuery('#system_notice_area').length==0)
 		jQuery('body').append('<div class="system_notice_area_style0" id="system_notice_area"></div>');
-		jQuery("#system_notice_area").html(message+' <span id="system_notice_area_dismiss">Dismiss</span>');
+		jQuery("#system_notice_area").html(message+' <span id="system_notice_area_dismiss"> <?php _e('Dismiss','facebook-auto-publish'); ?> </span>');
 		jQuery("#system_notice_area").show();
 		jQuery('#system_notice_area_dismiss').click(function() {
 			jQuery('#system_notice_area').animate({
@@ -1066,7 +1082,7 @@ function xyz_fbap_ProcessChildMessage_2(message) {
 		jQuery("#ajax-save-xyzscript_acc").show();
 		jQuery.post(ajaxurl, dataString ,function(response) {
 			 if(response==1)
-			       	alert("You do not have sufficient permissions");
+			       	alert(xyz_script_fbap_var.alert3);
 			else{	
  		  var base_url = '<?php echo admin_url('admin.php?page=facebook-auto-publish-settings');?>';//msg - 
   		 window.location.href = base_url+'&msg=4';
@@ -1107,7 +1123,7 @@ function xyz_fbap_ProcessChildMessage_2(message) {
 		jQuery("#ajax-save").show();
 		jQuery.post(ajaxurl, dataString ,function(response) {
 			 if(response==1)
-			       	alert("You do not have sufficient permissions");
+			       	alert(xyz_script_fbap_var.alert3);
 			else{
 		  var base_url = '<?php echo admin_url('admin.php?page=facebook-auto-publish-settings');?>';//msg - 
 		 window.location.href = base_url+'&msg=5';

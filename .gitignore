@@ -25,6 +25,3 @@ wp-content/themes/twenty*/
 /robots.txt
 /google*.html
 /sitemap.xml
-
-# WordPress
-wp-config.php
