@@ -3,8 +3,8 @@ Contributors: wpchefgadget
 Donate link: https://www.paypal.com/donate?hosted_button_id=FKD4MYFCMNVQQ
 Tags: brute force, login, security, firewall, protection
 Requires at least: 3.0
-Tested up to: 6.0
-Stable tag: 2.25.5
+Tested up to: 6.1
+Stable tag: 2.25.11
 
 Block excessive login attempts and protect your site against brute force attacks. Simple, yet powerful tools to improve site performance.
 
@@ -98,9 +98,37 @@ Please follow this link: <a href="https://www.limitloginattempts.com/resources/"
 
 == Changelog ==
 
+= 2.25.11 =
+* PHP 8 compatibility fixed.
+* Logs loading issue fixed.
+* Help and Extensions tabs added.
+* Notification about auto updates added.
+* Displaying of plugin version added.
+* Text changes made.
+
+= 2.25.10 =
+* Tested with PHP 8.
+* Small styles refactoring.
+* Fixed a rare issue with events log not being displayed correctly.
+* Chart library updated.
+
+= 2.25.9 =
+* Welcome page replaced with a modal.
+
+= 2.25.8 =
+* Email text, links updated.
+
+= 2.25.7 =
+* Country flags added to log.
+* Refresh button added to log.
+* Email text updated.
+
+= 2.25.6 =
+* Email links updated.
+
 = 2.25.5 =
-* Fixed Woocommerce integration
-* Updated some interface links
+* Fixed Woocommerce integration.
+* Updated some interface links.
 
 = 2.25.4 =
 * Fixed session error in rare cases.

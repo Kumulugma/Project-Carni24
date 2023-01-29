@@ -13,7 +13,7 @@ class AIOWPSecurity_Block_Bootstrap extends AIOWPSecurity_Block_File {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.0';
+	protected $version = '1.0.1';
 
 	/**
 	 * Inserts our code into our bootstrap file.
@@ -21,6 +21,7 @@ class AIOWPSecurity_Block_Bootstrap extends AIOWPSecurity_Block_File {
 	 * @return boolean|WP_Error
 	 */
 	public function insert_contents() {
+
 		$info = pathinfo($this->file_path);
 	
 		if (!isset($info['dirname'])) {
@@ -50,25 +51,45 @@ class AIOWPSecurity_Block_Bootstrap extends AIOWPSecurity_Block_File {
 	 */
 	protected function is_content_valid($contents) {
 
-		//The regexes we extract the paths from
-		$regexes = array('/file_exists\(\'?(.*)\'?\)/isU', '/include_once\(\'?(.*)\'?\)/isU');
+		//Ensure we're using the correct version of the file
+		$version = $this->get_bootstrap_version();
+
+		if (false === $version) return false;
+
+		if ($version['full_version'] !== $this->version) return false;
+
+		//Ensure the required paths are valid
+		$regexes = array('/file_exists\((?<file_path>\'.*\')\)/isU', '/include_once\((?<file_path>\'.*\')\)/isU');
 		$firewall_path_str = $this->get_firewall_path_str();
 		
 		foreach ($regexes as $regex) {
-			$matches = array();
-			$result  = preg_match($regex, $contents, $matches);
-		
-			if (empty($matches[1]) || false === $result) {
-				continue;
+
+			if (preg_match($regex, $contents, $matches)) {
+
+				if ($firewall_path_str !== $matches['file_path']) return false;
+				
 			}
-					
-			if ($firewall_path_str !== $matches[1]) {
-				return false;
-			}
-		
 		}
-		
+
 		return true;
+	}
+
+	/**
+	 * Returns the bootstrap version from file
+	 *
+	 * @return array|boolean Array with the version information; false otherwise.
+	 */
+	protected function get_bootstrap_version() {
+		
+		$contents = @file_get_contents($this->file_path); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- ignore this
+
+		if (false === $contents) return false;
+
+		if (preg_match('/@version (?<full_version>(?<major>\d{1,})\.(?<minor>\d{1,})\.(?<patch>\d{1,}))$/m', $contents, $matches)) {
+			return $matches;
+		}
+
+		return false;
 	}
 
 	/**
@@ -136,7 +157,8 @@ class AIOWPSecurity_Block_Bootstrap extends AIOWPSecurity_Block_File {
 			$code .= "}\n";
 		}
 
-		$code .= "\$aiowps_firewall_rules_path = {$firewall_rules_path_str};\n\n";
+		
+		$code .= '$GLOBALS[\'aiowps_firewall_rules_path\'] = '.$firewall_rules_path_str.";\n\n";
 		$code .= "// Begin AIOWPSEC Firewall\n";
 		$code .= "if (file_exists({$firewall_path_str})) {\n";
 		$code .= "\tinclude_once({$firewall_path_str});\n";

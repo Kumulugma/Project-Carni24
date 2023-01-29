@@ -23,7 +23,7 @@ class Simba_TFA_Frontend {
 	 * @uses die()
 	 */
 	public function ajax() {
-		$totp_controller = $this->mother->get_totp_controller();
+		$totp_controller = $this->mother->get_controller('totp');
 		global $current_user;
 		
 		$return_array = array();
@@ -65,7 +65,7 @@ class Simba_TFA_Frontend {
 							$allow_enable_or_disable = true;
 						} else {
 							$return_array['error'] = 'code_wrong';
-							$return_array['message'] = __('The TFA code you entered was incorrect.', 'all-in-one-wp-security-and-firewall');
+							$return_array['message'] = apply_filters('simba_tfa_message_code_incorrect', __('The TFA code you entered was incorrect.', 'all-in-one-wp-security-and-firewall'));
 						}
 					}
 				
@@ -103,7 +103,7 @@ class Simba_TFA_Frontend {
 	 */
 	public function tfa_fetch_assort_vars() {
 		global $current_user;
-		$totp_controller = $this->mother->get_totp_controller();
+		$totp_controller = $this->mother->get_controller('totp');
 		
 		$url = preg_replace('/^https?:\/\//i', '', site_url());
 				

@@ -17,7 +17,9 @@
                     'order' => 'DESC',
                     'hide_empty' => 1,
                     'hierarchical' => 1,
-                    'pad_counts' => false);
+                    "exclude"   => 15,
+                    'pad_counts' => false
+                    );
                 $categories = get_categories($args);
 
 
@@ -37,8 +39,9 @@
                                     $species = new WP_Query(array(
                                         'post_type' => 'species',
                                         'cat' => $category->cat_ID,
-                                        'orderby' => 'date',
-                                        'order' => 'ASC'
+                                        'orderby' => 'post_title',
+                                        'order' => 'ASC',
+                                        'posts_per_page' => -1
                                     ));
                                     ?>
                                     <div class="col-xs-12 col-md-4">
@@ -47,9 +50,9 @@
                                             <?php while ($species->have_posts()) : $species->the_post(); ?>
                                                 <a 
                                                     class="list-group-item list-group-item-action <?= ($i == 0 ? 'active' : '') ?>" 
-                                                    id="list-<?= get_the_ID() ?>-list" 
+                                                    id="list-<?= $category->slug ?>-<?= get_the_ID() ?>-list" 
                                                     data-bs-toggle="list" 
-                                                    href="#list-<?= get_the_ID() ?>" 
+                                                    href="#list-<?= $category->slug ?>-<?= get_the_ID() ?>" 
                                                     role="tab" 
                                                     aria-controls="<?= get_the_ID() ?>"
                                                     aria-selected="<?= ($i == 0 ? 'true' : 'false') ?>"
@@ -67,19 +70,11 @@
                                             <?php while ($species->have_posts()) : $species->the_post(); ?>
                                                 <div 
                                                     class="tab-pane fade <?= ($i == 0 ? 'show active' : '') ?>" 
-                                                    id="list-<?= get_the_ID() ?>" 
+                                                    id="list-<?= $category->slug ?>-<?= get_the_ID() ?>" 
                                                     role="tabpanel" 
-                                                    aria-labelledby="list-<?= get_the_ID() ?>-list"
+                                                    aria-labelledby="list-<?= $category->slug ?>-<?= get_the_ID() ?>-list"
                                                     >
-                                                        <?= get_the_content() ?>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="btn-group">
-                                                            <a href="<?= get_permalink(get_the_ID()) ?>">
-                                                                <button type="button" class="btn btn-sm btn-outline-secondary">Zobacz więcej</button>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
+                                                    <?= get_the_content() ?>
                                                 </div>
 
                                                 <?php $i++; ?>

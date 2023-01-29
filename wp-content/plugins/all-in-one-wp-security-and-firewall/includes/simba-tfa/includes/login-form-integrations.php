@@ -90,7 +90,7 @@ class Simba_TFA_Login_Form_Integrations {
 	 * Runs upon the WP action affwp_process_login_form
 	 */
 	public function affwp_process_login_form() {
-	
+			
 		if (!function_exists('affiliate_wp')) return;
 		
 		$affiliate_wp = affiliate_wp();
@@ -99,7 +99,7 @@ class Simba_TFA_Login_Form_Integrations {
 		$params = array(
 			'log' => stripslashes($_POST['affwp_user_login']),
 			'caller'=> $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['REQUEST_URI'],
-			'two_factor_code' => stripslashes((string) $_POST['two_factor_code'])
+			'two_factor_code' => isset($_POST['two_factor_code']) ? stripslashes((string) $_POST['two_factor_code']) : '',
 		);
 		$code_ok = $this->tfa->authorise_user_from_login($params, true);
 		
@@ -108,7 +108,7 @@ class Simba_TFA_Login_Form_Integrations {
 		if (is_wp_error($code_ok)) {
 			$login->add_error($code_ok->get_error_code, $code_ok->get_error_message());
 		} elseif (!$code_ok) {
-			$login->add_error('authentication_failed', __('Error:', 'all-in-one-wp-security-and-firewall').' '.__('The one-time password (TFA code) you entered was incorrect.', 'all-in-one-wp-security-and-firewall'));
+			$login->add_error('authentication_failed', __('Error:', 'all-in-one-wp-security-and-firewall').' '.apply_filters('simba_tfa_message_code_incorrect', __('The one-time password (TFA code) you entered was incorrect.', 'all-in-one-wp-security-and-firewall')));
 		}
 		
 	}

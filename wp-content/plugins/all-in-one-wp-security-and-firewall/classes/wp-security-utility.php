@@ -26,7 +26,7 @@ class AIOWPSecurity_Utility {
 	 */
 	public static function has_manage_cap() {
 		// This filter will useful when the administrator would like to give permission to access AIOWPS to Security Analyst.
-		$cap = apply_filters('aiowps_management_capability', AIOWPSEC_MANAGEMENT_PERMISSION);
+		$cap = apply_filters('aiowps_management_capability', apply_filters('aios_management_permission', 'manage_options'));
 		return current_user_can($cap);
 	}
 
@@ -47,6 +47,8 @@ class AIOWPSecurity_Utility {
 	 * @return string
 	 */
 	public static function get_current_page_url() {
+		if (defined('WP_CLI') && WP_CLI) return '';
+
 		$pageURL = 'http';
 		if (isset($_SERVER["HTTPS"]) && "on" == $_SERVER["HTTPS"]) {
 			$pageURL .= "s";
@@ -211,7 +213,16 @@ class AIOWPSecurity_Utility {
 		if (empty($cookie_domain)) {
 			$cookie_domain = COOKIE_DOMAIN;
 		}
-		setcookie($cookie_name, $cookie_value, $expiry_time, $path, $cookie_domain);
+		setcookie($cookie_name, $cookie_value, $expiry_time, $path, $cookie_domain, is_ssl(), true);
+	}
+
+	/**
+	 * Get brute force secret cookie name.
+	 *
+	 * @return String Brute force secret cookie name.
+	 */
+	public static function get_brute_force_secret_cookie_name() {
+		return 'aios_brute_force_secret_' . COOKIEHASH;
 	}
 	
 	/**
@@ -225,6 +236,15 @@ class AIOWPSecurity_Utility {
 			return $_COOKIE[$cookie_name];
 		}
 		return "";
+	}
+
+	/**
+	 * Checks if installation is multisite or not.
+	 *
+	 * @return Boolean True if the site is network multisite, false otherwise.
+	 */
+	public static function is_multisite_install() {
+		return function_exists('is_multisite') && is_multisite();
 	}
 
 	/**
@@ -413,7 +433,7 @@ class AIOWPSecurity_Utility {
 	 **/
 	public static function check_locked_ip($ip) {
 		global $wpdb;
-		$login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
+		$login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKOUT;
 		$now = current_time('mysql', true);
 		$locked_ip = $wpdb->get_row($wpdb->prepare("SELECT * FROM $login_lockdown_table WHERE release_date > %s AND failed_login_ip = %s", $now, $ip), ARRAY_A);
 		if (null != $locked_ip) {
@@ -431,7 +451,7 @@ class AIOWPSecurity_Utility {
 	 */
 	public static function get_locked_ips() {
 		global $wpdb;
-		$login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
+		$login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKOUT;
 		$now = current_time('mysql', true);
 	$locked_ips = $wpdb->get_results($wpdb->prepare("SELECT * FROM $login_lockdown_table WHERE release_date > %s", $now), ARRAY_A);
 		
@@ -444,7 +464,7 @@ class AIOWPSecurity_Utility {
 
 
 	/**
-	 * Locks an IP address - Adds an entry to the AIOWPSEC_TBL_LOGIN_LOCKDOWN table.
+	 * Locks an IP address - Adds an entry to the AIOWPSEC_TBL_LOGIN_LOCKOUT table.
 	 *
 	 * @global wpdb            $wpdb
 	 * @global AIO_WP_Security $aio_wp_security
@@ -457,7 +477,7 @@ class AIOWPSecurity_Utility {
 	 */
 	public static function lock_IP($ip, $lock_reason, $username = '') {
 		global $wpdb, $aio_wp_security;
-		$login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
+		$login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKOUT;
 
 		if ('404' == $lock_reason) {
 			$lock_minutes = $aio_wp_security->configs->get_value('aiowps_404_lockout_time_length');
@@ -574,9 +594,9 @@ class AIOWPSecurity_Utility {
 	}
 	
 	/**
-	 * Delete expired captcha info option
+	 * Delete expired CAPTCHA info option
 	 *
-	 * Note: A unique instance these option is created everytime the login page is loaded with captcha enabled
+	 * Note: A unique instance these option is created everytime the login page is loaded with CAPTCHA enabled
 	 * This function will help prune the options table of old expired entries.
 	 *
 	 * @global wpdb $wpdb
@@ -611,23 +631,27 @@ class AIOWPSecurity_Utility {
 	 */
 	public static function get_server_type() {
 		if (!isset($_SERVER['SERVER_SOFTWARE'])) {
-			return -1;
+			return apply_filters('aios_server_type', -1);
 		}
 
 		// Figure out what server they're using.
 		$server_software = strtolower(sanitize_text_field(wp_unslash(($_SERVER['SERVER_SOFTWARE']))));
 
 		if (strstr($server_software, 'apache')) {
-			return 'apache';
+			$server_type = 'apache';
 		} elseif (strstr($server_software, 'nginx')) {
-			return 'nginx';
+			$server_type = 'nginx';
 		} elseif (strstr($server_software, 'litespeed')) {
-			return 'litespeed';
+			$server_type = 'litespeed';
 		} elseif (strstr($server_software, 'iis')) {
-			return 'iis';
+			$server_type = 'iis';
+		} elseif (strstr($server_software, 'lighttpd')) {
+			$server_type = 'lighttpd';
 		} else { // Unsupported server
-			return -1;
+			$server_type = -1;
 		}
+
+		return apply_filters('aios_server_type', $server_type);
 	}
 
 	/**
@@ -755,7 +779,7 @@ class AIOWPSecurity_Utility {
 	 *
 	 * @return boolean True if the incompatible TFA premium plugin version active, otherwise false.
 	 */
-	public static function is_incopatible_tfa_premium_version_active() {
+	public static function is_incompatible_tfa_premium_version_active() {
 		if (!function_exists('get_plugins')) {
 			require_once(ABSPATH.'/wp-admin/includes/plugin.php');
 		}
@@ -778,5 +802,43 @@ class AIOWPSecurity_Utility {
 		// https://core.trac.wordpress.org/ticket/42656
 		return is_admin() &&
 			preg_match('#/wp-admin/plugins.php$#i', $_SERVER['PHP_SELF']) && isset($_GET['plugin']) && (preg_match("/\/two-factor-login.php/", $_GET['plugin']) || preg_match("/all-in-one-wp-security-and-firewall/", $_GET['plugin']));
+	}
+
+	/**
+	 * Check whether the site is running on localhost or not.
+	 *
+	 * @return Boolean True if the site is on localhost, otherwise false.
+	 */
+	public static function is_localhost() {
+		if (defined('AIOS_IS_LOCALHOST')) {
+			return AIOS_IS_LOCALHOST;
+		}
+
+		if (empty($_SERVER['REMOTE_ADDR'])) {
+			return false;
+		}
+		return in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1')) ? true : false;
+	}
+
+	/**
+	 * Get server software.
+	 *
+	 * @return string Server software or empty.
+	 */
+	public static function get_server_software() {
+		static $server_software;
+		if (!isset($server_software)) {
+			$server_software = (isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : '');
+		}
+		return $server_software;
+	}
+
+	/**
+	 * Check whether the server is apache or not.
+	 *
+	 * @return Boolean True the server is apache, otherwise false.
+	 */
+	public static function is_apache_server() {
+		return (false !== strpos(self::get_server_software(), 'Apache'));
 	}
 }

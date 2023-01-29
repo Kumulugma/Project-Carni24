@@ -8,12 +8,11 @@ class LLA_Helpers {
     /**
      * @param string $msg
      */
-    public static function show_error( $msg = '' ) {
-        if( empty( $msg ) ) {
-            return;
-        }
+    public static function show_message( $msg = '', $is_error = false ) {
+        if( empty( $msg ) ) return;
 
-        echo '<div id="message" class="updated fade"><p>' . $msg . '</p></div>';
+        $class = $is_error ? 'error' : 'updated';
+        echo '<div id="message" class="' . $class . ' fade"><p>' . $msg . '</p></div>';
     }
 
     /**
@@ -107,5 +106,15 @@ class LLA_Helpers {
 		$content = preg_replace( '/\\\+/', '\\', $content );
 
 		return $content;
+	}
+
+	public static function isAutoUpdateEnabled() {
+		$auto_update_plugins = get_site_option( 'auto_update_plugins' );
+		return is_array( $auto_update_plugins ) && in_array( LLA_PLUGIN_BASENAME, $auto_update_plugins );
+	}
+
+	public static function getWordpressVersion() {
+		global $wp_version;
+		return $wp_version;
 	}
 }

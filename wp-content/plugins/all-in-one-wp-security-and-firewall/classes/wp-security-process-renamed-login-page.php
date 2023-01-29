@@ -139,7 +139,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 			 * @param int $expires The expiry time, as passed to setcookie().
 			 */
 			$expire = apply_filters('post_password_expires', time() + 10 * DAY_IN_SECONDS);
-			setcookie('wp-postpass_' . COOKIEHASH, $hasher->HashPassword(wp_unslash($_POST['post_password'])), $expire, COOKIEPATH);
+			setcookie('wp-postpass_' . COOKIEHASH, $hasher->HashPassword(wp_unslash($_POST['post_password'])), $expire, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true);
 
 			wp_safe_redirect(wp_get_referer());
 			exit();
@@ -236,6 +236,8 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 			} else {
 				global $wp_version;
 				do_action('aiowps_rename_login_load');
+				AIOWPSecurity_Utility_IP::check_login_whitelist_and_forbid();
+
 				status_header(200);
 				if (version_compare($wp_version, '5.7', '>=')) {
 					require_once(AIO_WP_SECURITY_PATH . '/other-includes/wp-security-rename-login-feature.php');
@@ -262,7 +264,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 
 	public static function aiowps_set_404() {
 		global $wp_query;
-		do_action('aiopws_before_set_404'); //This hook is for themes which produce a fatal error when the rename login feature is enabled and someone visits "wp-admin" slug directly
+		do_action('aiowps_before_set_404'); // This hook is for themes which produce a fatal error when the rename login feature is enabled and someone visits "wp-admin" slug directly
 
 		status_header(404);
 		$wp_query->set_404();

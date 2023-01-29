@@ -18,4 +18,13 @@ include("includes/menuAClass.php");
 include("includes/breadcrumbs.php");
 //Spec ID
 include("includes/specID.php");
+add_theme_support( 'post-thumbnails' );
+
+add_filter( 'image_size_names_choose', 'my_custom_sizes' );
+ 
+function my_custom_sizes( $sizes ) {
+    return array_merge( $sizes, array(
+        'tiles' => __( 'Kafelek' )
+    ) );
+}
 
