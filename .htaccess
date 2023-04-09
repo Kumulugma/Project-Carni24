@@ -77,7 +77,7 @@ RewriteCond %{QUERY_STRING} ftp:     [NC,OR]
 RewriteCond %{QUERY_STRING} http:    [NC,OR]
 RewriteCond %{QUERY_STRING} https:   [NC,OR]
 RewriteCond %{QUERY_STRING} mosConfig [NC,OR]
-RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
+RewriteCond %{QUERY_STRING} ^.*(globals|encode|loopback).* [NC,OR]
 RewriteCond %{QUERY_STRING} (\;|'|\"|%22).*(request|insert|union|declare|drop) [NC]
 RewriteRule ^(.*)$ - [F,L]
 </IfModule>
@@ -187,34 +187,8 @@ RewriteRule \.(gif|jpe?g?|png)$ - [F,NC,L]
 # END All In One WP Security
 
 # BEGIN LSCACHE
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
-<IfModule LiteSpeed>
-RewriteEngine on
-CacheLookup on
-RewriteRule .* - [E=Cache-Control:no-autoflush]
-RewriteRule \.litespeed_conf\.dat - [F,L]
-
-### marker CACHE RESOURCE start ###
-RewriteRule wp-content/.*/[^/]*(responsive|css|js|dynamic|loader|fonts)\.php - [E=cache-control:max-age=3600]
-### marker CACHE RESOURCE end ###
-
-### marker FAVICON start ###
-RewriteRule favicon\.ico$ - [E=cache-control:max-age=86400]
-### marker FAVICON end ###
-
-### marker DROPQS start ###
-CacheKeyModify -qs:fbclid
-CacheKeyModify -qs:gclid
-CacheKeyModify -qs:utm*
-CacheKeyModify -qs:_ga
-### marker DROPQS end ###
-
-</IfModule>
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
 # END LSCACHE
 # BEGIN NON_LSCACHE
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
 # END NON_LSCACHE
 
 php_value upload_max_filesize 64M

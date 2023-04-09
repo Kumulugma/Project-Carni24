@@ -1,5 +1,6 @@
 <?php
-define( 'WP_CACHE', true );
+
+
 
 
 
@@ -88,6 +89,7 @@ define('WP_AUTO_UPDATE_CORE', true);
 define('DISABLE_WP_CRON', true);
 define('CONCATENATE_SCRIPTS', true);
 
+define( 'FS_METHOD', 'direct' );
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
