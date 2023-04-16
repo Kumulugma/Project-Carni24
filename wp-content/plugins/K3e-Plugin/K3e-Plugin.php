@@ -8,7 +8,7 @@
   Author URI: https://www.k3e.pl/
   Text Domain:
   Domain Path:
-  Version: 0.2.16a
+  Version: 0.2.17
  */
 require_once 'updater/K3eUpdater.php';
 require_once 'K3E.php';
@@ -18,7 +18,7 @@ require_once 'modules/K3eModules.php';
 add_action('init', 'k3e_plugin_init');
 
 Puc_v4_Factory::buildUpdateChecker(
-        'http://k3e.pl/?action=get_metadata&slug=k3e-plugin',
+        'http://plugins.k3e.pl/?action=get_metadata&slug=k3e-plugin',
         __FILE__, //Full path to the main plugin file or functions.php.
         'k3e-plugin'
 );

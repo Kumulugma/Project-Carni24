@@ -102,6 +102,29 @@ class K3eStaticContent {
             }
         }
 
+        if (is_admin()) {
+
+            function k3e_remove_pageparent_meta_box() {
+                if (isset($_GET['post']) && $_GET['post'] == get_option('page_on_front')) {
+                    remove_meta_box('pageparentdiv', 'page', 'side');
+                    remove_meta_box('postimagediv', 'page', 'side');
+                }
+            }
+
+            add_action('do_meta_boxes', 'k3e_remove_pageparent_meta_box');
+
+            function disable_block_editor_for_static($use_block_editor, $post) {
+
+                $home_page_id = get_option('page_on_front');
+                $excluded_ids = array($home_page_id);
+                if (in_array($post->ID, $excluded_ids)) {
+                    return false;
+                }
+                return $use_block_editor;
+            }
+
+            add_filter('use_block_editor_for_post', 'disable_block_editor_for_static', 10, 2);
+        }
     }
 
     public static function getStaticFormID() {

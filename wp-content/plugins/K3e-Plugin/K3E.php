@@ -26,7 +26,9 @@ class K3E {
         'disableGutenberg' => ['status' => false, 'name' => 'Wyłącz Gutenberga', 'class' => 'K3eDisableGutenberg'],
         'googleAnalytics' => ['status' => false, 'name' => 'Uruchom Google Analytics', 'class' => 'K3eGoogleAnalytics'],
         'favicon' => ['status' => false, 'name' => 'Favicon', 'class' => 'K3eFavicon'],
-        'cookiesPopup' => ['status' => false, 'name' => 'Informacja o Cookies', 'class' => 'K3eCookiesPopup']
+        'cookiesPopup' => ['status' => false, 'name' => 'Informacja o Cookies', 'class' => 'K3eCookiesPopup'],
+        'disableComments' => ['status' => false, 'name' => 'Wyłącz komentarze', 'class' => 'K3eDisableComments'],
+        'disableSearch' => ['status' => false, 'name' => 'Wyłącz wyszukiwarkę', 'class' => 'K3eDisableSearch']
     ];
     const DEFAULT_THEME_SUPPORT = [
 //        'admin-bar' => ['status' => false, 'name' => 'admin-bar'],
@@ -94,6 +96,7 @@ class K3E {
     const OPTION_FAVICON_ACTIVATE = 'k3e_favicon_activate';
     const OPTION_COOKIES_POPUP_ACTIVATE = 'k3e_google_analytics_activate';
     const OPTION_COOKIES_POPUP_CONTENT = 'k3e_google_analytics_content';
+    const OPTION_LAZYLOADER_PLACEHOLDER = 'k3e_lazyloader_placeholder';
     
     const POST_EXCLUDES = [
         'attachment',

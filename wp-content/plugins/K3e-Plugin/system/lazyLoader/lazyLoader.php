@@ -41,6 +41,10 @@ class K3eLazyLoader implements InterfaceToggler {
             } else {
                 K3eSystem::setSettings(K3E::OPTION_LAZYLOADER_ACTIVATE, 0);
             }
+            if (isset($_POST['LazyLoader']['placeholder'])) {
+                $lazyloaderPlaceholder = ($_POST['LazyLoader']['placeholder']);
+                K3eSystem::setSettings(K3E::OPTION_LAZYLOADER_PLACEHOLDER, $lazyloaderPlaceholder);
+            }
             $save = TRUE;
         }
 
@@ -66,4 +70,7 @@ class K3eLazyLoader implements InterfaceToggler {
         return $lazyloaderActivate;
     }
 
+    public static function placeholder() {
+        return (get_option(K3E::OPTION_LAZYLOADER_PLACEHOLDER));
+    }
 }

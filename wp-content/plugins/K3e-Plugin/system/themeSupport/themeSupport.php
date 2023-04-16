@@ -5,6 +5,14 @@ class K3eThemeSupport {
     const VERSION = '0.1a';
 
     function __construct() {
+
+        $support = unserialize(get_option(K3E::OPTION_THEME_SUPPORT));
+        if ($support) {
+            foreach ($support as $support_name => $support_args) {
+                add_theme_support($support_name);
+            }
+        }
+
         if (is_admin()) {
 
             add_action('admin_menu', 'k3e_theme_support');
@@ -24,7 +32,6 @@ class K3eThemeSupport {
                 include plugin_dir_path(__FILE__) . '_templates/index.php';
             }
 
-            K3eThemeSupport::do();
             K3eThemeSupport::save();
         }
     }
@@ -42,15 +49,6 @@ class K3eThemeSupport {
 
             K3eSystem::setSettings(K3E::OPTION_THEME_SUPPORT, serialize($form));
             wp_redirect('admin.php?page=' . $_GET['page']);
-        }
-    }
-
-    public static function do() {
-        $support = unserialize(get_option(K3E::OPTION_THEME_SUPPORT));
-        if ($support) {
-            foreach ($support as $support_name => $support_args) {
-                add_theme_support($support_name);
-            }
         }
     }
 
