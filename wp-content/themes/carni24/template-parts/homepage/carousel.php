@@ -10,7 +10,7 @@
                          data-src="<?= esc_url(wp_get_attachment_image_url($item, 'carousel')) ?>" 
                          alt="<?= esc_attr(get_post_meta(get_the_ID(), 'carousel_title_1', true)) ?>"
                          width="1920"
-                         height="1080">
+                         height="200">
                 </div>
                 <?php endif; ?>
 
@@ -23,7 +23,7 @@
                                  data-src="<?= esc_url(wp_get_attachment_image_url($item, 'carousel')) ?>" 
                                  alt="<?= esc_attr(get_post_meta(get_the_ID(), "carousel_title_$i", true)) ?>"
                                  width="1920"
-                                 height="1080">
+                                 height="200">
                         </div>
                     <?php endif; ?>
                 <?php endfor; ?>
