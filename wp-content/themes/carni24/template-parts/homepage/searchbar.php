@@ -52,7 +52,7 @@
                     <input class="form-control w-75 me-2" 
                            name="s" 
                            type="search" 
-                           placeholder="Wpisz czego poszukujesz..." 
+                           placeholder="<?= esc_attr(carni24_get_option('search_placeholder', 'Wpisz czego poszukujesz...')) ?>" 
                            aria-label="Szukaj"
                            value="<?= esc_attr(get_search_query()) ?>">
                     <button class="btn btn-outline-success" type="submit">Szukaj</button>

@@ -6,9 +6,9 @@
             <div class="container d-none d-lg-block">
                 <div class="row">
                     <div class="col-sm-8 col-md-7 py-4">
-                        <h4 class="text-white"><?= get_field('navigation_headling', 7) ?></h4>
+                        <h4 class="text-white"><?= esc_html(carni24_get_option('navigation_heading', 'O nas')) ?></h4>
                         <p class="text-muted">
-                            <?= get_field('navigation_content', 7) ?>
+                            <?= wp_kses_post(carni24_get_option('navigation_content', 'Krótki opis strony poświęconej roślinom mięsożernym.')) ?>
                         </p>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container-fluid logo">
                 <a href="/" class="navbar-brand d-flex align-items-center">
-                    <strong>Carni24</strong>
+                    <strong><?= esc_html(carni24_get_option('site_logo_text', 'Carni24')) ?></strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,9 +28,9 @@
             <div class="container d-block d-lg-none text-light">
                 <div class="row d-none d-lg-block">
                     <div class="col-sm-8 col-md-7 py-4">
-                        <h4 class="text-white"><?= get_field('navigation_headling', 7) ?></h4>
+                        <h4 class="text-white"><?= esc_html(carni24_get_option('navigation_heading', 'O nas')) ?></h4>
                         <p class="text-muted">
-                            <?= get_field('navigation_content', 7) ?>
+                            <?= wp_kses_post(carni24_get_option('navigation_content', 'Krótki opis strony poświęconej roślinom mięsożernym.')) ?>
                         </p>
                     </div>
                     <div class="col-sm-4 offset-md-1 py-4">

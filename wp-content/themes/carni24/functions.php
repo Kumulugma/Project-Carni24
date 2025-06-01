@@ -20,8 +20,8 @@ include("includes/breadcrumbs.php");
 include("includes/specID.php");
 //Sitemap
 include("includes/sitemap.php");
-
-
+//Theme Options
+include("includes/theme-options.php");
 
 add_theme_support('post-thumbnails');
 
@@ -419,6 +419,7 @@ add_action('save_post', 'save_seo_meta');
 // === SEO OUTPUT ===
 
 // Generate SEO meta tags
+// Generate SEO meta tags
 function carni24_seo_meta_tags() {
     global $post;
     
@@ -451,18 +452,18 @@ function carni24_seo_meta_tags() {
         $og_url = get_permalink($post->ID);
     }
     
-    // Fallbacks
+    // Fallbacks - najpierw z ustawień globalnych, potem WordPress
     if (empty($meta_title)) {
         if (is_home()) {
-            $meta_title = get_bloginfo('name') . ' - ' . get_bloginfo('description');
+            $meta_title = carni24_get_option('site_name', get_bloginfo('name')) . ' - ' . carni24_get_option('site_description', get_bloginfo('description'));
         } elseif (is_singular()) {
-            $meta_title = get_the_title() . ' - ' . get_bloginfo('name');
+            $meta_title = get_the_title() . ' - ' . carni24_get_option('site_name', get_bloginfo('name'));
         } elseif (is_category()) {
-            $meta_title = single_cat_title('', false) . ' - ' . get_bloginfo('name');
+            $meta_title = single_cat_title('', false) . ' - ' . carni24_get_option('site_name', get_bloginfo('name'));
         } elseif (is_tag()) {
-            $meta_title = single_tag_title('', false) . ' - ' . get_bloginfo('name');
+            $meta_title = single_tag_title('', false) . ' - ' . carni24_get_option('site_name', get_bloginfo('name'));
         } elseif (is_search()) {
-            $meta_title = 'Wyniki wyszukiwania: ' . get_search_query() . ' - ' . get_bloginfo('name');
+            $meta_title = 'Wyniki wyszukiwania: ' . get_search_query() . ' - ' . carni24_get_option('site_name', get_bloginfo('name'));
         } else {
             $meta_title = wp_get_document_title();
         }
@@ -478,8 +479,17 @@ function carni24_seo_meta_tags() {
         } elseif (is_tag()) {
             $meta_description = tag_description();
         } else {
-            $meta_description = get_bloginfo('description');
+            // Fallback do ustawień globalnych
+            $meta_description = carni24_get_option('default_meta_description', '');
+            if (empty($meta_description)) {
+                $meta_description = carni24_get_option('site_description', get_bloginfo('description'));
+            }
         }
+    }
+    
+    if (empty($meta_keywords)) {
+        // Fallback do globalnych keywords
+        $meta_keywords = carni24_get_option('default_meta_keywords', '');
     }
     
     if (empty($canonical_url)) {
@@ -500,8 +510,16 @@ function carni24_seo_meta_tags() {
         $og_description = $meta_description;
     }
     
-    if (empty($og_image) && is_singular() && has_post_thumbnail()) {
-        $og_image = get_the_post_thumbnail_url($post->ID, 'large');
+    if (empty($og_image)) {
+        if (is_singular() && has_post_thumbnail()) {
+            $og_image = get_the_post_thumbnail_url($post->ID, 'large');
+        } else {
+            // Fallback do globalnego obrazu OG
+            $default_og_image_id = carni24_get_option('default_og_image', '');
+            if ($default_og_image_id) {
+                $og_image = wp_get_attachment_image_url($default_og_image_id, 'large');
+            }
+        }
     }
     
     if (empty($og_url)) {
@@ -541,7 +559,7 @@ function carni24_seo_meta_tags() {
     echo '<meta property="og:description" content="' . esc_attr(wp_trim_words($og_description, 25)) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url($og_url) . '">' . "\n";
     echo '<meta property="og:type" content="' . (is_singular() ? 'article' : 'website') . '">' . "\n";
-    echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr(carni24_get_option('site_name', get_bloginfo('name'))) . '">' . "\n";
     
     if ($og_image) {
         echo '<meta property="og:image" content="' . esc_url($og_image) . '">' . "\n";
