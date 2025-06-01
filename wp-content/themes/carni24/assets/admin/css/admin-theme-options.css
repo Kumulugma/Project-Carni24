@@ -1,0 +1,590 @@
+/* === CARNI24 ADMIN THEME OPTIONS STYLES === */
+
+.carni24-theme-options {
+    margin: 0 20px 0 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Header */
+.carni24-header {
+    background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+    color: white;
+    padding: 30px;
+    margin: -10px -20px 30px -22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.carni24-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.carni24-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.carni24-icon {
+    font-size: 32px;
+    margin-right: 15px;
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+}
+
+.carni24-header h1 {
+    color: white;
+    margin: 0;
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.carni24-header .version {
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-left: 15px;
+    font-weight: 400;
+}
+
+.carni24-subtitle {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+/* Grid Layout */
+.carni24-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 30px;
+}
+
+.carni24-main-content {
+    min-width: 0;
+}
+
+/* Sections */
+.carni24-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carni24-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.carni24-section-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px 30px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.carni24-section-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c5530;
+    display: flex;
+    align-items: center;
+}
+
+.carni24-section-header .icon {
+    font-size: 24px;
+    margin-right: 12px;
+}
+
+.carni24-section-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.carni24-section-content {
+    padding: 30px;
+}
+
+/* Form Elements */
+.carni24-field {
+    margin-bottom: 25px;
+}
+
+.carni24-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 14px;
+    position: relative;
+}
+
+.carni24-help {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: #6c757d;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    margin-left: 8px;
+    cursor: help;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.carni24-help:hover {
+    background: #4a7c59;
+}
+
+.carni24-input,
+.carni24-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+    font-family: inherit;
+}
+
+.carni24-input:focus,
+.carni24-textarea:focus {
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+    outline: none;
+}
+
+.carni24-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.carni24-char-counter {
+    text-align: right;
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.carni24-char-counter.warning {
+    color: #fd7e14;
+}
+
+.carni24-char-counter.danger {
+    color: #dc3545;
+}
+
+/* Buttons */
+.carni24-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+}
+
+.carni24-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.2);
+}
+
+.carni24-btn .dashicons {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.carni24-btn-primary {
+    background: #4a7c59;
+    color: white;
+}
+
+.carni24-btn-primary:hover {
+    background: #3d6b4a;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.carni24-btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.carni24-btn-secondary:hover {
+    background: #5a6169;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.carni24-btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.carni24-btn-success:hover {
+    background: #218838;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.carni24-btn-large {
+    padding: 15px 30px;
+    font-size: 16px;
+}
+
+.carni24-btn-block {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Media Upload */
+.carni24-media-upload {
+    border: 2px dashed #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: border-color 0.2s ease;
+}
+
+.carni24-media-upload:hover {
+    border-color: #4a7c59;
+}
+
+.carni24-media-preview {
+    margin-bottom: 15px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carni24-media-preview img {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.carni24-media-preview img:hover {
+    transform: scale(1.05);
+}
+
+.carni24-no-image {
+    color: #6c757d;
+    text-align: center;
+}
+
+.carni24-no-image .dashicons {
+    font-size: 48px;
+    opacity: 0.5;
+}
+
+.carni24-media-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Info Box */
+.carni24-info-box {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.carni24-info-box ol {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+}
+
+.carni24-info-box li {
+    margin-bottom: 4px;
+}
+
+/* Save Section */
+.carni24-save-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    padding: 30px;
+    text-align: center;
+    border: 2px solid #28a745;
+}
+
+/* Sidebar */
+.carni24-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Widgets */
+.carni24-widget {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carni24-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.carni24-widget-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.carni24-widget-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c5530;
+    display: flex;
+    align-items: center;
+}
+
+.carni24-widget-header .icon {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.carni24-widget-content {
+    padding: 20px;
+}
+
+/* Theme Info */
+.carni24-theme-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f8f9fa;
+    font-size: 14px;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+/* Features */
+.carni24-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.feature-item .feature-icon {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.feature-item.active {
+    color: #28a745;
+}
+
+/* Quick Links */
+.carni24-quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #495057;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.quick-link:hover {
+    background: #e9ecef;
+    color: #2c5530;
+    text-decoration: none;
+}
+
+.quick-link .dashicons {
+    margin-right: 8px;
+}
+
+.quick-link .count {
+    background: #4a7c59;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Actions */
+.carni24-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Recent Activity */
+.carni24-recent-activity {
+    font-size: 14px;
+}
+
+.recent-item {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #495057;
+    transition: background-color 0.2s ease;
+}
+
+.recent-item:hover {
+    background: #e9ecef;
+    text-decoration: none;
+    color: #2c5530;
+}
+
+.recent-item .dashicons {
+    margin-right: 8px;
+}
+
+.recent-item small {
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .carni24-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .carni24-sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .carni24-header {
+        margin: -10px -10px 20px -12px;
+        padding: 20px;
+    }
+    
+    .carni24-theme-options {
+        margin: 0 10px 0 0;
+    }
+    
+    .carni24-section-content {
+        padding: 20px;
+    }
+    
+    .carni24-widget-content {
+        padding: 15px;
+    }
+    
+    .carni24-media-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Animation for loading states */
+.carni24-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.carni24-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #4a7c59;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: carni24-spin 1s linear infinite;
+}
+
+@keyframes carni24-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tooltips */
+.carni24-help[data-tooltip] {
+    position: relative;
+}
+
+.carni24-help[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
