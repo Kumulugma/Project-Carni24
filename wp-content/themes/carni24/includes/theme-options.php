@@ -480,119 +480,157 @@ function carni24_theme_options_page() {
                     </div>
                     <?php endif; ?>
                     
+                    <div class="carni24-widget">
+                        <div class="carni24-widget-header">
+                            <h3><span class="icon">🖼️</span> Diagnostyka miniaturek</h3>
+                        </div>
+                        <div class="carni24-widget-content">
+                            <div class="carni24-thumbnails-info">
+                                <h4>Zarejestrowane rozmiary obrazów:</h4>
+                                <?php
+                                global $_wp_additional_image_sizes;
+                                $image_sizes = array();
+                                
+                                // Pobierz domyślne rozmiary WordPress
+                                foreach (array('thumbnail', 'medium', 'medium_large', 'large') as $size) {
+                                    $image_sizes[$size] = array(
+                                        'width' => get_option($size . '_size_w'),
+                                        'height' => get_option($size . '_size_h'),
+                                        'crop' => get_option($size . '_crop')
+                                    );
+                                }
+                                
+                                // Pobierz dodatkowe rozmiary
+                                if (isset($_wp_additional_image_sizes)) {
+                                    $image_sizes = array_merge($image_sizes, $_wp_additional_image_sizes);
+                                }
+                                ?>
+                                
+                                <div class="image-sizes-list">
+                                    <?php foreach ($image_sizes as $name => $size) : ?>
+                                        <div class="size-item">
+                                            <strong><?= esc_html($name) ?>:</strong>
+                                            <?= esc_html($size['width']) ?>×<?= esc_html($size['height']) ?>
+                                            <?php if (isset($size['crop']) && $size['crop']) : ?>
+                                                <span class="crop-indicator">⚡ przycinane</span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                
+                                <div class="thumbnail-actions">
+                                    <h4>Narzędzia:</h4>
+                                    <a href="<?= admin_url('tools.php?page=regenerate-thumbnails') ?>" 
+                                       class="carni24-btn carni24-btn-secondary carni24-btn-block">
+                                        <span class="dashicons dashicons-image-rotate"></span>
+                                        Regeneruj miniaturki (wtyczka)
+                                    </a>
+                                    
+                                    <button type="button" onclick="carni24CheckThumbnails()" 
+                                            class="carni24-btn carni24-btn-primary carni24-btn-block">
+                                        <span class="dashicons dashicons-search"></span>
+                                        Sprawdź ostatnie obrazy
+                                    </button>
+                                    
+                                    <button type="button" onclick="carni24ForceRegenerateThumbnails()" 
+                                            class="carni24-btn carni24-btn-secondary carni24-btn-block">
+                                        <span class="dashicons dashicons-update"></span>
+                                        Wymuś regenerację (10 ostatnich)
+                                    </button>
+                                </div>
+                                
+                                <div id="thumbnail-results" style="margin-top: 15px;"></div>
+                                
+                                <div class="thumbnail-help">
+                                    <h4>Rozwiązywanie problemów:</h4>
+                                    <ul style="font-size: 12px; color: #666; margin: 8px 0 0 20px;">
+                                        <li><strong>Brak miniaturek:</strong> Sprawdź uprawnienia folderów /uploads/</li>
+                                        <li><strong>Błędy PHP:</strong> Zwiększ memory_limit i max_execution_time</li>
+                                        <li><strong>Duże pliki:</strong> Zmniejsz rozmiary obrazów przed uplodem</li>
+                                        <li><strong>Regeneracja nie działa:</strong> Użyj wtyczki Force Regenerate Thumbnails</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </form>
     </div>
     
     <style>
-    .carni24-seo-test, .carni24-title-test {
-        font-size: 14px;
-    }
-    
-    .seo-preview-box, .title-preview-box {
-        border: 1px solid #e9ecef;
-        border-radius: 6px;
-        padding: 15px;
-        background: #f8f9fa;
-        margin: 10px 0;
-        font-family: arial, sans-serif;
-    }
-    
-    .seo-title {
-        color: #1a0dab;
-        font-size: 18px;
-        line-height: 1.3;
-        margin-bottom: 5px;
-        cursor: pointer;
-    }
-    
-    .seo-title:hover {
-        text-decoration: underline;
-    }
-    
-    .seo-url {
-        color: #006621;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-    
-    .seo-description {
-        color: #545454;
-        font-size: 14px;
-        line-height: 1.4;
-    }
-    
-    .title-preview {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        font-size: 16px;
-        font-weight: 500;
-        color: #2c5530;
-        background: white;
-        padding: 10px;
-        border-radius: 4px;
-        border-left: 4px solid #4a7c59;
-    }
-    
-    .title-test-buttons {
-        margin: 15px 0;
-    }
-    
-    .carni24-seo-status, .title-status {
-        margin-top: 15px;
-    }
-    
-    .status-item {
+    .image-sizes-list .size-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px 0;
-        border-bottom: 1px solid #f0f0f0;
     }
     
-    .status-item:last-child {
+    .image-sizes-list .size-item:last-child {
         border-bottom: none;
     }
     
-    .status-label {
-        font-weight: 500;
+    .crop-indicator {
+        background: #ffc107;
+        color: #333;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: bold;
     }
     
-    .status-value.ok {
-        color: #28a745;
+    .thumbnail-actions {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #f0f0f0;
     }
     
-    .status-value.missing {
-        color: #dc3545;
-    }
-    
-    .title-help {
+    .thumbnail-help {
         margin-top: 15px;
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
+        background: #e3f2fd;
+        border: 1px solid #bbdefb;
         border-radius: 4px;
         padding: 10px;
     }
     
-    .title-help ul {
-        margin: 8px 0 0 0;
-        padding-left: 20px;
-    }
-    
-    .title-help li {
-        margin-bottom: 5px;
-    }
-    
-    .title-help code {
+    #thumbnail-results {
         background: #f8f9fa;
-        padding: 2px 4px;
-        border-radius: 3px;
-        font-size: 11px;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+    }
+    
+    #thumbnail-results.show {
+        display: block;
+    }
+    
+    .thumbnail-result-item {
+        padding: 5px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .thumbnail-result-item:last-child {
+        border-bottom: none;
+    }
+    
+    .thumbnail-result-success {
+        color: #28a745;
+    }
+    
+    .thumbnail-result-error {
+        color: #dc3545;
     }
     </style>
     
     <script>
     jQuery(document).ready(function($) {
+        // Update SEO preview when form fields change
         function updateSeoPreview() {
             const siteName = $('#site_name').val() || '<?= esc_js(get_bloginfo('name')) ?>';
             const siteDesc = $('#site_description').val() || '<?= esc_js(get_bloginfo('description')) ?>';
@@ -621,78 +659,3 @@ function carni24_theme_options_page() {
     <?php
 }
 
-function carni24_get_option($option_name, $default = '') {
-    return get_option('carni24_' . $option_name, $default);
-}
-
-function carni24_theme_dashboard_widget() {
-    wp_add_dashboard_widget(
-        'carni24_theme_widget',
-        'Motyw Carni24',
-        'carni24_theme_dashboard_widget_content'
-    );
-}
-add_action('wp_dashboard_setup', 'carni24_theme_dashboard_widget');
-
-function carni24_theme_dashboard_widget_content() {
-    echo '<p>Witaj w panelu administracyjnym motywu Carni24!</p>';
-    echo '<p><strong>Szybkie linki:</strong></p>';
-    echo '<ul>';
-    echo '<li><a href="' . admin_url('themes.php?page=carni24-theme-options') . '">Ustawienia motywu</a></li>';
-    echo '<li><a href="' . admin_url('edit.php?post_type=species') . '">Gatunki (' . wp_count_posts('species')->publish . ')</a></li>';
-    echo '<li><a href="' . admin_url('options-general.php?page=carni24-sitemap') . '">Mapa strony</a></li>';
-    echo '</ul>';
-    
-    $last_species = get_posts(array('post_type' => 'species', 'numberposts' => 1));
-    if (!empty($last_species)) {
-        echo '<p><strong>Ostatnio dodany gatunek:</strong><br>';
-        echo '<a href="' . admin_url('post.php?post=' . $last_species[0]->ID . '&action=edit') . '">' . $last_species[0]->post_title . '</a></p>';
-    }
-}
-
-function carni24_quick_seo_test() {
-    $results = array();
-    
-    $results['site_name'] = !empty(carni24_get_option('site_name', ''));
-    $results['site_description'] = !empty(carni24_get_option('site_description', ''));
-    $results['default_meta_description'] = !empty(carni24_get_option('default_meta_description', ''));
-    $results['default_meta_keywords'] = !empty(carni24_get_option('default_meta_keywords', ''));
-    $results['default_og_image'] = !empty(carni24_get_option('default_og_image', ''));
-    $results['seo_function_hooked'] = has_action('wp_head', 'carni24_seo_meta_tags');
-    
-    return $results;
-}
-
-function carni24_ajax_check_seo() {
-    check_ajax_referer('carni24_admin_nonce', 'nonce');
-    
-    $test_results = carni24_quick_seo_test();
-    
-    wp_send_json_success($test_results);
-}
-add_action('wp_ajax_carni24_check_seo', 'carni24_ajax_check_seo');
-
-function carni24_seo_admin_notice() {
-    $screen = get_current_screen();
-    
-    if ($screen && ($screen->id === 'dashboard' || $screen->id === 'appearance_page_carni24-theme-options')) {
-        $test_results = carni24_quick_seo_test();
-        
-        $missing_seo = array();
-        if (!$test_results['site_name']) $missing_seo[] = 'Nazwa witryny';
-        if (!$test_results['default_meta_description']) $missing_seo[] = 'Meta Description';
-        if (!$test_results['default_og_image']) $missing_seo[] = 'Obraz OG';
-        
-        if (!empty($missing_seo) && $screen->id === 'dashboard') {
-            ?>
-            <div class="notice notice-warning is-dismissible">
-                <p>
-                    <strong>Carni24 SEO:</strong> Brakuje niektórych ustawień SEO: <?= implode(', ', $missing_seo) ?>. 
-                    <a href="<?= admin_url('themes.php?page=carni24-theme-options#seo-settings') ?>">Skonfiguruj teraz</a>
-                </p>
-            </div>
-            <?php
-        }
-    }
-}
-add_action('admin_notices', 'carni24_seo_admin_notice');
