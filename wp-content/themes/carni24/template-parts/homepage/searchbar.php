@@ -10,7 +10,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'><?= wp_count_posts('species')->publish ?> spisanych gatunków</h4></div>
+                    <div class='col-10'>
+                        <h4 class='mb-0 mt-2'><?= esc_html(wp_count_posts('species')->publish) ?> spisanych gatunków</h4>
+                    </div>
                 </div>
             </div>
             <div class="col fadeInLeft animate">
@@ -23,7 +25,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'><?= gallery_count() ?> zdjęć w galeriach</h4></div>
+                    <div class='col-10'>
+                        <h4 class='mb-0 mt-2'><?= esc_html(gallery_count()) ?> zdjęć w galeriach</h4>
+                    </div>
                 </div>
             </div>
             <div class="col fadeInLeft animate">
@@ -37,13 +41,21 @@
                             </svg>
                         </div>
                     </div>
-                    <div class='col-10'><h4 class='mb-0 mt-2'><?= wp_count_posts()->publish ?> wpisów</h4></div>
+                    <div class='col-10'>
+                        <h4 class='mb-0 mt-2'><?= esc_html(wp_count_posts()->publish) ?> wpisów</h4>
+                    </div>
                 </div>
             </div>
             <div class="col">
-                <form class="d-flex" method="get" action="/">
-                    <input class="form-control w-75 me-2" name="s" type="search" placeholder="Wpisz czego poszukujesz..." aria-label="Szukaj">
-                        <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                <form class="d-flex" method="get" action="<?= esc_url(home_url('/')) ?>">
+                    <?php wp_nonce_field('search_form', 'search_nonce'); ?>
+                    <input class="form-control w-75 me-2" 
+                           name="s" 
+                           type="search" 
+                           placeholder="Wpisz czego poszukujesz..." 
+                           aria-label="Szukaj"
+                           value="<?= esc_attr(get_search_query()) ?>">
+                    <button class="btn btn-outline-success" type="submit">Szukaj</button>
                 </form>
             </div>
         </div>

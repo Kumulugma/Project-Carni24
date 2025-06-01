@@ -1,5 +1,34 @@
 
 # BEGIN All In One WP Security
+#AIOWPS_BLOCK_WP_FILE_ACCESS_START
+<Files license.txt>
+<IfModule mod_authz_core.c>
+Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+Order deny,allow
+Deny from all
+</IfModule>
+</Files>
+<Files wp-config-sample.php>
+<IfModule mod_authz_core.c>
+Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+Order deny,allow
+Deny from all
+</IfModule>
+</Files>
+<Files readme.html>
+<IfModule mod_authz_core.c>
+Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+Order deny,allow
+Deny from all
+</IfModule>
+</Files>
+#AIOWPS_BLOCK_WP_FILE_ACCESS_END
 #AIOWPS_BASIC_HTACCESS_RULES_START
 <Files .htaccess>
 <IfModule mod_authz_core.c>
@@ -164,16 +193,6 @@ RedirectMatch 403 admin\.webring\.docs\.
 Redirectmatch 403 Table\/Latest\/index\.
 </IfModule>
 #AIOWPS_ADVANCED_CHAR_STRING_FILTER_END
-#AIOWPS_BLOCK_SPAMBOTS_START
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{REQUEST_METHOD} POST
-RewriteCond %{REQUEST_URI} ^(.*)?wp-comments-post\.php(.*)$
-RewriteCond %{HTTP_REFERER} !^http(s)?://carni24\.pl [NC,OR]
-RewriteCond %{HTTP_USER_AGENT} ^$
-RewriteRule .* http://127.0.0.1 [L]
-</IfModule>
-#AIOWPS_BLOCK_SPAMBOTS_END
 #AIOWPS_PREVENT_IMAGE_HOTLINKS_START
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -187,8 +206,34 @@ RewriteRule \.(gif|jpe?g?|png)$ - [F,NC,L]
 # END All In One WP Security
 
 # BEGIN LSCACHE
+## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
+<IfModule LiteSpeed>
+RewriteEngine on
+CacheLookup on
+RewriteRule .* - [E=Cache-Control:no-autoflush]
+RewriteRule \.litespeed_conf\.dat - [F,L]
+
+### marker CACHE RESOURCE start ###
+RewriteRule wp-content/.*/[^/]*(responsive|css|js|dynamic|loader|fonts)\.php - [E=cache-control:max-age=3600]
+### marker CACHE RESOURCE end ###
+
+### marker FAVICON start ###
+RewriteRule favicon\.ico$ - [E=cache-control:max-age=86400]
+### marker FAVICON end ###
+
+### marker DROPQS start ###
+CacheKeyModify -qs:fbclid
+CacheKeyModify -qs:gclid
+CacheKeyModify -qs:utm*
+CacheKeyModify -qs:_ga
+### marker DROPQS end ###
+
+</IfModule>
+## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
 # END LSCACHE
 # BEGIN NON_LSCACHE
+## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
+## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
 # END NON_LSCACHE
 
 php_value upload_max_filesize 64M

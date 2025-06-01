@@ -8,7 +8,7 @@
   Author URI: https://www.k3e.pl/
   Text Domain:
   Domain Path:
-  Version: 0.2.17
+  Version: 0.2.21
  */
 require_once 'updater/K3eUpdater.php';
 require_once 'K3E.php';
@@ -28,6 +28,18 @@ function k3e_plugin_init() {
     if (current_user_can('manage_options')) {
         K3eUpdater::init();
     }
+    
+    function k3e_autoloader($class_name) {
+        $file_name = strtolower($class_name) . '.php';
+        $class_path = __DIR__ . '/classes/' . $file_name;
+
+        if (file_exists($class_path)) {
+            require_once($class_path);
+        }
+    }
+    
+    spl_autoload_register('k3e_autoloader');
+
     K3eSystem::init();
     K3eModules::init();
 }

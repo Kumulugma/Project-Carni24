@@ -85,7 +85,7 @@ class K3eSystem {
         K3eSystem::setSettings(K3E::OPTION_PLUGIN_UNINSTALL_DATE, date('Y-m-d G:i:s'), true);
         K3eSystem::setSettings(K3E::OPTION_PLUGIN_DEACTIVATION_DATE, date('Y-m-d G:i:s'));
     }
-    
+
     public static function load() {
         $modules = unserialize(get_option(K3E::OPTION_SYSTEM_MODULES));
         if ($modules) {
@@ -96,8 +96,17 @@ class K3eSystem {
                 }
             }
         }
+
+        $dir = plugin_dir_path(__FILE__) . "../endpoints/";
+        $files = scandir($dir);
+
+        foreach ($files as $file) {
+            if (is_file($dir . '/' . $file)) {
+                include $dir . '/' . $file;
+            }
+        }
     }
-    
+
     public static function save() {
 
         if (isset($_POST['System'])) {
@@ -130,14 +139,11 @@ class K3eSystem {
 
     public static function getFullConfig() {
         $config = [];
-
         foreach (K3E::FULL_CONFIG as $item) {
-            $config[$item] = get_option($item);
+            $config[$item['label']] = get_option($item['label']);
         }
         return $config;
     }
-
-    
 
     public static function getModules() {
         $checked_modules = unserialize(get_option(K3E::OPTION_SYSTEM_MODULES));
@@ -155,23 +161,20 @@ class K3eSystem {
         return $modules;
     }
 
-    public static function getOnePageOption()
-    {
+    public static function getOnePageOption() {
         return unserialize(get_option(K3E::OPTION_ONEPAGE));
     }
-    
-    public static function getThumbnailsOption()
-    {
+
+    public static function getThumbnailsOption() {
         return unserialize(get_option(K3E::OPTION_THUMBNAIL_SIZES));
     }
-    
-    public static function getHiddenMenusOption()
-    {
+
+    public static function getHiddenMenusOption() {
         return unserialize(get_option(K3E::OPTION_HIDE_MENU));
     }
-    
-    public static function getThemeSupportOption()
-    {
+
+    public static function getThemeSupportOption() {
         return unserialize(get_option(K3E::OPTION_THEME_SUPPORT));
     }
+
 }

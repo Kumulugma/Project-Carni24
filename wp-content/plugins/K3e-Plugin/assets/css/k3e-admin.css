@@ -1,0 +1,83 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+td:last-child,
+th:last-child {
+  text-align: right;
+}
+th {
+  font-weight: 600;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+tr:hover {
+  background-color: #ddd;
+  border-color: #c4c4c4;
+}
+tfoot td:last-child {
+  text-align: right;
+}
+.nav-tab-wrapper {
+  margin-bottom: 20px;
+}
+.nav-tab-wrapper .nav-tab {
+  margin-right: 10px;
+  text-decoration: none !important;
+}
+.tab-content {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.reset {
+  clear: both;
+}
+.default-container .card table .import-system {
+  max-width: none;
+}
+.thumbnails-container {
+  width: 100vw !important;
+  float: none !important;
+}
+.thumbnails-container .card table .import-system {
+  max-width: none;
+}
+.wordpress-container .card table .import-system {
+  max-width: none;
+}
+.seo-container {
+  width: 44vw !important;
+}
+.seo-container .card {
+  max-width: 100%;
+}
+.seo-container .card table .import-system {
+  max-width: none;
+}
+.config-container {
+  width: 100vw !important;
+  float: none !important;
+}
+.config-container .card {
+  max-width: 88%;
+}
+.config-container .card table .import-system {
+  max-width: none;
+}
+.config-container .card table .import-system-content {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word;
+  width: 73vw;
+  font-size: 11px;
+  white-space: normal !important;
+}
+/*# sourceMappingURL=k3e-admin.css.map */

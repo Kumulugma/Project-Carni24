@@ -17,11 +17,11 @@
         $random_post = new WP_Query($args);
 
         while ($random_post->have_posts()) : $random_post->the_post();
+            $post_thumb = get_the_post_thumbnail_url(get_the_ID(), 'manifest_thumb');
             ?>
-            <?php $post_thumb = get_the_post_thumbnail_url(get_the_ID(), 'blog_thumb'); ?>
 
             <div class="col px-1 article">
-                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                <a href="<?= esc_url(get_permalink()) ?>" title="<?= esc_attr(get_the_title()) ?>">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
 
                         <div class="col p-4 d-flex flex-column position-static">
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="col-auto d-none d-lg-block">
-                            <div class="manifest-img" style="background-image:url('<?= $post_thumb ?>');"></div>
+                            <div class="manifest-img" style="background-image:url('<?= esc_url($post_thumb) ?>');"></div>
                         </div>
 
                         <div class="post-side">
@@ -40,7 +40,7 @@
                                     <?php the_date('F'); ?>					
                                 </div>
                                 <div class="post-calendar-d">
-                                    <?= get_the_date('d'); ?>					
+                                    <?= esc_html(get_the_date('d')) ?>					
                                 </div>
                             </div>
                         </div>
@@ -48,10 +48,6 @@
                 </a>    
             </div>
 
-
-
         <?php endwhile; ?>
     </div>
-
-
 </section>

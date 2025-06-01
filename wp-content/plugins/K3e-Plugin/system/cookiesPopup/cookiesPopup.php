@@ -78,7 +78,7 @@ class K3eCookiesPopup implements InterfaceToggler {
 
                 echo '<div id="cookie-consent" style="display: none;">';
                 echo '<span>' . $content . '</span>';
-                echo '<div class="mt-2 d-flex align-items-center justify-content-center g-2">';
+                echo '<div class="mt-2 mb-2 d-flex align-items-center justify-content-center g-2">';
                 echo '<button class="allow-button" onclick="acceptCookieConsent();">' . __('Rozumiem', 'k3e') . '</button>';
                 echo '</div>';
                 echo '</div>';

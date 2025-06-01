@@ -97,6 +97,7 @@ class K3E {
     const OPTION_COOKIES_POPUP_ACTIVATE = 'k3e_google_analytics_activate';
     const OPTION_COOKIES_POPUP_CONTENT = 'k3e_google_analytics_content';
     const OPTION_LAZYLOADER_PLACEHOLDER = 'k3e_lazyloader_placeholder';
+    const OPTION_SITEMAP_POST_TYPES = 'k3e_sitemap_post_types';
     
     const POST_EXCLUDES = [
         'attachment',
@@ -117,31 +118,32 @@ class K3E {
     ];
     
     const FULL_CONFIG = [
-        self::OPTION_PRELOADER_ACTIVATE,
-        self::OPTION_LAZYLOADER_ACTIVATE,
-        self::OPTION_THUMBNAIL_SIZES,
-        self::OPTION_THEME_SUPPORT,
-        self::OPTION_THEME_DOMAIN,
-        self::OPTION_STATIC_FORM_TYPE,
-        self::OPTION_STATIC_FORM_ID,
-        self::OPTION_STATIC_FORM_AMOUNT,
-        self::OPTION_STATIC_FORMS,
-        self::OPTION_STATIC_CONTENT,
-        self::OPTION_REGISTER_MENU,
-        self::OPTION_PLACEHOLDERS,
-        self::OPTION_PLACEHOLDER_NAME,
-        self::OPTION_PLACEHOLDER_AMOUNT,
-        self::OPTION_PLACEHOLDER_ACTIVATE,
-        self::OPTION_DOCUMENT_SEPARATOR,
-        self::OPTION_HIDE_MENU,
-        self::OPTION_ONEPAGE,
-        self::OPTION_SYSTEM_MODULES,
-        self::OPTION_DISABLE_GUTENBERG_POSTS,
-        self::OPTION_GOOGLE_ANALYTICS_ACTIVATE,
-        self::OPTION_GOOGLE_ANALYTICS_CODE,
-        self::OPTION_FAVICON_ACTIVATE,
-        self::OPTION_COOKIES_POPUP_ACTIVATE,
-        self::OPTION_COOKIES_POPUP_CONTENT
+        ['label' => self::OPTION_PRELOADER_ACTIVATE, 'content' => 0],
+        ['label' => self::OPTION_LAZYLOADER_ACTIVATE, 'content' => 0],
+        ['label' => self::OPTION_THUMBNAIL_SIZES, 'content' => 0],
+        ['label' => self::OPTION_THEME_SUPPORT, 'content' => 0],
+        ['label' => self::OPTION_THEME_DOMAIN, 'content' => 0],
+        ['label' => self::OPTION_STATIC_FORM_TYPE, 'content' => 0],
+        ['label' => self::OPTION_STATIC_FORM_ID, 'content' => 0],
+        ['label' => self::OPTION_STATIC_FORM_AMOUNT, 'content' => 0],
+        ['label' => self::OPTION_STATIC_FORMS, 'content' => 0],
+        ['label' => self::OPTION_STATIC_CONTENT, 'content' => 0],
+        ['label' => self::OPTION_REGISTER_MENU, 'content' => 0],
+        ['label' => self::OPTION_PLACEHOLDERS, 'content' => 0],
+        ['label' => self::OPTION_PLACEHOLDER_NAME, 'content' => 0],
+        ['label' => self::OPTION_PLACEHOLDER_AMOUNT, 'content' => 0],
+        ['label' => self::OPTION_PLACEHOLDER_ACTIVATE, 'content' => 0],
+        ['label' => self::OPTION_DOCUMENT_SEPARATOR, 'content' => 0],
+        ['label' => self::OPTION_HIDE_MENU, 'content' => 0],
+        ['label' => self::OPTION_ONEPAGE, 'content' => 0],
+        ['label' => self::OPTION_SYSTEM_MODULES, 'content' => 0],
+        ['label' => self::OPTION_DISABLE_GUTENBERG_POSTS, 'content' => 0],
+        ['label' => self::OPTION_GOOGLE_ANALYTICS_ACTIVATE, 'content' => 0],
+        ['label' => self::OPTION_GOOGLE_ANALYTICS_CODE, 'content' => 0],
+        ['label' => self::OPTION_FAVICON_ACTIVATE, 'content' => 0],
+        ['label' => self::OPTION_COOKIES_POPUP_ACTIVATE, 'content' => 0],
+        ['label' => self::OPTION_COOKIES_POPUP_CONTENT, 'content' => 0],
+        ['label' => self::OPTION_SITEMAP_POST_TYPES, 'content' => 0]
     ];
 
 }

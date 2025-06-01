@@ -3,6 +3,7 @@
   animation: fadeIn 5s ease;
   transition: transform 0.2s;
   cursor: pointer;
+  min-height: 700px;
 }
 #news .card:hover {
   transform: rotate(1080deg);
@@ -33,6 +34,14 @@
   color: white;
   background-color: #B8863D;
   border-color: #C39C64;
+}
+#news .card:hover .card-body {
+  font-size: 0.9em;
+}
+#news .card:hover .card-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
 #news .more-link {
   display: block;
