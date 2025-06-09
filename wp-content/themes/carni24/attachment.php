@@ -24,7 +24,6 @@
 <?php if ( has_post_thumbnail() ) { the_post_thumbnail(); } ?>
 </div>
 </article>
-<?php comments_template(); ?>
 <?php endwhile; endif; ?>
 </main>
 <?php get_sidebar(); ?>

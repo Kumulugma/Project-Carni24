@@ -1,6 +1,13 @@
+<?php
+// wp-content/themes/carni24/template-parts/homepage/searchbar.php
+// Zaktualizowana wersja z poprawną odmianą liczebników i bez komentarzy
+?>
+
 <section id="search" class="bg-light border-bottom px-5">
     <div class="nav-scroller py-1">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 p-2">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 p-2">
+            
+            <!-- Statystyka gatunków -->
             <div class="col fadeInLeft animate">
                 <div class='row search-box'>
                     <div class='col-2'>
@@ -11,10 +18,12 @@
                         </div>
                     </div>
                     <div class='col-10'>
-                        <h4 class='mb-0 mt-2'><?= esc_html(wp_count_posts('species')->publish) ?> spisanych gatunków</h4>
+                        <h4 class='mb-0 mt-2'><?= carni24_species_count() ?></h4>
                     </div>
                 </div>
             </div>
+            
+            <!-- Statystyka zdjęć -->
             <div class="col fadeInLeft animate">
                 <div class='row search-box'>
                     <div class='col-2'>
@@ -26,10 +35,12 @@
                         </div>
                     </div>
                     <div class='col-10'>
-                        <h4 class='mb-0 mt-2'><?= esc_html(gallery_count()) ?> zdjęć w galeriach</h4>
+                        <h4 class='mb-0 mt-2'><?= carni24_images_count() ?></h4>
                     </div>
                 </div>
             </div>
+            
+            <!-- Statystyka wpisów -->
             <div class="col fadeInLeft animate">
                 <div class='row search-box'>
                     <div class='col-2'>
@@ -42,10 +53,12 @@
                         </div>
                     </div>
                     <div class='col-10'>
-                        <h4 class='mb-0 mt-2'><?= esc_html(wp_count_posts()->publish) ?> wpisów</h4>
+                        <h4 class='mb-0 mt-2'><?= carni24_posts_count() ?></h4>
                     </div>
                 </div>
             </div>
+            
+            <!-- Formularz wyszukiwania -->
             <div class="col">
                 <form class="d-flex" method="get" action="<?= esc_url(home_url('/')) ?>">
                     <?php wp_nonce_field('search_form', 'search_nonce'); ?>
@@ -61,3 +74,85 @@
         </div>
     </div>
 </section>
+
+<style>
+.search-box {
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.droplet {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 50%;
+    color: white;
+}
+
+.search-box h4 {
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.fadeInLeft.animate {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsywne ustawienia */
+@media (max-width: 768px) {
+    .search-box {
+        margin-bottom: 0.5rem;
+        padding: 0.75rem;
+    }
+    
+    .search-box h4 {
+        font-size: 0.9rem;
+    }
+    
+    .droplet {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .droplet svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    #search .row {
+        padding: 1rem !important;
+    }
+    
+    .search-box {
+        text-align: center;
+    }
+    
+    .search-box .row {
+        justify-content: center;
+        align-items: center;
+    }
+}
+</style>
