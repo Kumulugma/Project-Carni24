@@ -106,24 +106,6 @@
   border-top: 1px solid #e1e1e1;
   line-height: 20px;
 }
-#carousel .carousel-inner {
-  height: 30vh;
-}
-@media only screen and (max-width : 991px) {
-  #carousel .carousel-inner {
-    height: 20vh;
-  }
-}
-@media only screen and (max-width : 767px) {
-  #carousel .carousel-inner {
-    height: 15vh;
-  }
-}
-@media only screen and (max-width : 575px) {
-  #carousel .carousel-inner {
-    height: 10vh;
-  }
-}
 #feature {
   background-color: #fafbf9;
 }
