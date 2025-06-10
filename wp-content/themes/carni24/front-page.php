@@ -8,8 +8,6 @@ get_header(); ?>
     <!-- Istniejące elementy -->
     <?php get_template_part('template-parts/main-submenu'); ?>
     
-    <!-- ELEGANCKA WYSZUKIWARKA AJAX -->
-    <?php get_template_part('template-parts/homepage/ajax-search'); ?>
     
     <!-- HERO SLIDER SEKCJA -->
     <section class="hero-slider-section mb-5">

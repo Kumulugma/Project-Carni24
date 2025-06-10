@@ -196,3 +196,250 @@ footer {
 
 @import "animations";
 @import "navigation";
+
+
+/* ===== POPRAWKA KOLORÓW PRZYCISKÓW ===== */
+
+/* ZASADA: 
+   - Jasny przycisk (btn-light) = zielony tekst
+   - Zielony przycisk (btn-success) = jasny tekst
+*/
+
+/* Przyciski jasne - zielony tekst */
+.btn-light,
+.btn-outline-light {
+    color: #28a745 !important;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.btn-light:hover,
+.btn-outline-light:hover {
+    color: #1e7e34 !important;
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+
+.btn-light:focus,
+.btn-light.focus,
+.btn-outline-light:focus,
+.btn-outline-light.focus {
+    color: #1e7e34 !important;
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.btn-light:active,
+.btn-light.active,
+.btn-outline-light:active,
+.btn-outline-light.active {
+    color: #155724 !important;
+    background-color: #dae0e5;
+    border-color: #d3d9df;
+}
+
+/* Przyciski zielone - jasny tekst */
+.btn-success,
+.btn-outline-success {
+    color: #ffffff !important;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover,
+.btn-outline-success:hover {
+    color: #ffffff !important;
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-success:focus,
+.btn-success.focus,
+.btn-outline-success:focus,
+.btn-outline-success.focus {
+    color: #ffffff !important;
+    background-color: #218838;
+    border-color: #1e7e34;
+    box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
+}
+
+.btn-success:active,
+.btn-success.active,
+.btn-outline-success:active,
+.btn-outline-success.active {
+    color: #ffffff !important;
+    background-color: #1e7e34;
+    border-color: #1c7430;
+}
+
+/* Outline success - przed hover */
+.btn-outline-success {
+    color: #28a745 !important;
+    background-color: transparent;
+    border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    color: #ffffff !important;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Specjalne przypadki dla hero slajdera */
+.hero-slide .btn-light {
+    color: #28a745 !important;
+    background-color: rgba(248, 249, 250, 0.95);
+    border-color: rgba(222, 226, 230, 0.8);
+    backdrop-filter: blur(2px);
+}
+
+.hero-slide .btn-light:hover {
+    color: #1e7e34 !important;
+    background-color: rgba(226, 230, 234, 0.95);
+    border-color: rgba(218, 224, 229, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.hero-slide .btn-success {
+    color: #ffffff !important;
+    background-color: rgba(40, 167, 69, 0.95);
+    border-color: rgba(40, 167, 69, 0.8);
+    backdrop-filter: blur(2px);
+}
+
+.hero-slide .btn-success:hover {
+    color: #ffffff !important;
+    background-color: rgba(33, 136, 56, 0.95);
+    border-color: rgba(30, 126, 52, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Przyciski w kartach postów */
+.post-card .btn-light {
+    color: #28a745 !important;
+    font-weight: 500;
+}
+
+.post-card .btn-light:hover {
+    color: #1e7e34 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-card .btn-success {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.post-card .btn-success:hover {
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Przyciski w nawigacji i menu */
+.navbar .btn-light {
+    color: #28a745 !important;
+}
+
+.navbar .btn-light:hover {
+    color: #1e7e34 !important;
+}
+
+.navbar .btn-success {
+    color: #ffffff !important;
+}
+
+.navbar .btn-success:hover {
+    color: #ffffff !important;
+}
+
+/* Przyciski w formularzach */
+.search-form .btn-light {
+    color: #28a745 !important;
+}
+
+.search-form .btn-light:hover {
+    color: #1e7e34 !important;
+}
+
+.search-form .btn-success {
+    color: #ffffff !important;
+}
+
+.search-form .btn-success:hover {
+    color: #ffffff !important;
+}
+
+/* Disabled state */
+.btn-light:disabled,
+.btn-light.disabled {
+    color: #6c757d !important;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.btn-success:disabled,
+.btn-success.disabled {
+    color: #ffffff !important;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Linki stylowane jako przyciski */
+a.btn-light {
+    color: #28a745 !important;
+    text-decoration: none;
+}
+
+a.btn-light:hover {
+    color: #1e7e34 !important;
+    text-decoration: none;
+}
+
+a.btn-success {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+a.btn-success:hover {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+/* Grupowane przyciski */
+.btn-group .btn-light {
+    color: #28a745 !important;
+}
+
+.btn-group .btn-light:hover {
+    color: #1e7e34 !important;
+}
+
+.btn-group .btn-success {
+    color: #ffffff !important;
+}
+
+.btn-group .btn-success:hover {
+    color: #ffffff !important;
+}
+
+/* Przyciski w alertach */
+.alert .btn-light {
+    color: #28a745 !important;
+}
+
+.alert .btn-light:hover {
+    color: #1e7e34 !important;
+}
+
+.alert .btn-success {
+    color: #ffffff !important;
+}
+
+.alert .btn-success:hover {
+    color: #ffffff !important;
+}
