@@ -5,9 +5,6 @@
 get_header(); ?>
 
 <main>
-    <!-- Istniejące elementy -->
-    <?php get_template_part('template-parts/main-submenu'); ?>
-    
     
     <!-- HERO SLIDER SEKCJA -->
     <section class="hero-slider-section mb-5">

@@ -9,9 +9,7 @@ get_header(); ?>
 <!-- Dodaj overlay wyszukiwarki -->
 <?php get_template_part('template-parts/search-overlay'); ?>
 
-<main class="species-archive-main">
-    <?php get_template_part('template-parts/main-submenu'); ?>
-    
+<main class="species-archive-main">    
     <!-- Breadcrumbs -->
     <div class="container py-3">
         <?php if (function_exists('carni24_breadcrumbs')) carni24_breadcrumbs(); ?>
