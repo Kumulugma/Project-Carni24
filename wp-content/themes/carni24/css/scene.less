@@ -1,14 +1,247 @@
-@import "breakpoints";
+// scene.less - Oczyszczony plik dla hero section
+// Używany w: template-parts/main-scene.php
 
-#scene{
-    height: 30vh;
-    -webkit-box-shadow: inset 2px 25px 69px 55px rgba(33, 37, 41, 1);
-    -moz-box-shadow: inset 2px 25px 69px 55px rgba(33, 37, 41, 1);
-    box-shadow: inset 2px 25px 69px 55px rgba(33, 37, 41, 1);
-    background: url('/wp-content/uploads/images/hero_1.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+// ===== GŁÓWNA SEKCJA HERO =====
+#scene {
+    min-height: 200px;
+    background: linear-gradient(135deg, #28a745 0%, #20a745 50%, #1e7e34 100%);
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 
+    // Overlay dla lepszej czytelności tekstu
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+
+    // Zawartość hero section
+    .scene-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+
+        .scene-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .scene-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .scene-actions {
+            .btn {
+                margin: 0.5rem;
+                padding: 0.75rem 2rem;
+                font-weight: 600;
+                border-radius: 30px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+
+                &.btn-success {
+                    background-color: #28a745;
+                    border-color: #28a745;
+                    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+
+                    &:hover {
+                        background-color: #218838;
+                        border-color: #1e7e34;
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+                    }
+                }
+
+                &.btn-outline-light {
+                    border-color: white;
+                    color: white;
+
+                    &:hover {
+                        background-color: white;
+                        color: #28a745;
+                        transform: translateY(-2px);
+                    }
+                }
+            }
+        }
+    }
+
+    // Wariant z obrazem tła
+    &.scene-with-image {
+        background-attachment: scroll; // Lepsze dla mobile
+        min-height: 400px;
+
+        &::before {
+            background: rgba(0, 0, 0, 0.4);
+        }
+    }
+
+    // Wariant mniejszy
+    &.scene-small {
+        min-height: 150px;
+        
+        .scene-content {
+            .scene-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .scene-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
+
+// ===== ANIMACJE =====
+@keyframes sceneSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#scene .scene-content {
+    animation: sceneSlideUp 1s ease-out;
+}
+
+// ===== RESPONSYWNOŚĆ =====
+@media (max-width: 992px) {
+    #scene {
+        min-height: 250px;
+        background-attachment: scroll;
+
+        .scene-content {
+            .scene-title {
+                font-size: 2rem;
+            }
+
+            .scene-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .scene-actions {
+                .btn {
+                    padding: 0.6rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+            }
+        }
+
+        &.scene-with-image {
+            min-height: 300px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #scene {
+        min-height: 200px;
+
+        .scene-content {
+            .scene-title {
+                font-size: 1.6rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .scene-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .scene-actions {
+                .btn {
+                    display: block;
+                    width: 100%;
+                    max-width: 250px;
+                    margin: 0.5rem auto;
+                    padding: 0.75rem 1rem;
+                }
+            }
+        }
+
+        &.scene-with-image {
+            min-height: 250px;
+        }
+
+        &.scene-small {
+            min-height: 120px;
+
+            .scene-content {
+                .scene-title {
+                    font-size: 1.3rem;
+                }
+
+                .scene-subtitle {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    #scene {
+        min-height: 180px;
+
+        .scene-content {
+            .scene-title {
+                font-size: 1.4rem;
+            }
+
+            .scene-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .scene-actions {
+                .btn {
+                    font-size: 0.85rem;
+                    padding: 0.6rem 1rem;
+                    letter-spacing: 0.5px;
+                }
+            }
+        }
+
+        &.scene-with-image {
+            min-height: 200px;
+        }
+
+        &.scene-small {
+            min-height: 100px;
+
+            .scene-content {
+                .scene-title {
+                    font-size: 1.1rem;
+                }
+
+                .scene-subtitle {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
 }

@@ -1,0 +1,317 @@
+// category.less - Oczyszczony plik dla kategorii
+// Używany w: page-species-category.php dla kategorii gatunków
+
+// ===== KATEGORIE GATUNKÓW =====
+.category {
+    
+    // Header kategorii
+    .category-header {
+        background-color: #f8f9fa;
+        padding: 2rem 0;
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 2rem;
+
+        .category-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-description {
+            color: #6c757d;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .category-meta {
+            margin-top: 1rem;
+            
+            .meta-item {
+                display: inline-block;
+                background-color: white;
+                color: #6c757d;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.9rem;
+                margin-right: 1rem;
+                border: 1px solid #e9ecef;
+
+                .meta-icon {
+                    color: #28a745;
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    // Lista gatunków w kategorii
+    .category-content {
+        
+        .species-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .species-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                border-color: #28a745;
+            }
+
+            .species-thumbnail {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                background-color: #f8f9fa;
+            }
+
+            .species-content {
+                padding: 1.5rem;
+
+                .species-title {
+                    color: #333;
+                    font-weight: 600;
+                    margin-bottom: 0.75rem;
+                    font-size: 1.1rem;
+
+                    a {
+                        color: inherit;
+                        text-decoration: none;
+
+                        &:hover {
+                            color: #28a745;
+                        }
+                    }
+                }
+
+                .species-excerpt {
+                    color: #6c757d;
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                    font-size: 0.9rem;
+                }
+
+                .species-meta {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 0.8rem;
+                    color: #6c757d;
+
+                    .difficulty-badge {
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 15px;
+                        font-weight: 500;
+                        font-size: 0.75rem;
+
+                        &.easy {
+                            background-color: #d4edda;
+                            color: #155724;
+                        }
+
+                        &.medium {
+                            background-color: #fff3cd;
+                            color: #856404;
+                        }
+
+                        &.hard {
+                            background-color: #f8d7da;
+                            color: #721c24;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Filtry i sortowanie
+    .category-filters {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border: 1px solid #e9ecef;
+
+        .filters-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+
+            .filter-label {
+                font-weight: 500;
+                color: #333;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .filter-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                .filter-option {
+                    padding: 0.5rem 1rem;
+                    background-color: #f8f9fa;
+                    color: #6c757d;
+                    border: 1px solid #e9ecef;
+                    border-radius: 20px;
+                    text-decoration: none;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+
+                    &:hover,
+                    &.active {
+                        background-color: #28a745;
+                        color: white;
+                        border-color: #28a745;
+                    }
+                }
+            }
+        }
+    }
+
+    // Paginacja
+    .category-pagination {
+        margin-top: 3rem;
+        text-align: center;
+
+        .pagination {
+            justify-content: center;
+
+            .page-link {
+                color: #28a745;
+                border-color: #e9ecef;
+
+                &:hover {
+                    background-color: #28a745;
+                    border-color: #28a745;
+                    color: white;
+                }
+            }
+
+            .page-item.active .page-link {
+                background-color: #28a745;
+                border-color: #28a745;
+            }
+        }
+    }
+}
+
+// ===== RESPONSYWNOŚĆ =====
+@media (max-width: 992px) {
+    .category {
+        .category-content {
+            .species-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        .category-filters {
+            .filter-group {
+                .filter-options {
+                    .filter-option {
+                        font-size: 0.85rem;
+                        padding: 0.4rem 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .category {
+        .category-header {
+            padding: 1.5rem 0;
+            text-align: center;
+
+            .category-meta {
+                .meta-item {
+                    display: block;
+                    margin: 0.5rem auto;
+                    text-align: center;
+                }
+            }
+        }
+
+        .category-content {
+            .species-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .species-card {
+                .species-content {
+                    padding: 1rem;
+                }
+            }
+        }
+
+        .category-filters {
+            padding: 1rem;
+
+            .filter-group {
+                .filter-options {
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .category {
+        .category-header {
+            padding: 1rem 0;
+
+            .category-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        .category-content {
+            .species-card {
+                .species-thumbnail {
+                    height: 150px;
+                }
+
+                .species-content {
+                    padding: 0.75rem;
+
+                    .species-title {
+                        font-size: 1rem;
+                    }
+
+                    .species-excerpt {
+                        font-size: 0.85rem;
+                    }
+                }
+            }
+        }
+
+        .category-filters {
+            .filter-group {
+                .filter-options {
+                    .filter-option {
+                        font-size: 0.8rem;
+                        padding: 0.3rem 0.6rem;
+                    }
+                }
+            }
+        }
+    }
+}

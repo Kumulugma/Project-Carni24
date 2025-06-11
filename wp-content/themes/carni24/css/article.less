@@ -1,0 +1,220 @@
+// article.less - Oczyszczony plik dla artykułów/single posts
+// Używany w: single-species.php
+
+// ===== ARTYKUŁ GŁÓWNY =====
+.article {
+    
+    // Header artykułu
+    .article-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #e9ecef;
+
+        .article-title {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            
+            .meta-item {
+                margin-right: 1rem;
+                
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    // Zawartość artykułu
+    .article-content {
+        line-height: 1.8;
+        font-size: 1rem;
+
+        p {
+            margin-bottom: 1.2rem;
+        }
+
+        h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        blockquote {
+            border-left: 4px solid #28a745;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #6c757d;
+        }
+    }
+
+    // Galeria w artykule
+    .article-gallery {
+        margin: 2rem 0;
+        
+        .gallery-item {
+            margin-bottom: 1rem;
+            
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 6px;
+                transition: transform 0.3s ease;
+                
+                &:hover {
+                    transform: scale(1.02);
+                }
+            }
+        }
+    }
+
+    // Tagi i kategorie
+    .article-terms {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e9ecef;
+
+        .terms-section {
+            margin-bottom: 1rem;
+
+            .terms-label {
+                font-weight: 600;
+                color: #333;
+                margin-right: 0.5rem;
+            }
+
+            .term-link {
+                display: inline-block;
+                background-color: #f8f9fa;
+                color: #6c757d;
+                padding: 0.25rem 0.75rem;
+                border-radius: 15px;
+                font-size: 0.85rem;
+                margin-right: 0.5rem;
+                margin-bottom: 0.5rem;
+                text-decoration: none;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #28a745;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    // Nawigacja między postami
+    .article-navigation {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid #e9ecef;
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .nav-link {
+                flex: 1;
+                text-align: center;
+                padding: 1rem;
+                background-color: #f8f9fa;
+                border-radius: 6px;
+                text-decoration: none;
+                color: #333;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #28a745;
+                    color: white;
+                    transform: translateY(-2px);
+                }
+
+                &.prev-link {
+                    margin-right: 1rem;
+                }
+
+                .nav-label {
+                    font-size: 0.8rem;
+                    color: #6c757d;
+                    display: block;
+                    margin-bottom: 0.25rem;
+                }
+
+                .nav-title {
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+}
+
+// ===== RESPONSYWNOŚĆ =====
+@media (max-width: 768px) {
+    .article {
+        .article-header {
+            .article-title {
+                font-size: 1.5rem;
+            }
+
+            .article-meta {
+                .meta-item {
+                    display: block;
+                    margin-right: 0;
+                    margin-bottom: 0.25rem;
+                }
+            }
+        }
+
+        .article-content {
+            font-size: 0.95rem;
+        }
+
+        .article-navigation {
+            .nav-links {
+                flex-direction: column;
+
+                .nav-link {
+                    margin-right: 0 !important;
+                    margin-bottom: 1rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .article {
+        .article-header {
+            .article-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        .article-content {
+            font-size: 0.9rem;
+            
+            h2, h3, h4, h5, h6 {
+                margin-top: 1.5rem;
+            }
+        }
+    }
+}
