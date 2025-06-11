@@ -1,0 +1,114 @@
+/* 
+ * CSS Custom Properties - Zmienne globalne
+ * Plik: assets/css/base/variables.css
+ * Autor: Carni24 Theme
+ */
+
+:root {
+  /* ===== KOLORY GŁÓWNE ===== */
+  --color-primary: #28a745;
+  --color-primary-dark: #1e7e34;
+  --color-primary-light: #20a745;
+  --color-primary-lighter: rgba(40, 167, 69, 0.1);
+  
+  /* ===== KOLORY TŁA ===== */
+  --color-bg-light: #f8f9fa;
+  --color-bg-white: #ffffff;
+  --color-bg-dark: #343a40;
+  --color-bg-medium: #495057;
+  --color-bg-overlay: rgba(0, 0, 0, 0.3);
+  
+  /* ===== KOLORY TEKSTU ===== */
+  --color-text-primary: #333333;
+  --color-text-secondary: #6c757d;
+  --color-text-light: #ffffff;
+  --color-text-muted: #999999;
+  
+  /* ===== KOLORY OBRAMOWAŃ ===== */
+  --color-border-light: #e9ecef;
+  --color-border-medium: #e1e5e9;
+  --color-border-dark: #dee2e6;
+  
+  /* ===== CIENIE ===== */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  
+  /* ===== FONTY ===== */
+  --font-family-primary: 'Nunito', sans-serif;
+  --font-family-headings: 'Montserrat', sans-serif;
+  
+  /* ===== ROZMIARY FONTÓW ===== */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  
+  /* ===== WAGI FONTÓW ===== */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* ===== WYSOKOŚCI LINII ===== */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+  
+  /* ===== ODSTĘPY ===== */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+  --spacing-3xl: 4rem;     /* 64px */
+  --spacing-4xl: 6rem;     /* 96px */
+  
+  /* ===== RADIUSY OBRAMOWAŃ ===== */
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
+  --border-radius-xl: 12px;
+  --border-radius-2xl: 16px;
+  --border-radius-full: 50%;
+  --border-radius-pill: 20px;
+  
+  /* ===== PRZEJŚCIA ===== */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.3s cubic-bezier(1, -0.46, 0.47, 1.22);
+  
+  /* ===== BREAKPOINTY ===== */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+  
+  /* ===== WYSOKOŚCI ELEMENTÓW ===== */
+  --header-height: 60px;
+  --hero-min-height: 200px;
+  --button-height: 40px;
+  --input-height: 44px;
+  
+  /* ===== Z-INDEX ===== */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}

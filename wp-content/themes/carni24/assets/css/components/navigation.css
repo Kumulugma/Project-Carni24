@@ -1,0 +1,251 @@
+/* 
+ * Style nawigacji (header/sub-menu)
+ * Plik: assets/css/components/navigation.css
+ * Autor: Carni24 Theme
+ */
+
+/* ===== GŁÓWNA NAWIGACJA (SUB-MENU) ===== */
+#sub-menu {
+  background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-medium) 100%);
+  box-shadow: var(--shadow-md);
+  border-top: 3px solid var(--color-primary);
+  min-height: var(--header-height);
+  position: relative;
+  z-index: var(--z-sticky);
+}
+
+/* ===== LOGO SECTION ===== */
+.navbar-brand {
+  color: var(--color-text-light) !important;
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xl);
+  text-decoration: none;
+  transition: var(--transition-normal);
+}
+
+.navbar-brand:hover {
+  color: var(--color-text-light) !important;
+  transform: scale(1.05);
+}
+
+.navbar-brand strong {
+  background: linear-gradient(45deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== NAVIGATION LINKS ===== */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.nav-link {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-light) !important;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-pill) !important;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-normal);
+  border: 2px solid transparent;
+}
+
+/* Animowany overlay dla linków */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: var(--transition-slow);
+  z-index: 1;
+}
+
+.nav-link:hover::before {
+  left: 100%;
+}
+
+.nav-link:hover {
+  background-color: rgba(40, 167, 69, 0.8) !important;
+  color: var(--color-text-light) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.nav-link:focus {
+  background-color: rgba(40, 167, 69, 0.6) !important;
+  color: var(--color-text-light) !important;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+  outline: none;
+}
+
+/* Aktywny link */
+.nav-link.active,
+.nav-link.bg-success {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-light) !important;
+  font-weight: var(--font-weight-semibold);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* ===== PRZYCISK WYSZUKIWANIA ===== */
+.search-trigger-btn {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-pill);
+  border: 2px solid transparent;
+  background-color: var(--color-bg-white);
+  color: var(--color-primary) !important;
+  text-decoration: none;
+  transition: var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.search-trigger-btn:hover {
+  color: var(--color-primary-dark) !important;
+  background-color: var(--color-bg-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(40, 167, 69, 0.2);
+}
+
+.search-trigger-btn:focus {
+  color: var(--color-primary-dark) !important;
+  background-color: var(--color-bg-white);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+  outline: none;
+}
+
+.search-trigger-btn i {
+  font-size: var(--font-size-base);
+}
+
+/* ===== MOBILE NAVIGATION ===== */
+#sub-menu-mobile {
+  background: var(--color-bg-dark);
+  box-shadow: var(--shadow-md);
+  border-top: 3px solid var(--color-primary);
+  min-height: var(--header-height);
+}
+
+.navbar-toggler {
+  border: none !important;
+  padding: var(--spacing-xs);
+  background: transparent;
+  color: var(--color-text-light);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.navbar-toggler-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Mobile menu collapse */
+.navbar-collapse {
+  background: var(--color-bg-dark);
+  margin: 0 -1rem;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-collapse .nav-link {
+  color: var(--color-text-light) !important;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 !important;
+  font-size: var(--font-size-base);
+  transition: var(--transition-normal);
+}
+
+.navbar-collapse .nav-link:hover {
+  background-color: rgba(40, 167, 69, 0.1) !important;
+  padding-left: var(--spacing-md);
+  transform: none;
+  box-shadow: none;
+}
+
+.navbar-collapse .nav-link.active,
+.navbar-collapse .nav-link.bg-success {
+  background-color: var(--color-primary) !important;
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--border-radius-md) !important;
+  border-bottom: none;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 991.98px) {
+  #sub-menu {
+    padding: 0;
+  }
+  
+  .navbar-brand {
+    font-size: var(--font-size-lg);
+  }
+  
+  .search-trigger-btn {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .navbar-brand {
+    font-size: var(--font-size-base);
+  }
+  
+  .search-trigger-btn {
+    display: none; /* Ukryj na bardzo małych ekranach */
+  }
+}
+
+/* ===== ANIMACJE ===== */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-collapse.show {
+  animation: slideInFromTop var(--transition-normal);
+}
+
+/* ===== ACCESSIBILITY ===== */
+.nav-link:focus-visible,
+.search-trigger-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .search-trigger-btn,
+  .navbar-brand {
+    transition: none;
+  }
+  
+  .nav-link::before {
+    display: none;
+  }
+}

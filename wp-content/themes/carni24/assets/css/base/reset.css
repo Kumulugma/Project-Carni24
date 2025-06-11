@@ -1,0 +1,183 @@
+/* 
+ * CSS Reset i podstawowe style
+ * Plik: assets/css/base/reset.css
+ * Autor: Carni24 Theme
+ */
+
+/* ===== RESET PODSTAWOWYCH ELEMENTÓW ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== ELEMENTY BLOKOWE ===== */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, li,
+figure, figcaption,
+div, section, article, aside, header, footer, main, nav {
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== LISTY ===== */
+ul, ol {
+  list-style: none;
+}
+
+/* ===== LINKI ===== */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-normal);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  outline: none;
+}
+
+/* ===== OBRAZY ===== */
+img,
+picture,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== FORMULARZE ===== */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-normal);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+/* ===== TABELE ===== */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: var(--spacing-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* ===== UTILITY CLASSES ===== */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ===== WORDPRESS KLASY ===== */
+.alignleft {
+  float: left;
+  margin-right: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.alignright {
+  float: right;
+  margin-left: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--spacing-md);
+}
+
+.wp-caption {
+  max-width: 100%;
+  margin-bottom: var(--spacing-lg);
+}
+
+.wp-caption-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: var(--spacing-sm);
+}
+
+.gallery-caption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: var(--spacing-sm);
+}
+
+.sticky {
+  /* Style dla sticky posts */
+}
+
+.bypostauthor {
+  /* Style dla komentarzy autora */
+}

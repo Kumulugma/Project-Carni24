@@ -1,0 +1,6 @@
+.site-footer {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  padding: var(--spacing-2xl) 0;
+  margin-top: auto;
+}

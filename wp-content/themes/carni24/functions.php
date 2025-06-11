@@ -1,40 +1,46 @@
 <?php
-// wp-content/themes/carni24/functions.php
-// Główny plik funkcji motywu - oczyszczony
+/**
+ * Carni24 WordPress Theme - Functions
+ * Nowa wersja z systemem assets - POPRAWIONA
+ * 
+ * @package Carni24
+ * @version 3.0.0
+ */
 
 // Zabezpieczenie przed bezpośrednim dostępem
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// === STAŁE MOTYWU ===
-define('CARNI24_VERSION', '2.1.0');
+// ===== STAŁE MOTYWU ===== //
+define('CARNI24_VERSION', '3.0.0');
 define('CARNI24_THEME_PATH', get_template_directory());
 define('CARNI24_THEME_URL', get_template_directory_uri());
+define('CARNI24_ASSETS_URL', CARNI24_THEME_URL . '/assets');
 
-// === PODSTAWOWA KONFIGURACJA MOTYWU ===
-
-// Wsparcie dla funkcji WordPress
+// ===== PODSTAWOWA KONFIGURACJA MOTYWU ===== //
 function carni24_setup_theme_support() {
-    // Dodaj obsługę title-tag
+    // Title tag
     add_theme_support('title-tag');
     
-    // Dodaj obsługę miniaturek
+    // Post thumbnails
     add_theme_support('post-thumbnails');
     
-    // Dodaj obsługę automatic feed links
+    // Automatic feed links
     add_theme_support('automatic-feed-links');
     
-    // Dodaj obsługę HTML5
+    // HTML5 support
     add_theme_support('html5', array(
         'search-form',
+        'comment-form',
+        'comment-list',
         'gallery',
         'caption',
-        'script',
-        'style'
+        'style',
+        'script'
     ));
     
-    // Dodaj obsługę custom logo
+    // Custom logo
     add_theme_support('custom-logo', array(
         'height'      => 100,
         'width'       => 300,
@@ -42,7 +48,7 @@ function carni24_setup_theme_support() {
         'flex-width'  => true,
     ));
     
-    // Dodaj obsługę custom header
+    // Custom header
     add_theme_support('custom-header', array(
         'default-image' => '',
         'width'         => 1200,
@@ -51,190 +57,205 @@ function carni24_setup_theme_support() {
         'flex-width'    => true,
     ));
     
-    // Dodaj obsługę custom background
+    // Custom background
     add_theme_support('custom-background', array(
         'default-color' => 'ffffff',
+    ));
+    
+    // Navigation menus
+    register_nav_menus(array(
+        'main-menu' => __('Main Navigation', 'carni24'),
+        'footer-menu' => __('Footer Navigation', 'carni24')
     ));
 }
 add_action('after_setup_theme', 'carni24_setup_theme_support');
 
-// === ŁADOWANIE PLIKÓW CSS I JS ===
+// ===== SYSTEM ŁADOWANIA ASSETS ===== //
 
-// Assets dla frontendu
+/**
+ * Enqueue frontend assets with conditional loading
+ */
 function carni24_enqueue_frontend_assets() {
-    if (!is_admin()) {
-        // Bootstrap CSS
+    if (is_admin()) return;
+    
+    // ===== EXTERNAL LIBRARIES ===== //
+    
+    // Bootstrap CSS
+    wp_enqueue_style(
+        'bootstrap',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+        array(),
+        '5.3.0'
+    );
+    
+    // Bootstrap Icons
+    wp_enqueue_style(
+        'bootstrap-icons',
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css',
+        array(),
+        '1.11.0'
+    );
+    
+    // Bootstrap JS
+    wp_enqueue_script(
+        'bootstrap',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
+        array(),
+        '5.3.0',
+        true
+    );
+    
+    // ===== GŁÓWNE PLIKI MOTYWU ===== //
+    
+    // Main CSS - zawsze ładowany
+    wp_enqueue_style(
+        'carni24-style',
+        CARNI24_ASSETS_URL . '/css/style.css',
+        array('bootstrap'),
+        CARNI24_VERSION
+    );
+    
+    // Main JS - zawsze ładowany
+    wp_enqueue_script(
+        'carni24-main',
+        CARNI24_ASSETS_URL . '/js/main.js',
+        array('bootstrap'),
+        CARNI24_VERSION,
+        true
+    );
+    
+    // ===== CONDITIONAL ASSETS - STRONY SPECYFICZNE ===== //
+    
+    // Homepage
+    if (is_front_page() || is_home()) {
         wp_enqueue_style(
-            'bootstrap', 
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', 
-            array(), 
-            '5.3.0'
-        );
-        
-        // Bootstrap Icons
-        wp_enqueue_style(
-            'bootstrap-icons',
-            'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css',
-            array(),
-            '1.11.0'
-        );
-        
-        // Bootstrap JS
-        wp_enqueue_script(
-            'bootstrap', 
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', 
-            array(), 
-            '5.3.0', 
-            true
-        );
-        
-        // Główny arkusz stylów motywu
-        wp_enqueue_style(
-            'carni24-style', 
-            CARNI24_THEME_URL . '/assets/css/style.css', 
-            array('bootstrap'), 
+            'carni24-homepage',
+            CARNI24_ASSETS_URL . '/css/pages/homepage.css',
+            array('carni24-style'),
             CARNI24_VERSION
         );
         
-        // Conditional styles dla różnych typów stron
-        if (is_single() || is_singular('species')) {
-            wp_enqueue_style(
-                'carni24-article', 
-                CARNI24_THEME_URL . '/assets/css/article.css', 
-                array('carni24-style'), 
-                CARNI24_VERSION
-            );
-        }
-
-        if (is_search()) {
-            wp_enqueue_style(
-                'carni24-search', 
-                CARNI24_THEME_URL . '/assets/css/search.css', 
-                array('carni24-style'), 
-                CARNI24_VERSION
-            );
-        }
-
-        if (is_page_template('page-species-category.php') || is_category()) {
-            wp_enqueue_style(
-                'carni24-category', 
-                CARNI24_THEME_URL . '/assets/css/category.css', 
-                array('carni24-style'), 
-                CARNI24_VERSION
-            );
-        }
-
-        if (is_page(242)) { // Strona galerii
-            wp_enqueue_style(
-                'carni24-gallery', 
-                CARNI24_THEME_URL . '/assets/css/gallery.css', 
-                array('carni24-style'), 
-                CARNI24_VERSION
-            );
-        }
-
-        // Scene styles dla hero sections
-        if (!is_front_page()) {
-            wp_enqueue_style(
-                'carni24-scene', 
-                CARNI24_THEME_URL . '/css/scene.css', 
-                array('carni24-style'), 
-                CARNI24_VERSION
-            );
-        }
+        wp_enqueue_script(
+            'carni24-homepage-js',
+            CARNI24_ASSETS_URL . '/js/pages/homepage.js',
+            array('carni24-main'),
+            CARNI24_VERSION,
+            true
+        );
     }
+    
+    // Single posts and species
+    if (is_single() || is_singular('species')) {
+        wp_enqueue_style(
+            'carni24-article',
+            CARNI24_ASSETS_URL . '/css/pages/article.css',
+            array('carni24-style'),
+            CARNI24_VERSION
+        );
+    }
+    
+    // Search page
+    if (is_search()) {
+        wp_enqueue_style(
+            'carni24-search',
+            CARNI24_ASSETS_URL . '/css/pages/search.css',
+            array('carni24-style'),
+            CARNI24_VERSION
+        );
+    }
+    
+    // Category pages
+    if (is_page_template('page-species-category.php') || is_category() || is_tax()) {
+        wp_enqueue_style(
+            'carni24-category',
+            CARNI24_ASSETS_URL . '/css/pages/category.css',
+            array('carni24-style'),
+            CARNI24_VERSION
+        );
+    }
+    
+    // Gallery page (specific page ID)
+    if (is_page(242)) {
+        wp_enqueue_style(
+            'carni24-gallery',
+            CARNI24_ASSETS_URL . '/css/pages/gallery.css',
+            array('carni24-style'),
+            CARNI24_VERSION
+        );
+        
+        wp_enqueue_script(
+            'carni24-gallery-js',
+            CARNI24_ASSETS_URL . '/js/pages/gallery.js',
+            array('carni24-main'),
+            CARNI24_VERSION,
+            true
+        );
+    }
+    
+    // Static pages
+    if (is_page() && !is_front_page() && !is_page(242)) {
+        wp_enqueue_style(
+            'carni24-static',
+            CARNI24_ASSETS_URL . '/css/pages/static.css',
+            array('carni24-style'),
+            CARNI24_VERSION
+        );
+    }
+    
+    // ===== JAVASCRIPT LOCALIZATION ===== //
+    wp_localize_script('carni24-main', 'carni24_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('carni24_nonce'),
+        'theme_url' => CARNI24_THEME_URL,
+        'is_front_page' => is_front_page(),
+        'is_mobile' => wp_is_mobile()
+    ));
 }
 add_action('wp_enqueue_scripts', 'carni24_enqueue_frontend_assets');
 
-// Assets dla admin
+/**
+ * Enqueue admin assets
+ */
 function carni24_enqueue_admin_assets($hook) {
-    // Tylko na stronie theme options
-    if ($hook == 'appearance_page_carni24-theme-options') {
-        wp_enqueue_media();
-        
-        wp_enqueue_style(
-            'carni24-admin-style', 
-            CARNI24_THEME_URL . '/assets/admin/css/admin-theme-options.css', 
-            array(), 
-            CARNI24_VERSION
-        );
-        
-        wp_enqueue_script(
-            'carni24-admin-script', 
-            CARNI24_THEME_URL . '/assets/admin/js/admin-theme-options.js', 
-            array('jquery'), 
-            CARNI24_VERSION, 
-            true
-        );
+    // Only on theme options page
+    if ($hook !== 'appearance_page_carni24-theme-options') {
+        return;
     }
+    
+    wp_enqueue_media();
+    
+    wp_enqueue_style(
+        'carni24-admin-style',
+        CARNI24_ASSETS_URL . '/admin/css/theme-options.css',
+        array(),
+        CARNI24_VERSION
+    );
+    
+    wp_enqueue_script(
+        'carni24-admin-script',
+        CARNI24_ASSETS_URL . '/admin/js/theme-options.js',
+        array('jquery', 'wp-util'),
+        CARNI24_VERSION,
+        true
+    );
+    
+    wp_localize_script('carni24-admin-script', 'carni24_admin', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('carni24_admin_nonce'),
+        'strings' => array(
+            'save_success' => __('Settings saved successfully!', 'carni24'),
+            'save_error' => __('Error saving settings. Please try again.', 'carni24'),
+        )
+    ));
 }
 add_action('admin_enqueue_scripts', 'carni24_enqueue_admin_assets');
 
-// === ŁADOWANIE MODUŁÓW MOTYWU ===
-
-// 1. PODSTAWOWE FUNKCJE
-require_once CARNI24_THEME_PATH . '/includes/image-sizes.php';           // Rozmiary miniaturek
-require_once CARNI24_THEME_PATH . '/includes/polish-numbers.php';        // Odmiana liczebników
-require_once CARNI24_THEME_PATH . '/includes/disable-comments.php';      // Wyłączenie komentarzy
-
-// 2. TYPY POSTÓW I TAXONOMIE
-require_once CARNI24_THEME_PATH . '/post-types/species.php';             // CPT Gatunki
-
-// 3. META BOXY I CUSTOM FIELDS
-require_once CARNI24_THEME_PATH . '/includes/meta-boxes.php';            // Podstawowe meta boxy
-require_once CARNI24_THEME_PATH . '/includes/extended-meta-boxes.php';   // Rozszerzone pola meta
-
-// 4. FUNKCJE POMOCNICZE
-require_once CARNI24_THEME_PATH . '/includes/pagination.php';            // Paginacja
-require_once CARNI24_THEME_PATH . '/includes/breadcrumbs.php';           // Breadcrumbs
-require_once CARNI24_THEME_PATH . '/includes/galleryCount.php';          // Licznik galerii
-
-// 5. SEO I OPTYMALIZACJA
-require_once CARNI24_THEME_PATH . '/includes/seo.php';                   // Funkcje SEO
-require_once CARNI24_THEME_PATH . '/includes/sitemap.php';               // Generator mapy strony
-
-// 6. PANEL ADMINISTRACYJNY
-require_once CARNI24_THEME_PATH . '/includes/theme-options.php';         // Ustawienia motywu
-require_once CARNI24_THEME_PATH . '/includes/thumbnail-settings.php';    // Ustawienia miniaturek
-require_once CARNI24_THEME_PATH . '/includes/admin.php';                 // Funkcje administracyjne
-
-// === FUNKCJE POMOCNICZE MOTYWU ===
-
-// Helper function dla opcji motywu
-if (!function_exists('carni24_get_option')) {
-    function carni24_get_option($option_name, $default = '') {
-        return get_option('carni24_' . $option_name, $default);
-    }
-}
-
-// Sprawdź czy funkcja istnieje przed definicją
-if (!function_exists('carni24_setup_menus')) {
-    function carni24_setup_menus() {
-        register_nav_menus(array(
-            'primary' => __('Menu główne', 'carni24'),
-            'footer-content' => __('Stopka - Menu treści', 'carni24'),
-            'footer-info' => __('Stopka - Menu informacji', 'carni24'),
-        ));
-    }
-    add_action('init', 'carni24_setup_menus');
-}
-
-// Rejestracja sidebars/widget areas
+// ===== WIDGET AREAS ===== //
 function carni24_widgets_init() {
     register_sidebar(array(
-        'name'          => __('Sidebar główny', 'carni24'),
-        'id'            => 'sidebar-1',
-        'description'   => __('Główny sidebar strony', 'carni24'),
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ));
-    
-    register_sidebar(array(
-        'name'          => __('Stopka Widget 1', 'carni24'),
+        'name'          => __('Footer Widget 1', 'carni24'),
         'id'            => 'footer-1',
-        'description'   => __('Pierwszy widget w stopce', 'carni24'),
+        'description'   => __('First footer widget area', 'carni24'),
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
         'after_widget'  => '</div>',
         'before_title'  => '<h5 class="widget-title">',
@@ -242,9 +263,19 @@ function carni24_widgets_init() {
     ));
     
     register_sidebar(array(
-        'name'          => __('Stopka Widget 2', 'carni24'),
+        'name'          => __('Footer Widget 2', 'carni24'),
         'id'            => 'footer-2',
-        'description'   => __('Drugi widget w stopce', 'carni24'),
+        'description'   => __('Second footer widget area', 'carni24'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h5 class="widget-title">',
+        'after_title'   => '</h5>',
+    ));
+    
+    register_sidebar(array(
+        'name'          => __('Footer Widget 3', 'carni24'),
+        'id'            => 'footer-3',
+        'description'   => __('Third footer widget area', 'carni24'),
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
         'after_widget'  => '</div>',
         'before_title'  => '<h5 class="widget-title">',
@@ -253,47 +284,85 @@ function carni24_widgets_init() {
 }
 add_action('widgets_init', 'carni24_widgets_init');
 
-// === FUNKCJE POMOCNICZE ===
+// ===== ŁADOWANIE MODUŁÓW ===== //
 
-// Funkcja do szacowania czasu czytania
+// 1. Core functions
+require_once CARNI24_THEME_PATH . '/includes/image-sizes.php';
+require_once CARNI24_THEME_PATH . '/includes/polish-numbers.php';
+require_once CARNI24_THEME_PATH . '/includes/disable-comments.php';
+require_once CARNI24_THEME_PATH . '/includes/breadcrumbs.php';
+require_once CARNI24_THEME_PATH . '/includes/seo.php';
+
+// 2. Post types and taxonomies
+if (file_exists(CARNI24_THEME_PATH . '/post-types/species.php')) {
+    require_once CARNI24_THEME_PATH . '/post-types/species.php';
+}
+
+// 3. Meta boxes and custom fields
+if (file_exists(CARNI24_THEME_PATH . '/includes/meta-boxes.php')) {
+    require_once CARNI24_THEME_PATH . '/includes/meta-boxes.php';
+}
+
+// 4. Theme options
+if (file_exists(CARNI24_THEME_PATH . '/includes/theme-options.php')) {
+    require_once CARNI24_THEME_PATH . '/includes/theme-options.php';
+}
+
+// 5. Admin functionality
+if (is_admin()) {
+    require_once CARNI24_THEME_PATH . '/includes/admin.php';
+}
+
+// ===== HELPER FUNCTIONS ===== //
+
+/**
+ * Get theme option with fallback
+ */
+if (!function_exists('carni24_get_option')) {
+    function carni24_get_option($option_name, $default = '') {
+        $options = get_option('carni24_theme_options', array());
+        return isset($options[$option_name]) ? $options[$option_name] : $default;
+    }
+}
+
+/**
+ * Estimate reading time
+ */
 if (!function_exists('carni24_estimate_reading_time')) {
     function carni24_estimate_reading_time($content) {
         $word_count = str_word_count(wp_strip_all_tags($content));
-        $reading_time = ceil($word_count / 200); // 200 słów na minutę
+        $reading_time = ceil($word_count / 200); // 200 words per minute
         return $reading_time;
     }
 }
 
-// Dodaj hook do dodawania overlay wyszukiwarki na każdej stronie
-function carni24_add_search_overlay() {
-    get_template_part('template-parts/search-overlay');
+/**
+ * Get post thumbnail with fallback
+ */
+if (!function_exists('carni24_get_post_thumbnail')) {
+    function carni24_get_post_thumbnail($post_id = null, $size = 'medium', $fallback = true) {
+        if (!$post_id) {
+            $post_id = get_the_ID();
+        }
+        
+        if (has_post_thumbnail($post_id)) {
+            return get_the_post_thumbnail_url($post_id, $size);
+        }
+        
+        if ($fallback) {
+            return CARNI24_ASSETS_URL . '/images/placeholder.jpg';
+        }
+        
+        return false;
+    }
 }
-add_action('wp_footer', 'carni24_add_search_overlay');
 
-// === SECURITY I PERFORMANCE ===
+// UWAGA: carni24_format_count() jest teraz w includes/polish-numbers.php
+// NIE deklaruj tej funkcji tutaj!
 
-// Usuń niepotrzebne head tags
-remove_action('wp_head', 'wp_generator');
-remove_action('wp_head', 'wlwmanifest_link');
-remove_action('wp_head', 'rsd_link');
-remove_action('wp_head', 'wp_shortlink_wp_head');
-
-// Wyłącz emoji scripts (dla performance)
-function carni24_disable_emojis() {
-    remove_action('wp_head', 'print_emoji_detection_script', 7);
-    remove_action('admin_print_scripts', 'print_emoji_detection_script');
-    remove_action('wp_print_styles', 'print_emoji_styles');
-    remove_action('admin_print_styles', 'print_emoji_styles');
-    remove_filter('the_content_feed', 'wp_staticize_emoji');
-    remove_filter('comment_text_rss', 'wp_staticize_emoji');
-    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-}
-add_action('init', 'carni24_disable_emojis');
-
-// === HOOKS I FILTRY ===
-
-// Dodaj klasy body dla różnych typów stron
+// ===== BODY CLASSES ===== //
 function carni24_body_classes($classes) {
+    // Add page-specific classes
     if (is_front_page()) {
         $classes[] = 'homepage';
     }
@@ -306,64 +375,142 @@ function carni24_body_classes($classes) {
         $classes[] = 'archive-species';
     }
     
+    if (is_page_template('page-species-category.php')) {
+        $classes[] = 'species-category';
+    }
+    
+    // Add browser class
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    if (strpos($user_agent, 'Chrome') !== false) {
+        $classes[] = 'chrome';
+    } elseif (strpos($user_agent, 'Firefox') !== false) {
+        $classes[] = 'firefox';
+    } elseif (strpos($user_agent, 'Safari') !== false) {
+        $classes[] = 'safari';
+    }
+    
     return $classes;
 }
 add_filter('body_class', 'carni24_body_classes');
 
-// Modyfikuj excerpt length
+// ===== CONTENT FILTERS ===== //
 function carni24_excerpt_length($length) {
     return 25;
 }
 add_filter('excerpt_length', 'carni24_excerpt_length');
 
-// Modyfikuj excerpt more
 function carni24_excerpt_more($more) {
     return '...';
 }
 add_filter('excerpt_more', 'carni24_excerpt_more');
 
-// === DEBUG I DEVELOPMENT (tylko dla administratorów) ===
+// ===== SECURITY & PERFORMANCE ===== //
 
-// Funkcja debug
+// Remove unnecessary head tags
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wp_shortlink_wp_head');
+
+// Disable emoji scripts
+function carni24_disable_emojis() {
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
+    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+}
+add_action('init', 'carni24_disable_emojis');
+
+// ===== SEARCH OVERLAY ===== //
+function carni24_add_search_overlay() {
+    get_template_part('template-parts/search-overlay');
+}
+add_action('wp_footer', 'carni24_add_search_overlay');
+
+// ===== AJAX HANDLERS ===== //
+
+/**
+ * Handle AJAX search
+ */
+function carni24_ajax_search() {
+    check_ajax_referer('carni24_nonce', 'nonce');
+    
+    $search_term = sanitize_text_field($_POST['search_term']);
+    
+    if (empty($search_term)) {
+        wp_die();
+    }
+    
+    $args = array(
+        's' => $search_term,
+        'posts_per_page' => 5,
+        'post_status' => 'publish'
+    );
+    
+    $search_query = new WP_Query($args);
+    $results = array();
+    
+    if ($search_query->have_posts()) {
+        while ($search_query->have_posts()) {
+            $search_query->the_post();
+            $results[] = array(
+                'title' => get_the_title(),
+                'url' => get_permalink(),
+                'excerpt' => get_the_excerpt(),
+                'thumbnail' => carni24_get_post_thumbnail(get_the_ID(), 'thumbnail')
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    wp_send_json_success($results);
+}
+add_action('wp_ajax_carni24_search', 'carni24_ajax_search');
+add_action('wp_ajax_nopriv_carni24_search', 'carni24_ajax_search');
+
+// ===== DEBUG (only for administrators) ===== //
 function carni24_debug_info() {
     if (current_user_can('manage_options') && isset($_GET['carni24_debug'])) {
         echo '<div style="background: #f0f0f0; padding: 10px; margin: 10px; border: 1px solid #ccc; font-size: 12px;">';
         echo '<strong>Carni24 Debug Info:</strong><br>';
-        echo 'Wersja motywu: ' . CARNI24_VERSION . '<br>';
-        echo 'Ścieżka motywu: ' . CARNI24_THEME_PATH . '<br>';
-        echo 'URL motywu: ' . CARNI24_THEME_URL . '<br>';
-        echo 'Liczba gatunków: ' . wp_count_posts('species')->publish . '<br>';
-        echo 'Liczba wpisów: ' . wp_count_posts('post')->publish . '<br>';
-        if (function_exists('gallery_count')) {
-            echo 'Liczba zdjęć: ' . gallery_count() . '<br>';
-        }
+        echo 'Version: ' . CARNI24_VERSION . '<br>';
+        echo 'Theme Path: ' . CARNI24_THEME_PATH . '<br>';
+        echo 'Theme URL: ' . CARNI24_THEME_URL . '<br>';
+        echo 'Assets URL: ' . CARNI24_ASSETS_URL . '<br>';
+        echo 'Current Template: ' . get_page_template_slug() . '<br>';
+        echo 'Is Front Page: ' . (is_front_page() ? 'Yes' : 'No') . '<br>';
+        echo 'Is Mobile: ' . (wp_is_mobile() ? 'Yes' : 'No') . '<br>';
         echo '</div>';
     }
 }
 add_action('wp_footer', 'carni24_debug_info');
 
-// === COMPATIBILITY ===
-
-// Sprawdź wersję PHP
-if (version_compare(PHP_VERSION, '7.4', '<')) {
-    add_action('admin_notices', function() {
-        echo '<div class="notice notice-error"><p>';
-        echo '<strong>Motyw Carni24:</strong> Wymaga PHP 7.4 lub nowszego. ';
-        echo 'Aktualna wersja: ' . PHP_VERSION;
-        echo '</p></div>';
-    });
+// ===== THEME ACTIVATION ===== //
+function carni24_theme_activation() {
+    // Create default pages if they don't exist
+    $pages = array(
+        'species' => 'Lista Gatunków',
+        'species-category' => 'Kategorie Gatunków',
+        'gallery' => 'Galeria'
+    );
+    
+    foreach ($pages as $slug => $title) {
+        $page = get_page_by_path($slug);
+        if (!$page) {
+            wp_insert_post(array(
+                'post_title' => $title,
+                'post_name' => $slug,
+                'post_content' => 'Ta strona została utworzona automatycznie przez motyw Carni24.',
+                'post_status' => 'publish',
+                'post_type' => 'page'
+            ));
+        }
+    }
+    
+    // Flush rewrite rules
+    flush_rewrite_rules();
 }
-
-// Sprawdź wersję WordPress
-global $wp_version;
-if (version_compare($wp_version, '5.0', '<')) {
-    add_action('admin_notices', function() {
-        global $wp_version;
-        echo '<div class="notice notice-error"><p>';
-        echo '<strong>Motyw Carni24:</strong> Wymaga WordPress 5.0 lub nowszego. ';
-        echo 'Aktualna wersja: ' . $wp_version;
-        echo '</p></div>';
-    });
-}
-
-?>
+add_action('after_switch_theme', 'carni24_theme_activation');

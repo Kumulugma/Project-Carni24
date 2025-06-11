@@ -1,0 +1,403 @@
+/*!
+ * Carni24 WordPress Theme - Main CSS File
+ * Author: Carni24 Team
+ * Version: 3.0.0
+ * 
+ * Ten plik importuje wszystkie moduły CSS
+ */
+
+/* ===== BASE STYLES ===== */
+@import url('./base/variables.css');
+@import url('./base/reset.css');
+@import url('./base/typography.css');
+
+/* ===== COMPONENT STYLES ===== */
+@import url('./components/animations.css');
+@import url('./components/buttons.css');
+@import url('./components/navigation.css');
+@import url('./components/hero.css');
+@import url('./components/cards.css');
+@import url('./components/forms.css');
+
+/* ===== LAYOUT STYLES ===== */
+@import url('./layout/grid.css');
+@import url('./layout/header.css');
+@import url('./layout/footer.css');
+
+/* ===== PAGE SPECIFIC STYLES (ładowane warunkowo w functions.php) ===== */
+/* Te pliki będą ładowane tylko na odpowiednich stronach */
+/* @import url('./pages/homepage.css'); */
+/* @import url('./pages/article.css'); */
+/* @import url('./pages/search.css'); */
+/* @import url('./pages/category.css'); */
+/* @import url('./pages/gallery.css'); */
+/* @import url('./pages/static.css'); */
+
+/* ===== GLOBAL UTILITIES ===== */
+
+/* Margin utilities */
+.m-0 { margin: 0; }
+.m-1 { margin: var(--spacing-xs); }
+.m-2 { margin: var(--spacing-sm); }
+.m-3 { margin: var(--spacing-md); }
+.m-4 { margin: var(--spacing-lg); }
+.m-5 { margin: var(--spacing-xl); }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+/* Padding utilities */
+.p-0 { padding: 0; }
+.p-1 { padding: var(--spacing-xs); }
+.p-2 { padding: var(--spacing-sm); }
+.p-3 { padding: var(--spacing-md); }
+.p-4 { padding: var(--spacing-lg); }
+.p-5 { padding: var(--spacing-xl); }
+
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: var(--spacing-xs); }
+.pt-2 { padding-top: var(--spacing-sm); }
+.pt-3 { padding-top: var(--spacing-md); }
+.pt-4 { padding-top: var(--spacing-lg); }
+.pt-5 { padding-top: var(--spacing-xl); }
+
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: var(--spacing-xs); }
+.pb-2 { padding-bottom: var(--spacing-sm); }
+.pb-3 { padding-bottom: var(--spacing-md); }
+.pb-4 { padding-bottom: var(--spacing-lg); }
+.pb-5 { padding-bottom: var(--spacing-xl); }
+
+/* Display utilities */
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+/* Flexbox utilities */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+
+/* Position utilities */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+/* Overflow utilities */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+
+/* Border utilities */
+.border { border: 1px solid var(--color-border-light); }
+.border-top { border-top: 1px solid var(--color-border-light); }
+.border-bottom { border-bottom: 1px solid var(--color-border-light); }
+.border-left { border-left: 1px solid var(--color-border-light); }
+.border-right { border-right: 1px solid var(--color-border-light); }
+
+.border-0 { border: 0; }
+.border-top-0 { border-top: 0; }
+.border-bottom-0 { border-bottom: 0; }
+.border-left-0 { border-left: 0; }
+.border-right-0 { border-right: 0; }
+
+.rounded { border-radius: var(--border-radius-md); }
+.rounded-sm { border-radius: var(--border-radius-sm); }
+.rounded-lg { border-radius: var(--border-radius-lg); }
+.rounded-xl { border-radius: var(--border-radius-xl); }
+.rounded-full { border-radius: var(--border-radius-full); }
+.rounded-0 { border-radius: 0; }
+
+/* Shadow utilities */
+.shadow-none { box-shadow: none; }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* Background utilities */
+.bg-white { background-color: var(--color-bg-white); }
+.bg-light { background-color: var(--color-bg-light); }
+.bg-dark { background-color: var(--color-bg-dark); }
+.bg-primary { background-color: var(--color-primary); }
+.bg-transparent { background-color: transparent; }
+
+/* Width utilities */
+.w-25 { width: 25%; }
+.w-50 { width: 50%; }
+.w-75 { width: 75%; }
+.w-100 { width: 100%; }
+.w-auto { width: auto; }
+
+/* Height utilities */
+.h-25 { height: 25%; }
+.h-50 { height: 50%; }
+.h-75 { height: 75%; }
+.h-100 { height: 100%; }
+.h-auto { height: auto; }
+
+/* Object fit utilities */
+.object-cover { object-fit: cover; }
+.object-contain { object-fit: contain; }
+.object-fill { object-fit: fill; }
+
+/* ===== CUSTOM WORDPRESS STYLES ===== */
+
+/* WordPress Blocks */
+.wp-block-image {
+  margin: var(--spacing-lg) 0;
+}
+
+.wp-block-image img {
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.wp-block-quote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+  font-style: italic;
+  background-color: var(--color-bg-light);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+}
+
+.wp-block-code {
+  background-color: var(--color-bg-light);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border-light);
+  font-family: 'Courier New', monospace;
+}
+
+.wp-block-separator {
+  border: none;
+  border-top: 2px solid var(--color-border-light);
+  margin: var(--spacing-2xl) 0;
+}
+
+/* WordPress Gallery */
+.wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+}
+
+.wp-block-gallery .wp-block-image {
+  margin: 0;
+}
+
+/* WordPress Embeds */
+.wp-block-embed {
+  margin: var(--spacing-xl) 0;
+}
+
+.wp-block-embed iframe,
+.wp-block-embed video {
+  border-radius: var(--border-radius-md);
+}
+
+/* ===== BREADCRUMBS ===== */
+.breadcrumbs {
+  background-color: var(--color-bg-light);
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.breadcrumbs a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: var(--transition-normal);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumbs span {
+  color: var(--color-text-muted);
+  margin: 0 var(--spacing-sm);
+}
+
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-normal);
+}
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-overlay-content {
+  background: var(--color-bg-white);
+  padding: var(--spacing-2xl);
+  border-radius: var(--border-radius-lg);
+  width: 90%;
+  max-width: 600px;
+  box-shadow: var(--shadow-xl);
+  transform: scale(0.9);
+  transition: var(--transition-normal);
+}
+
+.search-overlay.active .search-overlay-content {
+  transform: scale(1);
+}
+
+.search-overlay .search-form {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-overlay .search-input {
+  flex: 1;
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-lg);
+}
+
+.search-overlay .search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.search-overlay .search-close {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  background: none;
+  border: none;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+  transition: var(--transition-normal);
+}
+
+.search-overlay .search-close:hover {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+@media (max-width: 1199.98px) {
+  .d-xl-none { display: none; }
+  .d-xl-block { display: block; }
+  .d-xl-flex { display: flex; }
+}
+
+@media (max-width: 991.98px) {
+  .d-lg-none { display: none; }
+  .d-lg-block { display: block; }
+  .d-lg-flex { display: flex; }
+}
+
+@media (max-width: 767.98px) {
+  .d-md-none { display: none; }
+  .d-md-block { display: block; }
+  .d-md-flex { display: flex; }
+  
+  /* Responsive spacing */
+  .p-md-2 { padding: var(--spacing-sm); }
+  .p-md-3 { padding: var(--spacing-md); }
+  .m-md-2 { margin: var(--spacing-sm); }
+  .m-md-3 { margin: var(--spacing-md); }
+}
+
+@media (max-width: 575.98px) {
+  .d-sm-none { display: none; }
+  .d-sm-block { display: block; }
+  .d-sm-flex { display: flex; }
+  
+  /* Mobile specific utilities */
+  .text-sm-center { text-align: center; }
+  .flex-sm-column { flex-direction: column; }
+  .w-sm-100 { width: 100%; }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .d-print-none { display: none !important; }
+  .d-print-block { display: block !important; }
+  
+  /* Hide interactive elements */
+  .btn,
+  .search-overlay,
+  #sub-menu,
+  .search-trigger-btn {
+    display: none !important;
+  }
+  
+  /* Optimize for print */
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000;
+    background: #fff;
+  }
+  
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+  
+  .container {
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
