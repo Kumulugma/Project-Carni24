@@ -2,14 +2,20 @@
  * CSS Custom Properties - Zmienne globalne
  * Plik: assets/css/base/variables.css
  * Autor: Carni24 Theme
+ * TYLKO ZMIANA KOLORÓW NA #268155 i #b79969
  */
 
 :root {
   /* ===== KOLORY GŁÓWNE ===== */
-  --color-primary: #28a745;
-  --color-primary-dark: #1e7e34;
-  --color-primary-light: #20a745;
-  --color-primary-lighter: rgba(40, 167, 69, 0.1);
+  --color-primary: #268155;
+  --color-primary-dark: #1a5f3f;
+  --color-primary-light: #2d8a5f;
+  --color-primary-lighter: rgba(38, 129, 85, 0.1);
+  
+  /* ===== KOLORY DODATKOWE ===== */
+  --color-secondary: #b79969;
+  --color-secondary-dark: #a08959;
+  --color-secondary-light: #c4a776;
   
   /* ===== KOLORY TŁA ===== */
   --color-bg-light: #f8f9fa;

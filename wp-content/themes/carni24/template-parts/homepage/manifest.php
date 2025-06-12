@@ -3,7 +3,7 @@
  * Template sekcji manifest - popularne wpisy
  * Plik: template-parts/homepage/manifest.php
  * Autor: Carni24 Team
- * POPRAWIONA WERSJA - bez przycisku, poprawiona struktura
+ * POPRAWIONA WERSJA - 4 wpisy w linii, responsive, czas czytania na dole
  */
 
 $args = array(
@@ -31,7 +31,7 @@ if (!$popular_posts->have_posts()) {
 }
 ?>
 
-<section id="manifest" class="manifest-section">
+<section id="manifest" class="manifest-section px-4">
     <div class="container-fluid">
         <!-- Header sekcji -->
         <div class="manifest-header">
@@ -46,7 +46,7 @@ if (!$popular_posts->have_posts()) {
             </div>
         </div>
 
-        <!-- Grid artykułów -->
+        <!-- Grid artykułów - 4 w linii na dużych ekranach -->
         <div class="manifest-grid">
             <div class="row g-4">
                 <?php
@@ -60,8 +60,9 @@ if (!$popular_posts->have_posts()) {
                     $post_views = get_post_meta(get_the_ID(), 'post_views_count', true) ?: 0;
                 ?>
                 
-                <div class="col-lg-6">
-                    <article class="manifest-article" data-aos="fade-up" data-aos-delay="<?= $counter * 100 ?>">
+                <!-- Kolumny responsive: xl=3 (4 wpisy), lg=4 (3 wpisy), md=6 (2 wpisy), sm=12 (1 wpis) -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <article class="manifest-article h-100" data-aos="fade-up" data-aos-delay="<?= $counter * 100 ?>">
                         <a href="<?= esc_url(get_permalink()) ?>" class="manifest-link">
                             
                             <!-- Obrazek -->
@@ -92,27 +93,31 @@ if (!$popular_posts->have_posts()) {
                             
                             <!-- Treść -->
                             <div class="manifest-content">
+                                <!-- Meta informacje górne -->
                                 <div class="manifest-meta">
                                     <span class="manifest-date">
                                         <i class="bi bi-calendar3"></i>
                                         <?= get_the_date('d M Y') ?>
                                     </span>
-                                    <span class="manifest-reading-time">
-                                        <i class="bi bi-clock"></i>
-                                        <?= $reading_time ?> min
-                                    </span>
                                 </div>
                                 
+                                <!-- Tytuł -->
                                 <h3 class="manifest-title-post">
-                                    <?php the_title(); ?>
+                                    <?= esc_html(get_the_title()) ?>
                                 </h3>
                                 
+                                <!-- Excerpt -->
                                 <div class="manifest-excerpt">
-                                    <?= wp_trim_words(get_the_excerpt(), 20, '...') ?>
+                                    <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
                                 </div>
                                 
+                                
+                                <!-- Czas czytania na dole -->
+                                <div class="manifest-reading-time">
+                                    <i class="bi bi-clock"></i>
+                                    <span><?= $reading_time ?> min czytania</span>
+                                </div>
                             </div>
-                            
                         </a>
                     </article>
                 </div>
@@ -122,14 +127,3 @@ if (!$popular_posts->have_posts()) {
         </div>
     </div>
 </section>
-
-<?php
-// Helper function - dodaj do functions.php jeśli nie istnieje
-if (!function_exists('carni24_calculate_reading_time')) {
-    function carni24_calculate_reading_time($content) {
-        $word_count = str_word_count(strip_tags($content));
-        $reading_time = ceil($word_count / 200); // 200 słów na minutę
-        return max(1, $reading_time);
-    }
-}
-?>

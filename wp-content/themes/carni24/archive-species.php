@@ -1,19 +1,13 @@
 <?php
 /**
  * Archive template for Species post type
- * wp-content/themes/carni24/archive-species.php
+ * Plik: archive-species.php
+ * Autor: Carni24 Team
  */
 
 get_header(); ?>
 
-<!-- Dodaj overlay wyszukiwarki -->
-<?php get_template_part('template-parts/search-overlay'); ?>
-
-<main class="species-archive-main">    
-    <!-- Breadcrumbs -->
-    <div class="container py-3">
-        <?php if (function_exists('carni24_breadcrumbs')) carni24_breadcrumbs(); ?>
-    </div>
+<main class="species-archive-main">
     
     <!-- Header sekcji -->
     <section class="species-archive-header py-5">
@@ -21,7 +15,7 @@ get_header(); ?>
             <div class="row">
                 <div class="col-12 text-center">
                     <h1 class="species-archive-title">
-                        <i class="bi bi-flower1 text-success me-3"></i>
+                        <i class="bi bi-flower1 me-3"></i>
                         Gatunki roślin mięsożernych
                     </h1>
                     <p class="species-archive-description lead">
@@ -30,9 +24,20 @@ get_header(); ?>
                     
                     <?php if (have_posts()) : ?>
                         <div class="species-archive-meta">
-                            <span class="badge bg-success fs-6">
+                            <span class="badge bg-white text-success fs-6">
                                 <i class="bi bi-collection me-1"></i>
-                                <?= $wp_query->found_posts ?> <?= _n('gatunek', 'gatunki', $wp_query->found_posts, 'carni24') ?> w kolekcji
+                                <?php
+                                global $wp_query;
+                                echo $wp_query->found_posts . ' ';
+                                if ($wp_query->found_posts == 1) {
+                                    echo 'gatunek';
+                                } elseif ($wp_query->found_posts % 10 >= 2 && $wp_query->found_posts % 10 <= 4 && ($wp_query->found_posts % 100 < 10 || $wp_query->found_posts % 100 >= 20)) {
+                                    echo 'gatunki';
+                                } else {
+                                    echo 'gatunków';
+                                }
+                                echo ' w kolekcji';
+                                ?>
                             </span>
                         </div>
                     <?php endif; ?>
@@ -41,8 +46,8 @@ get_header(); ?>
         </div>
     </section>
     
-    <!-- Lista gatunków -->
-    <section class="species-archive-content pb-5">
+    <!-- Zawartość -->
+    <section class="species-archive-content py-5">
         <div class="container">
             <?php if (have_posts()) : ?>
                 
@@ -52,7 +57,7 @@ get_header(); ?>
                         <div class="col-md-6">
                             <div class="species-view-toggle">
                                 <span class="text-muted me-3">Widok:</span>
-                                <div class="btn-group" role="group" aria-label="Przełącznik widoku">
+                                <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-outline-success btn-sm active" data-view="grid">
                                         <i class="bi bi-grid-3x3-gap"></i> 
                                         <span class="d-none d-sm-inline ms-1">Siatka</span>
@@ -86,61 +91,62 @@ get_header(); ?>
                         $post_count = 0;
                         while (have_posts()) : the_post(); 
                             $post_count++;
+                            
+                            // Meta dane
+                            $scientific_name = get_post_meta(get_the_ID(), '_species_scientific_name', true);
+                            $origin = get_post_meta(get_the_ID(), '_species_origin', true);
+                            $difficulty = get_post_meta(get_the_ID(), '_species_difficulty', true);
+                            $light_requirements = get_post_meta(get_the_ID(), '_species_light', true);
+                            $water_requirements = get_post_meta(get_the_ID(), '_species_water', true);
                         ?>
-                            <div class="col-lg-3 col-md-4 col-sm-6 species-item" data-aos="fade-up" data-aos-delay="<?= ($post_count * 100) ?>">
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 species-item">
                                 <article class="species-card h-100">
-                                    <a href="<?= get_permalink() ?>" class="species-card-link">
-                                        <!-- Okrągły obrazek -->
+                                    <a href="<?= esc_url(get_permalink()) ?>" class="species-card-link">
+                                        
+                                        <!-- Obrazek -->
                                         <div class="species-card-image-wrapper">
-                                            <?php if (has_post_thumbnail()) : ?>
-                                                <div class="species-card-image">
+                                            <div class="species-card-image">
+                                                <?php if (has_post_thumbnail()) : ?>
                                                     <?php the_post_thumbnail('medium', [
                                                         'alt' => get_the_title(),
                                                         'class' => 'species-thumbnail'
                                                     ]); ?>
-                                                </div>
-                                            <?php else : ?>
-                                                <div class="species-card-image species-placeholder">
-                                                    <i class="bi bi-flower1"></i>
-                                                </div>
-                                            <?php endif; ?>
+                                                <?php else : ?>
+                                                    <div class="species-placeholder">
+                                                        <i class="bi bi-flower1"></i>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
                                             
-                                            <!-- Poziom trudności -->
-                                            <?php 
-                                            $difficulty = get_post_meta(get_the_ID(), '_species_difficulty', true);
-                                            if ($difficulty) :
-                                                $difficulty_class = '';
-                                                switch(strtolower($difficulty)) {
-                                                    case 'łatwy':
-                                                        $difficulty_class = 'bg-success';
-                                                        break;
-                                                    case 'średni':
-                                                        $difficulty_class = 'bg-warning';
-                                                        break;
-                                                    case 'trudny':
-                                                        $difficulty_class = 'bg-danger';
-                                                        break;
-                                                    default:
-                                                        $difficulty_class = 'bg-secondary';
-                                                }
-                                            ?>
-                                                <div class="species-difficulty-badge">
-                                                    <span class="badge <?= $difficulty_class ?>">
-                                                        <?= esc_html($difficulty) ?>
-                                                    </span>
+                                            <!-- Badge trudności -->
+                                            <?php if ($difficulty) : ?>
+                                                <div class="species-difficulty-badge difficulty-<?= esc_attr($difficulty) ?>">
+                                                    <?php
+                                                    switch ($difficulty) {
+                                                        case 'easy':
+                                                            echo '<i class="bi bi-1-circle me-1"></i>Łatwy';
+                                                            break;
+                                                        case 'medium':
+                                                            echo '<i class="bi bi-2-circle me-1"></i>Średni';
+                                                            break;
+                                                        case 'hard':
+                                                            echo '<i class="bi bi-3-circle me-1"></i>Trudny';
+                                                            break;
+                                                        default:
+                                                            echo '<i class="bi bi-question-circle me-1"></i>Nieznany';
+                                                    }
+                                                    ?>
                                                 </div>
                                             <?php endif; ?>
                                         </div>
                                         
+                                        <!-- Treść -->
                                         <div class="species-card-content">
                                             <!-- Nazwa gatunku -->
                                             <h3 class="species-card-title"><?php the_title(); ?></h3>
                                             
                                             <!-- Nazwa naukowa -->
-                                            <?php 
-                                            $scientific_name = get_post_meta(get_the_ID(), '_species_scientific_name', true);
-                                            if ($scientific_name) :
-                                            ?>
+                                            <?php if ($scientific_name) : ?>
                                                 <p class="species-scientific-name">
                                                     <em><?= esc_html($scientific_name) ?></em>
                                                 </p>
@@ -148,57 +154,65 @@ get_header(); ?>
                                             
                                             <!-- Krótki opis -->
                                             <p class="species-card-excerpt">
-                                                <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
+                                                <?php
+                                                $excerpt = get_the_excerpt();
+                                                if (empty($excerpt)) {
+                                                    $excerpt = wp_trim_words(get_the_content(), 20);
+                                                }
+                                                echo wp_trim_words($excerpt, 15, '...');
+                                                ?>
                                             </p>
                                             
                                             <!-- Meta informacje -->
                                             <div class="species-card-meta">
-                                                <!-- Pochodzenie -->
-                                                <div class="species-origin">
-                                                    <?php
-                                                    $origin = get_post_meta(get_the_ID(), '_species_origin', true);
-                                                    if ($origin) :
-                                                    ?>
+                                                <?php if ($origin) : ?>
+                                                    <div class="species-origin">
                                                         <small class="text-muted">
                                                             <i class="bi bi-geo-alt me-1"></i>
                                                             <?= esc_html($origin) ?>
                                                         </small>
-                                                    <?php endif; ?>
-                                                </div>
+                                                    </div>
+                                                <?php endif; ?>
                                                 
-                                                <!-- Rozmiar -->
-                                                <div class="species-size">
-                                                    <?php
-                                                    $size = get_post_meta(get_the_ID(), '_species_size', true);
-                                                    if ($size) :
-                                                    ?>
+                                                <?php if ($light_requirements) : ?>
+                                                    <div class="species-light">
                                                         <small class="text-muted">
-                                                            <i class="bi bi-arrows-angle-expand me-1"></i>
-                                                            <?= esc_html($size) ?>
+                                                            <i class="bi bi-sun me-1"></i>
+                                                            Światło: <?= esc_html($light_requirements) ?>
                                                         </small>
-                                                    <?php endif; ?>
-                                                </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                                
+                                                <?php if ($water_requirements) : ?>
+                                                    <div class="species-water">
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-droplet me-1"></i>
+                                                            Woda: <?= esc_html($water_requirements) ?>
+                                                        </small>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                             
-                                            <!-- Cechy specjalne -->
-                                            <?php
-                                            $special_features = get_post_meta(get_the_ID(), '_species_features', true);
-                                            if ($special_features && is_array($special_features)) :
+                                            <!-- Kategorie/Tagi -->
+                                            <?php 
+                                            $terms = get_the_terms(get_the_ID(), 'species_category');
+                                            if ($terms && !is_wp_error($terms)) :
                                             ?>
-                                                <div class="species-features">
-                                                    <?php foreach (array_slice($special_features, 0, 3) as $feature) : ?>
-                                                        <span class="feature-tag"><?= esc_html($feature) ?></span>
+                                                <div class="species-categories">
+                                                    <?php foreach (array_slice($terms, 0, 2) as $term) : ?>
+                                                        <span class="species-category-tag">
+                                                            <?= esc_html($term->name) ?>
+                                                        </span>
                                                     <?php endforeach; ?>
                                                 </div>
                                             <?php endif; ?>
                                             
-                                            <!-- Przycisk CTA -->
-                                            <div class="species-card-action">
-                                                <span class="btn btn-light btn-sm">
-                                                    <i class="bi bi-info-circle me-1"></i>
-                                                    Poznaj gatunek
-                                                    <i class="bi bi-arrow-right ms-1"></i>
-                                                </span>
+                                            <!-- Data dodania -->
+                                            <div class="species-date">
+                                                <small class="text-muted">
+                                                    <i class="bi bi-calendar3 me-1"></i>
+                                                    Dodano: <?= get_the_date('d.m.Y') ?>
+                                                </small>
                                             </div>
                                         </div>
                                     </a>
@@ -209,178 +223,108 @@ get_header(); ?>
                 </div>
                 
                 <!-- Paginacja -->
-                <div class="species-pagination mt-5">
-                    <div class="row">
-                        <div class="col-12">
-                            <?php
-                            $big = 999999999; // potrzebne dla str_replace
-                            $pagination_links = paginate_links([
-                                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-                                'format' => '?paged=%#%',
-                                'current' => max(1, get_query_var('paged')),
-                                'total' => $wp_query->max_num_pages,
-                                'prev_text' => '<i class="bi bi-chevron-left me-1"></i>Poprzednia',
-                                'next_text' => 'Następna<i class="bi bi-chevron-right ms-1"></i>',
-                                'type' => 'array',
-                                'show_all' => false,
-                                'mid_size' => 2,
-                                'end_size' => 1,
-                            ]);
-
-                            if ($pagination_links) :
-                            ?>
-                                <nav aria-label="Paginacja gatunków" class="d-flex justify-content-center">
-                                    <ul class="pagination">
-                                        <?php foreach ($pagination_links as $link) : ?>
-                                            <li class="page-item <?= strpos($link, 'current') !== false ? 'active' : '' ?>">
-                                                <?= str_replace('page-numbers', 'page-link', $link) ?>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </nav>
-                            <?php endif; ?>
-                        </div>
+                <?php if ($wp_query->max_num_pages > 1) : ?>
+                    <div class="species-pagination mt-5 d-flex justify-content-center">
+                        <?php
+                        echo paginate_links(array(
+                            'total' => $wp_query->max_num_pages,
+                            'current' => max(1, get_query_var('paged')),
+                            'format' => '?paged=%#%',
+                            'show_all' => false,
+                            'end_size' => 1,
+                            'mid_size' => 2,
+                            'prev_next' => true,
+                            'prev_text' => '<i class="bi bi-chevron-left"></i> Poprzednia',
+                            'next_text' => 'Następna <i class="bi bi-chevron-right"></i>',
+                            'add_args' => false,
+                            'add_fragment' => '',
+                            'type' => 'plain'
+                        ));
+                        ?>
                     </div>
-                </div>
+                <?php endif; ?>
                 
             <?php else : ?>
                 
                 <!-- Brak gatunków -->
                 <div class="no-species-found text-center py-5">
                     <div class="no-species-icon mb-4">
-                        <i class="bi bi-search display-1 text-muted"></i>
+                        <i class="bi bi-flower1 display-1 text-muted"></i>
                     </div>
-                    <h2 class="no-species-title h4 mb-3">Brak gatunków do wyświetlenia</h2>
-                    <p class="no-species-description text-muted mb-4">
-                        Nie znaleźliśmy żadnych gatunków roślin mięsożernych. 
-                        <br>Sprawdź później lub <a href="<?= home_url('/kontakt/') ?>">skontaktuj się z nami</a>.
+                    <h3 class="no-species-title">Brak gatunków</h3>
+                    <p class="no-species-description text-muted">
+                        Nie znaleziono żadnych gatunków do wyświetlenia.
+                        <br>Sprawdź później lub przeglądaj inne sekcje witryny.
                     </p>
-                    <div class="no-species-actions">
-                        <a href="<?= home_url() ?>" class="btn btn-success me-3">
-                            <i class="bi bi-house me-2"></i>
-                            Strona główna
-                        </a>
-                        <a href="<?= get_permalink(get_option('page_for_posts')) ?>" class="btn btn-outline-success">
-                            <i class="bi bi-journal-text me-2"></i>
-                            Czytaj artykuły
-                        </a>
-                    </div>
                 </div>
                 
             <?php endif; ?>
         </div>
     </section>
     
-    <!-- Sekcja dodatkowa - polecane artykuły -->
-    <?php if (have_posts()) : ?>
-        <section class="related-articles bg-light py-5">
+    <!-- Sekcja powiązanych artykułów -->
+    <?php
+    $related_articles = new WP_Query(array(
+        'post_type' => 'post',
+        'posts_per_page' => 3,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'meta_query' => array(
+            array(
+                'key' => '_post_related_to_species',
+                'value' => '1',
+                'compare' => '='
+            )
+        )
+    ));
+    
+    if ($related_articles->have_posts()) :
+    ?>
+        <section class="related-articles py-5 bg-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 text-center mb-4">
-                        <h2 class="h3">
-                            <i class="bi bi-journal-bookmark text-success me-2"></i>
-                            Przydatne artykuły o uprawie
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="related-articles-title">
+                            <i class="bi bi-journal-text me-2"></i>
+                            Powiązane artykuły
                         </h2>
+                        <p class="related-articles-subtitle text-muted">
+                            Przeczytaj więcej o pielęgnacji i uprawie roślin mięsożernych
+                        </p>
                     </div>
                 </div>
                 <div class="row g-4">
-                    <?php
-                    // Pobierz powiązane artykuły
-                    $related_posts = new WP_Query([
-                        'post_type' => 'post',
-                        'posts_per_page' => 3,
-                        'meta_query' => [
-                            [
-                                'key' => '_related_to_species',
-                                'value' => '1',
-                                'compare' => '='
-                            ]
-                        ],
-                        'orderby' => 'rand'
-                    ]);
-                    
-                    if ($related_posts->have_posts()) :
-                        while ($related_posts->have_posts()) : $related_posts->the_post();
-                    ?>
-                            <div class="col-lg-4">
-                                <article class="related-article-card h-100">
-                                    <a href="<?= esc_url(get_permalink()) ?>" class="text-decoration-none d-block h-100">
-                                        <?php if (has_post_thumbnail()) : ?>
-                                            <div class="related-article-thumbnail-wrapper">
-                                                <?php the_post_thumbnail('medium', [
-                                                    'class' => 'related-article-thumbnail',
-                                                    'alt' => get_the_title()
-                                                ]); ?>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <div class="related-article-content">
-                                            <h3 class="related-article-title"><?php the_title(); ?></h3>
-                                            
-                                            <div class="related-article-meta mb-2">
-                                                <small class="text-muted">
-                                                    <i class="bi bi-calendar3 me-1"></i>
-                                                    <?= get_the_date('d.m.Y') ?>
-                                                </small>
-                                            </div>
-                                            
-                                            <p class="related-article-excerpt">
-                                                <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
-                                            </p>
+                    <?php while ($related_articles->have_posts()) : $related_articles->the_post(); ?>
+                        <div class="col-lg-4 col-md-6">
+                            <article class="related-article-card h-100">
+                                <a href="<?= esc_url(get_permalink()) ?>" class="related-article-link">
+                                    
+                                    <?php if (has_post_thumbnail()) : ?>
+                                        <div class="related-article-thumbnail-wrapper">
+                                            <img src="<?= esc_url(get_the_post_thumbnail_url(get_the_ID(), 'medium')) ?>" 
+                                                 alt="<?= esc_attr(get_the_title()) ?>" 
+                                                 class="related-article-thumbnail">
                                         </div>
-                                    </a>
-                                </article>
-                            </div>
-                    <?php 
-                        endwhile;
-                        wp_reset_postdata();
-                    else :
-                        // Jeśli brak powiązanych, pokaż najnowsze artykuły
-                        $latest_posts = new WP_Query([
-                            'post_type' => 'post',
-                            'posts_per_page' => 3,
-                            'orderby' => 'date',
-                            'order' => 'DESC'
-                        ]);
-                        
-                        if ($latest_posts->have_posts()) :
-                            while ($latest_posts->have_posts()) : $latest_posts->the_post();
-                        ?>
-                                <div class="col-lg-4">
-                                    <article class="related-article-card h-100">
-                                        <a href="<?= esc_url(get_permalink()) ?>" class="text-decoration-none d-block h-100">
-                                            <?php if (has_post_thumbnail()) : ?>
-                                                <div class="related-article-thumbnail-wrapper">
-                                                    <?php the_post_thumbnail('medium', [
-                                                        'class' => 'related-article-thumbnail',
-                                                        'alt' => get_the_title()
-                                                    ]); ?>
-                                                </div>
-                                            <?php endif; ?>
-                                            
-                                            <div class="related-article-content">
-                                                <h3 class="related-article-title"><?php the_title(); ?></h3>
-                                                
-                                                <div class="related-article-meta mb-2">
-                                                    <small class="text-muted">
-                                                        <i class="bi bi-calendar3 me-1"></i>
-                                                        <?= get_the_date('d.m.Y') ?>
-                                                    </small>
-                                                </div>
-                                                
-                                                <p class="related-article-excerpt">
-                                                    <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </article>
-                                </div>
-                        <?php 
-                            endwhile;
-                            wp_reset_postdata();
-                        endif;
-                    endif; 
-                    ?>
+                                    <?php endif; ?>
+                                    
+                                    <div class="related-article-content">
+                                        <h4 class="related-article-title">
+                                            <?= esc_html(get_the_title()) ?>
+                                        </h4>
+                                        <div class="related-article-meta mb-2">
+                                            <small class="text-muted">
+                                                <i class="bi bi-calendar3 me-1"></i>
+                                                <?= get_the_date('d.m.Y') ?>
+                                            </small>
+                                        </div>
+                                        <p class="related-article-excerpt">
+                                            <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
+                                        </p>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    <?php endwhile; wp_reset_postdata(); ?>
                 </div>
             </div>
         </section>
@@ -388,26 +332,100 @@ get_header(); ?>
 </main>
 
 <style>
-/* Dodatkowe style dla archive-species */
-.species-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
+/* ===== SPECIES ARCHIVE STYLES ===== */
+
+.species-archive-main {
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Header */
+.species-archive-header {
+    background: linear-gradient(135deg, #268155 0%, #1a5f3f 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.species-archive-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="1.5" fill="rgba(255,255,255,0.08)"/><circle cx="80" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    animation: floatPattern 25s linear infinite;
+}
+
+.species-archive-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.species-archive-description {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.species-archive-meta .badge {
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Filters */
+.species-filters {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+}
+
+.species-view-toggle .btn {
+    border-color: #268155;
+    color: #268155;
+}
+
+.species-view-toggle .btn.active {
+    background: #268155;
+    color: white;
+}
+
+/* Species Grid */
+.species-grid .species-card {
+    background: white;
     border-radius: 15px;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: inherit;
 }
 
 .species-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    border-color: #28a745;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #268155;
+    text-decoration: none;
+    color: inherit;
 }
 
 .species-card-image-wrapper {
     position: relative;
     padding: 20px;
     text-align: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 .species-card-image {
@@ -416,89 +434,115 @@ get_header(); ?>
     border-radius: 50%;
     margin: 0 auto;
     overflow: hidden;
-    border: 3px solid #f8f9fa;
+    border: 3px solid #e9ecef;
+    position: relative;
 }
 
 .species-thumbnail {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.species-card:hover .species-thumbnail {
+    transform: scale(1.1);
 }
 
 .species-placeholder {
-    background: linear-gradient(135deg, #28a745, #20c997);
+    background: linear-gradient(135deg, #268155, #1a5f3f);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    width: 100%;
+    height: 100%;
 }
 
 .species-difficulty-badge {
     position: absolute;
     top: 10px;
     right: 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.difficulty-easy {
+    background: #d4edda;
+    color: #155724;
+}
+
+.difficulty-medium {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.difficulty-hard {
+    background: #f8d7da;
+    color: #721c24;
 }
 
 .species-card-content {
-    padding: 0 20px 20px;
+    padding: 1.5rem;
     text-align: center;
 }
 
 .species-card-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
 }
 
 .species-scientific-name {
     font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 12px;
+    color: #6b7280;
+    margin-bottom: 1rem;
+    font-style: italic;
 }
 
 .species-card-excerpt {
+    color: #6b7280;
     font-size: 0.85rem;
-    color: #666;
-    line-height: 1.4;
-    margin-bottom: 15px;
+    line-height: 1.5;
+    margin-bottom: 1rem;
 }
 
 .species-card-meta {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
-.species-card-meta small {
-    display: block;
-    margin-bottom: 5px;
+.species-card-meta > div {
+    margin-bottom: 0.25rem;
 }
 
-.species-features {
-    margin-bottom: 15px;
+.species-categories {
+    margin-bottom: 1rem;
 }
 
-.feature-tag {
+.species-category-tag {
     display: inline-block;
-    background: #e9f7ef;
-    color: #28a745;
-    padding: 2px 8px;
+    background: #e8f5f0;
+    color: #268155;
+    padding: 0.25rem 0.5rem;
     border-radius: 12px;
     font-size: 0.75rem;
-    margin: 2px;
+    font-weight: 500;
+    margin: 0.125rem;
 }
 
-.species-card-action .btn {
-    transition: all 0.3s ease;
+.species-date {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 0.75rem;
 }
 
-.species-card:hover .species-card-action .btn {
-    background: #28a745;
-    color: white;
-    border-color: #28a745;
-}
-
-/* Lista view */
+/* List View */
 .species-grid[data-view="list"] .row {
     flex-direction: column;
 }
@@ -511,42 +555,185 @@ get_header(); ?>
 .species-grid[data-view="list"] .species-card {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     text-align: left;
+    max-width: 100%;
+    width: 100%;
 }
 
 .species-grid[data-view="list"] .species-card-image-wrapper {
-    flex: 0 0 150px;
-    padding: 15px;
+    flex: 0 0 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.species-grid[data-view="list"] .species-card-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }
 
 .species-grid[data-view="list"] .species-card-content {
     flex: 1;
     text-align: left;
-    padding: 20px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* Related articles styles */
-.related-article-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    overflow: hidden;
+.species-grid[data-view="list"] .species-card-title {
+    font-size: 1.3rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.species-grid[data-view="list"] .species-scientific-name {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.species-grid[data-view="list"] .species-card-excerpt {
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.species-grid[data-view="list"] .species-card-meta {
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.species-grid[data-view="list"] .species-card-meta > div {
+    margin-bottom: 0;
+}
+
+.species-grid[data-view="list"] .species-categories {
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.species-grid[data-view="list"] .species-date {
+    text-align: left;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 0.5rem;
+    margin-top: auto;
+}
+
+.species-grid[data-view="list"] .species-difficulty-badge {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+}
+
+/* Pagination */
+.species-pagination a,
+.species-pagination span {
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 0 4px;
+    color: #268155;
+    text-decoration: none;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
     transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 45px;
+    text-align: center;
+}
+
+.species-pagination a:hover {
+    background: #268155;
+    color: white;
+    border-color: #268155;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(38, 129, 85, 0.3);
+}
+
+.species-pagination .current {
+    background: #268155;
+    color: white;
+    border-color: #268155;
+    font-weight: 600;
+}
+
+.species-pagination .prev,
+.species-pagination .next {
+    font-weight: 600;
+    padding: 10px 20px;
+}
+
+/* Remove any Bootstrap list styles that might interfere */
+.species-pagination ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+.species-pagination li {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* No Species */
+.no-species-found {
+    background: white;
+    border-radius: 15px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Related Articles */
+.related-articles {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.related-articles-title {
+    color: #268155;
+    font-weight: 700;
+}
+
+.related-article-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
 .related-article-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: #268155;
+    text-decoration: none;
+    color: inherit;
 }
 
 .related-article-thumbnail-wrapper {
     overflow: hidden;
+    height: 200px;
 }
 
 .related-article-thumbnail {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -556,81 +743,95 @@ get_header(); ?>
 }
 
 .related-article-content {
-    padding: 20px;
+    padding: 1.5rem;
 }
 
 .related-article-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
     line-height: 1.3;
 }
 
 .related-article-excerpt {
-    color: #666;
+    color: #6b7280;
     font-size: 0.9rem;
     line-height: 1.5;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Animations */
+@keyframes floatPattern {
+    0% { transform: translateX(-50px); }
+    100% { transform: translateX(calc(100vw + 50px)); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 767.98px) {
+    .species-archive-title {
+        font-size: 2rem;
+    }
+    
+    .species-filters {
+        padding: 1rem;
+    }
+    
+    .species-view-toggle,
+    .species-sort {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
     .species-grid[data-view="list"] .species-card {
         flex-direction: column;
-        text-align: center;
+    }
+    
+    .species-grid[data-view="list"] .species-card-image-wrapper {
+        flex: none;
     }
     
     .species-grid[data-view="list"] .species-card-content {
         text-align: center;
     }
-    
-    .species-card-image {
-        width: 100px;
-        height: 100px;
-    }
 }
 </style>
 
 <script>
+// View toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Przełączanie widoku
     const viewButtons = document.querySelectorAll('[data-view]');
     const speciesGrid = document.getElementById('speciesGrid');
     
-    viewButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const view = this.dataset.view;
-            
-            // Update active button
-            viewButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update grid view
-            speciesGrid.dataset.view = view;
-        });
-    });
-    
-    // Sortowanie (prosty przykład - w prawdziwej implementacji użyj AJAX)
-    const sortSelect = document.getElementById('species-sort-select');
-    if (sortSelect) {
-        sortSelect.addEventListener('change', function() {
-            const sortValue = this.value;
-            // Tutaj możesz dodać logikę AJAX do sortowania
-            console.log('Sortowanie według:', sortValue);
-            
-            // Przykład: odświeżenie strony z parametrem sortowania
-            const url = new URL(window.location);
-            url.searchParams.set('orderby', sortValue);
-            // window.location = url; // Odkomentuj aby włączyć przekierowanie
+    if (viewButtons.length > 0 && speciesGrid) {
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const view = this.getAttribute('data-view');
+                
+                // Update buttons
+                viewButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update grid
+                speciesGrid.setAttribute('data-view', view);
+                
+                // Force re-render for better compatibility
+                speciesGrid.style.display = 'none';
+                speciesGrid.offsetHeight; // trigger reflow
+                speciesGrid.style.display = 'block';
+            });
         });
     }
     
-    // Animacje AOS (jeśli używasz)
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 600,
-            easing: 'ease-out-cubic',
-            once: true
+    // Sort functionality (basic)
+    const sortSelect = document.getElementById('species-sort-select');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            // This would require AJAX to work properly
+            // For now, just reload with parameter
+            const url = new URL(window.location);
+            url.searchParams.set('orderby', this.value);
+            window.location.href = url.toString();
         });
     }
 });

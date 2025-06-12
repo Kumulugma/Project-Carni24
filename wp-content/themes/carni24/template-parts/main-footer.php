@@ -12,7 +12,7 @@
         
         <!-- Główna treść stopki -->
         <div class="footer-content">
-            <div class="row g-5">
+            <div class="row px-5 g-5">
                 
                 <!-- Kolumna 1: O nas -->
                 <div class="col-lg-4 col-md-6">

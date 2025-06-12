@@ -332,6 +332,11 @@ if (is_admin()) {
     require_once CARNI24_THEME_PATH . '/includes/admin.php';
 }
 
+// 6. Custom Post Types
+if (file_exists(CARNI24_THEME_PATH . '/post-types/guides.php')) {
+    require_once CARNI24_THEME_PATH . '/post-types/guides.php';
+}
+
 // ===== HELPER FUNCTIONS ===== //
 
 /**
@@ -535,3 +540,100 @@ function carni24_excerpt_more($more) {
     return '...';
 }
 add_filter('excerpt_more', 'carni24_excerpt_more');
+
+
+// ===== DODAJ TE FUNKCJE DO FUNCTIONS.PHP ===== //
+
+/**
+ * Calculate reading time for articles
+ */
+if (!function_exists('carni24_calculate_reading_time')) {
+    function carni24_calculate_reading_time($content) {
+        $word_count = str_word_count(strip_tags($content));
+        $reading_time = ceil($word_count / 200); // 200 słów na minutę
+        return max(1, $reading_time);
+    }
+}
+
+/**
+ * Get custom excerpt with fallback
+ */
+if (!function_exists('carni24_get_custom_excerpt')) {
+    function carni24_get_custom_excerpt($post_id = null, $fallback_words = 20) {
+        if (!$post_id) {
+            global $post;
+            $post_id = $post->ID;
+        }
+        
+        // Sprawdź czy istnieje custom excerpt
+        $custom_excerpt = get_post_meta($post_id, '_custom_excerpt', true);
+        
+        if (!empty($custom_excerpt)) {
+            return $custom_excerpt;
+        }
+        
+        // Fallback do WordPress excerpt
+        $excerpt = get_the_excerpt($post_id);
+        if (!empty($excerpt)) {
+            return $excerpt;
+        }
+        
+        // Ostatni fallback - fragment treści bez HTML
+        $content = get_post_field('post_content', $post_id);
+        $content = wp_strip_all_tags($content);
+        return wp_trim_words($content, $fallback_words, '...');
+    }
+}
+
+/**
+ * Set post views count
+ */
+if (!function_exists('carni24_set_post_views')) {
+    function carni24_set_post_views($postID) {
+        $count_key = 'post_views_count';
+        $count = get_post_meta($postID, $count_key, true);
+        if($count == '') {
+            $count = 0;
+            delete_post_meta($postID, $count_key);
+            add_post_meta($postID, $count_key, '0');
+        } else {
+            $count++;
+            update_post_meta($postID, $count_key, $count);
+        }
+    }
+}
+
+/**
+ * Track post views automatically
+ */
+if (!function_exists('carni24_track_post_views')) {
+    function carni24_track_post_views($post_id) {
+        if (!is_single()) return;
+        if (empty($post_id)) {
+            global $post;
+            $post_id = $post->ID;    
+        }
+        carni24_set_post_views($post_id);
+    }
+}
+add_action('wp_head', 'carni24_track_post_views');
+
+/**
+ * Add image sizes for the theme
+ */
+if (!function_exists('carni24_add_image_sizes')) {
+    function carni24_add_image_sizes() {
+        // Blog thumbnail
+        add_image_size('blog_thumb', 400, 250, true);
+        
+        // Manifest thumbnail
+        add_image_size('manifest_thumb', 350, 233, true);
+        
+        // Widget thumbnail
+        add_image_size('widget_thumb', 80, 80, true);
+        
+        // Homepage card
+        add_image_size('homepage_card', 400, 300, true);
+    }
+}
+add_action('after_setup_theme', 'carni24_add_image_sizes');

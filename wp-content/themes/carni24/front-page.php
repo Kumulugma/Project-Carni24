@@ -110,7 +110,7 @@ get_header(); ?>
     </section>
 
     <!-- LATEST POSTS SECTION -->
-    <div class="posts-layout-section py-5">
+    <div class="posts-layout-section p-5">
         <div class="container-fluid">
             <div class="row">
                 
@@ -134,8 +134,7 @@ get_header(); ?>
                             'posts_per_page' => 6,
                             'post__not_in' => $slider_post_ids,
                             'orderby' => 'date',
-                            'order' => 'DESC',
-                            'paged' => get_query_var('paged') ? get_query_var('paged') : 1
+                            'order' => 'DESC'
                         ));
                         
                         if ($posts_query->have_posts()) :
@@ -157,6 +156,7 @@ get_header(); ?>
                                             <div class="post-date-badge">
                                                 <span class="day"><?= get_the_date('d') ?></span>
                                                 <span class="month"><?= get_the_date('M') ?></span>
+                                                <span class="year"><?= get_the_date('Y') ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@ get_header(); ?>
                                             <div class="post-meta">
                                                 <span class="post-reading-time">
                                                     <i class="bi bi-clock me-1"></i>
-                                                    <?= $reading_time ?> min
+                                                    <?= $reading_time ?> min czytania
                                                 </span>
                                             </div>
                                         </div>
@@ -198,24 +198,32 @@ get_header(); ?>
                         <?php endif; ?>
                     </div>
                     
-                    <!-- Pagination -->
-                    <?php if ($posts_query->have_posts() && $posts_query->max_num_pages > 1): ?>
-                        <div class="posts-pagination">
+                    <!-- Zobacz więcej wpisów (zamiast paginacji) -->
+                    <?php if ($posts_query->found_posts > 6): ?>
+                        <div class="posts-see-more text-center mt-5">
                             <?php
-                            echo paginate_links(array(
-                                'total' => $posts_query->max_num_pages,
-                                'current' => max(1, get_query_var('paged')),
-                                'format' => '?paged=%#%',
-                                'show_all' => false,
-                                'end_size' => 1,
-                                'mid_size' => 2,
-                                'prev_next' => true,
-                                'prev_text' => '<i class="bi bi-chevron-left"></i> Poprzednia',
-                                'next_text' => 'Następna <i class="bi bi-chevron-right"></i>',
-                                'add_args' => false,
-                                'add_fragment' => '',
+                            // Sprawdź czy istnieje strona z szablonem "Lista wpisów"
+                            $blog_page = get_pages(array(
+                                'meta_key' => '_wp_page_template',
+                                'meta_value' => 'page-blog.php',
+                                'number' => 1
                             ));
+                            
+                            if ($blog_page) {
+                                $blog_url = get_permalink($blog_page[0]->ID);
+                            } else {
+                                // Fallback - strona z wpisami WordPress lub /blog/
+                                $blog_url = get_permalink(get_option('page_for_posts')) ?: home_url('/blog/');
+                            }
                             ?>
+                            <a href="<?= esc_url($blog_url) ?>" 
+                               class="btn btn-success btn-lg px-5 py-3">
+                                <i class="bi bi-arrow-right me-2"></i>
+                                Zobacz wszystkie wpisy
+                                <small class="d-block mt-1 text-white opacity-75">
+                                    Dostępnych jest <?= $posts_query->found_posts ?> artykułów
+                                </small>
+                            </a>
                         </div>
                     <?php endif; wp_reset_postdata(); ?>
                 </div>
@@ -271,19 +279,51 @@ get_header(); ?>
             <div class="row cta-stats text-center">
                 <div class="col-md-4">
                     <div class="stat-item">
-                        <div class="stat-number display-4 fw-bold">250+</div>
+                        <div class="stat-number display-4 fw-bold">
+                            <?php
+                            // Prawdziwa liczba gatunków (species CPT) lub kategorii
+                            $species_count = wp_count_posts('species');
+                            if ($species_count && isset($species_count->publish) && $species_count->publish > 0) {
+                                echo $species_count->publish;
+                            } else {
+                                // Fallback - liczba kategorii wpisów
+                                $categories_count = wp_count_terms('category', array('hide_empty' => true));
+                                echo $categories_count > 0 ? $categories_count : '25';
+                            }
+                            ?>+
+                        </div>
                         <div class="stat-label">Gatunków opisanych</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-item">
-                        <div class="stat-number display-4 fw-bold">1500+</div>
+                        <div class="stat-number display-4 fw-bold">
+                            <?php
+                            // Prawdziwa liczba zdjęć w bibliotece mediów
+                            $media_count = wp_count_posts('attachment');
+                            if ($media_count && isset($media_count->inherit) && $media_count->inherit > 0) {
+                                echo $media_count->inherit;
+                            } else {
+                                echo '150';
+                            }
+                            ?>+
+                        </div>
                         <div class="stat-label">Zdjęć w galerii</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-item">
-                        <div class="stat-number display-4 fw-bold">50+</div>
+                        <div class="stat-number display-4 fw-bold">
+                            <?php
+                            // Prawdziwa liczba poradników (guides CPT)
+                            $guides_count = wp_count_posts('guides');
+                            if ($guides_count && isset($guides_count->publish) && $guides_count->publish > 0) {
+                                echo $guides_count->publish;
+                            } else {
+                                echo 0;
+                            }
+                            ?>+
+                        </div>
                         <div class="stat-label">Poradników uprawy</div>
                     </div>
                 </div>
