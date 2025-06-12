@@ -11,14 +11,14 @@ get_header(); ?>
 
 <main class="single-post-main">
     <!-- Breadcrumbs -->
-    <div class="container py-3">
+    <div class="container-fluid py-3">
         <?php if (function_exists('carni24_breadcrumbs')) carni24_breadcrumbs(); ?>
     </div>
 
     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
         
         <!-- Artykuł -->
-        <article class="article container my-5">
+        <article class="article container-fluid px-5 my-5">
             <!-- Header artykułu -->
             <header class="article-header text-center mb-5">
                 <div class="row justify-content-center">

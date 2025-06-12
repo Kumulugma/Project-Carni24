@@ -110,11 +110,11 @@
         </div>
         
         <!-- Dolna część stopki -->
-        <div class="footer-bottom">
+        <div class="footer-bottom px-5 ">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="footer-copyright">
-                        <span>&copy; <?= date('Y') ?> <?= get_bloginfo('name') ?>. Wszystkie prawa zastrzeżone.</span>
+                        <span>&copy; 2022-<?= date('Y') ?> <?= get_bloginfo('name') ?>. Wszystkie prawa zastrzeżone.</span>
                     </div>
                 </div>
                 <div class="col-md-6">
