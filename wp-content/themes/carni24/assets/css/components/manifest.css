@@ -1,0 +1,381 @@
+/* 
+ * Sekcja Manifest - Popularne wpisy
+ * Plik: assets/css/components/manifest.css
+ * Autor: Carni24 Team
+ */
+
+/* ===== SEKCJA MANIFEST ===== */
+.manifest-section {
+  background: linear-gradient(135deg, var(--color-bg-light) 0%, #f8f9fa 100%);
+  padding: var(--spacing-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.manifest-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(34,197,94,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ===== HEADER SEKCJI ===== */
+.manifest-header {
+  margin-bottom: var(--spacing-3xl);
+  position: relative;
+  z-index: 2;
+}
+
+.manifest-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.manifest-title i {
+  color: var(--color-primary);
+  font-size: var(--font-size-2xl);
+  animation: pulse 2s infinite;
+}
+
+.manifest-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+/* ===== GRID ARTYKUŁÓW ===== */
+.manifest-grid {
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.manifest-article {
+  background: var(--color-bg-white);
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-slow);
+  border: 1px solid var(--color-border-light);
+  height: 100%;
+  position: relative;
+}
+
+.manifest-article:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary);
+}
+
+.manifest-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+/* ===== OBRAZEK ARTYKUŁU ===== */
+.manifest-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.manifest-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+  position: relative;
+}
+
+.manifest-image-placeholder {
+  background: linear-gradient(135deg, var(--color-bg-light), var(--color-bg-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-3xl);
+  width: 100%;
+  height: 100%;
+  object-fit: none;
+}
+
+.manifest-article:hover .manifest-image {
+  transform: scale(1.1);
+}
+
+/* ===== BADGE POPULARNOŚCI ===== */
+.manifest-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(var(--color-primary-rgb), 0.9);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  backdrop-filter: blur(10px);
+  z-index: 3;
+}
+
+.manifest-badge i {
+  font-size: var(--font-size-xs);
+}
+
+/* ===== KATEGORIA ===== */
+.manifest-category {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+  z-index: 3;
+}
+
+/* ===== TREŚĆ ARTYKUŁU ===== */
+.manifest-content {
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.manifest-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.manifest-meta span {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.manifest-meta i {
+  font-size: var(--font-size-xs);
+}
+
+.manifest-title-post {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-tight);
+  transition: color var(--transition-normal);
+}
+
+.manifest-article:hover .manifest-title-post {
+  color: var(--color-primary);
+}
+
+.manifest-excerpt {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+.manifest-author {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.manifest-author img {
+  border-radius: var(--border-radius-full);
+  width: 32px;
+  height: 32px;
+}
+
+.author-name {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+}
+
+/* ===== CALL TO ACTION ===== */
+.manifest-cta {
+  position: relative;
+  z-index: 2;
+  background: var(--color-bg-white);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-3xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-light);
+}
+
+.manifest-cta h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.manifest-cta p {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.newsletter-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter-input {
+  border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+  border: 2px solid var(--color-border-light);
+  padding: var(--spacing-md);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-normal);
+}
+
+.newsletter-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
+}
+
+.newsletter-btn {
+  border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+/* ===== ANIMACJE ===== */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+[data-aos="fade-up"] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-aos="fade-up"].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991.98px) {
+  .manifest-section {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .manifest-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .manifest-title {
+    font-size: var(--font-size-2xl);
+    justify-content: center;
+  }
+  
+  .manifest-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .newsletter-form .d-flex {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .newsletter-input,
+  .newsletter-btn {
+    border-radius: var(--border-radius-lg);
+    width: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .manifest-image-container {
+    height: 200px;
+  }
+  
+  .manifest-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .manifest-title-post {
+    font-size: var(--font-size-lg);
+  }
+  
+  .manifest-cta {
+    padding: var(--spacing-xl);
+  }
+  
+  .manifest-cta h3 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .manifest-badge,
+  .manifest-category {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: var(--spacing-sm) 0;
+    display: inline-block;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .manifest-article,
+  .manifest-image,
+  .manifest-image-overlay,
+  .manifest-title i {
+    transition: none;
+    animation: none;
+  }
+  
+  .manifest-article:hover {
+    transform: none;
+  }
+  
+  .manifest-article:hover .manifest-image {
+    transform: none;
+  }
+  
+  [data-aos] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

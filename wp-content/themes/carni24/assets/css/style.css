@@ -16,8 +16,10 @@
 @import url('./components/buttons.css');
 @import url('./components/navigation.css');
 @import url('./components/hero.css');
+@import url('./components/hero-slider.css'); /* DODANE */
 @import url('./components/cards.css');
 @import url('./components/forms.css');
+@import url('./components/manifest.css'); /* DODANE */
 
 /* ===== LAYOUT STYLES ===== */
 @import url('./layout/grid.css');

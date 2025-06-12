@@ -91,85 +91,68 @@ get_header(); ?>
                                 <article class="species-card h-100">
                                     <a href="<?= get_permalink() ?>" class="species-card-link">
                                         <!-- Okrągły obrazek -->
-                                        <div class="species-card-image">
+                                        <div class="species-card-image-wrapper">
                                             <?php if (has_post_thumbnail()) : ?>
-                                                <?= get_the_post_thumbnail(get_the_ID(), 'species_card', array(
-                                                    'class' => 'species-image',
-                                                    'loading' => 'lazy',
-                                                    'alt' => get_the_title()
-                                                )) ?>
+                                                <div class="species-card-image">
+                                                    <?php the_post_thumbnail('medium', [
+                                                        'alt' => get_the_title(),
+                                                        'class' => 'species-thumbnail'
+                                                    ]); ?>
+                                                </div>
                                             <?php else : ?>
-                                                <div class="species-image-placeholder">
+                                                <div class="species-card-image species-placeholder">
                                                     <i class="bi bi-flower1"></i>
                                                 </div>
                                             <?php endif; ?>
                                             
-                                            <!-- Badge kategorii -->
-                                            <?php
-                                            $species_categories = get_the_terms(get_the_ID(), 'species_category');
-                                            if ($species_categories && !is_wp_error($species_categories)) :
-                                                $primary_category = $species_categories[0];
+                                            <!-- Poziom trudności -->
+                                            <?php 
+                                            $difficulty = get_post_meta(get_the_ID(), '_species_difficulty', true);
+                                            if ($difficulty) :
+                                                $difficulty_class = '';
+                                                switch(strtolower($difficulty)) {
+                                                    case 'łatwy':
+                                                        $difficulty_class = 'bg-success';
+                                                        break;
+                                                    case 'średni':
+                                                        $difficulty_class = 'bg-warning';
+                                                        break;
+                                                    case 'trudny':
+                                                        $difficulty_class = 'bg-danger';
+                                                        break;
+                                                    default:
+                                                        $difficulty_class = 'bg-secondary';
+                                                }
                                             ?>
-                                                <div class="species-category-badge">
-                                                    <span class="badge bg-success">
-                                                        <?= esc_html($primary_category->name) ?>
+                                                <div class="species-difficulty-badge">
+                                                    <span class="badge <?= $difficulty_class ?>">
+                                                        <?= esc_html($difficulty) ?>
                                                     </span>
                                                 </div>
                                             <?php endif; ?>
-                                            
-                                            <!-- Overlay na hover -->
-                                            <div class="species-image-overlay">
-                                                <i class="bi bi-eye-fill"></i>
-                                            </div>
                                         </div>
                                         
-                                        <!-- Treść karty -->
                                         <div class="species-card-content">
-                                            <h3 class="species-card-title">
-                                                <?= get_the_title() ?>
-                                            </h3>
+                                            <!-- Nazwa gatunku -->
+                                            <h3 class="species-card-title"><?php the_title(); ?></h3>
                                             
-                                            <!-- Nazwa łacińska -->
+                                            <!-- Nazwa naukowa -->
                                             <?php 
-                                            $latin_name = get_post_meta(get_the_ID(), '_species_latin_name', true);
-                                            if ($latin_name) :
+                                            $scientific_name = get_post_meta(get_the_ID(), '_species_scientific_name', true);
+                                            if ($scientific_name) :
                                             ?>
-                                                <div class="species-latin-name">
-                                                    <em><?= esc_html($latin_name) ?></em>
-                                                </div>
+                                                <p class="species-scientific-name">
+                                                    <em><?= esc_html($scientific_name) ?></em>
+                                                </p>
                                             <?php endif; ?>
                                             
-                                            <div class="species-card-excerpt">
-                                                <?php
-                                                $description = function_exists('carni24_get_card_description') 
-                                                    ? carni24_get_card_description(get_the_ID(), 15)
-                                                    : wp_trim_words(get_the_excerpt(), 15, '...');
-                                                echo $description;
-                                                ?>
-                                            </div>
+                                            <!-- Krótki opis -->
+                                            <p class="species-card-excerpt">
+                                                <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
+                                            </p>
                                             
-                                            <!-- Meta info -->
+                                            <!-- Meta informacje -->
                                             <div class="species-card-meta">
-                                                <!-- Poziom trudności -->
-                                                <div class="species-difficulty">
-                                                    <?php
-                                                    $difficulty = get_post_meta(get_the_ID(), '_species_difficulty', true);
-                                                    $difficulty_levels = array(
-                                                        'easy' => array('icon' => '🟢', 'label' => 'Łatwy', 'class' => 'easy'),
-                                                        'medium' => array('icon' => '🟡', 'label' => 'Średni', 'class' => 'medium'),
-                                                        'hard' => array('icon' => '🔴', 'label' => 'Trudny', 'class' => 'hard')
-                                                    );
-                                                    
-                                                    if ($difficulty && isset($difficulty_levels[$difficulty])) :
-                                                        $level = $difficulty_levels[$difficulty];
-                                                    ?>
-                                                        <span class="difficulty-badge difficulty-<?= $level['class'] ?>" 
-                                                              title="Poziom trudności uprawy: <?= $level['label'] ?>">
-                                                            <?= $level['icon'] ?> <?= $level['label'] ?>
-                                                        </span>
-                                                    <?php endif; ?>
-                                                </div>
-                                                
                                                 <!-- Pochodzenie -->
                                                 <div class="species-origin">
                                                     <?php
@@ -230,20 +213,28 @@ get_header(); ?>
                     <div class="row">
                         <div class="col-12">
                             <?php
-                            $pagination = paginate_links(array(
-                                'prev_text' => '<i class="bi bi-chevron-left"></i> <span class="d-none d-sm-inline">Poprzednie</span>',
-                                'next_text' => '<span class="d-none d-sm-inline">Następne</span> <i class="bi bi-chevron-right"></i>',
-                                'type' => 'array',
+                            $big = 999999999; // potrzebne dla str_replace
+                            $pagination_links = paginate_links([
+                                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                                'format' => '?paged=%#%',
                                 'current' => max(1, get_query_var('paged')),
-                                'total' => $wp_query->max_num_pages
-                            ));
-                            
-                            if ($pagination) :
+                                'total' => $wp_query->max_num_pages,
+                                'prev_text' => '<i class="bi bi-chevron-left me-1"></i>Poprzednia',
+                                'next_text' => 'Następna<i class="bi bi-chevron-right ms-1"></i>',
+                                'type' => 'array',
+                                'show_all' => false,
+                                'mid_size' => 2,
+                                'end_size' => 1,
+                            ]);
+
+                            if ($pagination_links) :
                             ?>
-                                <nav aria-label="Nawigacja stron gatunków">
-                                    <ul class="pagination justify-content-center">
-                                        <?php foreach ($pagination as $page) : ?>
-                                            <li class="page-item"><?= $page ?></li>
+                                <nav aria-label="Paginacja gatunków" class="d-flex justify-content-center">
+                                    <ul class="pagination">
+                                        <?php foreach ($pagination_links as $link) : ?>
+                                            <li class="page-item <?= strpos($link, 'current') !== false ? 'active' : '' ?>">
+                                                <?= str_replace('page-numbers', 'page-link', $link) ?>
+                                            </li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </nav>
@@ -256,17 +247,12 @@ get_header(); ?>
                 
                 <!-- Brak gatunków -->
                 <div class="no-species-found text-center py-5">
-                    <div class="no-species-animation mb-4">
-                        <i class="bi bi-flower1 display-1 text-muted"></i>
-                        <div class="floating-leaves">
-                            <span>🍃</span>
-                            <span>🌿</span>
-                            <span>🍃</span>
-                        </div>
+                    <div class="no-species-icon mb-4">
+                        <i class="bi bi-search display-1 text-muted"></i>
                     </div>
-                    <h3 class="text-muted mb-3">Brak gatunków</h3>
-                    <p class="text-muted mb-4">
-                        Nie znaleziono żadnych gatunków roślin mięsożernych. 
+                    <h2 class="no-species-title h4 mb-3">Brak gatunków do wyświetlenia</h2>
+                    <p class="no-species-description text-muted mb-4">
+                        Nie znaleźliśmy żadnych gatunków roślin mięsożernych. 
                         <br>Sprawdź później lub <a href="<?= home_url('/kontakt/') ?>">skontaktuj się z nami</a>.
                     </p>
                     <div class="no-species-actions">
@@ -300,52 +286,100 @@ get_header(); ?>
                 <div class="row g-4">
                     <?php
                     // Pobierz powiązane artykuły
-                    $related_posts = new WP_Query(array(
+                    $related_posts = new WP_Query([
                         'post_type' => 'post',
                         'posts_per_page' => 3,
-                        'meta_query' => array(
-                            array(
+                        'meta_query' => [
+                            [
                                 'key' => '_related_to_species',
                                 'value' => '1',
                                 'compare' => '='
-                            )
-                        ),
+                            ]
+                        ],
                         'orderby' => 'rand'
-                    ));
+                    ]);
                     
                     if ($related_posts->have_posts()) :
                         while ($related_posts->have_posts()) : $related_posts->the_post();
                     ?>
-                        <div class="col-md-4">
-                            <article class="related-article-card">
-                                <a href="<?= get_permalink() ?>" class="text-decoration-none">
-                                    <?php if (has_post_thumbnail()) : ?>
-                                        <div class="related-article-image">
-                                            <?= get_the_post_thumbnail(get_the_ID(), 'medium', array(
-                                                'class' => 'img-fluid',
-                                                'loading' => 'lazy'
-                                            )) ?>
+                            <div class="col-lg-4">
+                                <article class="related-article-card h-100">
+                                    <a href="<?= esc_url(get_permalink()) ?>" class="text-decoration-none d-block h-100">
+                                        <?php if (has_post_thumbnail()) : ?>
+                                            <div class="related-article-thumbnail-wrapper">
+                                                <?php the_post_thumbnail('medium', [
+                                                    'class' => 'related-article-thumbnail',
+                                                    'alt' => get_the_title()
+                                                ]); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <div class="related-article-content">
+                                            <h3 class="related-article-title"><?php the_title(); ?></h3>
+                                            
+                                            <div class="related-article-meta mb-2">
+                                                <small class="text-muted">
+                                                    <i class="bi bi-calendar3 me-1"></i>
+                                                    <?= get_the_date('d.m.Y') ?>
+                                                </small>
+                                            </div>
+                                            
+                                            <p class="related-article-excerpt">
+                                                <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
+                                            </p>
                                         </div>
-                                    <?php endif; ?>
-                                    <div class="related-article-content">
-                                        <h4 class="related-article-title"><?= get_the_title() ?></h4>
-                                        <p class="related-article-excerpt">
-                                            <?= wp_trim_words(get_the_excerpt(), 12, '...') ?>
-                                        </p>
-                                        <div class="related-article-meta">
-                                            <small class="text-muted">
-                                                <i class="bi bi-calendar3 me-1"></i>
-                                                <?= get_the_date() ?>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                    <?php
+                                    </a>
+                                </article>
+                            </div>
+                    <?php 
                         endwhile;
                         wp_reset_postdata();
-                    endif;
+                    else :
+                        // Jeśli brak powiązanych, pokaż najnowsze artykuły
+                        $latest_posts = new WP_Query([
+                            'post_type' => 'post',
+                            'posts_per_page' => 3,
+                            'orderby' => 'date',
+                            'order' => 'DESC'
+                        ]);
+                        
+                        if ($latest_posts->have_posts()) :
+                            while ($latest_posts->have_posts()) : $latest_posts->the_post();
+                        ?>
+                                <div class="col-lg-4">
+                                    <article class="related-article-card h-100">
+                                        <a href="<?= esc_url(get_permalink()) ?>" class="text-decoration-none d-block h-100">
+                                            <?php if (has_post_thumbnail()) : ?>
+                                                <div class="related-article-thumbnail-wrapper">
+                                                    <?php the_post_thumbnail('medium', [
+                                                        'class' => 'related-article-thumbnail',
+                                                        'alt' => get_the_title()
+                                                    ]); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            
+                                            <div class="related-article-content">
+                                                <h3 class="related-article-title"><?php the_title(); ?></h3>
+                                                
+                                                <div class="related-article-meta mb-2">
+                                                    <small class="text-muted">
+                                                        <i class="bi bi-calendar3 me-1"></i>
+                                                        <?= get_the_date('d.m.Y') ?>
+                                                    </small>
+                                                </div>
+                                                
+                                                <p class="related-article-excerpt">
+                                                    <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </article>
+                                </div>
+                        <?php 
+                            endwhile;
+                            wp_reset_postdata();
+                        endif;
+                    endif; 
                     ?>
                 </div>
             </div>
@@ -353,145 +387,252 @@ get_header(); ?>
     <?php endif; ?>
 </main>
 
-<!-- JavaScript dla funkcjonalności -->
+<style>
+/* Dodatkowe style dla archive-species */
+.species-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.species-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #28a745;
+}
+
+.species-card-image-wrapper {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+}
+
+.species-card-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 3px solid #f8f9fa;
+}
+
+.species-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.species-placeholder {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.species-difficulty-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.species-card-content {
+    padding: 0 20px 20px;
+    text-align: center;
+}
+
+.species-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.species-scientific-name {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.species-card-excerpt {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+.species-card-meta {
+    margin-bottom: 15px;
+}
+
+.species-card-meta small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.species-features {
+    margin-bottom: 15px;
+}
+
+.feature-tag {
+    display: inline-block;
+    background: #e9f7ef;
+    color: #28a745;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin: 2px;
+}
+
+.species-card-action .btn {
+    transition: all 0.3s ease;
+}
+
+.species-card:hover .species-card-action .btn {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+/* Lista view */
+.species-grid[data-view="list"] .row {
+    flex-direction: column;
+}
+
+.species-grid[data-view="list"] .species-item {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.species-grid[data-view="list"] .species-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+}
+
+.species-grid[data-view="list"] .species-card-image-wrapper {
+    flex: 0 0 150px;
+    padding: 15px;
+}
+
+.species-grid[data-view="list"] .species-card-content {
+    flex: 1;
+    text-align: left;
+    padding: 20px;
+}
+
+/* Related articles styles */
+.related-article-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.related-article-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.related-article-thumbnail-wrapper {
+    overflow: hidden;
+}
+
+.related-article-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.related-article-card:hover .related-article-thumbnail {
+    transform: scale(1.05);
+}
+
+.related-article-content {
+    padding: 20px;
+}
+
+.related-article-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.related-article-excerpt {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .species-grid[data-view="list"] .species-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .species-grid[data-view="list"] .species-card-content {
+        text-align: center;
+    }
+    
+    .species-card-image {
+        width: 100px;
+        height: 100px;
+    }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // View toggle
+    // Przełączanie widoku
     const viewButtons = document.querySelectorAll('[data-view]');
     const speciesGrid = document.getElementById('speciesGrid');
     
     viewButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const view = this.getAttribute('data-view');
+            const view = this.dataset.view;
             
-            // Usuń active z wszystkich przycisków
+            // Update active button
             viewButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Dodaj active do klikniętego
             this.classList.add('active');
             
-            // Zmień widok z animacją
-            speciesGrid.style.opacity = '0.7';
-            speciesGrid.style.transform = 'scale(0.98)';
-            
-            setTimeout(() => {
-                speciesGrid.setAttribute('data-view', view);
-                speciesGrid.style.opacity = '1';
-                speciesGrid.style.transform = 'scale(1)';
-            }, 200);
-            
-            // Zapisz preferencję w localStorage (jeśli dostępne)
-            try {
-                localStorage.setItem('species_view_preference', view);
-            } catch (e) {
-                console.log('localStorage not available');
-            }
+            // Update grid view
+            speciesGrid.dataset.view = view;
         });
     });
     
-    // Przywróć zapisaną preferencję widoku
-    try {
-        const savedView = localStorage.getItem('species_view_preference');
-        if (savedView) {
-            const button = document.querySelector(`[data-view="${savedView}"]`);
-            if (button) {
-                button.click();
-            }
-        }
-    } catch (e) {
-        console.log('localStorage not available');
-    }
-    
-    // Sort functionality
+    // Sortowanie (prosty przykład - w prawdziwej implementacji użyj AJAX)
     const sortSelect = document.getElementById('species-sort-select');
     if (sortSelect) {
         sortSelect.addEventListener('change', function() {
-            const sortBy = this.value;
-            const items = Array.from(document.querySelectorAll('.species-item'));
-            const container = document.querySelector('.species-grid .row');
+            const sortValue = this.value;
+            // Tutaj możesz dodać logikę AJAX do sortowania
+            console.log('Sortowanie według:', sortValue);
             
-            // Animacja fade out
-            items.forEach(item => {
-                item.style.opacity = '0.5';
-                item.style.transform = 'translateY(10px)';
-            });
-            
-            setTimeout(() => {
-                // Sortuj elementy
-                items.sort((a, b) => {
-                    const titleA = a.querySelector('.species-card-title').textContent.trim();
-                    const titleB = b.querySelector('.species-card-title').textContent.trim();
-                    
-                    switch (sortBy) {
-                        case 'title':
-                            return titleA.localeCompare(titleB);
-                        case 'title-desc':
-                            return titleB.localeCompare(titleA);
-                        case 'difficulty':
-                            const diffA = a.querySelector('.difficulty-badge')?.textContent || 'zzz';
-                            const diffB = b.querySelector('.difficulty-badge')?.textContent || 'zzz';
-                            return diffA.localeCompare(diffB);
-                        case 'date':
-                        default:
-                            return 0;
-                    }
-                });
-                
-                // Usuń wszystkie elementy i dodaj w nowej kolejności
-                items.forEach(item => container.removeChild(item));
-                items.forEach(item => container.appendChild(item));
-                
-                // Animacja fade in
-                setTimeout(() => {
-                    items.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'translateY(0)';
-                        }, index * 50);
-                    });
-                }, 100);
-            }, 300);
+            // Przykład: odświeżenie strony z parametrem sortowania
+            const url = new URL(window.location);
+            url.searchParams.set('orderby', sortValue);
+            // window.location = url; // Odkomentuj aby włączyć przekierowanie
         });
     }
     
-    // Animacja licznika w header
-    const countBadge = document.querySelector('.species-archive-meta .badge');
-    if (countBadge) {
-        const countText = countBadge.textContent;
-        const countMatch = countText.match(/(\d+)/);
-        
-        if (countMatch) {
-            const finalCount = parseInt(countMatch[1]);
-            let currentCount = 0;
-            const increment = Math.ceil(finalCount / 30);
-            
-            const countAnimation = setInterval(() => {
-                currentCount += increment;
-                if (currentCount >= finalCount) {
-                    currentCount = finalCount;
-                    clearInterval(countAnimation);
-                }
-                
-                countBadge.innerHTML = countBadge.innerHTML.replace(/\d+/, currentCount);
-            }, 50);
-        }
-    }
-    
-    // Smooth scroll dla paginacji
-    const paginationLinks = document.querySelectorAll('.species-pagination .page-link');
-    paginationLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (this.href && this.href.includes('#')) return;
-            
-            // Smooth scroll do góry po kliknięciu
-            setTimeout(() => {
-                window.scrollTo({
-                    top: document.querySelector('.species-archive-header').offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }, 100);
+    // Animacje AOS (jeśli używasz)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 600,
+            easing: 'ease-out-cubic',
+            once: true
         });
-    });
+    }
 });
 </script>
 
