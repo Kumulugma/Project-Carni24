@@ -1,0 +1,570 @@
+/* 
+ * Styles for single species and guides templates
+ * File: wp-content/themes/carni24/assets/css/pages/single-cpt.css
+ * Author: Carni24 Team
+ */
+
+/* ===== COMMON STYLES FOR SPECIES AND GUIDES ===== */
+
+/* Breadcrumbs */
+.breadcrumbs-section {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+}
+
+.breadcrumbs-nav {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.breadcrumbs-nav a {
+  color: #268155;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs-nav a:hover {
+  color: #1e6b47;
+  text-decoration: underline;
+}
+
+/* Main content sections */
+.species-content-section,
+.guide-content-section {
+  padding: 2rem 0;
+  min-height: 60vh;
+}
+
+/* Article containers */
+.species-article,
+.guide-article {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+/* Headers */
+.species-header,
+.guide-header {
+  background: linear-gradient(135deg, #268155 0%, #1e6b47 100%);
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.species-header::before,
+.guide-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  opacity: 0.3;
+}
+
+.species-title,
+.guide-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.species-scientific-name {
+  font-size: 1.25rem;
+  font-style: italic;
+  opacity: 0.9;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Main content areas */
+.species-main-content,
+.guide-main-content {
+  padding: 2rem;
+}
+
+.species-content-wrapper,
+.guide-content-wrapper {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.species-content-wrapper h2,
+.species-content-wrapper h3,
+.species-content-wrapper h4,
+.guide-content-wrapper h2,
+.guide-content-wrapper h3,
+.guide-content-wrapper h4 {
+  color: #268155;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.species-content-wrapper h2,
+.guide-content-wrapper h2 {
+  font-size: 1.75rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  position: relative;
+}
+
+.species-content-wrapper h2::after,
+.guide-content-wrapper h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: #268155;
+}
+
+/* Sidebar styles */
+.species-sidebar,
+.guide-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Featured image */
+.species-featured-image {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.species-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Meta boxes */
+.species-meta-box,
+.guide-meta-box,
+.guide-categories-box,
+.guide-tags-box {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.species-meta-box h4,
+.guide-meta-box h4,
+.guide-categories-box h4,
+.guide-tags-box h4 {
+  color: #268155;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.meta-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.meta-item:last-child {
+  border-bottom: none;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: #495057;
+  flex: 0 0 40%;
+}
+
+.meta-value {
+  color: #6c757d;
+  text-align: right;
+  flex: 1;
+}
+
+/* ===== SPECIES-SPECIFIC STYLES ===== */
+
+/* Gallery */
+.species-gallery-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.species-gallery-section h3 {
+  color: #268155;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.species-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Map section */
+.species-map-section {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.species-map-section h4 {
+  color: #268155;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.map-placeholder {
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.map-placeholder img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.map-placeholder-content {
+  background: #fff;
+  border: 2px dashed #dee2e6;
+  border-radius: 0.375rem;
+  padding: 2rem;
+  text-align: center;
+  color: #6c757d;
+}
+
+/* ===== GUIDES-SPECIFIC STYLES ===== */
+
+/* Guide meta info in header */
+.guide-meta-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.guide-difficulty-badge {
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.difficulty-beginner {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.difficulty-intermediate {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.difficulty-advanced {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.guide-duration,
+.guide-season {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.guide-duration i,
+.guide-season i {
+  margin-right: 0.25rem;
+}
+
+/* Categories and tags */
+.categories-list,
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-link,
+.tag-link {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: #268155;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.category-link:hover,
+.tag-link:hover {
+  background: #1e6b47;
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.tag-link {
+  background: #6c757d;
+}
+
+.tag-link:hover {
+  background: #5a6268;
+}
+
+/* ===== FOOTER SECTIONS ===== */
+
+.species-footer,
+.guide-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.species-bibliography,
+.guide-bibliography {
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.species-bibliography h3,
+.guide-bibliography h3 {
+  color: #268155;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+  position: relative;
+}
+
+.species-bibliography h3::after,
+.guide-bibliography h3::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: #268155;
+}
+
+.bibliography-content {
+  line-height: 1.6;
+  color: #495057;
+}
+
+.bibliography-content ul,
+.bibliography-content ol {
+  padding-left: 1.5rem;
+}
+
+.bibliography-content li {
+  margin-bottom: 0.5rem;
+}
+
+.bibliography-placeholder {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 991.98px) {
+  .species-title,
+  .guide-title {
+    font-size: 2rem;
+  }
+  
+  .species-scientific-name {
+    font-size: 1.125rem;
+  }
+  
+  .species-main-content,
+  .guide-main-content {
+    padding: 1rem;
+  }
+  
+  .species-sidebar,
+  .guide-sidebar {
+    margin-top: 2rem;
+  }
+  
+  .guide-meta-info {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .species-header,
+  .guide-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .species-title,
+  .guide-title {
+    font-size: 1.75rem;
+  }
+  
+  .species-scientific-name {
+    font-size: 1rem;
+  }
+  
+  .species-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .gallery-item img {
+    height: 100px;
+  }
+  
+  .meta-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .meta-label {
+    flex: none;
+  }
+  
+  .meta-value {
+    text-align: left;
+    flex: none;
+  }
+  
+  .categories-list,
+  .tags-list {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .breadcrumbs-section {
+    padding: 0.75rem 0;
+  }
+  
+  .species-content-section,
+  .guide-content-section {
+    padding: 1rem 0;
+  }
+  
+  .species-main-content,
+  .guide-main-content {
+    padding: 0.5rem;
+  }
+  
+  .species-content-wrapper,
+  .guide-content-wrapper {
+    padding: 1rem;
+  }
+  
+  .species-meta-box,
+  .guide-meta-box,
+  .guide-categories-box,
+  .guide-tags-box {
+    padding: 1rem;
+  }
+  
+  .species-footer,
+  .guide-footer {
+    padding: 1rem;
+  }
+  
+  .species-bibliography,
+  .guide-bibliography {
+    padding: 1rem;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .breadcrumbs-section,
+  .species-sidebar,
+  .guide-sidebar {
+    display: none;
+  }
+  
+  .species-main-content .col-lg-8,
+  .guide-main-content .col-lg-8 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .species-header,
+  .guide-header {
+    background: #fff !important;
+    color: #000 !important;
+    border-bottom: 2px solid #268155;
+  }
+  
+  .species-title,
+  .guide-title {
+    color: #268155 !important;
+  }
+}

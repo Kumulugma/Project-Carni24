@@ -143,12 +143,6 @@ function carni24_disable_comments_row_actions($actions) {
 add_filter('post_row_actions', 'carni24_disable_comments_row_actions', 10, 1);
 add_filter('page_row_actions', 'carni24_disable_comments_row_actions', 10, 1);
 
-// Wyłącz REST API endpoints dla komentarzy
-function carni24_disable_comments_rest_api() {
-    // Usuń endpoint komentarzy
-    remove_action('rest_api_init', 'create_initial_rest_routes', 99);
-}
-add_action('rest_api_init', 'carni24_disable_comments_rest_api', 9);
 
 // Filtruj REST API aby usunąć endpoints komentarzy
 function carni24_filter_rest_endpoints($endpoints) {

@@ -1,209 +1,251 @@
 /* 
- * Species Archive - Style strony gatunków
- * Plik: assets/css/pages/species-archive.css
- * Autor: Carni24 Team
+ * Species Archive Styles
+ * wp-content/themes/carni24/assets/css/pages/species-archive.css
  */
 
-/* ===== SPECIES ARCHIVE MAIN ===== */
-.species-archive-main {
-  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
-  min-height: 60vh;
-  position: relative;
-}
-
-.species-archive-main::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="leaves" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10,2 Q15,10 10,18 Q5,10 10,2 Z" fill="rgba(22,163,74,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23leaves)"/></svg>');
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-/* ===== SPECIES HEADER ===== */
-.species-archive-header {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-  color: white;
+/* ===== HERO SECTION ===== */
+.species-archive-hero {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  padding: 4rem 0;
   position: relative;
   overflow: hidden;
 }
 
-.species-archive-header::before {
+.species-archive-hero::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="1.5" fill="rgba(255,255,255,0.08)"/><circle cx="80" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-  animation: floatSpecies 25s linear infinite;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%2316a34a" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="%2316a34a" opacity="0.15"/><circle cx="60" cy="80" r="1" fill="%2316a34a" opacity="0.1"/></svg>');
+  animation: float 20s ease-in-out infinite;
 }
 
-.species-archive-title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-.species-archive-description {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.species-archive-meta {
-  margin-top: 1.5rem;
-}
-
-.species-archive-meta .badge {
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  font-size: 1rem;
-}
-
-/* ===== SPECIES FILTERS ===== */
-.species-filters {
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
   position: relative;
   z-index: 2;
+}
+
+.hero-breadcrumbs {
+  font-size: 0.9rem;
+  color: #16a34a;
+  margin-bottom: 1rem;
+}
+
+.hero-breadcrumbs a {
+  color: #16a34a;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.hero-breadcrumbs a:hover {
+  color: #15803d;
+}
+
+.breadcrumb-separator {
+  margin: 0 0.5rem;
+  opacity: 0.6;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.species-count {
+  margin-top: 2rem;
+}
+
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   background: white;
-  border-radius: 15px;
+  color: #16a34a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 2px solid #dcfce7;
+}
+
+/* ===== CONTENT SECTION ===== */
+.species-content {
+  padding: 4rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ===== CONTROLS ===== */
+.species-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid #e5e7eb;
-  margin: -2rem 0 2rem 0;
 }
 
-.species-view-toggle .btn {
+.control-label {
+  font-weight: 600;
+  color: #374151;
+  margin-right: 1rem;
+}
+
+.view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.view-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #6b7280;
   border-radius: 8px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-.species-view-toggle .btn.active {
-  background: #16a34a;
+.view-btn:hover,
+.view-btn.active {
   border-color: #16a34a;
+  background: #16a34a;
   color: white;
 }
 
-.species-sort-select .form-select {
+.btn-text {
+  font-size: 0.9rem;
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+}
+
+.control-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  background: white;
+  font-size: 0.9rem;
   transition: border-color 0.3s ease;
+  color: #374151;
 }
 
-.species-sort-select .form-select:focus {
+.control-select:focus {
   border-color: #16a34a;
-  box-shadow: 0 0 0 0.2rem rgba(22, 163, 74, 0.25);
-}
-
-.species-search-input .form-control {
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  transition: border-color 0.3s ease;
-}
-
-.species-search-input .form-control:focus {
-  border-color: #16a34a;
-  box-shadow: 0 0 0 0.2rem rgba(22, 163, 74, 0.25);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+  outline: none;
 }
 
 /* ===== SPECIES GRID ===== */
 .species-grid {
-  position: relative;
-  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.species-grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 .species-card {
   background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
   transition: all 0.3s ease;
-  height: 100%;
-  animation: fadeInUp 0.6s ease-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   position: relative;
-}
-
-.species-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(22, 163, 74, 0.05) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
 }
 
 .species-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   border-color: #16a34a;
 }
 
-.species-card:hover::before {
-  opacity: 1;
-}
-
-.species-card-link {
+.species-link {
   text-decoration: none;
   color: inherit;
   display: block;
   height: 100%;
-  position: relative;
-  z-index: 1;
 }
 
 .species-image-container {
   position: relative;
   height: 250px;
+  background: linear-gradient(135deg, #f8faf8 0%, #f0f4f0 100%);
   overflow: hidden;
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
 }
 
-.species-image {
+.species-thumbnail {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
-.species-card:hover .species-image {
+.species-card:hover .species-thumbnail {
   transform: scale(1.1);
 }
 
-.species-image-placeholder {
+.species-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  height: 100%;
+  font-size: 4rem;
   color: #16a34a;
   background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  width: 100%;
-  height: 100%;
 }
 
-.species-difficulty-badge {
+.species-difficulty {
   position: absolute;
   top: 15px;
-  left: 15px;
-  padding: 6px 12px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -213,46 +255,21 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.species-difficulty-badge.easy {
+.species-difficulty.difficulty-łatwy,
+.species-difficulty.difficulty-easy {
   background: rgba(34, 197, 94, 0.9);
   color: white;
 }
 
-.species-difficulty-badge.medium {
+.species-difficulty.difficulty-średni,
+.species-difficulty.difficulty-medium {
   background: rgba(251, 191, 36, 0.9);
   color: white;
 }
 
-.species-difficulty-badge.hard {
+.species-difficulty.difficulty-trudny,
+.species-difficulty.difficulty-hard {
   background: rgba(239, 68, 68, 0.9);
-  color: white;
-}
-
-.species-favorite-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6b7280;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.species-favorite-btn:hover {
-  background: #16a34a;
-  color: white;
-  transform: scale(1.1);
-}
-
-.species-favorite-btn.favorited {
-  background: #ef4444;
   color: white;
 }
 
@@ -263,31 +280,22 @@
   height: calc(100% - 250px);
 }
 
-.species-category {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #16a34a;
-  margin-bottom: 0.5rem;
-}
-
-.species-name {
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+.species-title {
+  font-size: 1.25rem;
   font-weight: 700;
-  line-height: 1.3;
   color: #1f2937;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
 }
 
-.species-latin-name {
+.species-scientific {
   font-style: italic;
   color: #6b7280;
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
 
-.species-description {
+.species-excerpt {
   color: #6b7280;
   font-size: 0.9rem;
   line-height: 1.6;
@@ -295,93 +303,100 @@
   flex: 1;
 }
 
-.species-features {
+.species-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.species-categories {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.feature-tag {
+.species-category {
   background: #f0fdf4;
   color: #16a34a;
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
   font-size: 0.75rem;
   font-weight: 600;
+  text-decoration: none;
   border: 1px solid #dcfce7;
+  transition: all 0.3s ease;
 }
 
-.species-meta {
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+.species-category:hover {
+  background: #16a34a;
+  color: white;
+}
+
+.species-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
   font-size: 0.8rem;
   color: #9ca3af;
+  margin-top: auto;
 }
 
-.species-care-level {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.species-care-dots {
-  display: flex;
-  gap: 2px;
-}
-
-.care-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #e5e7eb;
-}
-
-.care-dot.filled {
-  background: #16a34a;
-}
-
+.species-date,
 .species-views {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-/* ===== SPECIES LIST VIEW ===== */
-.species-grid.list-view .row {
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
+/* ===== LIST VIEW ===== */
 .species-grid.list-view .species-card {
+  display: flex;
   height: auto;
-}
-
-.species-grid.list-view .species-card .row {
-  flex-direction: row;
-  align-items: stretch;
+  min-height: 200px;
 }
 
 .species-grid.list-view .species-image-container {
+  width: 250px;
   height: 200px;
-  max-width: 300px;
+  flex-shrink: 0;
 }
 
 .species-grid.list-view .species-content {
+  flex: 1;
   height: auto;
+  padding: 2rem;
+}
+
+.species-grid.list-view .species-title {
+  font-size: 1.5rem;
+}
+
+.species-grid.list-view .species-meta {
+  gap: 1.5rem;
+}
+
+.species-grid.list-view .species-difficulty {
+  position: static;
+  align-self: flex-start;
+  margin-bottom: 1rem;
 }
 
 /* ===== PAGINATION ===== */
 .species-pagination {
   margin-top: 3rem;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 2;
+  text-align: center;
 }
 
 .species-pagination .page-numbers {
@@ -391,7 +406,7 @@
   color: #16a34a;
   text-decoration: none;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: all 0.3s ease;
   font-weight: 600;
 }
@@ -404,218 +419,137 @@
   transform: translateY(-2px);
 }
 
+.species-pagination .page-numbers.dots {
+  background: none;
+  border: none;
+  color: #9ca3af;
+}
+
+.species-pagination .page-numbers.dots:hover {
+  transform: none;
+  background: none;
+  color: #9ca3af;
+}
+
 /* ===== NO SPECIES ===== */
 .no-species {
   text-align: center;
-  padding: 3rem;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
-  position: relative;
-  z-index: 2;
+  padding: 4rem 2rem;
 }
 
-.no-species h3 {
-  color: #6b7280;
+.no-species-icon {
+  font-size: 4rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.no-species h2 {
+  font-size: 2rem;
+  color: #374151;
   margin-bottom: 1rem;
 }
 
 .no-species p {
-  color: #9ca3af;
+  color: #6b7280;
   margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
-.no-species-actions .btn {
-  margin: 0 0.5rem;
-}
-
-/* ===== RELATED ARTICLES ===== */
-.related-articles {
-  background: #f0fdf4;
-  position: relative;
-  z-index: 2;
-}
-
-.related-article-card {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #16a34a;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
   transition: all 0.3s ease;
-  height: 100%;
 }
 
-.related-article-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatSpecies {
-  0% { transform: translateX(-100px) translateY(-20px); }
-  50% { transform: translateX(50vw) translateY(20px); }
-  100% { transform: translateX(calc(100vw + 100px)) translateY(-10px); }
+.btn:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 1199.98px) {
-  .species-archive-title {
+@media (max-width: 768px) {
+  .hero-title {
     font-size: 2.5rem;
   }
   
-  .species-image-container {
-    height: 220px;
-  }
-}
-
-@media (max-width: 991.98px) {
-  .species-archive-title {
-    font-size: 2.2rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .species-filters {
-    margin: -1rem 0 2rem 0;
-  }
-  
-  .species-filters .row {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 767.98px) {
-  .species-archive-title {
-    font-size: 2rem;
-  }
-  
-  .species-archive-description {
+  .hero-description {
     font-size: 1rem;
   }
   
-  .species-filters {
-    padding: 1rem;
+  .species-controls {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
   }
   
-  .species-image-container {
-    height: 200px;
+  .controls-left,
+  .controls-right {
+    justify-content: center;
   }
   
-  .species-grid.list-view .species-card .row {
+  .view-toggle,
+  .sort-control {
+    justify-content: center;
+  }
+  
+  .btn-text {
+    display: none;
+  }
+  
+  .species-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .species-grid.list-view .species-card {
     flex-direction: column;
   }
   
   .species-grid.list-view .species-image-container {
-    height: 180px;
-    max-width: none;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .species-grid.list-view .species-content {
+    padding: 1.5rem;
+  }
+  
+  .species-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
   }
 }
 
-@media (max-width: 575.98px) {
-  .species-archive-title {
-    font-size: 1.75rem;
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
   }
   
-  .species-image-container {
-    height: 180px;
+  .species-content {
+    padding: 2rem 0;
+  }
+  
+  .species-controls {
+    padding: 1rem;
+  }
+  
+  .species-card {
+    border-radius: 12px;
   }
   
   .species-content {
     padding: 1rem;
   }
-  
-  .species-name {
-    font-size: 1.25rem;
-  }
-  
-  .species-pagination .page-numbers {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-  }
-}
-
-/* ===== ACCESSIBILITY ===== */
-@media (prefers-reduced-motion: reduce) {
-  .species-card {
-    animation: none;
-  }
-  
-  .species-card:hover {
-    transform: none;
-  }
-  
-  .species-card:hover .species-image {
-    transform: none;
-  }
-  
-  .species-archive-header::before {
-    animation: none;
-  }
-}
-
-/* ===== DELAYED ANIMATIONS ===== */
-.species-card:nth-child(1) { animation-delay: 0.1s; }
-.species-card:nth-child(2) { animation-delay: 0.2s; }
-.species-card:nth-child(3) { animation-delay: 0.3s; }
-.species-card:nth-child(4) { animation-delay: 0.4s; }
-.species-card:nth-child(5) { animation-delay: 0.5s; }
-.species-card:nth-child(6) { animation-delay: 0.6s; }
-.species-card:nth-child(7) { animation-delay: 0.7s; }
-.species-card:nth-child(8) { animation-delay: 0.8s; }
-
-/* ===== SPECIES CARD HOVER EFFECTS ===== */
-.species-card-link:hover .species-name {
-  color: #16a34a;
-}
-
-.species-card-link:hover .species-description {
-  color: #4b5563;
-}
-
-/* ===== LOADING STATES ===== */
-.species-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-}
-
-.species-loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid #f3f4f6;
-  border-top: 3px solid #16a34a;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* ===== FOCUS STATES ===== */
-.species-card-link:focus {
-  outline: 3px solid rgba(22, 163, 74, 0.5);
-  outline-offset: 2px;
-  border-radius: 20px;
-}
-
-.species-favorite-btn:focus {
-  outline: 2px solid rgba(22, 163, 74, 0.5);
-  outline-offset: 2px;
 }
