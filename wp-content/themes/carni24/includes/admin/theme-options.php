@@ -557,29 +557,3 @@ function carni24_display_image_sizes() {
         echo '</div>';
     }
 }
-
-/**
- * Pobiera wszystkie rozmiary obrazów
- */
-function carni24_get_all_image_sizes() {
-    global $_wp_additional_image_sizes;
-    
-    $sizes = array();
-    
-    // WordPress domyślne
-    $default_sizes = array('thumbnail', 'medium', 'medium_large', 'large');
-    foreach ($default_sizes as $size) {
-        $sizes[$size] = array(
-            'width'  => get_option($size . '_size_w'),
-            'height' => get_option($size . '_size_h'),
-            'crop'   => get_option($size . '_crop')
-        );
-    }
-    
-    // Custom rozmiary
-    if (isset($_wp_additional_image_sizes)) {
-        $sizes = array_merge($sizes, $_wp_additional_image_sizes);
-    }
-    
-    return $sizes;
-}
