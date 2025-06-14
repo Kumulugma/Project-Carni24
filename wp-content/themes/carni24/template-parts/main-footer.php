@@ -44,6 +44,7 @@
                         </h5>
                         <?php
                         wp_nav_menu(array(
+                            'theme_location' => 'footer-menu',
                             'menu' => 'Stopka - Menu treści',
                             'container' => false,
                             'menu_class' => 'footer-menu',

@@ -9,8 +9,6 @@ function carni24_register_nav_menus() {
         'main-menu'   => __('Menu główne', 'carni24'),
         'footer-menu' => __('Menu stopki', 'carni24'),
         'mobile-menu' => __('Menu mobilne', 'carni24'),
-        'quick-menu'  => __('Menu szybkie', 'carni24'),
-        'social-menu' => __('Menu społecznościowe', 'carni24'),
     ));
 }
 add_action('init', 'carni24_register_nav_menus');
@@ -150,61 +148,6 @@ function carni24_footer_fallback_menu() {
     echo '<li class="footer-nav-item me-3 mb-2"><a href="' . home_url('/kontakt/') . '" class="footer-nav-link text-muted">Kontakt</a></li>';
     echo '</ul>';
     echo '</nav>';
-}
-
-function carni24_social_navigation() {
-    wp_nav_menu(array(
-        'theme_location'  => 'social-menu',
-        'menu_class'      => 'social-nav d-flex list-unstyled',
-        'container'       => 'nav',
-        'container_class' => 'social-navigation',
-        'fallback_cb'     => false,
-        'depth'           => 1,
-        'walker'          => new Carni24_Social_Nav_Walker(),
-    ));
-}
-
-class Carni24_Social_Nav_Walker extends Walker_Nav_Menu {
-    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
-        $icon = carni24_get_social_icon($item->url);
-        
-        $attributes = ! empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) .'"' : '';
-        $attributes .= ' target="_blank" rel="noopener noreferrer"';
-        $attributes .= ! empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
-        
-        $item_output = '<li class="social-nav-item me-3">';
-        $item_output .= '<a class="social-nav-link text-muted"' . $attributes . '>';
-        $item_output .= $icon;
-        $item_output .= '<span class="visually-hidden">' . esc_html($item->title) . '</span>';
-        $item_output .= '</a>';
-        $item_output .= '</li>';
-        
-        $output .= $item_output;
-    }
-}
-
-function carni24_get_social_icon($url) {
-    $icons = array(
-        'facebook.com' => '<i class="bi bi-facebook"></i>',
-        'twitter.com' => '<i class="bi bi-twitter"></i>',
-        'instagram.com' => '<i class="bi bi-instagram"></i>',
-        'youtube.com' => '<i class="bi bi-youtube"></i>',
-        'linkedin.com' => '<i class="bi bi-linkedin"></i>',
-        'pinterest.com' => '<i class="bi bi-pinterest"></i>',
-        'tiktok.com' => '<i class="bi bi-tiktok"></i>',
-        'discord.com' => '<i class="bi bi-discord"></i>',
-        'github.com' => '<i class="bi bi-github"></i>',
-        'mailto:' => '<i class="bi bi-envelope"></i>',
-        'tel:' => '<i class="bi bi-telephone"></i>',
-    );
-    
-    foreach ($icons as $domain => $icon) {
-        if (strpos($url, $domain) !== false) {
-            return $icon;
-        }
-    }
-    
-    return '<i class="bi bi-link-45deg"></i>';
 }
 
 function carni24_breadcrumbs_nav() {
