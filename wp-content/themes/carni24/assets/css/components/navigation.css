@@ -149,6 +149,13 @@
   font-weight: 500 !important;
 }
 
+@media (max-width: 992px) {
+    .navbar-collapse .nav-link {
+        width: 100% ;
+  border: 1px;
+    }
+}
+
 .navbar-collapse .nav-link:hover {
   background-color: rgba(38, 129, 85, 0.1) !important;
   color: #ffffff !important;

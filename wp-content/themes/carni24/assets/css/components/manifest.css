@@ -245,17 +245,13 @@
 
 /* ===== CZAS CZYTANIA W STYLU POST-READING-TIME ===== */
 .manifest-reading-time {
-  background: #f3f4f6 !important;
-  padding: 0.25rem 0.5rem !important;
-  border-radius: 12px !important;
-  font-weight: 600 !important;
-  font-size: 0.8rem !important;
-  color: #6b7280 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.25rem !important;
-  margin-top: auto !important;
-  align-self: flex-start !important;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
 }
 
 .manifest-reading-time i {
@@ -386,14 +382,11 @@
   
   /* Data na mobile - zmiana layoutu */
   .manifest-date {
-    position: static !important;
+    /*position: static !important;*/
     margin: var(--spacing-sm) 0 !important;
-    display: inline-flex !important;
-    flex-direction: row !important;
-    gap: 0.5rem !important;
+    gap: 0.1rem !important;
     align-items: center !important;
     min-width: auto !important;
-    padding: 0.25rem 0.5rem !important;
     font-size: 0.75rem !important;
   }
   
@@ -405,6 +398,24 @@
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
+  }
+  
+  .manifest-date-month {
+      padding-top: 2px !important;
+    font-size: 0.6rem !important;
+  }
+
+  .manifest-date-year {
+      border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+      padding-top: 2px !important;
+    font-size: 0.6rem !important;
+  }
+  
+  .manifest-date-day
+  {
+      display: block !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
   }
   
   .manifest-date-day::after {

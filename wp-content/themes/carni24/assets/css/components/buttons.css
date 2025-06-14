@@ -29,6 +29,12 @@
   min-height: var(--button-height);
 }
 
+@media (max-width: 767px) {
+    .btn {
+    display: block !important;
+    }
+}
+
 .btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
