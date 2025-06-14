@@ -1525,4 +1525,521 @@ function carni24_save_species_meta($post_id) {
 }
 add_action('save_post', 'carni24_save_species_meta');
 
-?>
+/**
+ * Rejestracja menu i funkcje theme'u
+ * Dodaj do pliku functions.php
+ */
+
+// Rejestracja menu WordPress
+function carni24_menus_init() {
+    register_nav_menus(array(
+        'main-menu' => __('Menu główne (Sub-menu)', 'carni24'),
+        'footer-menu' => __('Menu stopki', 'carni24'),
+        'mobile-menu' => __('Menu mobilne', 'carni24'),
+    ));
+}
+add_action('init', 'carni24_menus_init');
+
+// Dodanie obsługi customizer dla konfiguracji sub-menu
+function carni24_customize_register($wp_customize) {
+    
+    // Sekcja Sub-Menu
+    $wp_customize->add_section('carni24_submenu', array(
+        'title' => __('Sub-Menu Settings', 'carni24'),
+        'priority' => 35,
+        'description' => __('Konfiguracja górnego paska nawigacji', 'carni24'),
+    ));
+    
+    // Logo text
+    $wp_customize->add_setting('carni24_site_logo_text', array(
+        'default' => get_bloginfo('name'),
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('carni24_site_logo_text', array(
+        'label' => __('Tekst logo', 'carni24'),
+        'section' => 'carni24_submenu',
+        'type' => 'text',
+        'description' => __('Tekst wyświetlany jako logo w sub-menu', 'carni24'),
+    ));
+    
+    // Włączenie/wyłączenie ikon w menu
+    $wp_customize->add_setting('carni24_menu_icons', array(
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ));
+    
+    $wp_customize->add_control('carni24_menu_icons', array(
+        'label' => __('Wyświetlaj ikony w menu', 'carni24'),
+        'section' => 'carni24_submenu',
+        'type' => 'checkbox',
+    ));
+    
+    // Kolor akcentu menu
+    $wp_customize->add_setting('carni24_menu_accent_color', array(
+        'default' => '#28a745',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'carni24_menu_accent_color', array(
+        'label' => __('Kolor akcentu menu', 'carni24'),
+        'section' => 'carni24_submenu',
+    )));
+    
+    // Placeholder wyszukiwarki
+    $wp_customize->add_setting('carni24_search_placeholder', array(
+        'default' => 'Wpisz czego poszukujesz...',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('carni24_search_placeholder', array(
+        'label' => __('Placeholder wyszukiwarki', 'carni24'),
+        'section' => 'carni24_submenu',
+        'type' => 'text',
+    ));
+    
+    // Wysokość sub-menu
+    $wp_customize->add_setting('carni24_submenu_height', array(
+        'default' => '60',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    $wp_customize->add_control('carni24_submenu_height', array(
+        'label' => __('Wysokość sub-menu (px)', 'carni24'),
+        'section' => 'carni24_submenu',
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 40,
+            'max' => 100,
+            'step' => 5,
+        ),
+    ));
+}
+add_action('customize_register', 'carni24_customize_register');
+
+// Walker dla menu z ikonami
+class Carni24_Menu_Walker extends Walker_Nav_Menu {
+    
+    private $menu_icons = array(
+        'home' => 'bi-house',
+        'blog' => 'bi-journal-text', 
+        'about' => 'bi-info-circle',
+        'contact' => 'bi-envelope',
+        'gallery' => 'bi-images',
+        'services' => 'bi-gear',
+        'species' => 'bi-flower1',
+        'news' => 'bi-newspaper',
+        'search' => 'bi-search',
+    );
+    
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $classes[] = 'nav-link';
+        $classes[] = 'text-white';
+        $classes[] = 'px-3';
+        $classes[] = 'py-2';
+        $classes[] = 'rounded';
+        
+        // Sprawdź czy aktywna strona
+        if (in_array('current-menu-item', $classes) || 
+            in_array('current_page_item', $classes) ||
+            in_array('current-page-ancestor', $classes)) {
+            $classes[] = 'bg-success';
+            $classes[] = 'active';
+        }
+        
+        $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+        
+        $attributes = !empty($item->attr_title) ? ' title="' . esc_attr($item->attr_title) . '"' : '';
+        $attributes .= !empty($item->target) ? ' target="' . esc_attr($item->target) . '"' : '';
+        $attributes .= !empty($item->xfn) ? ' rel="' . esc_attr($item->xfn) . '"' : '';
+        $attributes .= !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
+        
+        // Dodaj data-atrybuty dla lepszej analityki
+        $attributes .= ' data-menu-item="' . esc_attr($item->title) . '"';
+        
+        $output .= '<a' . $attributes . $class_names . '>';
+        
+        // Dodaj ikonę jeśli włączone
+        if (get_theme_mod('carni24_menu_icons', true)) {
+            $icon_class = $this->get_menu_icon($item);
+            if ($icon_class) {
+                $output .= '<i class="' . esc_attr($icon_class) . ' me-1"></i> ';
+            }
+        }
+        
+        $output .= apply_filters('the_title', $item->title, $item->ID);
+        $output .= '</a>';
+    }
+    
+    private function get_menu_icon($item) {
+        // Sprawdź czy jest ustawiona niestandardowa ikona
+        $custom_icon = get_post_meta($item->ID, '_menu_item_icon', true);
+        if (!empty($custom_icon)) {
+            return $custom_icon;
+        }
+        
+        // Auto-detect ikony na podstawie nazwy/URL
+        $title_lower = strtolower($item->title);
+        $url_lower = strtolower($item->url);
+        
+        foreach ($this->menu_icons as $key => $icon) {
+            if (strpos($title_lower, $key) !== false || strpos($url_lower, $key) !== false) {
+                return $icon;
+            }
+        }
+        
+        // Domyślna ikona
+        return 'bi-circle';
+    }
+    
+    function end_el(&$output, $item, $depth = 0, $args = null) {
+        // Nic nie rób - linki nie mają zamykających tagów
+    }
+}
+
+// Dodaj pole ikony do edytora menu
+function carni24_menu_item_custom_fields($item_id, $item, $depth, $args) {
+    $icon_value = get_post_meta($item_id, '_menu_item_icon', true);
+    ?>
+    <p class="field-icon description description-wide">
+        <label for="edit-menu-item-icon-<?php echo $item_id; ?>">
+            Ikona Bootstrap Icons<br />
+            <input type="text" id="edit-menu-item-icon-<?php echo $item_id; ?>" 
+                   class="widefat code edit-menu-item-icon" 
+                   name="menu-item-icon[<?php echo $item_id; ?>]" 
+                   value="<?php echo esc_attr($icon_value); ?>" 
+                   placeholder="np. bi-house, bi-info-circle" />
+        </label>
+        <span class="description">Klasa ikony Bootstrap Icons (bez prefiksu 'bi bi-')</span>
+    </p>
+    <?php
+}
+add_action('wp_nav_menu_item_custom_fields', 'carni24_menu_item_custom_fields', 10, 4);
+
+// Zapisz niestandardowe pole ikony
+function carni24_menu_item_custom_fields_save($menu_id, $menu_item_db_id, $args) {
+    if (isset($_REQUEST['menu-item-icon'][$menu_item_db_id])) {
+        $icon_value = sanitize_text_field($_REQUEST['menu-item-icon'][$menu_item_db_id]);
+        update_post_meta($menu_item_db_id, '_menu_item_icon', $icon_value);
+    } else {
+        delete_post_meta($menu_item_db_id, '_menu_item_icon');
+    }
+}
+add_action('wp_update_nav_menu_item', 'carni24_menu_item_custom_fields_save', 10, 3);
+
+// Enqueue CSS dla customizer
+function carni24_customizer_css() {
+    $accent_color = get_theme_mod('carni24_menu_accent_color', '#28a745');
+    $submenu_height = get_theme_mod('carni24_submenu_height', 60);
+    
+    $css = "
+        #sub-menu {
+            min-height: {$submenu_height}px;
+            border-top-color: {$accent_color};
+        }
+        #sub-menu .nav-link:hover,
+        #sub-menu .nav-link.bg-success {
+            background-color: {$accent_color} !important;
+        }
+        #sub-menu .nav-link:hover {
+            box-shadow: 0 4px 8px " . $accent_color . "4D;
+        }
+        .search-trigger-btn {
+            color: {$accent_color} !important;
+        }
+        .search-trigger-btn:focus {
+            border-color: {$accent_color};
+            box-shadow: 0 0 0 3px " . $accent_color . "40;
+        }
+    ";
+    
+    wp_add_inline_style('carni24-style', $css);
+}
+add_action('wp_enqueue_scripts', 'carni24_customizer_css');
+
+<?php
+/**
+ * Walker dla menu mobilnego z obsługą submenu
+ * Dodaj do functions.php
+ */
+
+class Carni24_Mobile_Menu_Walker extends Walker_Nav_Menu {
+    
+    private $mobile_icons = array(
+        'home' => 'bi-house',
+        'blog' => 'bi-journal-text', 
+        'about' => 'bi-info-circle',
+        'contact' => 'bi-envelope',
+        'gallery' => 'bi-images',
+        'services' => 'bi-gear',
+        'species' => 'bi-flower1',
+        'news' => 'bi-newspaper',
+        'shop' => 'bi-cart',
+        'portfolio' => 'bi-briefcase',
+    );
+    
+    function start_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "\n$indent<div class=\"submenu-mobile ps-3 mt-2\">\n";
+    }
+    
+    function end_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent</div>\n";
+    }
+    
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $classes[] = 'nav-link';
+        $classes[] = 'text-white';
+        $classes[] = 'py-2';
+        
+        if ($depth == 0) {
+            $classes[] = 'd-block';
+        } else {
+            $classes[] = 'ps-3';
+            $classes[] = 'submenu-item';
+        }
+        
+        // Sprawdź czy aktywna strona
+        if (in_array('current-menu-item', $classes) || 
+            in_array('current_page_item', $classes) ||
+            in_array('current-page-ancestor', $classes)) {
+            $classes[] = 'bg-success';
+            $classes[] = 'active';
+        }
+        
+        // Sprawdź czy ma dzieci
+        $has_children = in_array('menu-item-has-children', $classes);
+        
+        $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+        
+        $attributes = !empty($item->attr_title) ? ' title="' . esc_attr($item->attr_title) . '"' : '';
+        $attributes .= !empty($item->target) ? ' target="' . esc_attr($item->target) . '"' : '';
+        $attributes .= !empty($item->xfn) ? ' rel="' . esc_attr($item->xfn) . '"' : '';
+        $attributes .= !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
+        
+        // Data attributes
+        $attributes .= ' data-menu-item="' . esc_attr($item->title) . '-mobile"';
+        if ($has_children) {
+            $attributes .= ' data-has-children="true"';
+        }
+        
+        $output .= '<div class="mobile-menu-item' . ($depth > 0 ? ' submenu-item' : '') . '">';
+        
+        if ($has_children && $depth == 0) {
+            // Parent z dziećmi - dodaj toggle button
+            $output .= '<div class="d-flex align-items-center justify-content-between">';
+        }
+        
+        $output .= '<a' . $attributes . $class_names . '>';
+        
+        // Dodaj ikonę
+        if (get_theme_mod('carni24_menu_icons', true) && $depth == 0) {
+            $icon_class = $this->get_mobile_menu_icon($item);
+            if ($icon_class) {
+                $output .= '<i class="' . esc_attr($icon_class) . ' me-2" aria-hidden="true"></i>';
+            }
+        }
+        
+        $output .= apply_filters('the_title', $item->title, $item->ID);
+        $output .= '</a>';
+        
+        if ($has_children && $depth == 0) {
+            // Dodaj przycisk toggle dla submenu
+            $output .= '<button class="btn btn-sm btn-outline-light ms-2 submenu-toggle" 
+                               type="button" 
+                               data-bs-toggle="collapse" 
+                               data-bs-target="#submenu-' . $item->ID . '" 
+                               aria-expanded="false"
+                               aria-controls="submenu-' . $item->ID . '"
+                               aria-label="' . esc_attr__('Pokaż/ukryj podmenu', 'carni24') . '">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>';
+            $output .= '</div>'; // Zamknij flex container
+        }
+    }
+    
+    function end_el(&$output, $item, $depth = 0, $args = null) {
+        $output .= '</div>'; // Zamknij mobile-menu-item
+    }
+    
+    private function get_mobile_menu_icon($item) {
+        // Sprawdź czy jest ustawiona niestandardowa ikona
+        $custom_icon = get_post_meta($item->ID, '_menu_item_icon', true);
+        if (!empty($custom_icon)) {
+            return 'bi bi-' . $custom_icon;
+        }
+        
+        // Auto-detect ikony na podstawie nazwy/URL
+        $title_lower = strtolower($item->title);
+        $url_lower = strtolower($item->url);
+        
+        foreach ($this->mobile_icons as $key => $icon) {
+            if (strpos($title_lower, $key) !== false || strpos($url_lower, $key) !== false) {
+                return 'bi ' . $icon;
+            }
+        }
+        
+        // Domyślna ikona
+        return 'bi bi-circle';
+    }
+}
+
+// Dodaj JavaScript dla mobile menu
+function carni24_mobile_menu_script() {
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obsługa submenu w mobile
+        const submenuToggles = document.querySelectorAll('.submenu-toggle');
+        
+        submenuToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                
+                // Animuj ikonę
+                if (isExpanded) {
+                    icon.classList.remove('bi-chevron-up');
+                    icon.classList.add('bi-chevron-down');
+                } else {
+                    icon.classList.remove('bi-chevron-down');
+                    icon.classList.add('bi-chevron-up');
+                }
+            });
+        });
+        
+        // Zamknij mobile menu po kliknięciu w link
+        const mobileMenuLinks = document.querySelectorAll('#mobileNavigation .nav-link');
+        const mobileMenuCollapse = document.getElementById('mobileNavigation');
+        
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Zamknij menu tylko jeśli nie ma dzieci
+                if (!this.hasAttribute('data-has-children')) {
+                    const bsCollapse = new bootstrap.Collapse(mobileMenuCollapse, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
+            });
+        });
+        
+        // Analytics tracking dla menu
+        const menuLinks = document.querySelectorAll('[data-menu-item]');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const menuItem = this.getAttribute('data-menu-item');
+                
+                // Google Analytics 4
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'menu_click', {
+                        menu_item: menuItem,
+                        menu_location: this.closest('#sub-menu') ? 'desktop' : 'mobile'
+                    });
+                }
+                
+                // Matomo Analytics
+                if (typeof _paq !== 'undefined') {
+                    _paq.push(['trackEvent', 'Menu', 'Click', menuItem]);
+                }
+            });
+        });
+    });
+    </script>
+    <?php
+}
+add_action('wp_footer', 'carni24_mobile_menu_script');
+
+// Dodaj CSS dla mobile submenu
+function carni24_mobile_submenu_styles() {
+    ?>
+    <style>
+    .submenu-mobile {
+        background: rgba(255,255,255,0.05);
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .submenu-mobile .nav-link {
+        font-size: 14px;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .submenu-mobile .nav-link:hover {
+        background: rgba(40, 167, 69, 0.3);
+        padding-left: 1.5rem;
+    }
+    
+    .submenu-toggle {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .submenu-toggle:hover {
+        background: rgba(40, 167, 69, 0.8) !important;
+        transform: scale(1.1);
+    }
+    
+    .submenu-toggle i {
+        transition: transform 0.3s ease;
+        font-size: 12px;
+    }
+    
+    .mobile-menu-item {
+        margin-bottom: 0.25rem;
+    }
+    
+    .mobile-menu-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Animacja dla submenu */
+    .submenu-mobile.collapsing {
+        transition: height 0.35s ease;
+    }
+    
+    .submenu-mobile.show {
+        animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsywność submenu */
+    @media (max-width: 575px) {
+        .submenu-mobile .nav-link {
+            font-size: 13px;
+            padding: 0.4rem 0.6rem;
+        }
+        
+        .submenu-toggle {
+            width: 28px;
+            height: 28px;
+        }
+    }
+    </style>
+    <?php
+}
+add_action('wp_head', 'carni24_mobile_submenu_styles');
