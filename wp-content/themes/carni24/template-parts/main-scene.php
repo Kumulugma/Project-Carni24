@@ -1,1 +1,0 @@
-<section class="text-center container-fluid overflow-hidden g-3" id="scene"> </section>

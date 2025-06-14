@@ -2,6 +2,7 @@
  * Sekcja Manifest - Popularne wpisy
  * Plik: assets/css/components/manifest.css
  * Autor: Carni24 Team
+ * ZAKTUALIZOWANY Z POPRAWKAMI STYLIZACJI DAT I CZASU CZYTANIA
  */
 
 /* ===== SEKCJA MANIFEST ===== */
@@ -120,7 +121,7 @@
 .manifest-badge {
   position: absolute;
   top: var(--spacing-md);
-  right: var(--spacing-md);
+  left: var(--spacing-md);
   background: rgba(var(--color-primary-rgb), 0.9);
   color: white;
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -131,7 +132,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   backdrop-filter: blur(10px);
-  z-index: 3;
+  z-index: 4;
 }
 
 .manifest-badge i {
@@ -142,7 +143,7 @@
 .manifest-category {
   position: absolute;
   top: var(--spacing-md);
-  left: var(--spacing-md);
+  right: calc(var(--spacing-md) + 70px); /* Przesunięte aby nie nakładało się na datę */
   background: rgba(255, 255, 255, 0.95);
   color: var(--color-primary);
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -152,41 +153,81 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   backdrop-filter: blur(10px);
-  z-index: 3;
+  z-index: 4;
 }
 
-/* ===== TREŚĆ ARTYKUŁU ===== */
+/* ===== DATA W STYLU POST-DATE-BADGE ===== */
+.manifest-date {
+  position: absolute !important;
+  top: var(--spacing-md) !important;
+  right: var(--spacing-md) !important;
+  background: rgba(22, 163, 74, 0.9) !important;
+  color: white !important;
+  padding: 8px 12px !important;
+  border-radius: 10px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  min-width: 60px !important;
+  backdrop-filter: blur(10px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  line-height: 1 !important;
+  z-index: 5 !important;
+}
+
+.manifest-date i {
+  display: none !important; /* Ukryj ikonę kalendarza */
+}
+
+/* Stylizacja elementów daty */
+.manifest-date-day {
+  display: block !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.manifest-date-month {
+  display: block !important;
+  font-size: 0.7rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  opacity: 0.9 !important;
+  margin: 2px 0 !important;
+}
+
+.manifest-date-year {
+  display: block !important;
+  font-size: 0.65rem !important;
+  font-weight: 500 !important;
+  opacity: 0.8 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding-top: 2px !important;
+  margin-top: 2px !important;
+}
+
+/* ===== TREŚĆ ARTYKUŁU - PRZEPROJEKTOWANA ===== */
 .manifest-content {
   padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
   flex: 1;
+  position: relative;
 }
 
+/* Ukryj starą meta sekcję */
 .manifest-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}
-
-.manifest-meta span {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.manifest-meta i {
-  font-size: var(--font-size-xs);
+  display: none !important;
 }
 
 .manifest-title-post {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin: 0;
+  margin: 0 0 var(--spacing-md) 0;
   line-height: var(--line-height-tight);
   transition: color var(--transition-normal);
 }
@@ -199,27 +240,32 @@
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
   flex: 1;
+  margin-bottom: var(--spacing-md);
 }
 
+/* ===== CZAS CZYTANIA W STYLU POST-READING-TIME ===== */
+.manifest-reading-time {
+  background: #f3f4f6 !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  color: #6b7280 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  margin-top: auto !important;
+  align-self: flex-start !important;
+}
+
+.manifest-reading-time i {
+  font-size: 0.7rem !important;
+  color: #9ca3af !important;
+}
+
+/* Usunięte style dla autora (jeśli nie używane) */
 .manifest-author {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  margin-top: auto;
-  padding-top: var(--spacing-md);
-  border-top: 1px solid var(--color-border-light);
-}
-
-.manifest-author img {
-  border-radius: var(--border-radius-full);
-  width: 32px;
-  height: 32px;
-}
-
-.author-name {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
+  display: none; /* Ukryj sekcję autora jeśli nie jest używana */
 }
 
 /* ===== CALL TO ACTION ===== */
@@ -305,12 +351,6 @@
     justify-content: center;
   }
   
-  .manifest-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-  }
-  
   .newsletter-form .d-flex {
     flex-direction: column;
     gap: var(--spacing-md);
@@ -344,14 +384,43 @@
     font-size: var(--font-size-xl);
   }
   
+  /* Data na mobile - zmiana layoutu */
+  .manifest-date {
+    position: static !important;
+    margin: var(--spacing-sm) 0 !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+    min-width: auto !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .manifest-date-day,
+  .manifest-date-month,
+  .manifest-date-year {
+    display: inline !important;
+    font-size: 0.75rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  
+  .manifest-date-day::after {
+    content: " ";
+  }
+  
+  .manifest-date-year::before {
+    content: " ";
+  }
+  
+  /* Badge i kategoria na mobile */
   .manifest-badge,
   .manifest-category {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin: var(--spacing-sm) 0;
-    display: inline-block;
+    position: static !important;
+    margin: var(--spacing-sm) 0 !important;
+    display: inline-block !important;
   }
 }
 

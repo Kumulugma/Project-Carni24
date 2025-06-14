@@ -3,7 +3,7 @@
  * Template sekcji manifest - popularne wpisy
  * Plik: template-parts/homepage/manifest.php
  * Autor: Carni24 Team
- * POPRAWIONA WERSJA - 4 wpisy w linii, responsive, czas czytania na dole
+ * FINALNA WERSJA - z poprawną stylizacją dat i czasu czytania
  */
 
 $args = array(
@@ -77,42 +77,40 @@ if (!$popular_posts->have_posts()) {
                                     </div>
                                 <?php endif; ?>
                                 
-                                <!-- Badge popularity -->
+                                <!-- Badge popularity (lewy górny róg) -->
                                 <div class="manifest-badge">
                                     <i class="bi bi-eye"></i>
                                     <?= number_format($post_views) ?>
                                 </div>
                                 
-                                <!-- Kategoria -->
+                                <!-- Kategoria (środek góry) -->
                                 <?php if ($primary_category) : ?>
                                     <div class="manifest-category">
                                         <?= esc_html($primary_category->name) ?>
                                     </div>
                                 <?php endif; ?>
+                                
+                                <!-- Data w stylu post-date-badge (prawy górny róg) -->
+                                <div class="manifest-date">
+                                    <span class="manifest-date-day"><?= get_the_date('d') ?></span>
+                                    <span class="manifest-date-month"><?= get_the_date('M') ?></span>
+                                    <span class="manifest-date-year"><?= get_the_date('Y') ?></span>
+                                </div>
                             </div>
                             
                             <!-- Treść -->
                             <div class="manifest-content">
-                                <!-- Meta informacje górne -->
-                                <div class="manifest-meta">
-                                    <span class="manifest-date">
-                                        <i class="bi bi-calendar3"></i>
-                                        <?= get_the_date('d M Y') ?>
-                                    </span>
-                                </div>
-                                
-                                <!-- Tytuł -->
+                                <!-- Tytuł na górze -->
                                 <h3 class="manifest-title-post">
                                     <?= esc_html(get_the_title()) ?>
                                 </h3>
                                 
-                                <!-- Excerpt -->
+                                <!-- Excerpt w środku -->
                                 <div class="manifest-excerpt">
                                     <?= wp_trim_words(get_the_excerpt(), 15, '...') ?>
                                 </div>
                                 
-                                
-                                <!-- Czas czytania na dole -->
+                                <!-- Czas czytania na dole w stylu post-reading-time -->
                                 <div class="manifest-reading-time">
                                     <i class="bi bi-clock"></i>
                                     <span><?= $reading_time ?> min czytania</span>
