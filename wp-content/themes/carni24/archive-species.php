@@ -154,7 +154,6 @@ $species_query = new WP_Query($args);
     }
 
     .hero-content {
-        max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
     }
@@ -173,7 +172,6 @@ $species_query = new WP_Query($args);
     }
 
     .container {
-        max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
     }
