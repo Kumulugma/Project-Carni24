@@ -409,19 +409,6 @@ function carni24_redirect_attachment_pages() {
 }
 add_action('template_redirect', 'carni24_redirect_attachment_pages');
 
-function carni24_remove_category_url($termlink, $term, $taxonomy) {
-    if ($taxonomy === 'category') {
-        return str_replace('/category/', '/', $termlink);
-    }
-    return $termlink;
-}
-add_filter('term_link', 'carni24_remove_category_url', 10, 3);
-
-function carni24_custom_rewrite_rules() {
-    add_rewrite_rule('^([^/]+)/?$', 'index.php?category_name=$matches[1]', 'top');
-}
-add_action('init', 'carni24_custom_rewrite_rules');
-
 function carni24_filter_widget_text($text) {
     return do_shortcode($text);
 }

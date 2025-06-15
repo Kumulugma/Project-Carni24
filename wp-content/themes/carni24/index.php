@@ -1,8 +1,6 @@
 <?php /* Template Name: Strona domowa */ ?>
 <?php get_header(); ?>
 <main>
-<?php get_template_part( 'template-parts/homepage/searchbar' ); ?>
-<?php get_template_part( 'template-parts/homepage/news' ); ?>
-<?php get_template_part( 'template-parts/homepage/manifest' ); ?>    
+<?php the_content(); ?>    
 </main>
 <?php get_footer(); ?>

@@ -229,8 +229,8 @@ $species_query = new WP_Query($args);
     </div>
 </section>
 
-<section class="species-content">
-    <div class="container">
+<section class="species-content p-5">
+    <div class="container-fluid">
         <?php if ($species_query->have_posts()) : ?>
 
             <div class="species-controls">

@@ -36,8 +36,8 @@ get_header(); ?>
     </section>
     
     <!-- Lista wpisów -->
-    <section class="blog-content py-5">
-        <div class="container">
+    <section class="blog-content p-5">
+        <div class="container-fluid">
             <div class="row">
                 
                 <!-- Główna kolumna z wpisami -->
@@ -135,10 +135,6 @@ get_header(); ?>
                                             </div>
                                             
                                             <div class="blog-post-meta">
-                                                <div class="blog-post-author">
-                                                    <i class="bi bi-person me-1"></i>
-                                                    <?= get_the_author() ?>
-                                                </div>
                                                 <div class="blog-post-reading-time">
                                                     <i class="bi bi-clock me-1"></i>
                                                     <?= $reading_time ?> min czytania
@@ -239,70 +235,6 @@ get_header(); ?>
                             </ul>
                         </div>
                         
-                        <!-- Popularne wpisy -->
-                        <div class="widget-box mb-4">
-                            <h5 class="widget-title">
-                                <i class="bi bi-fire me-2"></i>
-                                Popularne wpisy
-                            </h5>
-                            <?php
-                            $popular_posts = new WP_Query(array(
-                                'post_type' => 'post',
-                                'posts_per_page' => 5,
-                                'meta_key' => 'post_views_count',
-                                'orderby' => 'meta_value_num',
-                                'order' => 'DESC',
-                                'date_query' => array(
-                                    array(
-                                        'after' => '30 days ago'
-                                    )
-                                )
-                            ));
-                            
-                            if ($popular_posts->have_posts()) :
-                            ?>
-                                <div class="popular-posts">
-                                    <?php while ($popular_posts->have_posts()) : $popular_posts->the_post(); ?>
-                                        <article class="popular-post">
-                                            <a href="<?= esc_url(get_permalink()) ?>">
-                                                <?php if (has_post_thumbnail()) : ?>
-                                                    <img src="<?= esc_url(get_the_post_thumbnail_url(get_the_ID(), 'widget_thumb')) ?>" 
-                                                         alt="<?= esc_attr(get_the_title()) ?>" 
-                                                         class="popular-post-thumb">
-                                                <?php endif; ?>
-                                                <h6 class="popular-post-title">
-                                                    <?= esc_html(get_the_title()) ?>
-                                                </h6>
-                                                <small class="text-muted">
-                                                    <i class="bi bi-calendar3 me-1"></i>
-                                                    <?= get_the_date('d.m.Y') ?>
-                                                </small>
-                                            </a>
-                                        </article>
-                                    <?php endwhile; wp_reset_postdata(); ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        
-                        <!-- Archiwum -->
-                        <div class="widget-box">
-                            <h5 class="widget-title">
-                                <i class="bi bi-archive me-2"></i>
-                                Archiwum
-                            </h5>
-                            <ul class="archive-list">
-                                <?php
-                                wp_get_archives(array(
-                                    'type' => 'monthly',
-                                    'limit' => 12,
-                                    'format' => 'html',
-                                    'before' => '<li>',
-                                    'after' => '</li>',
-                                    'show_post_count' => true
-                                ));
-                                ?>
-                            </ul>
-                        </div>
                         
                     </aside>
                 </div>
@@ -466,7 +398,7 @@ get_header(); ?>
 }
 
 .blog-pagination .page-numbers {
-    display: inline-block;
+    display: flex;
     padding: 8px 16px;
     margin: 0 4px;
     color: #268155;
