@@ -1,192 +1,390 @@
 <?php
 /**
- * Archive template for blog posts
+ * Archive template for blog posts - NAPRAWIONY (na wzór archive-species.php)
  * Plik: archive.php
  * Autor: Carni24 Team
  */
 
-get_header(); ?>
+get_header();
 
-<main class="blog-archive-main">
-    
-    <!-- Breadcrumbs -->
-    <div class="container py-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= home_url() ?>">Strona główna</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
+// Sortowanie i filtrowanie
+$orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'date';
+
+// Query arguments
+global $wp_query;
+$args = $wp_query->query_vars;
+
+// Sortowanie
+switch ($orderby) {
+    case 'title':
+        $wp_query->set('orderby', 'title');
+        $wp_query->set('order', 'ASC');
+        break;
+    case 'title-desc':
+        $wp_query->set('orderby', 'title');
+        $wp_query->set('order', 'DESC');
+        break;
+    case 'popular':
+        $wp_query->set('meta_key', '_post_views');
+        $wp_query->set('orderby', 'meta_value_num');
+        $wp_query->set('order', 'DESC');
+        break;
+    default:
+        $wp_query->set('orderby', 'date');
+        $wp_query->set('order', 'DESC');
+}
+?>
+
+<!-- CSS INLINE PRO TESTY -->
+<style>
+    /* CRITICAL STYLES FOR VIEW TOGGLE */
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+        transition: all 0.3s ease;
+    }
+
+    .blog-grid[data-view="list"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    .blog-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        position: relative;
+    }
+
+    .blog-grid[data-view="list"] .blog-card {
+        display: flex !important;
+        height: auto !important;
+        min-height: 200px !important;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border-color: #16a34a;
+    }
+
+    .blog-link {
+        text-decoration: none !important;
+        color: inherit !important;
+        display: block !important;
+        height: 100% !important;
+    }
+
+    .blog-grid[data-view="list"] .blog-link {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: stretch !important;
+        width: 100% !important;
+    }
+
+    .blog-image-container {
+        position: relative;
+        height: 250px;
+        background: linear-gradient(135deg, #f8faf8 0%, #f0f4f0 100%);
+        overflow: hidden;
+    }
+
+    .blog-grid[data-view="list"] .blog-image-container {
+        width: 250px !important;
+        height: 200px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .blog-thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .blog-card:hover .blog-thumbnail {
+        transform: scale(1.1);
+    }
+
+    .blog-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 4rem;
+        color: #16a34a;
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    }
+
+    .blog-content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .blog-grid[data-view="list"] .blog-content {
+        padding: 2rem !important;
+    }
+
+    .blog-card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+        text-decoration: none;
+    }
+
+    .blog-card-title:hover {
+        color: #16a34a;
+    }
+
+    .blog-card-excerpt {
+        color: #6b7280;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        flex: 1;
+    }
+
+    .blog-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        color: #9ca3af;
+        margin-top: auto;
+    }
+
+    .blog-meta-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .blog-meta-date {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .blog-meta-author {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .blog-meta-category {
+        background: #f3f4f6;
+        color: #374151;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    /* Controls styling */
+    .blog-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .view-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .sort-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .control-label {
+        font-weight: 600;
+        color: #374151;
+        margin-right: 1rem;
+    }
+
+    /* Hero section */
+    .blog-archive-hero {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        padding: 4rem 0;
+        text-align: center;
+    }
+
+    .hero-content {
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1rem;
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+    }
+
+    .container {
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .blog-content-section {
+        padding: 4rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .blog-controls {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .blog-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .blog-grid[data-view="list"] .blog-card {
+            flex-direction: column !important;
+        }
+
+        .blog-grid[data-view="list"] .blog-image-container {
+            width: 100% !important;
+            height: 200px !important;
+        }
+    }
+</style>
+
+<section class="blog-archive-hero">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <i class="bi bi-newspaper me-3"></i>
+            <?php
+            if (is_category()) {
+                echo single_cat_title('', false);
+            } elseif (is_tag()) {
+                echo 'Tag: ' . single_tag_title('', false);
+            } elseif (is_author()) {
+                echo 'Wpisy autora: ' . get_the_author();
+            } elseif (is_date()) {
+                echo 'Archiwum: ' . get_the_date('F Y');
+            } else {
+                echo 'Wszystkie wpisy';
+            }
+            ?>
+        </h1>
+        <p class="hero-description">
+            <?php
+            if (is_category() && category_description()) {
+                echo category_description();
+            } elseif (is_tag() && tag_description()) {
+                echo tag_description();
+            } else {
+                echo 'Odkryj nasze artykuły o roślinach mięsożernych, poradniki uprawy i najnowsze informacje ze świata botaniki.';
+            }
+            ?>
+        </p>
+
+        <?php if (have_posts()) : ?>
+            <div class="blog-count">
+                <span style="background: white; color: #16a34a; padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; display: inline-block;">
                     <?php
-                    if (is_category()) {
-                        echo 'Kategoria: ' . single_cat_title('', false);
-                    } elseif (is_tag()) {
-                        echo 'Tag: ' . single_tag_title('', false);
-                    } elseif (is_author()) {
-                        echo 'Autor: ' . get_the_author();
-                    } elseif (is_date()) {
-                        echo 'Archiwum: ' . get_the_date('F Y');
-                    } else {
-                        echo 'Blog';
-                    }
+                    echo $wp_query->found_posts . ' ' . _n('wpis', 'wpisy', $wp_query->found_posts, 'carni24');
                     ?>
-                </li>
-            </ol>
-        </nav>
+                </span>
+            </div>
+        <?php endif; ?>
     </div>
-    
-    <!-- Header sekcji -->
-    <section class="blog-archive-header py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h1 class="blog-archive-title">
-                        <i class="bi bi-newspaper me-3"></i>
-                        <?php
-                        if (is_category()) {
-                            echo single_cat_title('', false);
-                        } elseif (is_tag()) {
-                            echo 'Tag: ' . single_tag_title('', false);
-                        } elseif (is_author()) {
-                            echo 'Wpisy autora: ' . get_the_author();
-                        } elseif (is_date()) {
-                            echo 'Archiwum: ' . get_the_date('F Y');
-                        } else {
-                            echo 'Wszystkie wpisy';
-                        }
-                        ?>
-                    </h1>
-                    
-                    <?php if (is_category() && category_description()) : ?>
-                        <div class="blog-archive-description">
-                            <?= category_description() ?>
-                        </div>
-                    <?php elseif (is_tag() && tag_description()) : ?>
-                        <div class="blog-archive-description">
-                            <?= tag_description() ?>
-                        </div>
-                    <?php else : ?>
-                        <p class="blog-archive-description">
-                            Odkryj nasze artykuły o roślinach mięsożernych, poradniki uprawy i najnowsze informacje ze świata botaniki.
-                        </p>
-                    <?php endif; ?>
-                    
-                    <?php if (have_posts()) : ?>
-                        <div class="blog-archive-meta">
-                            <span class="badge bg-success fs-6">
-                                <i class="bi bi-journal-text me-1"></i>
-                                <?= $wp_query->found_posts ?> 
-                                <?= _n('wpis', 'wpisy', $wp_query->found_posts, 'carni24') ?>
-                            </span>
-                        </div>
-                    <?php endif; ?>
+</section>
+
+<section class="blog-content-section p-5">
+    <div class="container-fluid">
+        <?php if (have_posts()) : ?>
+            
+            <!-- Kontrolki widoku i sortowania -->
+            <div class="blog-controls" style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+                <div class="view-toggle">
+                    <span class="control-label">Widok:</span>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-success btn-sm active" data-view="grid">
+                            <i class="bi bi-grid-3x3-gap"></i> Siatka
+                        </button>
+                        <button type="button" class="btn btn-outline-success btn-sm" data-view="list">
+                            <i class="bi bi-list"></i> Lista
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sort-controls">
+                    <span class="control-label">Sortowanie:</span>
+                    <select class="form-select form-select-sm" id="blog-sort-select" style="width: auto; border-color: #16a34a;">
+                        <option value="date" <?= selected($orderby, 'date', false) ?>>Najnowsze</option>
+                        <option value="title" <?= selected($orderby, 'title', false) ?>>A-Z</option>
+                        <option value="title-desc" <?= selected($orderby, 'title-desc', false) ?>>Z-A</option>
+                        <option value="popular" <?= selected($orderby, 'popular', false) ?>>Najpopularniejsze</option>
+                        <option value="commented" <?= selected($orderby, 'commented', false) ?>>Najkomentowane</option>
+                    </select>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Treść bloga -->
-    <section class="blog-archive-content pb-5">
-        <div class="container">
-            <?php if (have_posts()) : ?>
-                
-                <!-- Filtry/Sortowanie -->
-                <div class="blog-filters">
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-                            <div class="blog-view-toggle">
-                                <span class="text-muted me-3">Widok:</span>
-                                <div class="btn-group" role="group" aria-label="Przełącznik widoku">
-                                    <button type="button" class="btn btn-outline-success btn-sm active" data-view="grid">
-                                        <i class="bi bi-grid-3x3-gap"></i> 
-                                        <span class="d-none d-sm-inline ms-1">Siatka</span>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-success btn-sm" data-view="list">
-                                        <i class="bi bi-list"></i> 
-                                        <span class="d-none d-sm-inline ms-1">Lista</span>
-                                    </button>
+
+            <!-- Siatka wpisów -->
+            <div class="blog-grid" id="blogGrid" data-view="grid">
+                <?php while (have_posts()) : the_post(); ?>
+                    <article class="blog-card">
+                        <a href="<?= get_permalink() ?>" class="blog-link">
+                            <div class="blog-image-container">
+                                <?php if (has_post_thumbnail()) : ?>
+                                    <?= get_the_post_thumbnail(get_the_ID(), 'medium_large', ['class' => 'blog-thumbnail', 'alt' => get_the_title()]) ?>
+                                <?php else : ?>
+                                    <div class="blog-placeholder">
+                                        <i class="bi bi-newspaper"></i>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <div class="blog-content">
+                                <div>
+                                    <h2 class="blog-card-title"><?= get_the_title() ?></h2>
+                                    <p class="blog-card-excerpt">
+                                        <?= wp_trim_words(get_the_excerpt(), 20, '...') ?>
+                                    </p>
+                                </div>
+                                
+                                <div class="blog-meta">
+                                    <div class="blog-meta-left">
+                                        <span class="blog-meta-date">
+                                            <i class="bi bi-calendar3"></i>
+                                            <?= get_the_date('d.m.Y') ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="blog-sort-select">
-                                <select class="form-select form-select-sm" id="blogSort">
-                                    <option value="date">Najnowsze</option>
-                                    <option value="title">Alfabetycznie</option>
-                                    <option value="popular">Najpopularniejsze</option>
-                                    <option value="commented">Najkomentowane</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="blog-search-input">
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="Szukaj w wpisach..." id="blogSearch">
-                                    <button class="btn btn-outline-secondary" type="button">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Grid wpisów -->
-                <div class="blog-posts-grid" id="blogPostsGrid">
-                    <div class="row g-4">
-                        <?php while (have_posts()) : the_post();
-                            $post_image = get_the_post_thumbnail_url(get_the_ID(), 'blog_thumb');
-                            if (!$post_image) {
-                                $post_image = get_template_directory_uri() . '/assets/images/default-post.jpg';
-                            }
-                            $categories = get_the_category();
-                            $reading_time = carni24_calculate_reading_time(get_the_content());
-                        ?>
-                            <div class="col-lg-4 col-md-6">
-                                <article class="blog-post-card">
-                                    <a href="<?= esc_url(get_permalink()) ?>" class="blog-post-link">
-                                        <div class="blog-post-image-container">
-                                            <img src="<?= esc_url($post_image) ?>" 
-                                                 alt="<?= esc_attr(get_the_title()) ?>" 
-                                                 class="blog-post-image">
-                                            <div class="blog-post-date-badge">
-                                                <span class="day"><?= get_the_date('d') ?></span>
-                                                <span class="month"><?= get_the_date('M') ?></span>
-                                            </div>
-                                        </div>
-                                        <div class="blog-post-content">
-                                            <?php if ($categories) : ?>
-                                                <div class="blog-post-category">
-                                                    <?= esc_html($categories[0]->name) ?>
-                                                </div>
-                                            <?php endif; ?>
-                                            
-                                            <h3 class="blog-post-title">
-                                                <?php the_title() ?>
-                                            </h3>
-                                            
-                                            <div class="blog-post-excerpt">
-                                                <?= wp_trim_words(get_the_excerpt(), 20, '...') ?>
-                                            </div>
-                                            
-                                            <div class="blog-post-meta">
-                                                <div class="blog-post-author">
-                                                    <i class="bi bi-person me-1"></i>
-                                                    <?= get_the_author() ?>
-                                                </div>
-                                                <div class="blog-post-reading-time">
-                                                    <i class="bi bi-clock me-1"></i>
-                                                    <?= $reading_time ?> min
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </article>
-                            </div>
-                        <?php endwhile; ?>
-                    </div>
-                </div>
-                
-                <!-- Paginacja -->
-                <div class="blog-pagination">
+                        </a>
+                    </article>
+                <?php endwhile; ?>
+            </div>
+
+            <?php if ($wp_query->max_num_pages > 1) : ?>
+                <div style="margin-top: 3rem; text-align: center;">
                     <?php
                     echo paginate_links(array(
                         'total' => $wp_query->max_num_pages,
@@ -198,37 +396,81 @@ get_header(); ?>
                         'prev_next' => true,
                         'prev_text' => '<i class="bi bi-chevron-left"></i> Poprzednia',
                         'next_text' => 'Następna <i class="bi bi-chevron-right"></i>',
-                        'add_args' => false,
-                        'add_fragment' => '',
+                        'add_args' => array('orderby' => $orderby),
                     ));
                     ?>
                 </div>
-                
-            <?php else : ?>
-                
-                <!-- Brak wpisów -->
-                <div class="no-blog-posts">
-                    <h3>Brak wpisów</h3>
-                    <p>
-                        Nie znaleziono żadnych wpisów w tej kategorii.
-                        <br>Sprawdź później lub przeglądaj inne kategorie.
-                    </p>
-                    <div class="no-blog-posts-actions">
-                        <a href="<?= home_url() ?>" class="btn btn-success me-3">
-                            <i class="bi bi-house me-2"></i>
-                            Strona główna
-                        </a>
-                        <a href="<?= home_url('/species/') ?>" class="btn btn-outline-success">
-                            <i class="bi bi-flower1 me-2"></i>
-                            Przeglądaj gatunki
-                        </a>
-                    </div>
-                </div>
-                
             <?php endif; ?>
-        </div>
-    </section>
-    
-</main>
+
+        <?php else : ?>
+            <div style="text-align: center; padding: 4rem 2rem;">
+                <div style="font-size: 4rem; color: #9ca3af; margin-bottom: 1rem;">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h2>Brak wpisów</h2>
+                <p>Nie znaleziono żadnych wpisów w tej sekcji.</p>
+                <a href="<?= home_url() ?>" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: #16a34a; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; margin-top: 1rem;">
+                    <i class="bi bi-house"></i>
+                    Wróć na stronę główną
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<!-- JAVASCRIPT INLINE -->
+<script>
+    console.log('Blog archive script loading...');
+
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM loaded, initializing view toggle...');
+
+        const viewButtons = document.querySelectorAll('[data-view]');
+        const blogGrid = document.getElementById('blogGrid');
+        const sortSelect = document.getElementById('blog-sort-select');
+
+        console.log('Found elements:', {
+            buttons: viewButtons.length,
+            grid: !!blogGrid,
+            select: !!sortSelect
+        });
+
+        // View toggle functionality
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const view = this.getAttribute('data-view');
+                console.log('Switching to view:', view);
+
+                // Update buttons
+                viewButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update grid
+                if (blogGrid) {
+                    blogGrid.setAttribute('data-view', view);
+                    console.log('Grid view updated to:', view);
+                }
+            });
+        });
+
+        // Sort functionality
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function () {
+                const orderby = this.value;
+                console.log('Changing sort to:', orderby);
+
+                // Build new URL with sort parameter
+                const url = new URL(window.location);
+                url.searchParams.set('orderby', orderby);
+                url.searchParams.delete('paged'); // Reset pagination
+                
+                console.log('Redirecting to:', url.toString());
+                window.location.href = url.toString();
+            });
+        }
+
+        console.log('Blog archive script initialized successfully');
+    });
+</script>
 
 <?php get_footer(); ?>

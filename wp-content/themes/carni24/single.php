@@ -49,10 +49,6 @@ get_header(); ?>
                                     <?= get_the_date('d F Y') ?>
                                 </time>
                             </div>
-                            <div class="meta-item">
-                                <i class="bi bi-person me-2"></i>
-                                <span><?= get_the_author() ?></span>
-                            </div>
                             <?php if (function_exists('get_field')) : 
                                 $reading_time = get_field('reading_time');
                                 if ($reading_time) :
