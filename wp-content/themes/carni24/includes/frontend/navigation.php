@@ -269,22 +269,6 @@ function carni24_get_active_menu_item_class($item) {
     return implode(' ', $classes);
 }
 
-// Fallback menu functions
-function carni24_fallback_menu() {
-    echo '<a href="' . home_url() . '" class="nav-link">Strona główna</a>';
-    echo '<a href="' . home_url('/gatunki/') . '" class="nav-link">Gatunki</a>';
-    echo '<a href="' . home_url('/poradniki/') . '" class="nav-link">Poradniki</a>';
-    echo '<a href="' . home_url('/blog/') . '" class="nav-link">Blog</a>';
-    echo '<a href="' . home_url('/kontakt/') . '" class="nav-link">Kontakt</a>';
-}
-
-function carni24_mobile_fallback_menu() {
-    echo '<a href="' . home_url() . '" class="nav-link">Strona główna</a>';
-    echo '<a href="' . home_url('/gatunki/') . '" class="nav-link">Gatunki</a>';
-    echo '<a href="' . home_url('/poradniki/') . '" class="nav-link">Poradniki</a>';
-    echo '<a href="' . home_url('/blog/') . '" class="nav-link">Blog</a>';
-    echo '<a href="' . home_url('/kontakt/') . '" class="nav-link">Kontakt</a>';
-}
 
 function carni24_navigation_accessibility_improvements() {
     ?>
@@ -325,4 +309,182 @@ function carni24_navigation_accessibility_improvements() {
 }
 add_action('wp_footer', 'carni24_navigation_accessibility_improvements');
 
-?>
+// Funkcja fallback dla głównego menu (header)
+function carni24_fallback_menu() {
+    ?>
+    <a href="<?= home_url('/') ?>" class="nav-link text-white px-3 py-2 rounded <?= is_front_page() ? 'bg-success active' : '' ?>" data-menu-item="home">
+        <?php if (get_theme_mod('carni24_menu_icons', true)): ?>
+            <i class="bi bi-house me-1" aria-hidden="true"></i>
+        <?php endif; ?>
+        <?php esc_html_e('Strona Główna', 'carni24'); ?>
+    </a>
+    
+    <?php if (get_option('page_for_posts')): ?>
+    <a href="<?= get_permalink(get_option('page_for_posts')) ?>" class="nav-link text-white px-3 py-2 rounded <?= is_home() || is_category() || is_tag() || is_author() || is_date() || is_search() ? 'bg-success active' : '' ?>" data-menu-item="blog">
+        <?php if (get_theme_mod('carni24_menu_icons', true)): ?>
+            <i class="bi bi-journal-text me-1" aria-hidden="true"></i>
+        <?php endif; ?>
+        <?php esc_html_e('Blog', 'carni24'); ?>
+    </a>
+    <?php endif; ?>
+    
+    <?php if (post_type_exists('species')): ?>
+    <a href="<?= get_post_type_archive_link('species') ?>" class="nav-link text-white px-3 py-2 rounded <?= is_post_type_archive('species') || is_singular('species') ? 'bg-success active' : '' ?>" data-menu-item="species">
+        <?php if (get_theme_mod('carni24_menu_icons', true)): ?>
+            <i class="bi bi-flower1 me-1" aria-hidden="true"></i>
+        <?php endif; ?>
+        <?php esc_html_e('Gatunki', 'carni24'); ?>
+    </a>
+    <?php endif; ?>
+    
+    <?php if (post_type_exists('guides')): ?>
+    <a href="<?= get_post_type_archive_link('guides') ?>" class="nav-link text-white px-3 py-2 rounded <?= is_post_type_archive('guides') || is_singular('guides') ? 'bg-success active' : '' ?>" data-menu-item="guides">
+        <?php if (get_theme_mod('carni24_menu_icons', true)): ?>
+            <i class="bi bi-book me-1" aria-hidden="true"></i>
+        <?php endif; ?>
+        <?php esc_html_e('Poradniki', 'carni24'); ?>
+    </a>
+    <?php endif; ?>
+    <?php
+}
+
+// Funkcja fallback dla menu mobilnego
+function carni24_mobile_fallback_menu() {
+    ?>
+    <a href="<?= home_url('/') ?>" class="nav-link text-white <?= is_front_page() ? 'active' : '' ?>" data-menu-item="home-mobile">
+        <i class="bi bi-house me-2"></i>
+        <?php esc_html_e('Strona Główna', 'carni24'); ?>
+    </a>
+    
+    <?php if (get_option('page_for_posts')): ?>
+    <a href="<?= get_permalink(get_option('page_for_posts')) ?>" class="nav-link text-white <?= is_home() || is_category() || is_tag() || is_author() || is_date() || is_search() ? 'active' : '' ?>" data-menu-item="blog-mobile">
+        <i class="bi bi-journal-text me-2"></i>
+        <?php esc_html_e('Blog', 'carni24'); ?>
+    </a>
+    <?php endif; ?>
+    
+    <?php if (post_type_exists('species')): ?>
+    <a href="<?= get_post_type_archive_link('species') ?>" class="nav-link text-white <?= is_post_type_archive('species') || is_singular('species') ? 'active' : '' ?>" data-menu-item="species-mobile">
+        <i class="bi bi-flower1 me-2"></i>
+        <?php esc_html_e('Gatunki', 'carni24'); ?>
+    </a>
+    <?php endif; ?>
+    
+    <?php if (post_type_exists('guides')): ?>
+    <a href="<?= get_post_type_archive_link('guides') ?>" class="nav-link text-white <?= is_post_type_archive('guides') || is_singular('guides') ? 'active' : '' ?>" data-menu-item="guides-mobile">
+        <i class="bi bi-book me-2"></i>
+        <?php esc_html_e('Poradniki', 'carni24'); ?>
+    </a>
+    <?php endif; ?>
+    
+    <a href="<?= home_url('/kontakt/') ?>" class="nav-link text-white <?= is_page('kontakt') ? 'active' : '' ?>" data-menu-item="contact-mobile">
+        <i class="bi bi-envelope me-2"></i>
+        <?php esc_html_e('Kontakt', 'carni24'); ?>
+    </a>
+    <?php
+}
+
+
+class Carni24_Main_Nav_Walker extends Walker_Nav_Menu {
+    
+    // Start Level - dla submenu (opcjonalne)
+    function start_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "\n$indent<ul class=\"dropdown-menu\">\n";
+    }
+    
+    // End Level
+    function end_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent</ul>\n";
+    }
+    
+    // Start Element - każdy link menu
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $indent = ($depth) ? str_repeat("\t", $depth) : '';
+        
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $classes[] = 'menu-item-' . $item->ID;
+        
+        // Dodaj klasy specjalne
+        if (in_array('current-menu-item', $classes) || in_array('current-menu-ancestor', $classes) || in_array('current_page_item', $classes)) {
+            $classes[] = 'active';
+        }
+        
+        $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+        
+        $id = apply_filters('nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args);
+        $id = $id ? ' id="' . esc_attr($id) . '"' : '';
+        
+        $output .= $indent . '<li' . $id . $class_names .'>';
+        
+        // Przygotuj link
+        $attributes = ! empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) .'"' : '';
+        $attributes .= ! empty($item->target)     ? ' target="' . esc_attr($item->target     ) .'"' : '';
+        $attributes .= ! empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn        ) .'"' : '';
+        $attributes .= ! empty($item->url)        ? ' href="'   . esc_attr($item->url        ) .'"' : '';
+        
+        // TUTAJ DODAJEMY KLASY CSS DO LINKA!
+        $link_classes = 'nav-link';
+        
+        // Dodaj active class do linka jeśli jest aktywny
+        if (in_array('current-menu-item', $classes) || 
+            in_array('current-menu-ancestor', $classes) || 
+            in_array('current_page_item', $classes) ||
+            in_array('active', $classes)) {
+            $link_classes .= ' active';
+        }
+        
+        // Dodaj data-menu-item attribute
+        $menu_slug = sanitize_title($item->title);
+        $attributes .= ' data-menu-item="' . esc_attr($menu_slug) . '"';
+        $attributes .= ' class="' . $link_classes . '"';
+        
+        $item_output = isset($args->before) ? $args->before : '';
+        $item_output .= '<a' . $attributes . '>';
+        
+        // Dodaj ikonę jeśli potrzebna
+        $icon = $this->get_menu_icon($item->title);
+        if ($icon) {
+            $item_output .= $icon . ' ';
+        }
+        
+        $item_output .= (isset($args->link_before) ? $args->link_before : '') . apply_filters('the_title', $item->title, $item->ID) . (isset($args->link_after) ? $args->link_after : '');
+        $item_output .= '</a>';
+        $item_output .= isset($args->after) ? $args->after : '';
+        
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+    
+    // End Element
+    function end_el(&$output, $item, $depth = 0, $args = null) {
+        $output .= "</li>\n";
+    }
+    
+    // Funkcja do dodawania ikon
+    private function get_menu_icon($title) {
+        $icons = array(
+            'Strona Główna' => '<i class="bi bi-house me-1"></i>',
+            'Strona główna' => '<i class="bi bi-house me-1"></i>',
+            'Home' => '<i class="bi bi-house me-1"></i>',
+            'Gatunki' => '<i class="bi bi-flower1 me-1"></i>',
+            'Species' => '<i class="bi bi-flower1 me-1"></i>',
+            'Poradniki' => '<i class="bi bi-book me-1"></i>',
+            'Guides' => '<i class="bi bi-book me-1"></i>',
+            'Blog' => '<i class="bi bi-journal-text me-1"></i>',
+            'Artykuły' => '<i class="bi bi-journal-text me-1"></i>',
+            'Galeria' => '<i class="bi bi-images me-1"></i>',
+            'Gallery' => '<i class="bi bi-images me-1"></i>',
+            'Kontakt' => '<i class="bi bi-envelope me-1"></i>',
+            'Contact' => '<i class="bi bi-envelope me-1"></i>',
+            'O nas' => '<i class="bi bi-info-circle me-1"></i>',
+            'About' => '<i class="bi bi-info-circle me-1"></i>',
+            'Instrukcje' => '<i class="bi bi-gear me-1"></i>',
+            'Palcem Po Mapie' => '<i class="bi bi-map me-1"></i>',
+            'Hybrydy' => '<i class="bi bi-diagram-3 me-1"></i>',
+        );
+        
+        return isset($icons[$title]) ? $icons[$title] : '';
+    }
+}

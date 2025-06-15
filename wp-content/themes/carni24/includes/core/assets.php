@@ -82,15 +82,6 @@ function carni24_enqueue_frontend_assets() {
         );
     }
 
-    // Single post/page assets
-    if (is_singular()) {
-        wp_enqueue_style(
-                'carni24-single',
-                CARNI24_ASSETS_URL . '/css/pages/single.css',
-                array('carni24-style'),
-                CARNI24_VERSION
-        );
-    }
 
     // Custom Post Types assets
     if (is_singular('species') || is_post_type_archive('species')) {
