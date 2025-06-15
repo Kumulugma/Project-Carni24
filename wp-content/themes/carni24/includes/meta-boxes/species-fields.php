@@ -188,3 +188,44 @@ function carni24_species_orderby($query) {
     }
 }
 add_action('pre_get_posts', 'carni24_species_orderby');
+
+function carni24_add_species_bibliography_meta_box() {
+    add_meta_box(
+        'species_bibliography',
+        'Bibliografia i źródła',
+        'carni24_species_bibliography_callback',
+        'species',
+        'normal',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'carni24_add_species_bibliography_meta_box');
+
+function carni24_species_bibliography_callback($post) {
+    wp_nonce_field('carni24_species_bibliography_meta', 'carni24_species_bibliography_nonce');
+    $bibliography = get_post_meta($post->ID, '_species_bibliography', true);
+    
+    echo '<p><label for="species_bibliography">Bibliografia, źródła i referencje:</label></p>';
+    wp_editor($bibliography, 'species_bibliography', array(
+        'textarea_name' => 'species_bibliography',
+        'media_buttons' => false,
+        'textarea_rows' => 8,
+        'teeny' => true
+    ));
+}
+
+// Zapisywanie bibliografii
+add_action('save_post', 'carni24_save_species_bibliography');
+function carni24_save_species_bibliography($post_id) {
+    if (!isset($_POST['carni24_species_bibliography_nonce']) || 
+        !wp_verify_nonce($_POST['carni24_species_bibliography_nonce'], 'carni24_species_bibliography_meta')) {
+        return;
+    }
+    
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    
+    if (isset($_POST['species_bibliography'])) {
+        update_post_meta($post_id, '_species_bibliography', wp_kses_post($_POST['species_bibliography']));
+    }
+}

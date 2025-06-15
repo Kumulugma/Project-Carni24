@@ -8,8 +8,8 @@ function carni24_breadcrumbs() {
     if (is_front_page()) return;
     
     echo '<nav aria-label="breadcrumb" class="breadcrumbs-nav">';
-    echo '<div class="container">';
-    echo '<ol class="breadcrumb">';
+    echo '<div class="container-fluid px-5">';
+    echo '<ol class="breadcrumb" style="margin:0">';
     
     echo '<li class="breadcrumb-item">';
     echo '<a href="' . home_url() . '">';

@@ -87,15 +87,6 @@ function carni24_main_navigation() {
     ));
 }
 
-function carni24_fallback_menu() {
-    echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">';
-    echo '<li class="nav-item"><a class="nav-link" href="' . home_url() . '"><i class="bi bi-house-fill me-2"></i>Strona główna</a></li>';
-    echo '<li class="nav-item"><a class="nav-link" href="' . home_url('/gatunki/') . '"><i class="bi bi-flower1 me-2"></i>Gatunki</a></li>';
-    echo '<li class="nav-item"><a class="nav-link" href="' . home_url('/poradniki/') . '"><i class="bi bi-book me-2"></i>Poradniki</a></li>';
-    echo '<li class="nav-item"><a class="nav-link" href="' . home_url('/blog/') . '"><i class="bi bi-journal-text me-2"></i>Blog</a></li>';
-    echo '<li class="nav-item"><a class="nav-link" href="' . home_url('/kontakt/') . '"><i class="bi bi-envelope me-2"></i>Kontakt</a></li>';
-    echo '</ul>';
-}
 
 function carni24_mobile_menu_toggle() {
     ?>

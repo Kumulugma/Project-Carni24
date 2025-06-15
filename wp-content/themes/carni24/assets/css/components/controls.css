@@ -1,0 +1,227 @@
+/* ==============================================
+   WSPÓLNE STYLE DLA WSZYSTKICH CONTROLS
+   ============================================== */
+
+/* Główny kontener kontrolek */
+.species-controls,
+.blog-controls,
+.archive-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin: 2rem 0;
+}
+
+/* Lewa strona kontrolek */
+.controls-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+/* Prawa strona kontrolek */
+.controls-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Etykiety kontrolek */
+.control-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Toggle widoku (grid/list) */
+.view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.view-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.view-toggle-btn:hover {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.view-toggle-btn.active {
+    background: #16a34a;
+    color: white;
+    box-shadow: 0 2px 4px rgba(22, 163, 74, 0.3);
+}
+
+.view-toggle-btn i {
+    font-size: 1rem;
+}
+
+/* Sortowanie */
+.sort-control {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sort-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 150px;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.sort-select:hover {
+    border-color: #16a34a;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .species-controls,
+    .blog-controls,
+    .archive-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .controls-left,
+    .controls-right {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .view-toggle {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .sort-control {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .sort-select {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .control-label {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .view-toggle-btn .btn-text {
+        display: none;
+    }
+    
+    .view-toggle-btn {
+        padding: 0.5rem;
+        min-width: 40px;
+        justify-content: center;
+    }
+}
+/* ===== HERO SECTION STYLES ===== */
+.species-archive-hero,
+.blog-archive-hero {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    padding: 2rem 0;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 0;
+}
+
+.hero-content {
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    background-clip: text;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.species-count,
+.blog-count {
+    margin-top: 1rem;
+}
+
+.species-content,
+.blog-content {
+    padding: 2rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .species-archive-hero,
+    .blog-archive-hero {
+        padding: 2rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-content {
+        padding: 0 1rem;
+    }
+}

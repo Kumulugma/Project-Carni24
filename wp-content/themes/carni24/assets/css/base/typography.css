@@ -67,7 +67,7 @@ ul li {
 }
 
 ol li {
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 0;
 }
 
 li:last-child {

@@ -42,7 +42,6 @@
                         'fallback_cb' => 'carni24_fallback_menu',
                         'items_wrap' => '%3$s',
                         'depth' => 1,
-                        'walker' => new Carni24_Menu_Walker()
                     ));
                 } else {
                     // Fallback menu jeśli nie ma zdefiniowanego menu
@@ -55,7 +54,8 @@
     
     <!-- Prawa strona - wyszukiwanie -->
     <div class="sub-menu-search">
-        <button class="btn btn-outline-light search-trigger-btn" 
+        <button class="btn btn-outline-light search-trigger-btn"
+                style="background: #ffffd7;"
                 type="button" 
                 data-bs-toggle="modal" 
                 data-bs-target="#searchModal"
@@ -78,6 +78,7 @@
             <div class="d-flex align-items-center">
                 <!-- Search button mobile -->
                 <button class="btn btn-outline-light search-trigger-btn me-2" 
+                        style="background: #ffffd7;"
                         type="button" 
                         data-bs-toggle="modal" 
                         data-bs-target="#searchModal"
@@ -110,7 +111,6 @@
                             'fallback_cb' => 'carni24_mobile_fallback_menu',
                             'items_wrap' => '%3$s',
                             'depth' => 2,
-                            'walker' => new Carni24_Mobile_Menu_Walker()
                         ));
                     } elseif (has_nav_menu('main-menu')) {
                         // Użyj głównego menu jako fallback
@@ -121,7 +121,6 @@
                             'fallback_cb' => 'carni24_mobile_fallback_menu',
                             'items_wrap' => '%3$s',
                             'depth' => 1,
-                            'walker' => new Carni24_Mobile_Menu_Walker()
                         ));
                     } else {
                         // Fallback dla mobile
