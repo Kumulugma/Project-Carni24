@@ -5,6 +5,30 @@
  * ZAKTUALIZOWANY Z POPRAWKAMI MENU MOBILNEGO
  */
 
+/* ===== ZMIENNE CSS ===== */
+:root {
+  --color-bg-dark: #343a40;
+  --color-bg-medium: #495057;
+  --color-text-light: #ffffff;
+  --color-primary: #268155;
+  --color-primary-rgb: 38, 129, 85;
+  --shadow-md: 0 2px 10px rgba(0,0,0,0.1);
+  --header-height: 60px;
+  --z-sticky: 100;
+  --font-family-headings: inherit;
+  --font-weight-bold: 700;
+  --font-size-xl: 1.25rem;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-weight-medium: 500;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xs: 0.25rem;
+  --border-radius-pill: 20px;
+  --transition-normal: all 0.3s ease;
+}
+
 /* ===== GŁÓWNA NAWIGACJA (SUB-MENU) ===== */
 #sub-menu {
   background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-medium) 100%);
@@ -75,11 +99,38 @@
   outline: none;
 }
 
+/* ===== SEARCH BUTTON ===== */
+.search-trigger-btn {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  color: #268155 !important;
+  background-color: #ffffff;
+}
+
+.search-trigger-btn:hover {
+  color: #1e7e34 !important;
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-color: rgba(40, 167, 69, 0.2);
+}
+
+.search-trigger-btn:focus {
+  color: #1e7e34 !important;
+  background-color: #ffffff;
+  border-color: #268155;
+  box-shadow: 0 0 0 3px rgba(38, 129, 85, 0.25);
+}
+
 .search-trigger-btn i {
   font-size: var(--font-size-base, 16px);
 }
 
-/* ===== MOBILE NAVIGATION - POPRAWIONE ===== */
+/* ===== MOBILE NAVIGATION ===== */
 #sub-menu-mobile {
   background: var(--color-bg-dark, #343a40) !important;
   box-shadow: var(--shadow-md);
@@ -105,7 +156,7 @@
   }
 }
 
-/* Hamburger button - POPRAWIONY */
+/* Hamburger button */
 .navbar-toggler {
   border: none !important;
   padding: var(--spacing-xs, 8px) var(--spacing-sm, 12px) !important;
@@ -130,7 +181,7 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
-/* Mobile menu collapse - POPRAWIONY */
+/* Mobile menu collapse */
 .navbar-collapse {
   background: var(--color-bg-dark, #343a40) !important;
   margin: 0 -1rem !important;
@@ -151,8 +202,8 @@
 
 @media (max-width: 992px) {
     .navbar-collapse .nav-link {
-        width: 100% ;
-  border: 1px;
+        width: 100%;
+        border: 1px solid transparent;
     }
 }
 
@@ -192,8 +243,8 @@
 #sub-menu-mobile .search-trigger-btn:focus {
   color: #1e7e34 !important;
   background-color: #ffffff;
-  border-color: #28a745;
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+  border-color: #268155;
+  box-shadow: 0 0 0 3px rgba(38, 129, 85, 0.25);
 }
 
 /* Dodatkowe poprawki stabilności */
@@ -236,4 +287,31 @@
     margin: 0 -15px !important;
     padding: 15px !important;
   }
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 1399px) {
+    #sub-menu .nav-link {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 13px;
+    }
+    
+    .search-trigger-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1199px) {
+    #sub-menu .nav-link {
+        padding: 0.5rem !important;
+        font-size: 12px;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+#sub-menu .nav-link:focus-visible,
+.search-trigger-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
 }

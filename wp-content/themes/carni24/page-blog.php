@@ -8,6 +8,30 @@
 
 get_header();
 
+// Helper function dla URL - POPRAWIONA!
+function get_sort_url($new_orderby = '') {
+    $current_url = $_SERVER['REQUEST_URI'];
+    $parsed_url = parse_url($current_url);
+    $base_url = $parsed_url['path'];
+    
+    // Usuń istniejące parametry orderby i paged
+    $query_params = array();
+    if (isset($parsed_url['query'])) {
+        parse_str($parsed_url['query'], $query_params);
+        unset($query_params['orderby']);
+        unset($query_params['paged']);
+    }
+    
+    // Dodaj nowy orderby jeśli nie jest pusty i różny od 'date'
+    if ($new_orderby && $new_orderby !== 'date' && $new_orderby !== '') {
+        $query_params['orderby'] = $new_orderby;
+    }
+    
+    // Zbuduj URL
+    $query_string = !empty($query_params) ? '?' . http_build_query($query_params) : '';
+    return $base_url . $query_string;
+}
+
 // Sortowanie i filtrowanie
 $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'date';
 
@@ -21,7 +45,7 @@ $args = array(
     'paged' => $paged,
 );
 
-// Sortowanie
+// Sortowanie - POPRAWIONE!
 switch ($orderby) {
     case 'title':
         $args['orderby'] = 'title';
@@ -36,9 +60,16 @@ switch ($orderby) {
         $args['orderby'] = 'meta_value_num';
         $args['order'] = 'DESC';
         break;
+    case 'date':
     default:
         $args['orderby'] = 'date';
         $args['order'] = 'DESC';
+}
+
+// Debug - usuń po teście
+if (isset($_GET['debug'])) {
+    echo '<pre>Orderby: ' . $orderby . '</pre>';
+    echo '<pre>Args: ' . print_r($args, true) . '</pre>';
 }
 
 $blog_query = new WP_Query($args);
@@ -88,17 +119,17 @@ $blog_query = new WP_Query($args);
             <div class="controls-right">
                 <div class="sort-control">
                     <label for="blog-sort" class="control-label">Sortuj:</label>
-                    <select id="blog-sort" class="sort-select" onchange="location = this.value;">
-                        <option value="<?= remove_query_arg('orderby') ?>" <?= !isset($_GET['orderby']) ? 'selected' : '' ?>>
+                    <select id="blog-sort" class="sort-select">
+                        <option value="" <?= ($orderby == 'date' || !isset($_GET['orderby'])) ? 'selected' : '' ?>>
                             Najnowsze
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'title') ?>" <?= ($orderby == 'title') ? 'selected' : '' ?>>
+                        <option value="title" <?= ($orderby == 'title') ? 'selected' : '' ?>>
                             A-Z
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'title-desc') ?>" <?= ($orderby == 'title-desc') ? 'selected' : '' ?>>
+                        <option value="title-desc" <?= ($orderby == 'title-desc') ? 'selected' : '' ?>>
                             Z-A
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'popular') ?>" <?= ($orderby == 'popular') ? 'selected' : '' ?>>
+                        <option value="popular" <?= ($orderby == 'popular') ? 'selected' : '' ?>>
                             Najpopularniejsze
                         </option>
                     </select>
@@ -163,7 +194,7 @@ $blog_query = new WP_Query($args);
             <div class="custom-pagination">
                 <div class="pagination-container">
                     <?php
-                    $pagination = paginate_links(array(
+                    $pagination_args = array(
                         'total' => $blog_query->max_num_pages,
                         'current' => max(1, get_query_var('paged')),
                         'format' => '?paged=%#%',
@@ -176,7 +207,14 @@ $blog_query = new WP_Query($args);
                         'next_text' => '<span class="text">Następna</span> <i class="bi bi-chevron-right"></i>',
                         'add_args' => false,
                         'add_fragment' => '',
-                    ));
+                    );
+                    
+                    // POPRAWKA: Dodaj parametry sortowania do paginacji
+                    if ($orderby && $orderby !== 'date') {
+                        $pagination_args['add_args'] = ['orderby' => $orderby];
+                    }
+                    
+                    $pagination = paginate_links($pagination_args);
                     
                     if ($pagination) {
                         foreach ($pagination as $link) {
@@ -195,6 +233,31 @@ $blog_query = new WP_Query($args);
         
     </div>
 </div>
+
+<!-- POPRAWIONY JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sortSelect = document.getElementById('blog-sort');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            const value = this.value;
+            const url = new URL(window.location);
+            
+            // Usuń stare parametry
+            url.searchParams.delete('orderby');
+            url.searchParams.delete('paged');
+            
+            // Dodaj nowy parametr jeśli nie jest pusty
+            if (value && value !== '') {
+                url.searchParams.set('orderby', value);
+            }
+            
+            // Przekieruj
+            window.location.href = url.toString();
+        });
+    }
+});
+</script>
 
 <?php
 wp_reset_postdata();

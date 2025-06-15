@@ -160,7 +160,7 @@ get_header(); ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 px-3">
                                         <div class="post-content">
                                             <?php if ($categories): ?>
                                                 <div class="post-category">

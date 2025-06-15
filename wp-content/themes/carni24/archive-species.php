@@ -15,7 +15,7 @@ $args = array(
     'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 );
 
-// Sortowanie
+// Sortowanie - POPRAWIONE!
 switch ($orderby) {
     case 'title':
         $args['orderby'] = 'title';
@@ -35,9 +35,16 @@ switch ($orderby) {
         $args['orderby'] = 'meta_value_num';
         $args['order'] = 'DESC';
         break;
+    case 'date':
     default:
         $args['orderby'] = 'date';
         $args['order'] = 'DESC';
+}
+
+// Debug - usuń po teście
+if (isset($_GET['debug'])) {
+    echo '<pre>Species Orderby: ' . $orderby . '</pre>';
+    echo '<pre>Species Args: ' . print_r($args, true) . '</pre>';
 }
 
 $species_query = new WP_Query($args);
@@ -87,20 +94,20 @@ $species_query = new WP_Query($args);
             <div class="controls-right">
                 <div class="sort-control">
                     <label for="species-sort" class="control-label">Sortuj:</label>
-                    <select id="species-sort" class="sort-select" onchange="location = this.value;">
-                        <option value="<?= remove_query_arg('orderby') ?>" <?= !isset($_GET['orderby']) ? 'selected' : '' ?>>
+                    <select id="species-sort" class="sort-select">
+                        <option value="" <?= ($orderby == 'date' || !isset($_GET['orderby'])) ? 'selected' : '' ?>>
                             Najnowsze
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'title') ?>" <?= ($orderby == 'title') ? 'selected' : '' ?>>
+                        <option value="title" <?= ($orderby == 'title') ? 'selected' : '' ?>>
                             A-Z
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'title-desc') ?>" <?= ($orderby == 'title-desc') ? 'selected' : '' ?>>
+                        <option value="title-desc" <?= ($orderby == 'title-desc') ? 'selected' : '' ?>>
                             Z-A
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'popularity') ?>" <?= ($orderby == 'popularity') ? 'selected' : '' ?>>
+                        <option value="popularity" <?= ($orderby == 'popularity') ? 'selected' : '' ?>>
                             Najpopularniejsze
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'difficulty') ?>" <?= ($orderby == 'difficulty') ? 'selected' : '' ?>>
+                        <option value="difficulty" <?= ($orderby == 'difficulty') ? 'selected' : '' ?>>
                             Łatwość pielęgnacji
                         </option>
                     </select>
@@ -182,7 +189,7 @@ $species_query = new WP_Query($args);
             <div class="custom-pagination">
                 <div class="pagination-container">
                     <?php
-                    $pagination = paginate_links(array(
+                    $pagination_args = array(
                         'total' => $species_query->max_num_pages,
                         'current' => max(1, get_query_var('paged')),
                         'format' => '?paged=%#%',
@@ -195,7 +202,14 @@ $species_query = new WP_Query($args);
                         'next_text' => '<span class="text">Następna</span> <i class="bi bi-chevron-right"></i>',
                         'add_args' => false,
                         'add_fragment' => '',
-                    ));
+                    );
+                    
+                    // POPRAWKA: Dodaj parametry sortowania do paginacji
+                    if ($orderby && $orderby !== 'date') {
+                        $pagination_args['add_args'] = ['orderby' => $orderby];
+                    }
+                    
+                    $pagination = paginate_links($pagination_args);
                     
                     if ($pagination) {
                         foreach ($pagination as $link) {
@@ -214,6 +228,31 @@ $species_query = new WP_Query($args);
         
     </div>
 </div>
+
+<!-- POPRAWIONY JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sortSelect = document.getElementById('species-sort');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            const value = this.value;
+            const url = new URL(window.location);
+            
+            // Usuń stare parametry
+            url.searchParams.delete('orderby');
+            url.searchParams.delete('paged');
+            
+            // Dodaj nowy parametr jeśli nie jest pusty
+            if (value && value !== '') {
+                url.searchParams.set('orderby', value);
+            }
+            
+            // Przekieruj
+            window.location.href = url.toString();
+        });
+    }
+});
+</script>
 
 <?php
 wp_reset_postdata();

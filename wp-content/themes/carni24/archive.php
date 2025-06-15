@@ -32,7 +32,7 @@ if (is_category()) {
     $archive_description = 'Przeglądaj wszystkie wpisy z naszego bloga.';
 }
 
-// Modyfikacja głównego query
+// Modyfikacja głównego query - POPRAWIONE!
 global $wp_query;
 switch ($orderby) {
     case 'title':
@@ -48,9 +48,16 @@ switch ($orderby) {
         $wp_query->set('orderby', 'meta_value_num');
         $wp_query->set('order', 'DESC');
         break;
+    case 'date':
     default:
         $wp_query->set('orderby', 'date');
         $wp_query->set('order', 'DESC');
+}
+
+// Debug - usuń po teście
+if (isset($_GET['debug'])) {
+    echo '<pre>Archive Orderby: ' . $orderby . '</pre>';
+    echo '<pre>Archive Query Vars: ' . print_r($wp_query->query_vars, true) . '</pre>';
 }
 ?>
 
@@ -98,17 +105,17 @@ switch ($orderby) {
             <div class="controls-right">
                 <div class="sort-control">
                     <label for="archive-sort" class="control-label">Sortuj:</label>
-                    <select id="archive-sort" class="sort-select" onchange="location = this.value;">
-                        <option value="<?= remove_query_arg('orderby') ?>" <?= !isset($_GET['orderby']) ? 'selected' : '' ?>>
+                    <select id="archive-sort" class="sort-select">
+                        <option value="" <?= ($orderby == 'date' || !isset($_GET['orderby'])) ? 'selected' : '' ?>>
                             Najnowsze
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'title') ?>" <?= ($orderby == 'title') ? 'selected' : '' ?>>
+                        <option value="title" <?= ($orderby == 'title') ? 'selected' : '' ?>>
                             A-Z
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'title-desc') ?>" <?= ($orderby == 'title-desc') ? 'selected' : '' ?>>
+                        <option value="title-desc" <?= ($orderby == 'title-desc') ? 'selected' : '' ?>>
                             Z-A
                         </option>
-                        <option value="<?= add_query_arg('orderby', 'popular') ?>" <?= ($orderby == 'popular') ? 'selected' : '' ?>>
+                        <option value="popular" <?= ($orderby == 'popular') ? 'selected' : '' ?>>
                             Najpopularniejsze
                         </option>
                     </select>
@@ -174,7 +181,7 @@ switch ($orderby) {
 
         <!-- PAGINACJA -->
         <?php
-        $pagination = paginate_links(array(
+        $pagination_args = array(
             'total' => $wp_query->max_num_pages,
             'current' => max(1, get_query_var('paged')),
             'format' => '?paged=%#%',
@@ -185,8 +192,15 @@ switch ($orderby) {
             'prev_next' => true,
             'prev_text' => '<i class="bi bi-chevron-left"></i> <span class="text">Poprzednia</span>',
             'next_text' => '<span class="text">Następna</span> <i class="bi bi-chevron-right"></i>',
-            'add_args' => array('orderby' => $orderby),
-        ));
+            'add_args' => array(),
+        );
+        
+        // POPRAWKA: Dodaj parametry sortowania do paginacji
+        if ($orderby && $orderby !== 'date') {
+            $pagination_args['add_args'] = ['orderby' => $orderby];
+        }
+        
+        $pagination = paginate_links($pagination_args);
         
         if ($pagination) : ?>
             <div class="custom-pagination">
@@ -205,5 +219,30 @@ switch ($orderby) {
         
     </div>
 </div>
+
+<!-- POPRAWIONY JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sortSelect = document.getElementById('archive-sort');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            const value = this.value;
+            const url = new URL(window.location);
+            
+            // Usuń stare parametry
+            url.searchParams.delete('orderby');
+            url.searchParams.delete('paged');
+            
+            // Dodaj nowy parametr jeśli nie jest pusty
+            if (value && value !== '') {
+                url.searchParams.set('orderby', value);
+            }
+            
+            // Przekieruj
+            window.location.href = url.toString();
+        });
+    }
+});
+</script>
 
 <?php get_footer(); ?>

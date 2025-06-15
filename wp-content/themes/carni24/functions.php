@@ -58,7 +58,7 @@ if (is_admin()) {
 // ===== FRONTEND FEATURES ===== //
 require_once CARNI24_THEME_PATH . '/includes/frontend/navigation.php';   // Menu i nawigacja
 require_once CARNI24_THEME_PATH . '/includes/frontend/widgets.php';      // Widget areas i sidebar
-require_once CARNI24_THEME_PATH . '/includes/frontend/sorting.php';      // Sortowanie archiwów CPT
+//require_once CARNI24_THEME_PATH . '/includes/frontend/sorting.php';      // Sortowanie archiwów CPT
 require_once CARNI24_THEME_PATH . '/includes/frontend/filters.php';      // Filtry treści i body classes
 
 // ===== AJAX I API ===== //

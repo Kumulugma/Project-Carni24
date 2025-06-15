@@ -25,7 +25,7 @@ get_header(); ?>
                 <!-- Header z obrazkiem wyróżniającym -->
                 <header class="species-header">
                     <div class="row align-items-center">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <h1 class="species-title"><?php the_title(); ?></h1>
                             <?php 
                             $scientific_name = get_post_meta(get_the_ID(), '_species_scientific_name', true);
@@ -65,17 +65,6 @@ get_header(); ?>
                             </div>
                         </div>
                         
-                        <!-- Obrazek wyróżniający -->
-                        <div class="col-lg-4">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <div class="species-featured-image">
-                                    <?php the_post_thumbnail('large', array(
-                                        'class' => 'img-fluid rounded shadow',
-                                        'alt' => get_the_title()
-                                    )); ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
                     </div>
                 </header>
 
@@ -108,6 +97,16 @@ get_header(); ?>
                         
                         <!-- Prawa kolumna - meta informacje -->
                         <div class="col-lg-4">
+                            
+                            <?php if (has_post_thumbnail()) : ?>
+                                <div class="species-featured-image">
+                                    <?php the_post_thumbnail('large', array(
+                                        'class' => 'img-fluid rounded shadow',
+                                        'alt' => get_the_title()
+                                    )); ?>
+                                </div>
+                            <?php endif; ?>
+                            
                             <div class="species-sidebar">
                                 
                                 <!-- Szybkie informacje -->

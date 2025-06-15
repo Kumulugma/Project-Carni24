@@ -87,7 +87,6 @@ function carni24_main_navigation() {
     ));
 }
 
-
 function carni24_mobile_menu_toggle() {
     ?>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
@@ -187,165 +186,143 @@ function carni24_nav_menu_item_title($title, $item, $args, $depth) {
 }
 add_filter('nav_menu_item_title', 'carni24_nav_menu_item_title', 10, 4);
 
-function carni24_search_form() {
-    $search_query = get_search_query();
-    ?>
-    <form class="search-form d-flex" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-        <input class="form-control me-2" type="search" placeholder="Szukaj..." 
-               aria-label="Szukaj" name="s" value="<?php echo esc_attr($search_query); ?>">
-        <button class="btn btn-outline-success" type="submit">
-            <i class="bi bi-search"></i>
-        </button>
-    </form>
-    <?php
-}
-
-function carni24_mobile_search_toggle() {
-    ?>
-    <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="collapse" 
-            data-bs-target="#mobileSearch" aria-expanded="false" aria-controls="mobileSearch">
-        <i class="bi bi-search"></i>
-    </button>
-    <?php
-}
-
-function carni24_archive_filters() {
-    if (!is_post_type_archive('species') && !is_post_type_archive('guides')) {
-        return;
-    }
-    
-    $current_difficulty = isset($_GET['difficulty']) ? sanitize_text_field($_GET['difficulty']) : '';
-    $current_origin = isset($_GET['origin']) ? sanitize_text_field($_GET['origin']) : '';
-    $current_orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : '';
-    
-    ?>
-    <div class="archive-filters mb-4">
-        <form method="get" class="row g-3">
-            <?php if (is_post_type_archive('species')): ?>
-                <div class="col-md-3">
-                    <select name="difficulty" class="form-select">
-                        <option value="">Wszystkie trudności</option>
-                        <option value="easy" <?php selected($current_difficulty, 'easy'); ?>>Łatwe</option>
-                        <option value="medium" <?php selected($current_difficulty, 'medium'); ?>>Średnie</option>
-                        <option value="hard" <?php selected($current_difficulty, 'hard'); ?>>Trudne</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" name="origin" class="form-control" 
-                           placeholder="Pochodzenie" value="<?php echo esc_attr($current_origin); ?>">
-                </div>
-                <div class="col-md-3">
-                    <select name="orderby" class="form-select">
-                        <option value="">Sortuj według</option>
-                        <option value="title" <?php selected($current_orderby, 'title'); ?>>Nazwa A-Z</option>
-                        <option value="date" <?php selected($current_orderby, 'date'); ?>>Najnowsze</option>
-                        <option value="popular" <?php selected($current_orderby, 'popular'); ?>>Popularne</option>
-                        <option value="difficulty" <?php selected($current_orderby, 'difficulty'); ?>>Trudność</option>
-                    </select>
-                </div>
-            <?php elseif (is_post_type_archive('guides')): ?>
-                <div class="col-md-4">
-                    <select name="difficulty" class="form-select">
-                        <option value="">Wszystkie poziomy</option>
-                        <option value="beginner" <?php selected($current_difficulty, 'beginner'); ?>>Początkujący</option>
-                        <option value="intermediate" <?php selected($current_difficulty, 'intermediate'); ?>>Średniozaawansowany</option>
-                        <option value="advanced" <?php selected($current_difficulty, 'advanced'); ?>>Zaawansowany</option>
-                        <option value="expert" <?php selected($current_difficulty, 'expert'); ?>>Ekspert</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <select name="orderby" class="form-select">
-                        <option value="">Sortuj według</option>
-                        <option value="date" <?php selected($current_orderby, 'date'); ?>>Najnowsze</option>
-                        <option value="title" <?php selected($current_orderby, 'title'); ?>>Nazwa A-Z</option>
-                        <option value="popular" <?php selected($current_orderby, 'popular'); ?>>Popularne</option>
-                    </select>
-                </div>
-            <?php endif; ?>
-            
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-funnel me-2"></i>Filtruj
-                </button>
-                <?php if (!empty($current_difficulty) || !empty($current_origin) || !empty($current_orderby)): ?>
-                    <a href="<?php echo get_post_type_archive_link(get_post_type()); ?>" class="btn btn-outline-secondary ms-2">
-                        <i class="bi bi-x-circle me-2"></i>Wyczyść
-                    </a>
-                <?php endif; ?>
-            </div>
-        </form>
-    </div>
-    <?php
-}
-
-function carni24_pagination() {
-    global $wp_query;
-    
-    if ($wp_query->max_num_pages <= 1) {
-        return;
-    }
-    
-    $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
-    $max = intval($wp_query->max_num_pages);
-    
-    echo '<nav aria-label="Nawigacja stron" class="pagination-nav mt-5">';
-    echo '<ul class="pagination justify-content-center">';
-    
-    if ($paged > 1) {
-        echo '<li class="page-item">';
-        echo '<a class="page-link" href="' . get_pagenum_link($paged - 1) . '" aria-label="Poprzednia">';
-        echo '<span aria-hidden="true">&laquo;</span>';
-        echo '</a>';
-        echo '</li>';
-    }
-    
-    for ($i = 1; $i <= $max; $i++) {
-        if ($i == $paged) {
-            echo '<li class="page-item active" aria-current="page">';
-            echo '<span class="page-link">' . $i . '</span>';
-            echo '</li>';
-        } else {
-            echo '<li class="page-item">';
-            echo '<a class="page-link" href="' . get_pagenum_link($i) . '">' . $i . '</a>';
-            echo '</li>';
+function carni24_nav_menu_link_attributes($atts, $item, $args) {
+    if (isset($args->theme_location) && $args->theme_location === 'main-menu') {
+        $atts['data-menu-item'] = sanitize_title($item->title);
+        
+        if (in_array('current-menu-item', $item->classes) || in_array('current-menu-ancestor', $item->classes)) {
+            $atts['aria-current'] = 'page';
         }
     }
     
-    if ($paged < $max) {
-        echo '<li class="page-item">';
-        echo '<a class="page-link" href="' . get_pagenum_link($paged + 1) . '" aria-label="Następna">';
-        echo '<span aria-hidden="true">&raquo;</span>';
-        echo '</a>';
-        echo '</li>';
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'carni24_nav_menu_link_attributes', 10, 3);
+
+function carni24_get_menu_items_by_location($location, $args = array()) {
+    $locations = get_nav_menu_locations();
+    
+    if (!isset($locations[$location])) {
+        return array();
     }
     
-    echo '</ul>';
-    echo '</nav>';
+    $menu = wp_get_nav_menu_object($locations[$location]);
+    
+    if (!$menu) {
+        return array();
+    }
+    
+    $menu_items = wp_get_nav_menu_items($menu->term_id, $args);
+    
+    return $menu_items ? $menu_items : array();
 }
 
-function carni24_back_to_top_button() {
-    ?>
-    <button id="back-to-top" class="btn btn-primary position-fixed" style="bottom: 20px; right: 20px; z-index: 1050; display: none;">
-        <i class="bi bi-arrow-up"></i>
-    </button>
+function carni24_has_custom_menu_walker() {
+    return class_exists('Carni24_Bootstrap_Nav_Walker');
+}
+
+function carni24_mobile_menu_toggle_button($menu_id = 'navbarNavMobile') {
+    return sprintf(
+        '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#%s" aria-controls="%s" aria-expanded="false" aria-label="%s">
+            <span class="navbar-toggler-icon"></span>
+        </button>',
+        esc_attr($menu_id),
+        esc_attr($menu_id),
+        esc_attr__('Przełącz nawigację', 'carni24')
+    );
+}
+
+function carni24_search_button($mobile = false) {
+    $classes = $mobile ? 'btn search-trigger-btn d-lg-none me-2' : 'btn search-trigger-btn d-flex align-items-center';
+    $show_text = !$mobile;
     
+    return sprintf(
+        '<button class="%s" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="%s">
+            <i class="bi bi-search%s"></i>
+            %s
+        </button>',
+        esc_attr($classes),
+        esc_attr__('Otwórz wyszukiwarkę', 'carni24'),
+        $show_text ? ' me-2' : '',
+        $show_text ? '<span class="d-none d-xl-inline">' . esc_html__('Szukaj', 'carni24') . '</span>' : ''
+    );
+}
+
+function carni24_get_active_menu_item_class($item) {
+    $classes = array();
+    
+    if (in_array('current-menu-item', $item->classes)) {
+        $classes[] = 'active';
+        $classes[] = 'current';
+    }
+    
+    if (in_array('current-menu-ancestor', $item->classes)) {
+        $classes[] = 'active';
+        $classes[] = 'ancestor';
+    }
+    
+    if (in_array('current-menu-parent', $item->classes)) {
+        $classes[] = 'active';
+        $classes[] = 'parent';
+    }
+    
+    return implode(' ', $classes);
+}
+
+// Fallback menu functions
+function carni24_fallback_menu() {
+    echo '<a href="' . home_url() . '" class="nav-link">Strona główna</a>';
+    echo '<a href="' . home_url('/gatunki/') . '" class="nav-link">Gatunki</a>';
+    echo '<a href="' . home_url('/poradniki/') . '" class="nav-link">Poradniki</a>';
+    echo '<a href="' . home_url('/blog/') . '" class="nav-link">Blog</a>';
+    echo '<a href="' . home_url('/kontakt/') . '" class="nav-link">Kontakt</a>';
+}
+
+function carni24_mobile_fallback_menu() {
+    echo '<a href="' . home_url() . '" class="nav-link">Strona główna</a>';
+    echo '<a href="' . home_url('/gatunki/') . '" class="nav-link">Gatunki</a>';
+    echo '<a href="' . home_url('/poradniki/') . '" class="nav-link">Poradniki</a>';
+    echo '<a href="' . home_url('/blog/') . '" class="nav-link">Blog</a>';
+    echo '<a href="' . home_url('/kontakt/') . '" class="nav-link">Kontakt</a>';
+}
+
+function carni24_navigation_accessibility_improvements() {
+    ?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const backToTopButton = document.getElementById('back-to-top');
+        // Улучшение доступности для навигации
+        const navLinks = document.querySelectorAll('.nav-link');
         
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopButton.style.display = 'block';
-            } else {
-                backToTopButton.style.display = 'none';
-            }
+        navLinks.forEach(function(link) {
+            link.addEventListener('focus', function() {
+                this.style.outline = '2px solid #ffffff';
+                this.style.outlineOffset = '2px';
+            });
+            
+            link.addEventListener('blur', function() {
+                this.style.outline = '';
+                this.style.outlineOffset = '';
+            });
         });
         
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Закрытие мобильного меню при клике на ссылку
+        const mobileNavLinks = document.querySelectorAll('#navbarNavMobile .nav-link');
+        const navbarCollapse = document.getElementById('navbarNavMobile');
+        
+        mobileNavLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
+            });
         });
     });
     </script>
     <?php
 }
-add_action('wp_footer', 'carni24_back_to_top_button');
+add_action('wp_footer', 'carni24_navigation_accessibility_improvements');
+
+?>
