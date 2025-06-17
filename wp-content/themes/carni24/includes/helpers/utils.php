@@ -207,3 +207,92 @@ if (!function_exists('carni24_debug')) {
         }
     }
 }
+
+// Sprawdza czy post jest wyróżniony
+if (!function_exists('carni24_is_featured_post')) {
+    function carni24_is_featured_post($post_id = null) {
+        if (!$post_id) {
+            global $post;
+            if (!$post || !isset($post->ID)) {
+                return false;
+            }
+            $post_id = $post->ID;
+        }
+        
+        return get_post_meta($post_id, '_is_featured', true) == '1';
+    }
+}
+
+// Sprawdza czy sidebar powinien być pokazany
+if (!function_exists('carni24_show_sidebar')) {
+    function carni24_show_sidebar() {
+        // Ukryj sidebar na stronie głównej
+        if (is_front_page()) {
+            return false;
+        }
+        
+        // Ukryj sidebar na single species/guides
+        if (is_singular(array('species', 'guides'))) {
+            return false;
+        }
+        
+        // Pokaż sidebar na archiwach i blogach
+        if (is_home() || is_archive() || is_search()) {
+            return true;
+        }
+        
+        // Domyślnie pokaż sidebar
+        return true;
+    }
+}
+
+// Pobiera liczbę wyświetleń posta
+if (!function_exists('carni24_get_post_views')) {
+    function carni24_get_post_views($post_id = null) {
+        if (!$post_id) {
+            global $post;
+            if (!$post || !isset($post->ID)) {
+                return 0;
+            }
+            $post_id = $post->ID;
+        }
+        
+        $views = get_post_meta($post_id, 'post_views_count', true);
+        return $views ? intval($views) : 0;
+    }
+}
+
+// Zwiększa licznik wyświetleń
+if (!function_exists('carni24_set_post_views')) {
+    function carni24_set_post_views($post_id = null) {
+        if (!$post_id) {
+            global $post;
+            if (!$post || !isset($post->ID)) {
+                return;
+            }
+            $post_id = $post->ID;
+        }
+        
+        $key = 'post_views_count';
+        $count = get_post_meta($post_id, $key, true);
+        
+        if ($count == '') {
+            $count = 0;
+            delete_post_meta($post_id, $key);
+            add_post_meta($post_id, $key, '1');
+        } else {
+            $count++;
+            update_post_meta($post_id, $key, $count);
+        }
+    }
+}
+
+// Automatycznie zwiększ licznik wyświetleń na single postach
+if (!function_exists('carni24_track_post_views')) {
+    function carni24_track_post_views() {
+        if (is_singular() && !is_user_logged_in()) {
+            carni24_set_post_views();
+        }
+    }
+    add_action('wp_head', 'carni24_track_post_views');
+}

@@ -566,23 +566,6 @@ function carni24_register_widgets() {
 }
 add_action('widgets_init', 'carni24_register_widgets');
 
-function carni24_show_sidebar() {
-    if (is_front_page()) {
-        return false;
-    }
-    
-    $hide_sidebar_pages = array('kontakt', 'o-nas', 'polityka-prywatnosci');
-    if (is_page($hide_sidebar_pages)) {
-        return false;
-    }
-    
-    if (is_page_template('page-full-width.php')) {
-        return false;
-    }
-    
-    return is_single() || is_archive() || is_home() || is_search() || is_404();
-}
-
 function carni24_get_sidebar_id() {
     if (is_singular('species')) {
         return 'sidebar-species';

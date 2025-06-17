@@ -52,7 +52,7 @@ if (is_admin()) {
     require_once CARNI24_THEME_PATH . '/includes/admin/theme-options.php';     // Panel ustawień motywu
     require_once CARNI24_THEME_PATH . '/includes/admin/admin-assets.php';      // CSS/JS dla panelu admina
     require_once CARNI24_THEME_PATH . '/includes/admin/dashboard-widgets.php'; // Widgety dashboard
-    require_once CARNI24_THEME_PATH . '/includes/admin/columns.php';           // Custom kolumny w listach postów
+    require_once CARNI24_THEME_PATH . '/includes/admin/seo-monitor.php';       // DODAJ TĘ LINIĘ - Monitor SEO
 }
 
 // ===== FRONTEND FEATURES ===== //
