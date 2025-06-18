@@ -570,9 +570,10 @@ add_filter('manage_guides_posts_columns', 'carni24_add_admin_columns');
  */
 function carni24_fill_admin_columns($column, $post_id) {
     switch ($column) {
-        case 'species_difficulty':
+        // USUŃ wszystkie case dla species - zostaw tylko guides:
+        
         case 'guide_difficulty':
-            $difficulty = get_post_meta($post_id, '_' . $column, true);
+            $difficulty = get_post_meta($post_id, '_guide_difficulty', true);
             if ($difficulty) {
                 $class = '';
                 $text = $difficulty;
@@ -594,16 +595,6 @@ function carni24_fill_admin_columns($column, $post_id) {
             }
             break;
             
-        case 'species_origin':
-            $origin = get_post_meta($post_id, '_species_origin', true);
-            echo $origin ? esc_html($origin) : '—';
-            break;
-            
-        case 'species_views':
-            $views = function_exists('carni24_get_post_views') ? carni24_get_post_views($post_id) : 0;
-            echo number_format($views);
-            break;
-            
         case 'guide_category':
             $category = get_post_meta($post_id, '_guide_category', true);
             echo $category ? esc_html($category) : '—';
@@ -615,7 +606,8 @@ function carni24_fill_admin_columns($column, $post_id) {
             break;
     }
 }
-add_action('manage_species_posts_custom_column', 'carni24_fill_admin_columns', 10, 2);
+
+// ZOSTAW tylko guides:
 add_action('manage_guides_posts_custom_column', 'carni24_fill_admin_columns', 10, 2);
 
 /**
