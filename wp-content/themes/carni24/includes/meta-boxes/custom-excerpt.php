@@ -373,8 +373,6 @@ function carni24_fill_excerpt_column($column, $post_id) {
 // Dodaj kolumny dla wszystkich typów postów
 add_filter('manage_posts_columns', 'carni24_add_excerpt_column');
 add_filter('manage_pages_columns', 'carni24_add_excerpt_column');
-add_filter('manage_guides_posts_columns', 'carni24_add_excerpt_column');
 
 add_action('manage_posts_custom_column', 'carni24_fill_excerpt_column', 10, 2);
 add_action('manage_pages_custom_column', 'carni24_fill_excerpt_column', 10, 2);
-add_action('manage_guides_posts_custom_column', 'carni24_fill_excerpt_column', 10, 2);
