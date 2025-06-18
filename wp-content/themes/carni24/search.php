@@ -10,8 +10,8 @@ get_header(); ?>
 <main class="search-page">
     
     <!-- Header strony wyszukiwania -->
-    <section class="search-header py-5">
-        <div class="container-fluid p-5">
+    <section class="search-header py-md-5">
+        <div class="container-fluid p-md-5">
             <div class="row">
                 <div class="col-12">
                     <div class="search-header-content text-center">

@@ -31,7 +31,7 @@ if (!$popular_posts->have_posts()) {
 }
 ?>
 
-<section id="manifest" class="manifest-section px-4">
+<section id="manifest" class="manifest-section px-md-4">
     <div class="container-fluid">
         <!-- Header sekcji -->
         <div class="manifest-header">

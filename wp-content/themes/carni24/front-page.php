@@ -110,7 +110,7 @@ get_header(); ?>
     </section>
 
     <!-- LATEST POSTS SECTION -->
-    <div class="posts-layout-section p-5">
+    <div class="posts-layout-section p-md-5">
         <div class="container-fluid">
             <div class="row">
                 

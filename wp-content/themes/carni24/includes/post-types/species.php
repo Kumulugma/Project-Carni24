@@ -340,7 +340,7 @@ add_action('save_post', 'carni24_save_species_meta');
 function carni24_species_admin_columns($columns) {
     $new_columns = array();
     $new_columns['cb'] = $columns['cb'];
-    $new_columns['featured_image'] = 'Zdjęcie';
+//    $new_columns['featured_image'] = 'Zdjęcie';
     $new_columns['title'] = $columns['title'];
     $new_columns['species_scientific'] = 'Nazwa naukowa';
     $new_columns['species_difficulty'] = 'Trudność';
@@ -379,13 +379,13 @@ function carni24_species_admin_columns_content($column, $post_id) {
             echo $origin ? esc_html($origin) : '—';
             break;
             
-        case 'featured_image':
-            if (has_post_thumbnail($post_id)) {
-                echo get_the_post_thumbnail($post_id, array(50, 50));
-            } else {
-                echo '—';
-            }
-            break;
+//        case 'featured_image':
+//            if (has_post_thumbnail($post_id)) {
+//                echo get_the_post_thumbnail($post_id, array(50, 50));
+//            } else {
+//                echo '—';
+//            }
+//            break;
             
         case 'species_category':
             $terms = get_the_terms($post_id, 'species_category');

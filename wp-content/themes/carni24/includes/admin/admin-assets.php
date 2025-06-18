@@ -792,3 +792,422 @@ function carni24_add_help_tabs() {
 }
 add_action('load-post.php', 'carni24_add_help_tabs');
 add_action('load-post-new.php', 'carni24_add_help_tabs');
+
+/**
+ * Dodaje kolumnę z obrazkiem wyróżniającym dla wszystkich typów postów
+ */
+function carni24_add_thumbnail_column($columns) {
+    $new_columns = array();
+    
+    foreach ($columns as $key => $value) {
+        // Dodaj kolumnę obrazka po checkboxie, ale przed tytułem
+        if ($key === 'title') {
+            $new_columns['featured_image'] = '🖼️ Obrazek';
+        }
+        
+        $new_columns[$key] = $value;
+    }
+    
+    return $new_columns;
+}
+
+// Dodaj kolumnę dla wszystkich typów postów
+add_filter('manage_posts_columns', 'carni24_add_thumbnail_column');
+add_filter('manage_pages_columns', 'carni24_add_thumbnail_column');
+add_filter('manage_species_posts_columns', 'carni24_add_thumbnail_column');
+add_filter('manage_guides_posts_columns', 'carni24_add_thumbnail_column');
+
+/**
+ * Wypełnia kolumnę obrazka treścią
+ */
+function carni24_fill_thumbnail_column($column, $post_id) {
+    if ($column === 'featured_image') {
+        $thumbnail_id = get_post_thumbnail_id($post_id);
+        
+        if ($thumbnail_id) {
+            // Pobierz obrazek w rozmiarze thumbnail
+            $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
+            $thumbnail_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+            $post_title = get_the_title($post_id);
+            
+            if ($thumbnail_url) {
+                echo '<div class="admin-thumbnail-container">';
+                echo '<img src="' . esc_url($thumbnail_url) . '" ';
+                echo 'alt="' . esc_attr($thumbnail_alt ?: $post_title) . '" ';
+                echo 'class="admin-thumbnail" ';
+                echo 'title="' . esc_attr($post_title) . '" />';
+                
+                // Dodaj informacje o rozmiarze obrazka
+                $attachment_metadata = wp_get_attachment_metadata($thumbnail_id);
+                if ($attachment_metadata && isset($attachment_metadata['width'], $attachment_metadata['height'])) {
+                    echo '<div class="thumbnail-info">';
+                    echo '<small>' . $attachment_metadata['width'] . ' × ' . $attachment_metadata['height'] . 'px</small>';
+                    echo '</div>';
+                }
+                
+                echo '</div>';
+            }
+        } else {
+            // Brak obrazka - pokaż placeholder
+            echo '<div class="admin-thumbnail-container no-thumbnail">';
+            echo '<div class="admin-thumbnail-placeholder">';
+            echo '<i class="dashicons dashicons-format-image"></i>';
+            echo '<span>Brak obrazka</span>';
+            echo '</div>';
+            echo '</div>';
+        }
+    }
+}
+
+// Dodaj wypełnianie kolumny dla wszystkich typów postów
+add_action('manage_posts_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
+add_action('manage_pages_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
+add_action('manage_species_posts_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
+add_action('manage_guides_posts_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
+
+/**
+ * Czyni kolumnę z obrazkiem sortowalną
+ */
+function carni24_make_thumbnail_column_sortable($columns) {
+    $columns['featured_image'] = 'featured_image';
+    return $columns;
+}
+
+add_filter('manage_edit-post_sortable_columns', 'carni24_make_thumbnail_column_sortable');
+add_filter('manage_edit-page_sortable_columns', 'carni24_make_thumbnail_column_sortable');
+add_filter('manage_edit-species_sortable_columns', 'carni24_make_thumbnail_column_sortable');
+add_filter('manage_edit-guides_sortable_columns', 'carni24_make_thumbnail_column_sortable');
+
+/**
+ * Obsługuje sortowanie kolumny z obrazkiem
+ */
+function carni24_handle_thumbnail_column_sorting($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    
+    $orderby = $query->get('orderby');
+    
+    if ($orderby === 'featured_image') {
+        $query->set('meta_key', '_thumbnail_id');
+        $query->set('orderby', 'meta_value_num');
+        
+        // Użytkownicy bez obrazka na końcu
+        $query->set('meta_query', array(
+            'relation' => 'OR',
+            array(
+                'key' => '_thumbnail_id',
+                'value' => '',
+                'compare' => '!='
+            ),
+            array(
+                'key' => '_thumbnail_id',
+                'value' => '',
+                'compare' => 'NOT EXISTS'
+            )
+        ));
+    }
+}
+add_action('pre_get_posts', 'carni24_handle_thumbnail_column_sorting');
+
+/**
+ * Ustaw szerokość kolumny z obrazkiem
+ */
+function carni24_admin_thumbnail_column_width() {
+    ?>
+    <style>
+    /* ===== KOLUMNA Z OBRAZKAMI ===== */
+    .column-featured_image {
+        width: 80px !important;
+        text-align: center;
+    }
+    
+    .admin-thumbnail-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .admin-thumbnail {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 2px solid #ddd;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    
+    .admin-thumbnail:hover {
+        border-color: #0073aa;
+        transform: scale(1.05);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .admin-thumbnail-placeholder {
+        width: 60px;
+        height: 60px;
+        background: #f6f7f7;
+        border: 2px dashed #c3c4c7;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #787c82;
+        font-size: 11px;
+        text-align: center;
+    }
+    
+    .admin-thumbnail-placeholder .dashicons {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        margin-bottom: 2px;
+    }
+    
+    .admin-thumbnail-placeholder span {
+        font-size: 9px;
+        line-height: 1;
+    }
+    
+    .thumbnail-info {
+        font-size: 10px;
+        color: #787c82;
+        text-align: center;
+        line-height: 1.2;
+    }
+    
+    .no-thumbnail .admin-thumbnail-placeholder {
+        opacity: 0.6;
+    }
+    
+    /* Hover na całym wierszu pokazuje podgląd */
+    .type-post:hover .admin-thumbnail,
+    .type-page:hover .admin-thumbnail,
+    .type-species:hover .admin-thumbnail,
+    .type-guides:hover .admin-thumbnail {
+        border-color: #0073aa;
+    }
+    
+    /* Responsive - ukryj obrazki na małych ekranach */
+    @media screen and (max-width: 782px) {
+        .column-featured_image {
+            display: none;
+        }
+    }
+    
+    /* Quick Edit - dodaj informację o obrazku */
+    .inline-edit-row .featured_image_info {
+        margin: 8px 0;
+        padding: 8px;
+        background: #f6f7f7;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+    
+    .featured_image_info strong {
+        color: #1d2327;
+    }
+    
+    .featured_image_info.has-thumbnail {
+        background: #d7fdd7;
+        border-left: 3px solid #00a32a;
+    }
+    
+    .featured_image_info.no-thumbnail {
+        background: #fff2cd;
+        border-left: 3px solid #dba617;
+    }
+    </style>
+    <?php
+}
+add_action('admin_head', 'carni24_admin_thumbnail_column_width');
+
+/**
+ * Dodaje informacje o obrazku do Quick Edit
+ */
+function carni24_add_thumbnail_info_to_quick_edit($column_name, $post_type) {
+    if ($column_name === 'featured_image') {
+        ?>
+        <script>
+        jQuery(document).ready(function($) {
+            // Dodaj informację o obrazku do Quick Edit
+            $('a.editinline').on('click', function() {
+                var post_id = $(this).closest('tr').attr('id').replace('post-', '');
+                var thumbnail_col = $('#post-' + post_id + ' .column-featured_image');
+                var has_thumbnail = thumbnail_col.find('.admin-thumbnail').length > 0;
+                
+                setTimeout(function() {
+                    var quick_edit = $('#edit-' + post_id);
+                    
+                    // Usuń poprzednie info
+                    quick_edit.find('.featured_image_info').remove();
+                    
+                    // Dodaj nowe info
+                    var info_html = '<div class="featured_image_info ' + 
+                        (has_thumbnail ? 'has-thumbnail' : 'no-thumbnail') + '">';
+                    
+                    if (has_thumbnail) {
+                        var img_src = thumbnail_col.find('.admin-thumbnail').attr('src');
+                        var img_info = thumbnail_col.find('.thumbnail-info small').text();
+                        
+                        info_html += '<strong>✅ Obrazek wyróżniający:</strong> Ustawiony ';
+                        if (img_info) {
+                            info_html += '(' + img_info + ')';
+                        }
+                        info_html += '<br><img src="' + img_src + '" style="max-width: 100px; height: auto; margin-top: 4px; border-radius: 4px;">';
+                    } else {
+                        info_html += '<strong>⚠️ Brak obrazka wyróżniającego</strong><br>';
+                        info_html += 'Rozważ dodanie obrazka dla lepszego SEO i wyglądu.';
+                    }
+                    
+                    info_html += '</div>';
+                    
+                    quick_edit.find('.inline-edit-col-left').append(info_html);
+                }, 100);
+            });
+        });
+        </script>
+        <?php
+    }
+}
+add_action('quick_edit_custom_box', 'carni24_add_thumbnail_info_to_quick_edit', 10, 2);
+
+/**
+ * Dodaje bulk action dla ustawiania obrazków
+ */
+function carni24_add_thumbnail_bulk_actions($bulk_actions) {
+    $bulk_actions['set_featured_image'] = 'Ustaw obrazek wyróżniający';
+    $bulk_actions['remove_featured_image'] = 'Usuń obrazek wyróżniający';
+    return $bulk_actions;
+}
+
+add_filter('bulk_actions-edit-post', 'carni24_add_thumbnail_bulk_actions');
+add_filter('bulk_actions-edit-page', 'carni24_add_thumbnail_bulk_actions');
+add_filter('bulk_actions-edit-species', 'carni24_add_thumbnail_bulk_actions');
+add_filter('bulk_actions-edit-guides', 'carni24_add_thumbnail_bulk_actions');
+
+/**
+ * Obsługuje bulk actions dla obrazków
+ */
+function carni24_handle_thumbnail_bulk_actions($redirect_to, $doaction, $post_ids) {
+    if ($doaction === 'remove_featured_image') {
+        foreach ($post_ids as $post_id) {
+            delete_post_thumbnail($post_id);
+        }
+        
+        $redirect_to = add_query_arg(array(
+            'bulk_thumbnails_removed' => count($post_ids)
+        ), $redirect_to);
+    }
+    
+    return $redirect_to;
+}
+
+add_filter('handle_bulk_actions-edit-post', 'carni24_handle_thumbnail_bulk_actions', 10, 3);
+add_filter('handle_bulk_actions-edit-page', 'carni24_handle_thumbnail_bulk_actions', 10, 3);
+add_filter('handle_bulk_actions-edit-species', 'carni24_handle_thumbnail_bulk_actions', 10, 3);
+add_filter('handle_bulk_actions-edit-guides', 'carni24_handle_thumbnail_bulk_actions', 10, 3);
+
+/**
+ * Pokazuje komunikat po bulk action
+ */
+function carni24_thumbnail_bulk_action_admin_notice() {
+    if (!empty($_REQUEST['bulk_thumbnails_removed'])) {
+        $count = intval($_REQUEST['bulk_thumbnails_removed']);
+        printf(
+            '<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+            sprintf(
+                _n(
+                    'Usunięto obrazek wyróżniający z %d wpisu.',
+                    'Usunięto obrazki wyróżniające z %d wpisów.',
+                    $count,
+                    'carni24'
+                ),
+                $count
+            )
+        );
+    }
+}
+add_action('admin_notices', 'carni24_thumbnail_bulk_action_admin_notice');
+
+/**
+ * Dodaje licznik postów z/bez obrazków do At a Glance
+ */
+function carni24_add_thumbnail_stats_to_glance() {
+    $post_types = array('post', 'page', 'species', 'guides');
+    
+    foreach ($post_types as $post_type) {
+        $with_thumbnails = get_posts(array(
+            'post_type' => $post_type,
+            'meta_key' => '_thumbnail_id',
+            'meta_value' => '',
+            'meta_compare' => '!=',
+            'numberposts' => -1,
+            'fields' => 'ids'
+        ));
+        
+        $without_thumbnails = get_posts(array(
+            'post_type' => $post_type,
+            'meta_query' => array(
+                'relation' => 'OR',
+                array(
+                    'key' => '_thumbnail_id',
+                    'compare' => 'NOT EXISTS'
+                ),
+                array(
+                    'key' => '_thumbnail_id',
+                    'value' => ''
+                )
+            ),
+            'numberposts' => -1,
+            'fields' => 'ids'
+        ));
+        
+        $with_count = count($with_thumbnails);
+        $without_count = count($without_thumbnails);
+        
+        if ($with_count > 0 || $without_count > 0) {
+            $post_type_obj = get_post_type_object($post_type);
+            $label = $post_type_obj->labels->name;
+            
+            echo '<li class="post-count thumbnail-stats">';
+            echo '<span class="thumbnails-with">📷 ' . $with_count . '</span> / ';
+            echo '<span class="thumbnails-without">📷 ' . $without_count . '</span>';
+            echo ' ' . $label;
+            echo '</li>';
+        }
+    }
+}
+add_action('dashboard_glance_items', 'carni24_add_thumbnail_stats_to_glance');
+
+/**
+ * Style dla Dashboard stats
+ */
+function carni24_dashboard_thumbnail_stats_style() {
+    ?>
+    <style>
+    .thumbnail-stats {
+        position: relative;
+    }
+    
+    .thumbnails-with {
+        color: #00a32a;
+        font-weight: 600;
+    }
+    
+    .thumbnails-without {
+        color: #dba617;
+        font-weight: 600;
+    }
+    
+    .thumbnail-stats::before {
+        content: '🖼️';
+        margin-right: 4px;
+    }
+    </style>
+    <?php
+}
+add_action('admin_head-index.php', 'carni24_dashboard_thumbnail_stats_style');

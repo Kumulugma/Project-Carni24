@@ -46,6 +46,7 @@ require_once CARNI24_THEME_PATH . '/includes/meta-boxes/seo-fields.php';      //
 require_once CARNI24_THEME_PATH . '/includes/meta-boxes/species-fields.php';  // Meta boxy dla gatunków (pochodzenie, trudność)
 require_once CARNI24_THEME_PATH . '/includes/meta-boxes/feature-fields.php';  // Meta boxy dla wyróżnionych treści
 require_once CARNI24_THEME_PATH . '/includes/meta-boxes/guides-fields.php';
+require_once CARNI24_THEME_PATH . '/includes/meta-boxes/custom-excerpt.php';
 
 // ===== ADMIN I THEME OPTIONS ===== //
 if (is_admin()) {

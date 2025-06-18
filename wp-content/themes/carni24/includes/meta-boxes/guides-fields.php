@@ -1,6 +1,7 @@
 <?php
 /**
- * Meta boxes dla poradników (guides) - Ulepszona wersja
+ * Meta boxes dla poradników (guides) - Uproszczona wersja
+ * Usunięto niewyświetlane pola: category, target_audience, prerequisites, expected_results, tips, warnings
  * 
  * @package Carni24
  * @subpackage MetaBoxes
@@ -50,31 +51,24 @@ function carni24_override_guides_meta_boxes() {
 add_action('add_meta_boxes', 'carni24_override_guides_meta_boxes', 15);
 
 /**
- * Główny meta box dla guides - ulepszona wersja
+ * Główny meta box dla guides - uproszczona wersja
  */
 function carni24_guides_improved_details_callback($post) {
     wp_nonce_field('carni24_guides_improved_details_meta', 'carni24_guides_improved_details_nonce');
     
-    // Pobierz dane
+    // Pobierz dane - tylko te które są wyświetlane na froncie
     $difficulty = get_post_meta($post->ID, '_guide_difficulty', true);
     $duration = get_post_meta($post->ID, '_guide_duration', true);
     $season = get_post_meta($post->ID, '_guide_season', true);
     $tools = get_post_meta($post->ID, '_guide_tools', true);
     $materials = get_post_meta($post->ID, '_guide_materials', true);
-    $category = get_post_meta($post->ID, '_guide_category', true);
-    $target_audience = get_post_meta($post->ID, '_guide_target_audience', true);
-    $prerequisites = get_post_meta($post->ID, '_guide_prerequisites', true);
-    $expected_results = get_post_meta($post->ID, '_guide_expected_results', true);
-    $tips = get_post_meta($post->ID, '_guide_tips', true);
-    $warnings = get_post_meta($post->ID, '_guide_warnings', true);
     ?>
     
     <div class="carni24-guides-metabox">
         <!-- Nawigacja zakładek -->
         <ul class="carni24-guides-tabs">
             <li><a href="#guides-basic" class="tab-link active" data-tab="guides-basic">📋 Podstawowe</a></li>
-            <li><a href="#guides-execution" class="tab-link" data-tab="guides-execution">🔧 Wykonanie</a></li>
-            <li><a href="#guides-additional" class="tab-link" data-tab="guides-additional">💡 Dodatkowe</a></li>
+            <li><a href="#guides-resources" class="tab-link" data-tab="guides-resources">🔧 Zasoby</a></li>
         </ul>
 
         <!-- Zawartość zakładek -->
@@ -88,177 +82,84 @@ function carni24_guides_improved_details_callback($post) {
                         <div class="guides-field">
                             <label for="guide_difficulty">
                                 <strong>Poziom trudności</strong>
-                                <span class="field-hint">Dla kogo przeznaczony jest poradnik</span>
+                                <span class="field-hint">Wymagane doświadczenie</span>
                             </label>
                             <select id="guide_difficulty" name="guide_difficulty" class="difficulty-select">
                                 <option value="">Wybierz poziom</option>
-                                <option value="Początkujący" <?= selected($difficulty, 'Początkujący', false) ?>>
-                                    🟢 Początkujący - pierwsze kroki
-                                </option>
-                                <option value="Średniozaawansowany" <?= selected($difficulty, 'Średniozaawansowany', false) ?>>
-                                    🟡 Średniozaawansowany - pewne doświadczenie
-                                </option>
-                                <option value="Zaawansowany" <?= selected($difficulty, 'Zaawansowany', false) ?>>
-                                    🔴 Zaawansowany - dla ekspertów
-                                </option>
+                                <option value="Początkujący" <?= selected($difficulty, 'Początkujący', false) ?>>🟢 Początkujący</option>
+                                <option value="Średniozaawansowany" <?= selected($difficulty, 'Średniozaawansowany', false) ?>>🟡 Średniozaawansowany</option>
+                                <option value="Zaawansowany" <?= selected($difficulty, 'Zaawansowany', false) ?>>🔴 Zaawansowany</option>
                             </select>
                         </div>
 
                         <div class="guides-field">
                             <label for="guide_duration">
                                 <strong>Czas wykonania</strong>
-                                <span class="field-hint">Szacowany czas potrzebny na wykonanie</span>
+                                <span class="field-hint">Szacowany czas potrzebny</span>
                             </label>
                             <input type="text" id="guide_duration" name="guide_duration" 
                                    value="<?= esc_attr($duration) ?>" 
-                                   placeholder="np. 30 minut, 2 godziny, cały dzień" />
+                                   placeholder="np. 30 min, 2 godziny, cały dzień" />
                         </div>
 
                         <div class="guides-field">
                             <label for="guide_season">
                                 <strong>Najlepszy sezon</strong>
-                                <span class="field-hint">Kiedy najlepiej wykonać czynności</span>
+                                <span class="field-hint">Kiedy wykonywać poradnik</span>
                             </label>
                             <select id="guide_season" name="guide_season" class="season-select">
                                 <option value="">Wybierz sezon</option>
+                                <option value="Cały rok" <?= selected($season, 'Cały rok', false) ?>>🔄 Cały rok</option>
                                 <option value="Wiosna" <?= selected($season, 'Wiosna', false) ?>>🌱 Wiosna</option>
                                 <option value="Lato" <?= selected($season, 'Lato', false) ?>>☀️ Lato</option>
                                 <option value="Jesień" <?= selected($season, 'Jesień', false) ?>>🍂 Jesień</option>
                                 <option value="Zima" <?= selected($season, 'Zima', false) ?>>❄️ Zima</option>
-                                <option value="Cały rok" <?= selected($season, 'Cały rok', false) ?>>🔄 Cały rok</option>
                                 <option value="Wiosna-Lato" <?= selected($season, 'Wiosna-Lato', false) ?>>🌱☀️ Wiosna-Lato</option>
                                 <option value="Jesień-Zima" <?= selected($season, 'Jesień-Zima', false) ?>>🍂❄️ Jesień-Zima</option>
                             </select>
                         </div>
-
-                        <div class="guides-field">
-                            <label for="guide_category">
-                                <strong>Kategoria poradnika</strong>
-                                <span class="field-hint">Główny temat poradnika</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Zakładka: Zasoby i materiały -->
+            <div id="guides-resources" class="guides-tab-content">
+                <div class="resources-section">
+                    <h4>🔧 Potrzebne zasoby</h4>
+                    <div class="resources-grid">
+                        <div class="guides-field full-width">
+                            <label for="guide_tools">
+                                <strong>🛠️ Narzędzia</strong>
+                                <span class="field-hint">Lista narzędzi potrzebnych do wykonania</span>
                             </label>
-                            <select id="guide_category" name="guide_category" class="category-select">
-                                <option value="">Wybierz kategorię</option>
-                                <option value="Pielęgnacja" <?= selected($category, 'Pielęgnacja', false) ?>>🌿 Pielęgnacja</option>
-                                <option value="Rozmnażanie" <?= selected($category, 'Rozmnażanie', false) ?>>🌱 Rozmnażanie</option>
-                                <option value="Choroby i szkodniki" <?= selected($category, 'Choroby i szkodniki', false) ?>>🦠 Choroby i szkodniki</option>
-                                <option value="Podłoże i nawożenie" <?= selected($category, 'Podłoże i nawożenie', false) ?>>🌱 Podłoże i nawożenie</option>
-                                <option value="Spoczynek zimowy" <?= selected($category, 'Spoczynek zimowy', false) ?>>❄️ Spoczynek zimowy</option>
-                                <option value="Terrarium" <?= selected($category, 'Terrarium', false) ?>>🏠 Terrarium</option>
-                                <option value="Karmienie" <?= selected($category, 'Karmienie', false) ?>>🍽️ Karmienie</option>
-                                <option value="DIY" <?= selected($category, 'DIY', false) ?>>🔧 DIY</option>
-                            </select>
-                        </div>
-
-                        <div class="guides-field">
-                            <label for="guide_target_audience">
-                                <strong>Grupa docelowa</strong>
-                                <span class="field-hint">Dla kogo szczególnie przydatny</span>
-                            </label>
-                            <input type="text" id="guide_target_audience" name="guide_target_audience" 
-                                   value="<?= esc_attr($target_audience) ?>" 
-                                   placeholder="np. początkujący hodowcy, właściciele terrariów" />
+                            <textarea id="guide_tools" name="guide_tools" 
+                                      rows="4" placeholder="np. nożyczki, doniczka, spray do nawadniania"><?= esc_textarea($tools) ?></textarea>
                         </div>
 
                         <div class="guides-field full-width">
-                            <label for="guide_prerequisites">
-                                <strong>Wymagania wstępne</strong>
-                                <span class="field-hint">Co czytelnik powinien wiedzieć/mieć przed rozpoczęciem</span>
+                            <label for="guide_materials">
+                                <strong>📦 Materiały</strong>
+                                <span class="field-hint">Lista materiałów i składników</span>
                             </label>
-                            <textarea id="guide_prerequisites" name="guide_prerequisites" 
-                                      rows="3" placeholder="np. podstawowa wiedza o roślinach mięsożernych, doświadczenie w przesadzaniu..."><?= esc_textarea($prerequisites) ?></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Zakładka: Wykonanie -->
-            <div id="guides-execution" class="guides-tab-content">
-                <div class="execution-grid">
-                    
-                    <!-- Narzędzia -->
-                    <div class="execution-section">
-                        <h4>🔧 Potrzebne narzędzia</h4>
-                        <div class="tools-field">
-                            <textarea id="guide_tools" name="guide_tools" 
-                                      rows="4" 
-                                      placeholder="Wymień wszystkie narzędzia potrzebne do wykonania poradnika:&#10;• Nożyczki ogrodnicze&#10;• Doniczki 6cm&#10;• Pęseta&#10;• Atomizer"><?= esc_textarea($tools) ?></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Materiały -->
-                    <div class="execution-section">
-                        <h4>📦 Materiały i składniki</h4>
-                        <div class="materials-field">
                             <textarea id="guide_materials" name="guide_materials" 
-                                      rows="4" 
-                                      placeholder="Wymień wszystkie materiały potrzebne do wykonania:&#10;• Torf kwaśny 2L&#10;• Perlit 1L&#10;• Woda destylowana&#10;• Roślina macierzysta"><?= esc_textarea($materials) ?></textarea>
+                                      rows="4" placeholder="np. torf, perlit, woda destylowana, nasiona"><?= esc_textarea($materials) ?></textarea>
                         </div>
-                    </div>
-
-                    <!-- Oczekiwane rezultaty -->
-                    <div class="execution-section full-width">
-                        <h4>🎯 Oczekiwane rezultaty</h4>
-                        <div class="results-field">
-                            <textarea id="guide_expected_results" name="guide_expected_results" 
-                                      rows="3" 
-                                      placeholder="Opisz co czytelnik osiągnie po wykonaniu poradnika..."><?= esc_textarea($expected_results) ?></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Zakładka: Dodatkowe -->
-            <div id="guides-additional" class="guides-tab-content">
-                <div class="additional-grid">
-                    
-                    <!-- Wskazówki -->
-                    <div class="additional-section">
-                        <h4>💡 Wskazówki i triki</h4>
-                        <div class="tips-field">
-                            <textarea id="guide_tips" name="guide_tips" 
-                                      rows="5" 
-                                      placeholder="Podziel się dodatkowymi wskazówkami, trikami i radami które ułatwią wykonanie..."><?= esc_textarea($tips) ?></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Ostrzeżenia -->
-                    <div class="additional-section">
-                        <h4>⚠️ Ostrzeżenia i częste błędy</h4>
-                        <div class="warnings-field">
-                            <textarea id="guide_warnings" name="guide_warnings" 
-                                      rows="5" 
-                                      placeholder="Opisz czego należy unikać, najczęstsze błędy i potencjalne problemy..."><?= esc_textarea($warnings) ?></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Przyszłe funkcje -->
-                    <div class="future-features">
-                        <h4>🔮 Planowane rozszerzenia</h4>
-                        <p class="description">
-                            W przyszłych wersjach tutaj znajdą się:
-                            • Galeria krok po kroku<br>
-                            • Filmiki instruktażowe<br>
-                            • Lista powiązanych poradników<br>
-                            • System ocen i komentarzy<br>
-                            • Kalkulator kosztów materiałów
-                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<style>
+
+    <style>
+    /* ===== NAWIGACJA ZAKŁADEK ===== */
     .carni24-guides-metabox {
-        margin: -6px -12px -12px;
-        background: #fff;
+        overflow: hidden;
     }
 
-    /* Zakładki */
     .carni24-guides-tabs {
+        list-style: none;
         margin: 0;
         padding: 0;
-        list-style: none;
-        border-bottom: 1px solid #e1e1e1;
         background: linear-gradient(135deg, #e3f2fd, #bbdefb);
         display: flex;
     }
@@ -303,8 +204,7 @@ function carni24_guides_improved_details_callback($post) {
 
     /* Karty informacyjne */
     .guides-info-card,
-    .execution-section,
-    .additional-section {
+    .resources-section {
         background: #f8f9fa;
         border: 1px solid #dee2e6;
         border-radius: 8px;
@@ -313,8 +213,7 @@ function carni24_guides_improved_details_callback($post) {
     }
 
     .guides-info-card h4,
-    .execution-section h4,
-    .additional-section h4 {
+    .resources-section h4 {
         margin: 0 0 16px;
         color: #0d47a1;
         font-size: 16px;
@@ -330,13 +229,11 @@ function carni24_guides_improved_details_callback($post) {
         gap: 16px;
     }
 
-    .execution-grid,
-    .additional-grid {
+    .resources-grid {
         display: grid;
         gap: 20px;
     }
 
-    .execution-section.full-width,
     .guides-field.full-width {
         grid-column: 1 / -1;
     }
@@ -363,110 +260,52 @@ function carni24_guides_improved_details_callback($post) {
 
     .guides-field input,
     .guides-field select,
-    .guides-field textarea,
-    .tools-field textarea,
-    .materials-field textarea,
-    .results-field textarea,
-    .tips-field textarea,
-    .warnings-field textarea {
+    .guides-field textarea {
         padding: 8px 12px;
         border: 1px solid #8c8f94;
         border-radius: 4px;
         font-size: 13px;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .guides-field input:focus,
     .guides-field select:focus,
-    .guides-field textarea:focus,
-    .tools-field textarea:focus,
-    .materials-field textarea:focus,
-    .results-field textarea:focus,
-    .tips-field textarea:focus,
-    .warnings-field textarea:focus {
-        border-color: #1976d2;
-        box-shadow: 0 0 0 1px #1976d2;
+    .guides-field textarea:focus {
+        border-color: #2271b1;
+        box-shadow: 0 0 0 1px #2271b1;
         outline: none;
     }
 
-    /* Specjalne style dla selectów */
+    .guides-field textarea {
+        resize: vertical;
+        min-height: 80px;
+        font-family: inherit;
+    }
+
     .difficulty-select option[value="Początkujący"] {
-        color: #28a745;
+        color: #155724;
     }
 
     .difficulty-select option[value="Średniozaawansowany"] {
-        color: #ffc107;
+        color: #856404;
     }
 
     .difficulty-select option[value="Zaawansowany"] {
-        color: #dc3545;
-    }
-
-    /* Textarea specjalne */
-    .tools-field textarea,
-    .materials-field textarea {
-        background: #f0f8ff;
-        border-color: #90caf9;
-    }
-
-    .tips-field textarea {
-        background: #f1f8e9;
-        border-color: #c8e6c9;
-    }
-
-    .warnings-field textarea {
-        background: #fff3e0;
-        border-color: #ffcc80;
-    }
-
-    /* Sekcja przyszłych funkcji */
-    .future-features {
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
-        border-radius: 6px;
-        padding: 16px;
-        margin-top: 20px;
-    }
-
-    .future-features h4 {
-        margin: 0 0 10px;
-        color: #856404;
-        font-size: 14px;
-    }
-
-    .future-features .description {
-        margin: 0;
-        color: #856404;
-        font-size: 13px;
-        line-height: 1.5;
+        color: #721c24;
     }
 
     /* Responsywność */
-    @media (max-width: 782px) {
-        .carni24-guides-tabs {
-            flex-direction: column;
-        }
-        
-        .carni24-guides-content {
-            padding: 15px;
-        }
-        
+    @media (max-width: 768px) {
         .guides-field-grid {
             grid-template-columns: 1fr;
         }
         
-        .guides-info-card,
-        .execution-section,
-        .additional-section {
-            padding: 15px;
+        .carni24-guides-tabs {
+            flex-direction: column;
         }
-    }
-
-    @media (max-width: 600px) {
+        
         .carni24-guides-tabs .tab-link {
-            padding: 10px 15px;
-            font-size: 13px;
+            text-align: center;
         }
     }
     </style>
@@ -476,82 +315,26 @@ function carni24_guides_improved_details_callback($post) {
         // Obsługa zakładek
         const tabLinks = document.querySelectorAll('.carni24-guides-tabs .tab-link');
         const tabContents = document.querySelectorAll('.guides-tab-content');
-
-        tabLinks.forEach(link => {
+        
+        tabLinks.forEach(function(link) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
+                
+                const targetTab = this.getAttribute('data-tab');
                 
                 // Usuń aktywne klasy
                 tabLinks.forEach(l => l.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
                 
-                // Dodaj aktywną klasę
+                // Dodaj aktywną klasę do klikniętej zakładki
                 this.classList.add('active');
-                const targetTab = document.getElementById(this.getAttribute('data-tab'));
-                if (targetTab) {
-                    targetTab.classList.add('active');
+                
+                // Pokaż odpowiednią zawartość
+                const targetContent = document.getElementById(targetTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
                 }
             });
-        });
-
-        // Formatowanie czasu wykonania
-        const durationInput = document.getElementById('guide_duration');
-        if (durationInput) {
-            durationInput.addEventListener('blur', function() {
-                let value = this.value.trim();
-                
-                // Dodaj sugestie jednostek jeśli nie ma
-                if (value && !value.match(/(minut|godzin|dni|dzień|godz|min)/i)) {
-                    if (value.match(/^\d+$/)) {
-                        const num = parseInt(value);
-                        if (num < 60) {
-                            this.value = value + ' minut';
-                        } else {
-                            this.value = Math.round(num / 60) + ' godzin';
-                        }
-                    }
-                }
-            });
-        }
-
-        // Auto-rozszerzanie textarea przy wpisywaniu
-        const textareas = document.querySelectorAll('textarea');
-        textareas.forEach(textarea => {
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
-        });
-
-        // Licznik znaków dla długich pól
-        const longTextareas = ['guide_tips', 'guide_warnings', 'guide_prerequisites'];
-        longTextareas.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            if (field) {
-                const counter = document.createElement('div');
-                counter.className = 'char-counter';
-                counter.style.fontSize = '11px';
-                counter.style.color = '#666';
-                counter.style.textAlign = 'right';
-                counter.style.marginTop = '5px';
-                
-                function updateCounter() {
-                    const length = field.value.length;
-                    counter.textContent = length + ' znaków';
-                    
-                    if (length > 500) {
-                        counter.style.color = '#d63638';
-                    } else if (length > 300) {
-                        counter.style.color = '#dba617';
-                    } else {
-                        counter.style.color = '#666';
-                    }
-                }
-                
-                field.addEventListener('input', updateCounter);
-                field.parentNode.appendChild(counter);
-                updateCounter(); // Pierwsza aktualizacja
-            }
         });
     });
     </script>
@@ -559,191 +342,169 @@ function carni24_guides_improved_details_callback($post) {
 }
 
 /**
- * Meta box bibliografii - ulepszona wersja
+ * Bibliografia i źródła - meta box
  */
 function carni24_guides_improved_bibliography_callback($post) {
     wp_nonce_field('carni24_guides_improved_bibliography_meta', 'carni24_guides_improved_bibliography_nonce');
-    $bibliography = get_post_meta($post->ID, '_guide_bibliography', true);
     
-    echo '<div class="bibliography-section">';
-    echo '<p class="description">📚 Dodaj źródła, publikacje i referencje wykorzystane przy tworzeniu poradnika.</p>';
-    wp_editor($bibliography, 'guide_bibliography', array(
-        'textarea_name' => 'guide_bibliography',
-        'media_buttons' => false,
-        'textarea_rows' => 6,
-        'teeny' => true,
-        'quicktags' => array('buttons' => 'strong,em,link,ul,ol,li')
-    ));
-    echo '</div>';
-}
-
-/**
- * Meta box statystyk - ulepszona wersja
- */
-function carni24_guides_improved_stats_callback($post) {
-    $views = function_exists('carni24_get_post_views') ? carni24_get_post_views($post->ID) : 0;
-    $difficulty = get_post_meta($post->ID, '_guide_difficulty', true);
-    $category = get_post_meta($post->ID, '_guide_category', true);
-    $duration = get_post_meta($post->ID, '_guide_duration', true);
-    $featured = get_post_meta($post->ID, '_is_featured', true);
-    $reading_time = function_exists('carni24_get_reading_time') ? carni24_get_reading_time($post->ID) : 0;
+    $bibliography = get_post_meta($post->ID, '_guide_bibliography', true);
     ?>
     
-    <div class="guides-stats-widget">
-        <div class="stat-item">
-            <div class="stat-icon">👁️</div>
-            <div class="stat-info">
-                <div class="stat-label">Wyświetlenia</div>
-                <div class="stat-value"><?= number_format($views) ?></div>
-            </div>
+    <div class="guides-bibliography-wrapper">
+        <div class="bibliography-info">
+            <p class="description">
+                <strong>📚 Dodaj źródła i referencje użyte w poradniku.</strong><br>
+                Lista zostanie wyświetlona na dole artykułu. Używaj formatowania HTML.
+            </p>
         </div>
-
-        <?php if ($reading_time): ?>
-        <div class="stat-item">
-            <div class="stat-icon">📖</div>
-            <div class="stat-info">
-                <div class="stat-label">Czas czytania</div>
-                <div class="stat-value"><?= $reading_time ?> min</div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <?php if ($difficulty): ?>
-        <div class="stat-item">
-            <div class="stat-icon">
-                <?php 
-                echo $difficulty === 'Początkujący' ? '🟢' : 
-                    ($difficulty === 'Średniozaawansowany' ? '🟡' : '🔴'); 
-                ?>
-            </div>
-            <div class="stat-info">
-                <div class="stat-label">Trudność</div>
-                <div class="stat-value"><?= esc_html($difficulty) ?></div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <?php if ($category): ?>
-        <div class="stat-item">
-            <div class="stat-icon">🏷️</div>
-            <div class="stat-info">
-                <div class="stat-label">Kategoria</div>
-                <div class="stat-value"><?= esc_html($category) ?></div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <?php if ($duration): ?>
-        <div class="stat-item">
-            <div class="stat-icon">⏱️</div>
-            <div class="stat-info">
-                <div class="stat-label">Czas wykonania</div>
-                <div class="stat-value"><?= esc_html($duration) ?></div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <div class="stat-item">
-            <div class="stat-icon">📅</div>
-            <div class="stat-info">
-                <div class="stat-label">Opublikowano</div>
-                <div class="stat-value"><?= get_the_date('d.m.Y', $post->ID) ?></div>
-            </div>
-        </div>
-
-        <div class="stat-item">
-            <div class="stat-icon">📊</div>
-            <div class="stat-info">
-                <div class="stat-label">Status</div>
-                <div class="stat-value">
-                    <?php if (get_post_status($post->ID) === 'publish'): ?>
-                        <span class="status-published">✅ Opublikowany</span>
-                    <?php else: ?>
-                        <span class="status-draft">📝 Szkic</span>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
-        <?php if ($featured): ?>
-        <div class="stat-item featured">
-            <div class="stat-icon">⭐</div>
-            <div class="stat-info">
-                <div class="stat-label">Wyróżniony</div>
-                <div class="stat-value">Tak</div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <div class="stats-actions">
-            <a href="<?= get_edit_post_link($post->ID) ?>" class="button button-small">
-                ✏️ Edytuj
-            </a>
-            <a href="<?= get_permalink($post->ID) ?>" class="button button-small" target="_blank">
-                👁️ Zobacz
-            </a>
+        
+        <div class="bibliography-field">
+            <label for="guide_bibliography">
+                <strong>Bibliografia</strong>
+                <span class="field-hint">Książki, artykuły, strony internetowe</span>
+            </label>
+            
+            <?php
+            wp_editor($bibliography, 'guide_bibliography', array(
+                'textarea_name' => 'guide_bibliography',
+                'textarea_rows' => 8,
+                'media_buttons' => false,
+                'teeny' => true,
+                'quicktags' => array('buttons' => 'strong,em,link,ul,ol,li')
+            ));
+            ?>
         </div>
     </div>
 
     <style>
-    .guides-stats-widget {
-        padding: 0;
+    .guides-bibliography-wrapper {
+        padding: 15px 0;
     }
+    
+    .bibliography-info {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .bibliography-info .description {
+        margin: 0;
+        color: #856404;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
+    .bibliography-field label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #1d2327;
+        font-size: 14px;
+    }
+    
+    .field-hint {
+        font-weight: 400;
+        color: #646970;
+        font-size: 12px;
+        margin-left: 4px;
+    }
+    </style>
+    <?php
+}
 
+/**
+ * Statystyki guides - meta box w sidebarze
+ */
+function carni24_guides_improved_stats_callback($post) {
+    $views = function_exists('carni24_get_post_views') ? carni24_get_post_views($post->ID) : 0;
+    $created = get_the_date('Y-m-d H:i:s', $post);
+    $modified = get_the_modified_date('Y-m-d H:i:s', $post);
+    
+    ?>
+    <div class="guides-stats-container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-icon">👁️</span>
+                <div class="stat-content">
+                    <span class="stat-number"><?= number_format($views) ?></span>
+                    <span class="stat-label">Wyświetleń</span>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-icon">📅</span>
+                <div class="stat-content">
+                    <span class="stat-number"><?= get_the_date('j M') ?></span>
+                    <span class="stat-label">Utworzono</span>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-icon">✏️</span>
+                <div class="stat-content">
+                    <span class="stat-number"><?= get_the_modified_date('j M') ?></span>
+                    <span class="stat-label">Edytowano</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-actions">
+            <a href="<?= get_permalink($post->ID) ?>" target="_blank" class="button button-secondary">
+                👁️ Podgląd
+            </a>
+            <button type="button" class="button button-secondary" onclick="location.reload()">
+                🔄 Odśwież
+            </button>
+        </div>
+    </div>
+
+    <style>
+    .guides-stats-container {
+        padding: 10px 0;
+    }
+    
+    .stats-grid {
+        display: grid;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
     .stat-item {
         display: flex;
         align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid #f0f0f1;
+        gap: 10px;
+        padding: 12px;
+        background: #f9f9f9;
+        border-radius: 6px;
+        border-left: 4px solid #1976d2;
     }
-
-    .stat-item:last-of-type {
-        border-bottom: none;
-    }
-
-    .stat-item.featured {
-        background: linear-gradient(90deg, #e3f2fd, transparent);
-        margin: 0 -12px;
-        padding-left: 12px;
-        padding-right: 12px;
-        border-radius: 4px;
-    }
-
+    
     .stat-icon {
         font-size: 18px;
-        margin-right: 12px;
-        min-width: 24px;
-        text-align: center;
     }
-
-    .stat-info {
+    
+    .stat-content {
+        display: flex;
+        flex-direction: column;
         flex: 1;
     }
-
+    
+    .stat-number {
+        font-weight: 600;
+        font-size: 16px;
+        color: #1d2327;
+    }
+    
     .stat-label {
-        font-size: 11px;
+        font-size: 12px;
         color: #646970;
         text-transform: uppercase;
-        font-weight: 600;
-        margin-bottom: 2px;
+        letter-spacing: 0.5px;
     }
-
-    .stat-value {
-        font-size: 13px;
-        color: #1d2327;
-        font-weight: 600;
-    }
-
-    .status-published {
-        color: #00a32a;
-    }
-
-    .status-draft {
-        color: #dba617;
-    }
-
+    
     .stats-actions {
-        margin-top: 16px;
         display: flex;
         gap: 8px;
     }
@@ -758,7 +519,7 @@ function carni24_guides_improved_stats_callback($post) {
 }
 
 /**
- * Zapisywanie meta danych guides - ulepszona wersja
+ * Zapisywanie meta danych guides - uproszczona wersja
  */
 function carni24_save_guides_improved_meta($post_id) {
     // Sprawdzenia bezpieczeństwa
@@ -772,19 +533,13 @@ function carni24_save_guides_improved_meta($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
     
-    // Lista pól do zapisania
+    // Lista pól do zapisania - TYLKO te wyświetlane na froncie
     $guide_fields = array(
         'guide_difficulty',
         'guide_duration', 
         'guide_season',
-        'guide_category',
-        'guide_target_audience',
-        'guide_prerequisites',
         'guide_tools',
-        'guide_materials',
-        'guide_expected_results',
-        'guide_tips',
-        'guide_warnings'
+        'guide_materials'
     );
     
     // Zapisz pola
@@ -793,7 +548,7 @@ function carni24_save_guides_improved_meta($post_id) {
             $value = $_POST[$field];
             
             // Sanityzacja w zależności od typu pola
-            if (in_array($field, ['guide_tools', 'guide_materials', 'guide_prerequisites', 'guide_expected_results', 'guide_tips', 'guide_warnings'])) {
+            if (in_array($field, ['guide_tools', 'guide_materials'])) {
                 $value = sanitize_textarea_field($value);
             } else {
                 $value = sanitize_text_field($value);

@@ -72,7 +72,7 @@ $species_query = new WP_Query($args);
     </div>
 </section>
 
-<div class="container-fluid p-5">
+<div class="container-fluid p-md-5">
     <div class="species-content">
         
         <!-- CONTROLS SECTION -->
