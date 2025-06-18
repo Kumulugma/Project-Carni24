@@ -337,12 +337,17 @@ add_filter('get_the_excerpt', 'carni24_filter_excerpt', 10, 2);
  * Dodaje kolumnę custom excerpt w admin tables
  */
 function carni24_add_excerpt_column($columns) {
+    // Sprawdź czy kolumna już istnieje (unikaj duplikacji)
+    if (isset($columns['custom_excerpt'])) {
+        return $columns;
+    }
+    
     $new_columns = array();
     
     foreach ($columns as $key => $value) {
         $new_columns[$key] = $value;
         
-        // Dodaj po kolumnie tytułu
+        // Dodaj po kolumnie tytułu, ale przed kolumnami specyficznymi dla CPT
         if ($key === 'title') {
             $new_columns['custom_excerpt'] = '📝 Skrót';
         }
@@ -350,6 +355,7 @@ function carni24_add_excerpt_column($columns) {
     
     return $new_columns;
 }
+
 
 function carni24_fill_excerpt_column($column, $post_id) {
     if ($column === 'custom_excerpt') {
@@ -367,10 +373,8 @@ function carni24_fill_excerpt_column($column, $post_id) {
 // Dodaj kolumny dla wszystkich typów postów
 add_filter('manage_posts_columns', 'carni24_add_excerpt_column');
 add_filter('manage_pages_columns', 'carni24_add_excerpt_column');
-add_filter('manage_species_posts_columns', 'carni24_add_excerpt_column');
 add_filter('manage_guides_posts_columns', 'carni24_add_excerpt_column');
 
 add_action('manage_posts_custom_column', 'carni24_fill_excerpt_column', 10, 2);
 add_action('manage_pages_custom_column', 'carni24_fill_excerpt_column', 10, 2);
-add_action('manage_species_posts_custom_column', 'carni24_fill_excerpt_column', 10, 2);
 add_action('manage_guides_posts_custom_column', 'carni24_fill_excerpt_column', 10, 2);

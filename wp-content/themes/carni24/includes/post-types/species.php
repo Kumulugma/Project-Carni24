@@ -338,55 +338,111 @@ function carni24_save_species_meta($post_id) {
 add_action('save_post', 'carni24_save_species_meta');
 
 function carni24_species_admin_columns($columns) {
+    // Zbuduj nową strukturę kolumn od zera
     $new_columns = array();
-    $new_columns['cb'] = $columns['cb'];
-//    $new_columns['featured_image'] = 'Zdjęcie';
-    $new_columns['title'] = $columns['title'];
+    
+    // 1. Checkbox
+    if (isset($columns['cb'])) {
+        $new_columns['cb'] = $columns['cb'];
+    }
+    
+    // 2. Obrazek wyróżniający
+    $new_columns['featured_image'] = '🖼️ Obrazek';
+    
+    // 3. Tytuł
+    if (isset($columns['title'])) {
+        $new_columns['title'] = $columns['title'];
+    }
+    
+    // 4. Custom excerpt (skrót)
+    $new_columns['custom_excerpt'] = '📝 Skrót';
+    
+    // 5. Nazwa naukowa (specyficzne dla species)
     $new_columns['species_scientific'] = 'Nazwa naukowa';
+    
+    // 6. Inne kolumny specyficzne dla species
     $new_columns['species_difficulty'] = 'Trudność';
     $new_columns['species_origin'] = 'Pochodzenie';
     $new_columns['species_category'] = 'Kategorie';
-    $new_columns['date'] = $columns['date'];
+    
+    // 7. Data (zawsze na końcu)
+    if (isset($columns['date'])) {
+        $new_columns['date'] = $columns['date'];
+    }
     
     return $new_columns;
 }
+// Ten hook ZOSTAJE - obsługuje wszystkie kolumny dla species
 add_filter('manage_species_posts_columns', 'carni24_species_admin_columns');
 
 function carni24_species_admin_columns_content($column, $post_id) {
     switch ($column) {
+        // Obsługa obrazka wyróżniającego
+        case 'featured_image':
+            $thumbnail_id = get_post_thumbnail_id($post_id);
+            
+            if ($thumbnail_id) {
+                $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
+                $thumbnail_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+                $post_title = get_the_title($post_id);
+                
+                if ($thumbnail_url) {
+                    echo '<div class="admin-thumbnail-container">';
+                    echo '<img src="' . esc_url($thumbnail_url) . '" ';
+                    echo 'alt="' . esc_attr($thumbnail_alt ?: $post_title) . '" ';
+                    echo 'class="admin-thumbnail" ';
+                    echo 'style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" ';
+                    echo 'title="' . esc_attr($post_title) . '" />';
+                    echo '</div>';
+                }
+            } else {
+                echo '<div class="admin-thumbnail-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999;">';
+                echo '<span style="font-size: 12px;">Brak</span>';
+                echo '</div>';
+            }
+            break;
+            
+        // Obsługa custom excerpt
+        case 'custom_excerpt':
+            $custom_excerpt = get_post_meta($post_id, '_custom_excerpt', true);
+            
+            if (!empty($custom_excerpt)) {
+                $excerpt_preview = wp_trim_words($custom_excerpt, 8, '...');
+                echo '<span style="color: #16a34a; font-weight: 500;">✅ ' . esc_html($excerpt_preview) . '</span>';
+            } else {
+                echo '<span style="color: #6b7280;">—</span>';
+            }
+            break;
+            
+        // Nazwa naukowa
         case 'species_scientific':
             $scientific = get_post_meta($post_id, '_species_scientific_name', true);
             echo $scientific ? '<em>' . esc_html($scientific) . '</em>' : '—';
             break;
             
+        // Trudność
         case 'species_difficulty':
             $difficulty = get_post_meta($post_id, '_species_difficulty', true);
             if ($difficulty) {
                 $labels = array(
                     'easy' => 'Łatwa',
-                    'medium' => 'Średnia',
+                    'medium' => 'Średnia', 
                     'hard' => 'Trudna'
                 );
                 $class = 'difficulty-' . $difficulty;
-                echo '<span class="species-difficulty ' . esc_attr($class) . '">' . esc_html($labels[$difficulty]) . '</span>';
+                echo '<span class="species-difficulty ' . esc_attr($class) . '">' . esc_html($labels[$difficulty] ?? $difficulty) . '</span>';
             } else {
                 echo '—';
             }
             break;
             
+        // Pochodzenie
         case 'species_origin':
             $origin = get_post_meta($post_id, '_species_origin', true);
             echo $origin ? esc_html($origin) : '—';
             break;
             
-//        case 'featured_image':
-//            if (has_post_thumbnail($post_id)) {
-//                echo get_the_post_thumbnail($post_id, array(50, 50));
-//            } else {
-//                echo '—';
-//            }
-//            break;
-            
+        // Kategorie
         case 'species_category':
             $terms = get_the_terms($post_id, 'species_category');
             if ($terms && !is_wp_error($terms)) {
@@ -401,6 +457,7 @@ function carni24_species_admin_columns_content($column, $post_id) {
             break;
     }
 }
+// Ten hook ZOSTAJE - obsługuje wszystkie kolumny dla species
 add_action('manage_species_posts_custom_column', 'carni24_species_admin_columns_content', 10, 2);
 
 function carni24_species_admin_styles() {
@@ -409,6 +466,15 @@ function carni24_species_admin_styles() {
     if ($pagenow === 'edit.php' && $typenow === 'species') {
         ?>
         <style>
+        /* Style dla kolumn */
+        .column-featured_image { width: 80px; }
+        .column-custom_excerpt { width: 200px; }
+        .column-species_scientific { width: 200px; }
+        .column-species_difficulty { width: 100px; }
+        .column-species_origin { width: 150px; }
+        .column-species_category { width: 150px; }
+        
+        /* Style dla trudności */
         .species-difficulty {
             padding: 3px 8px;
             border-radius: 12px;
@@ -428,17 +494,11 @@ function carni24_species_admin_styles() {
             background: #f8d7da;
             color: #721c24;
         }
-        .column-featured_image {
-            width: 60px;
-        }
-        .column-species_scientific {
-            width: 200px;
-        }
-        .column-species_difficulty {
-            width: 100px;
-        }
-        .column-species_origin {
-            width: 150px;
+        
+        /* Style dla miniaturek */
+        .admin-thumbnail-container {
+            display: flex;
+            align-items: center;
         }
         </style>
         <?php

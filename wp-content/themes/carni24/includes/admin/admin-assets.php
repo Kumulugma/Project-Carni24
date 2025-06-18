@@ -797,6 +797,11 @@ add_action('load-post-new.php', 'carni24_add_help_tabs');
  * Dodaje kolumnę z obrazkiem wyróżniającym dla wszystkich typów postów
  */
 function carni24_add_thumbnail_column($columns) {
+    // Sprawdź czy kolumna już istnieje (unikaj duplikacji)
+    if (isset($columns['featured_image'])) {
+        return $columns;
+    }
+    
     $new_columns = array();
     
     foreach ($columns as $key => $value) {
@@ -814,7 +819,6 @@ function carni24_add_thumbnail_column($columns) {
 // Dodaj kolumnę dla wszystkich typów postów
 add_filter('manage_posts_columns', 'carni24_add_thumbnail_column');
 add_filter('manage_pages_columns', 'carni24_add_thumbnail_column');
-add_filter('manage_species_posts_columns', 'carni24_add_thumbnail_column');
 add_filter('manage_guides_posts_columns', 'carni24_add_thumbnail_column');
 
 /**
@@ -862,7 +866,6 @@ function carni24_fill_thumbnail_column($column, $post_id) {
 // Dodaj wypełnianie kolumny dla wszystkich typów postów
 add_action('manage_posts_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
 add_action('manage_pages_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
-add_action('manage_species_posts_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
 add_action('manage_guides_posts_custom_column', 'carni24_fill_thumbnail_column', 10, 2);
 
 /**
