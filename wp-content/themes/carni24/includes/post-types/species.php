@@ -458,7 +458,7 @@ function carni24_species_admin_columns_content($column, $post_id) {
     }
 }
 // Ten hook ZOSTAJE - obsługuje wszystkie kolumny dla species
-add_action('manage_species_posts_custom_column', 'carni24_species_admin_columns_content', 10, 2);
+//add_action('manage_species_posts_custom_column', 'carni24_species_admin_columns_content', 10, 2);
 
 function carni24_species_admin_styles() {
     global $pagenow, $typenow;

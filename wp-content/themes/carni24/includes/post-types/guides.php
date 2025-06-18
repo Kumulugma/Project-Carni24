@@ -416,7 +416,7 @@ function carni24_guides_admin_columns_content($column, $post_id) {
             break;
     }
 }
-add_action('manage_guides_posts_custom_column', 'carni24_guides_admin_columns_content', 10, 2);
+//add_action('manage_guides_posts_custom_column', 'carni24_guides_admin_columns_content', 10, 2);
 
 function carni24_guides_admin_styles() {
     global $pagenow, $typenow;
