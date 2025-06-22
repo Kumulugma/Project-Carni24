@@ -1,0 +1,734 @@
+/* Dni z wpisami - różne typy */
+.k3e-has-posts {
+    border-color: #8bc34a;
+}
+
+.k3e-has-posts:hover {
+    background-color: #e8f5e8 !important;
+}
+
+/* Standardowe wpisy (posty) */
+.k3e-has-posts-std {
+    background-color: #f1f8e9 !important;
+    border-color: #8bc34a;
+}
+
+/* Strony */
+.k3e-has-pages {
+    background-color: #e3f2fd !important;
+    border-color: #2196f3;
+}
+
+/* Species (gatunki) - pomarańczowy */
+.k3e-has-species {
+    background-color: #fff3e0 !important;
+    border-color: #ff9800;
+}
+
+.k3e-has-species .k3e-post-indicator {
+    background: #ff9800;
+}
+
+/* Guides (poradniki) - fioletowy */
+.k3e-has-guides {
+    background-color: #f3e5f5 !important;
+    border-color: #9c27b0;
+}
+
+.k3e-has-guides .k3e-post-indicator {
+    background: #9c27b0;
+}
+
+/* Hover effects dla różnych typów */
+.k3e-has-species:hover {
+    background-color: #ffe0b2 !important;
+}
+
+.k3e-has-guides:hover {
+    background-color: #e1bee7 !important;
+}
+
+.k3e-has-pages:hover {
+    background-color: #bbdefb !important;
+}/* Responsywność */
+@media (max-width: 768px) {
+    .k3e-calendar-navigation {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .k3e-nav-selects {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .k3e-select {
+        min-width: 100px;
+    }
+    
+    .k3e-submit-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .k3e-calendar th,
+    .k3e-calendar td {
+        font-size: 12px;
+    }
+    
+    .k3e-calendar td {
+        height: 50px;
+    }
+    
+    .k3e-day-number {
+        padding: 5px;
+    }
+    
+    .k3e-post-indicator {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+    
+    .k3e-calendar-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .k3e-modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .k3e-modal-header {
+        padding: 15px 20px 10px;
+    }
+    
+    .k3e-modal-header h3 {
+        font-size: 16px;
+    }
+    
+    .k3e-modal-body {
+        padding: 15px 20px;
+    }
+    
+    .k3e-post-item {
+        padding: 12px;
+    }
+    
+    .k3e-post-title {
+        font-size: 15px;
+    }
+    
+    .k3e-post-meta {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .k3e-post-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .k3e-post-action {
+        text-align: center;
+    }
+}
+        /* Stylowanie kalendarza K3e Post Book */
+
+.k3e-post-book-container {
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.k3e-loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.k3e-loading .spinner {
+    float: none;
+    margin: 0 auto 20px;
+}
+
+/* Header kalendarza */
+.k3e-calendar-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+}
+
+.k3e-nav-selects {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.k3e-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    min-width: 120px;
+    cursor: pointer;
+}
+
+.k3e-select:focus {
+    outline: 2px solid #0073aa;
+    border-color: #0073aa;
+}
+
+.k3e-submit-btn {
+    background: #0073aa;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.k3e-submit-btn:hover {
+    background: #005a87;
+}
+
+.k3e-submit-btn:focus {
+    outline: 2px solid #005a87;
+    outline-offset: 2px;
+}
+
+.k3e-calendar-header {
+    display: none; /* Ukrywamy stary header */
+}
+
+.k3e-nav-btn {
+    background: #0073aa;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    min-width: 40px;
+}
+
+.k3e-nav-btn:hover {
+    background: #005a87;
+}
+
+.k3e-nav-btn:focus {
+    outline: 2px solid #005a87;
+    outline-offset: 2px;
+}
+
+/* Tabela kalendarza */
+.k3e-calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.k3e-calendar th,
+.k3e-calendar td {
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: top;
+    position: relative;
+}
+
+.k3e-calendar th {
+    background: #f7f7f7;
+    padding: 10px 5px;
+    font-weight: 600;
+    color: #555;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.k3e-calendar td {
+    height: 60px;
+    width: 14.28%;
+    padding: 0;
+    background: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.k3e-calendar-day {
+    cursor: pointer;
+    position: relative;
+}
+
+.k3e-calendar-day:hover {
+    background-color: #f0f8ff;
+}
+
+.k3e-empty-day {
+    background: #f9f9f9 !important;
+    cursor: default !important;
+}
+
+/* Numery dni */
+.k3e-day-number {
+    display: block;
+    padding: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Dzisiejszy dzień */
+.k3e-today {
+    background-color: #e3f2fd !important;
+    border: 2px solid #2196f3;
+}
+
+.k3e-today .k3e-day-number {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+/* Dni z wpisami */
+.k3e-has-posts {
+    background-color: #f1f8e9 !important;
+    border-color: #8bc34a;
+}
+
+.k3e-has-posts:hover {
+    background-color: #e8f5e8 !important;
+}
+
+/* Wskaźnik liczby wpisów */
+.k3e-post-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #ff9800;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Modal */
+.k3e-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.k3e-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+.k3e-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.k3e-modal-header {
+    padding: 20px 25px 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.k3e-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.k3e-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.k3e-modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.k3e-modal-body {
+    padding: 20px 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.k3e-post-item {
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.k3e-post-item:hover {
+    border-color: #0073aa;
+    box-shadow: 0 2px 8px rgba(0, 115, 170, 0.1);
+}
+
+.k3e-post-item:last-child {
+    margin-bottom: 0;
+}
+
+.k3e-post-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0073aa;
+    margin-bottom: 8px;
+    text-decoration: none;
+    display: block;
+}
+
+.k3e-post-title:hover {
+    color: #005a87;
+}
+
+.k3e-post-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #666;
+    flex-wrap: wrap;
+}
+
+.k3e-post-type {
+    background: #f1f1f1;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Kolorowe typy wpisów w modalu */
+.k3e-type-post {
+    background: #c8e6c9;
+    color: #2e7d32;
+}
+
+.k3e-type-page,
+.k3e-type-strona {
+    background: #bbdefb;
+    color: #1565c0;
+}
+
+.k3e-type-species {
+    background: #ffcc80;
+    color: #e65100;
+}
+
+.k3e-type-guides {
+    background: #ce93d8;
+    color: #6a1b9a;
+}
+
+.k3e-post-author {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+}
+
+.k3e-post-status {
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.k3e-post-status.publish {
+    background: #d4edda;
+    color: #155724;
+}
+
+.k3e-post-status.draft {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.k3e-post-status.private {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.k3e-post-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.k3e-post-action {
+    font-size: 12px;
+    color: #0073aa;
+    text-decoration: none;
+    padding: 4px 8px;
+    border: 1px solid #0073aa;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.k3e-post-action:hover {
+    background: #0073aa;
+    color: white;
+}
+
+.k3e-no-posts {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Legenda */
+.k3e-calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 0 5px;
+    border-top: 1px solid #eee;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.k3e-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.k3e-legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+.k3e-today-color {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.k3e-posts-std-color {
+    background-color: #f1f8e9;
+    border-color: #8bc34a;
+}
+
+.k3e-pages-color {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.k3e-species-color {
+    background-color: #fff3e0;
+    border-color: #ff9800;
+}
+
+.k3e-guides-color {
+    background-color: #f3e5f5;
+    border-color: #9c27b0;
+}
+
+.k3e-legend-note {
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: #888;
+    margin: 8px 0 0 0;
+    font-style: italic;
+}
+
+/* Komunikaty o błędach */
+.k3e-error {
+    text-align: center;
+    padding: 40px 20px;
+    color: #d32f2f;
+    background: #ffebee;
+    border: 1px solid #f8bbd9;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.k3e-error p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Blokowanie scroll gdy modal jest otwarty */
+body.k3e-modal-open {
+    overflow: hidden;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .k3e-calendar-navigation {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .k3e-nav-selects {
+        order: 2;
+    }
+    
+    .k3e-nav-buttons {
+        order: 1;
+    }
+    
+    .k3e-calendar th,
+    .k3e-calendar td {
+        font-size: 12px;
+    }
+    
+    .k3e-calendar td {
+        height: 50px;
+    }
+    
+    .k3e-day-number {
+        padding: 5px;
+    }
+    
+    .k3e-post-indicator {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+    
+    .k3e-calendar-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .k3e-tooltip {
+        max-width: 250px;
+        font-size: 12px;
+    }
+}
+
+/* Animacje */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.k3e-calendar-wrapper {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Stany focus dla dostępności */
+.k3e-calendar-day:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: -2px;
+}
+
+.k3e-nav-btn:focus {
+    box-shadow: 0 0 0 2px #0073aa;
+}
+
+/* Dark mode support (jeśli WordPress ma dark mode) */
+@media (prefers-color-scheme: dark) {
+    .k3e-post-book-container {
+        background: #1e1e1e;
+        color: #fff;
+    }
+    
+    .k3e-calendar th {
+        background: #2d2d2d;
+        color: #ccc;
+    }
+    
+    .k3e-calendar td {
+        background: #2a2a2a;
+        border-color: #444;
+    }
+    
+    .k3e-calendar-day:hover {
+        background-color: #333 !important;
+    }
+    
+    .k3e-today {
+        background-color: #1a237e !important;
+        border-color: #3f51b5;
+    }
+    
+    .k3e-has-posts {
+        background-color: #2e7d32 !important;
+        border-color: #4caf50;
+    }
+}
