@@ -52,8 +52,9 @@ require_once CARNI24_THEME_PATH . '/includes/meta-boxes/custom-excerpt.php';  //
 // ===== ADMIN I THEME OPTIONS ===== //
 if (is_admin()) {
     require_once CARNI24_THEME_PATH . '/includes/admin/theme-options.php';     // Panel ustawień motywu
-    require_once CARNI24_THEME_PATH . '/includes/admin/admin-assets.php';      // CSS/JS dla panelu admina
-    require_once CARNI24_THEME_PATH . '/includes/admin/dashboard-widgets.php'; // UJEDNOLICONE widgety dashboard
+    require_once CARNI24_THEME_PATH . '/includes/admin/admin-assets.php';      // NAPRAWIONY system ładowania CSS/JS
+    require_once CARNI24_THEME_PATH . '/includes/admin/dashboard-widgets.php'; // Oczyszczone widgety dashboard
+    require_once CARNI24_THEME_PATH . '/includes/admin/seo-monitor.php';       // SEO Monitor widget
     require_once CARNI24_THEME_PATH . '/includes/admin/featured-image-columns.php'; // Kolumny z obrazami w listach
 }
 
@@ -74,3 +75,4 @@ require_once CARNI24_THEME_PATH . '/includes/hooks/theme-hooks.php';     // Cust
  * Hook dla dodatkowych akcji po inicjalizacji motywu
  */
 do_action('carni24_theme_loaded');
+

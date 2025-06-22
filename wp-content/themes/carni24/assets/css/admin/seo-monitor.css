@@ -1,0 +1,709 @@
+/* 
+ * Carni24 SEO Monitor Styles
+ * assets/css/admin/seo-monitor.css
+ */
+
+/* ===== CONTAINER GŁÓWNY ===== */
+.carni24-seo-monitor {
+    margin: -12px;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ===== NAGŁÓWEK Z STATYSTYKAMI ===== */
+.seo-monitor-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 15px 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.seo-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.seo-stat-item {
+    background: #fff;
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+    border-left: 4px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.seo-stat-item.good {
+    border-left-color: #46b450;
+}
+
+.seo-stat-item.warning {
+    border-left-color: #ffb900;
+}
+
+.seo-stat-item.error {
+    border-left-color: #dc3232;
+}
+
+.seo-stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #23282d;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.stat-type {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* ===== NAWIGACJA ZAKŁADEK ===== */
+.seo-monitor-tabs {
+    display: flex;
+    background: #f1f1f1;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.seo-tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.seo-tab-btn:hover {
+    background: rgba(255,255,255,0.5);
+    color: #23282d;
+}
+
+.seo-tab-btn.active {
+    background: #fff;
+    color: #0073aa;
+    border-bottom-color: #0073aa;
+}
+
+/* ===== FILTRY ===== */
+.seo-monitor-filters {
+    padding: 15px 20px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.filter-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.seo-filter {
+    min-width: 180px;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.seo-filter:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+/* ===== ZAWARTOŚĆ ZAKŁADEK ===== */
+.seo-monitor-content {
+    padding: 20px;
+    min-height: 300px;
+}
+
+.seo-tab-content {
+    display: none;
+}
+
+.seo-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== BRAK PROBLEMÓW ===== */
+.seo-no-issues {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.no-issues-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.seo-no-issues h3 {
+    margin: 0 0 10px;
+    color: #23282d;
+    font-size: 18px;
+}
+
+.seo-no-issues p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* ===== LISTA WPISÓW ===== */
+.seo-posts-list {
+    display: grid;
+    gap: 15px;
+}
+
+.seo-post-item {
+    background: #fff;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 15px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.seo-post-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+}
+
+.seo-post-item.good::before {
+    background: #46b450;
+}
+
+.seo-post-item.warning::before {
+    background: #ffb900;
+}
+
+.seo-post-item.error::before {
+    background: #dc3232;
+}
+
+.seo-post-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* ===== NAGŁÓWEK WPISU ===== */
+.seo-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.seo-post-info {
+    flex: 1;
+}
+
+.seo-post-title {
+    margin: 0 0 6px;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.seo-post-title a {
+    color: #0073aa;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.seo-post-title a:hover {
+    text-decoration: underline;
+}
+
+.seo-post-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.post-type {
+    background: #f0f0f1;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.post-status {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-publish {
+    background: #e8f5e8;
+    color: #2e7d2e;
+}
+
+.status-draft {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-private {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ===== WYNIK SEO ===== */
+.seo-post-score {
+    flex-shrink: 0;
+}
+
+.score-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.score-circle::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.score-number {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.score-good {
+    background: #46b450;
+}
+
+.score-good .score-number {
+    color: #2e7d2e;
+}
+
+.score-warning {
+    background: #ffb900;
+}
+
+.score-warning .score-number {
+    color: #856404;
+}
+
+.score-error {
+    background: #dc3232;
+}
+
+.score-error .score-number {
+    color: #721c24;
+}
+
+/* ===== PROBLEMY SEO ===== */
+.seo-post-issues {
+    margin-bottom: 15px;
+}
+
+.seo-issue {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.seo-issue-error {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 3px solid #dc3232;
+}
+
+.seo-issue-warning {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 3px solid #ffb900;
+}
+
+.issue-icon {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.issue-message {
+    flex: 1;
+}
+
+/* ===== AKCJE WPISU ===== */
+.seo-post-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.button-small {
+    padding: 4px 8px;
+    font-size: 12px;
+    height: auto;
+    line-height: 1.4;
+}
+
+.seo-ignore-post {
+    color: #666;
+    font-size: 12px;
+    padding: 4px 0;
+}
+
+.seo-ignore-post:hover {
+    color: #d63638;
+}
+
+/* ===== LOADING ===== */
+.seo-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    color: #666;
+    font-size: 14px;
+}
+
+.seo-loading::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e1e5e9;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== LOAD MORE ===== */
+.seo-load-more {
+    text-align: center;
+    padding: 20px;
+    margin-top: 15px;
+    border-top: 1px solid #e1e5e9;
+}
+
+.seo-load-more .button {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.seo-load-more .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.seo-load-more .button.loading {
+    color: transparent;
+}
+
+.seo-load-more .button.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 782px) {
+    .seo-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .seo-monitor-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .seo-tab-btn {
+        flex: 1 1 50%;
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+    
+    .filter-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .seo-filter {
+        min-width: auto;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .seo-monitor-content {
+        padding: 15px;
+    }
+    
+    .seo-post-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .seo-post-score {
+        align-self: flex-end;
+    }
+    
+    .seo-post-actions {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .seo-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .seo-tab-btn {
+        flex: 1 1 100%;
+        border-bottom: 1px solid #ccd0d4;
+    }
+    
+    .seo-tab-btn:last-child {
+        border-bottom: none;
+    }
+    
+    .stat-number {
+        font-size: 20px;
+    }
+    
+    .seo-post-item {
+        padding: 12px;
+    }
+    
+    .score-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 11px;
+    }
+}
+
+/* ===== TOOLTIPS ===== */
+.seo-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.seo-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #23282d;
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+.seo-tooltip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #23282d;
+    z-index: 1000;
+}
+
+/* ===== FOCUS STATES ===== */
+.seo-tab-btn:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: -2px;
+}
+
+.seo-filter:focus {
+    box-shadow: 0 0 0 2px #0073aa;
+}
+
+.button:focus {
+    box-shadow: 0 0 0 2px #0073aa;
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+    .seo-monitor-tabs {
+        background: #000;
+    }
+    
+    .seo-tab-btn {
+        color: #fff;
+        border-color: #fff;
+    }
+    
+    .seo-tab-btn.active {
+        background: #fff;
+        color: #000;
+    }
+    
+    .seo-post-item {
+        border: 2px solid #000;
+    }
+    
+    .seo-filter {
+        border: 2px solid #000;
+    }
+}
+
+/* ===== ANIMACJE ===== */
+.seo-post-item {
+    animation: slideInUp 0.3s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seo-issue {
+    animation: fadeInLeft 0.2s ease;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    .carni24-seo-monitor {
+        background: #1e1e1e;
+        color: #fff;
+    }
+    
+    .seo-monitor-header {
+        background: linear-gradient(135deg, #2a2a2a, #1e1e1e);
+        border-bottom-color: #444;
+    }
+    
+    .seo-stat-item {
+        background: #2a2a2a;
+        color: #fff;
+    }
+    
+    .stat-number {
+        color: #fff;
+    }
+    
+    .seo-monitor-tabs {
+        background: #2a2a2a;
+        border-bottom-color: #444;
+    }
+    
+    .seo-tab-btn {
+        color: #ccc;
+    }
+    
+    .seo-tab-btn.active {
+        background: #1e1e1e;
+        color: #0073aa;
+    }
+    
+    .seo-monitor-filters {
+        background: #2a2a2a;
+        border-bottom-color: #444;
+    }
+    
+    .seo-filter {
+        background: #1e1e1e;
+        border-color: #444;
+        color: #fff;
+    }
+    
+    .seo-post-item {
+        background: #2a2a2a;
+        border-color: #444;
+        color: #fff;
+    }
+    
+    .seo-post-title a {
+        color: #4fc3f7;
+    }
+    
+    .post-type {
+        background: #444;
+        color: #ccc;
+    }
+}

@@ -1,0 +1,555 @@
+/* 
+ * Carni24 SEO Meta Box Styles
+ * assets/css/admin/seo-metabox.css
+ */
+
+/* ===== CONTAINER GŁÓWNY ===== */
+.carni24-seo-metabox {
+    margin: -6px -12px -12px;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ===== NAWIGACJA ZAKŁADEK ===== */
+.carni24-seo-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 1px solid #dee2e6;
+}
+
+.carni24-seo-tabs li {
+    flex: 1;
+}
+
+.carni24-seo-tabs .tab-link {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #6c757d;
+    font-weight: 500;
+    font-size: 13px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.carni24-seo-tabs .tab-link:hover {
+    background: rgba(255,255,255,0.5);
+    color: #495057;
+    text-decoration: none;
+}
+
+.carni24-seo-tabs .tab-link.active {
+    background: #fff;
+    color: #0073aa;
+    border-bottom-color: #0073aa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ===== ZAWARTOŚĆ ZAKŁADEK ===== */
+.carni24-seo-content {
+    padding: 20px;
+}
+
+.seo-tab-content {
+    display: none;
+}
+
+.seo-tab-content.active {
+    display: block;
+}
+
+/* ===== PODGLĄD GOOGLE ===== */
+.seo-preview-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4285f4;
+}
+
+.google-preview {
+    max-width: 600px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: arial, sans-serif;
+}
+
+.preview-title {
+    color: #1a0dab;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.3;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.preview-title:hover {
+    text-decoration: underline;
+}
+
+.preview-url {
+    color: #006621;
+    font-size: 14px;
+    margin-bottom: 6px;
+    word-break: break-all;
+}
+
+.preview-description {
+    color: #545454;
+    font-size: 14px;
+    line-height: 1.4;
+    max-height: 2.8em;
+    overflow: hidden;
+}
+
+/* ===== POLA FORMULARZA ===== */
+.seo-field-group {
+    margin-bottom: 15px;
+}
+
+.seo-field {
+    margin-bottom: 20px;
+}
+
+.seo-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.seo-field label strong {
+    color: #23282d;
+}
+
+.field-hint {
+    font-weight: normal;
+    color: #666;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.seo-field input[type="text"],
+.seo-field input[type="url"],
+.seo-field textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.seo-field input:focus,
+.seo-field textarea:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+/* ===== LICZNIK ZNAKÓW ===== */
+.char-counter {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.char-count {
+    font-weight: 500;
+}
+
+.char-status {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.char-status.good {
+    background: #46b450;
+    color: #fff;
+}
+
+.char-status.warning {
+    background: #ffb900;
+    color: #fff;
+}
+
+.char-status.error {
+    background: #dc3232;
+    color: #fff;
+}
+
+/* ===== PODGLĄD SŁÓW KLUCZOWYCH ===== */
+.keywords-preview {
+    margin-top: 8px;
+    min-height: 24px;
+}
+
+.keyword-tag {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 4px 8px;
+    margin: 2px 4px 2px 0;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ===== MEDIA SPOŁECZNOŚCIOWE ===== */
+.social-preview-section {
+    margin-bottom: 25px;
+}
+
+.facebook-preview {
+    max-width: 500px;
+    border: 1px solid #dadde1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.social-image {
+    height: 200px;
+    background: #f5f6f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image {
+    color: #8a8d91;
+    font-size: 14px;
+}
+
+.social-content {
+    padding: 12px;
+    border-top: 1px solid #dadde1;
+}
+
+.social-title {
+    font-weight: 600;
+    color: #1d2129;
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.social-description {
+    color: #606770;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.social-url {
+    color: #8a8d91;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+/* ===== UPLOAD OBRAZU ===== */
+.image-upload-section {
+    margin-top: 10px;
+}
+
+.image-upload-section .button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    margin-top: 10px;
+}
+
+.image-preview img {
+    max-width: 200px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* ===== CHECKBOXY ===== */
+.checkbox-group {
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px;
+    border: 1px solid #e1e5e9;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.checkbox-label:hover {
+    background: #f8f9fa;
+    border-color: #0073aa;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.checkmark {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* ===== ANALIZA SEO ===== */
+.seo-analysis-section h4 {
+    margin-bottom: 15px;
+    color: #23282d;
+}
+
+.seo-score-overview {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.seo-score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(#46b450 0deg, #46b450 calc(var(--score, 0) * 3.6deg), #e1e5e9 calc(var(--score, 0) * 3.6deg));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.seo-score-circle::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.score-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #23282d;
+    z-index: 1;
+}
+
+.score-label {
+    font-size: 11px;
+    color: #666;
+    z-index: 1;
+}
+
+.seo-status-list {
+    flex: 1;
+}
+
+.seo-status-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.seo-status-item.success {
+    background: #e8f5e8;
+    color: #2e7d2e;
+    border-left: 4px solid #46b450;
+}
+
+.seo-status-item.warning {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #ffb900;
+}
+
+.seo-status-item.error {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3232;
+}
+
+.seo-status-icon {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .carni24-seo-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .carni24-seo-tabs li {
+        flex: 1 1 50%;
+    }
+    
+    .carni24-seo-tabs .tab-link {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+    
+    .carni24-seo-content {
+        padding: 15px;
+    }
+    
+    .google-preview {
+        font-size: 13px;
+    }
+    
+    .preview-title {
+        font-size: 16px;
+    }
+    
+    .seo-score-overview {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* ===== ANIMACJE ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seo-tab-content.active {
+    animation: fadeIn 0.3s ease;
+}
+
+.char-status {
+    transition: all 0.3s ease;
+}
+
+.keyword-tag {
+    transition: all 0.2s ease;
+}
+
+.keyword-tag:hover {
+    background: #bbdefb;
+    transform: translateY(-1px);
+}
+
+/* ===== LOADING STATE ===== */
+.seo-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #666;
+}
+
+.seo-loading::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e1e5e9;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== TOOLTIPS ===== */
+.seo-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.seo-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #23282d;
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+.seo-tooltip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #23282d;
+    z-index: 1000;
+}
+
+/* ===== FOCUS STATES ===== */
+.carni24-seo-tabs .tab-link:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: -2px;
+}
+
+.button:focus {
+    box-shadow: 0 0 0 2px #0073aa;
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+    .carni24-seo-tabs {
+        background: #000;
+    }
+    
+    .carni24-seo-tabs .tab-link {
+        color: #fff;
+        border-color: #fff;
+    }
+    
+    .carni24-seo-tabs .tab-link.active {
+        background: #fff;
+        color: #000;
+    }
+    
+    .google-preview {
+        border: 2px solid #000;
+    }
+    
+    .seo-field input,
+    .seo-field textarea {
+        border: 2px solid #000;
+    }
+}
